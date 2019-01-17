@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82c53c2bda77d34ca843272703935e9, type: 3}
+  m_Name: SpawnsConfig
+  m_EditorClassIdentifier: 
+  spawnCollections:
+  - collectionName: Collection
+    chances: 40
+    spawnSettings:
+    - spawnName: GoldCoin
+      spawnType: Collection
+      chances: 100
+      prefab: {fileID: 1241799106178928, guid: 6890f6590a03a9142b8a099cc3813a12, type: 2}
+      numberOfSpawns: 200
+      randomAmount: 1
+      amountSpawnAtOnce: 13
+  - collectionName: Enemy
+    chances: 20
+    spawnSettings:
+    - spawnName: Native
+      spawnType: Enemy
+      chances: 20
+      prefab: {fileID: 1279714649643924, guid: 680cd069d898f324a98cf2f909f63c4b, type: 2}
+      numberOfSpawns: 10
+      randomAmount: 0
+      amountSpawnAtOnce: 1
+    - spawnName: Spanish
+      spawnType: Enemy
+      chances: 20
+      prefab: {fileID: 1265508512390794, guid: f66fbd45535fd1445b8c3bd328c290a9, type: 2}
+      numberOfSpawns: 10
+      randomAmount: 0
+      amountSpawnAtOnce: 1
+    - spawnName: EnemyPlant
+      spawnType: Enemy
+      chances: 20
+      prefab: {fileID: 1742503953556448, guid: 15f715b550b948f4da06664f1abf3b87, type: 2}
+      numberOfSpawns: 10
+      randomAmount: 0
+      amountSpawnAtOnce: 1
+    - spawnName: MonkeyWalk
+      spawnType: Enemy
+      chances: 20
+      prefab: {fileID: 1951779012768734, guid: bd1b8fcdb09ac974dba7e17cada05d4a, type: 2}
+      numberOfSpawns: 10
+      randomAmount: 0
+      amountSpawnAtOnce: 1
+    - spawnName: MonkeyThrow
+      spawnType: Collection
+      chances: 0
+      prefab: {fileID: 1169658194041566, guid: 351c704281514f143bf82c2451512a03, type: 2}
+      numberOfSpawns: 20
+      randomAmount: 0
+      amountSpawnAtOnce: 1
+  - collectionName: Obstacle
+    chances: 30
+    spawnSettings: []
+  - collectionName: PowerUp
+    chances: 10
+    spawnSettings:
+    - spawnName: Magnet
+      spawnType: Enemy
+      chances: 100
+      prefab: {fileID: 1902558741996528, guid: 3e8e631f4a75d9b4b8c53622f52d59c4, type: 2}
+      numberOfSpawns: 5
+      randomAmount: 0
+      amountSpawnAtOnce: 1
+  spawnsNames:
+  - GoldCoin
+  - Native
+  - Magnet

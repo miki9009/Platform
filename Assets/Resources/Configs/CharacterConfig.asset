@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f6abcfe5e78824fb024c67276b8e70, type: 3}
+  m_Name: CharacterConfig
+  m_EditorClassIdentifier: 
+  defaultCharacterStatistics:
+    runSpeed: 8
+    health: 1
+    jumpForce: 15
+    turningSpeed: 5
+    damage: 10
+    attackForce: 5
+    armorType: SpanishArmor
+  characters:
+  - id: Normal
+    mesh: {fileID: 4300002, guid: fb31433985699c24989f3d578625414a, type: 3}
+  - id: SpanishArmor
+    mesh: {fileID: 4300008, guid: fb31433985699c24989f3d578625414a, type: 3}
+

@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/init.unity
+    guid: e0210b1383288cf4b8d58838c0c3a198
+  - enabled: 1
+    path: Assets/Scenes/menu.unity
+    guid: a21574696dfbfd64094ab25e4cb77d51
+  - enabled: 1
+    path: Assets/Scenes/Menu3D.unity
+    guid: 6389710c3e1e4fc498e8c70b2584ea66
+  - enabled: 1
+    path: Assets/Scenes/game.unity
+    guid: e950f70f59b703349b090742ac200511
+  - enabled: 1
+    path: Assets/Scenes/benchmark.unity
+    guid: 5dc5a52969ac56448b14b64198479096
+  - enabled: 0
+    path: Assets/Scenes/Moutain.unity
+    guid: 824f2e0c2bdf2c149b0e9f66d8f55947
+  - enabled: 0
+    path: Assets/Scenes/Village.unity
+    guid: 5fe5e95395d98f440b7d7336c9628f07
+  - enabled: 0
+    path: Assets/Scenes/Islands.unity
+    guid: 8f628458f57b2314093b2308b3158ed1
+  - enabled: 1
+    path: Assets/Scenes/Mine.unity
+    guid: faed9ab58934e7d429ecd78a153e94ad
+  - enabled: 0
+    path: Assets/Scenes/Voolcano.unity
+    guid: 9297632969b32a24aa892d0e7d565781
+  - enabled: 1
+    path: Assets/Scenes/World.unity
+    guid: 5f356aa24980a6e4f8f7231995dd0dff
+  - enabled: 1
+    path: Assets/Scenes/FirstLevel.unity
+    guid: 6cfcb7e076e48fa4fac60a2cfd35d2c8
+  - enabled: 1
+    path: Assets/Scenes/SecondLevel.unity
+    guid: c93e74a2101549342bc0f156713f4751
+  - enabled: 0
+    path: Assets/Scenes/test.unity
+    guid: 9ccdbb4d7223ddf42b4681624655b56f
+  - enabled: 1
+    path: Assets/Scenes/ThirdScene.unity
+    guid: 2a0a4cfcb514e134a9d5fc6f9f9f3f04
+  - enabled: 1
+    path: Assets/Scenes/Caves.unity
+    guid: f86c3f569ab681b4ab993c4e88624dbd
+  m_configObjects: {}

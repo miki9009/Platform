@@ -1,0 +1,13 @@
+diff a/Assets/OtherAssets/BezierCurves/Scripts/BezierPoint.cs b/Assets/OtherAssets/BezierCurves/Scripts/BezierPoint.cs	(rejected hunks)
+@@ -68,6 +68,11 @@
+ 		get { return transform.position; }
+ 		set { transform.position = value; }
+ 	}
++
++    public Vector3 CachedPosition
++    {
++        get; private set;
++    }
+ 	
+ 	/// <summary>
+ 	/// 	- Shortcut to transform.localPosition

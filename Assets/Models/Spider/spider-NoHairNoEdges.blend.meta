@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 9d0359892a1b2ef40b385a32136a4f75
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: abdomen
+    100002: abdomenBone
+    100004: cheliceraeBoneL
+    100006: cheliceraeBoneR
+    100008: eyes1
+    100010: eyes2
+    100012: fangBoneL
+    100014: fangBoneR
+    100016: head
+    100018: headBone
+    100020: legBone1_1L
+    100022: legBone1_1R
+    100024: legBone1_2L
+    100026: legBone1_2R
+    100028: legBone1_3L
+    100030: legBone1_3R
+    100032: legBone1_4L
+    100034: legBone1_4R
+    100036: legBone2_1L
+    100038: legBone2_1R
+    100040: legBone2_2L
+    100042: legBone2_2R
+    100044: legBone2_3L
+    100046: legBone2_3R
+    100048: legBone2_4L
+    100050: legBone2_4R
+    100052: legBone3_1L
+    100054: legBone3_1R
+    100056: legBone3_2L
+    100058: legBone3_2R
+    100060: legBone3_3L
+    100062: legBone3_3R
+    100064: legBone3_4L
+    100066: legBone3_4R
+    100068: legBone4_1L
+    100070: legBone4_1R
+    100072: legBone4_2L
+    100074: legBone4_2R
+    100076: legBone4_3L
+    100078: legBone4_3R
+    100080: legBone4_4L
+    100082: legBone4_4R
+    100084: legs
+    100086: Plane
+    100088: RootBone
+    100090: //RootNode
+    100092: Spider_Armature
+    100094: thorax
+    400000: abdomen
+    400002: abdomenBone
+    400004: cheliceraeBoneL
+    400006: cheliceraeBoneR
+    400008: eyes1
+    400010: eyes2
+    400012: fangBoneL
+    400014: fangBoneR
+    400016: head
+    400018: headBone
+    400020: legBone1_1L
+    400022: legBone1_1R
+    400024: legBone1_2L
+    400026: legBone1_2R
+    400028: legBone1_3L
+    400030: legBone1_3R
+    400032: legBone1_4L
+    400034: legBone1_4R
+    400036: legBone2_1L
+    400038: legBone2_1R
+    400040: legBone2_2L
+    400042: legBone2_2R
+    400044: legBone2_3L
+    400046: legBone2_3R
+    400048: legBone2_4L
+    400050: legBone2_4R
+    400052: legBone3_1L
+    400054: legBone3_1R
+    400056: legBone3_2L
+    400058: legBone3_2R
+    400060: legBone3_3L
+    400062: legBone3_3R
+    400064: legBone3_4L
+    400066: legBone3_4R
+    400068: legBone4_1L
+    400070: legBone4_1R
+    400072: legBone4_2L
+    400074: legBone4_2R
+    400076: legBone4_3L
+    400078: legBone4_3R
+    400080: legBone4_4L
+    400082: legBone4_4R
+    400084: legs
+    400086: Plane
+    400088: RootBone
+    400090: //RootNode
+    400092: Spider_Armature
+    400094: thorax
+    2100000: abdomen
+    2100002: eyes
+    2100004: legs
+    2100006: torax
+    2100008: head
+    2100010: unnamed
+    2300000: Plane
+    3300000: Plane
+    4300000: abdomen
+    4300002: eyes2
+    4300004: eyes1
+    4300006: legs
+    4300008: thorax
+    4300010: head
+    4300012: Plane
+    7400000: Default Take
+    9500000: //RootNode
+    13700000: abdomen
+    13700002: eyes1
+    13700004: eyes2
+    13700006: head
+    13700008: legs
+    13700010: thorax
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

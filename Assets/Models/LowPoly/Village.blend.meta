@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: 339d64c4a5b871a45a0f56df11b93110
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Terrain
+    100004: Terrain_001
+    100006: Terrain_002
+    100008: Terrain_003
+    100010: Terrain_004
+    100012: Terrain_005
+    100014: Terrain_006
+    100016: Terrain_007
+    100018: Terrain_008
+    100020: Terrain_009
+    100022: Terrain_010
+    100024: Terrain_011
+    100026: Terrain_012
+    100028: Terrain_013
+    100030: Terrain_014
+    100032: Terrain_015
+    100034: Terrain_016
+    100036: Terrain_017
+    100038: Terrain_018
+    100040: Terrain_019
+    100042: Terrain_020
+    100044: Terrain_021
+    400000: //RootNode
+    400002: Terrain
+    400004: Terrain_001
+    400006: Terrain_002
+    400008: Terrain_003
+    400010: Terrain_004
+    400012: Terrain_005
+    400014: Terrain_006
+    400016: Terrain_007
+    400018: Terrain_008
+    400020: Terrain_009
+    400022: Terrain_010
+    400024: Terrain_011
+    400026: Terrain_012
+    400028: Terrain_013
+    400030: Terrain_014
+    400032: Terrain_015
+    400034: Terrain_016
+    400036: Terrain_017
+    400038: Terrain_018
+    400040: Terrain_019
+    400042: Terrain_020
+    400044: Terrain_021
+    2100000: unnamed
+    2300000: //RootNode
+    2300002: Terrain
+    2300004: Terrain_001
+    2300006: Terrain_002
+    2300008: Terrain_003
+    2300010: Terrain_004
+    2300012: Terrain_005
+    2300014: Terrain_006
+    2300016: Terrain_007
+    2300018: Terrain_008
+    2300020: Terrain_009
+    2300022: Terrain_010
+    2300024: Terrain_011
+    2300026: Terrain_012
+    2300028: Terrain_013
+    2300030: Terrain_014
+    2300032: Terrain_015
+    2300034: Terrain_016
+    2300036: Terrain_017
+    2300038: Terrain_018
+    2300040: Terrain_019
+    2300042: Terrain_020
+    2300044: Terrain_021
+    3300000: //RootNode
+    3300002: Terrain
+    3300004: Terrain_001
+    3300006: Terrain_002
+    3300008: Terrain_003
+    3300010: Terrain_004
+    3300012: Terrain_005
+    3300014: Terrain_006
+    3300016: Terrain_007
+    3300018: Terrain_008
+    3300020: Terrain_009
+    3300022: Terrain_010
+    3300024: Terrain_011
+    3300026: Terrain_012
+    3300028: Terrain_013
+    3300030: Terrain_014
+    3300032: Terrain_015
+    3300034: Terrain_016
+    3300036: Terrain_017
+    3300038: Terrain_018
+    3300040: Terrain_019
+    3300042: Terrain_020
+    3300044: Terrain_021
+    4300000: Plane
+    4300002: Plane_001
+    4300004: Terrain
+    4300006: Terrain_021
+    4300008: Terrain_020
+    4300010: Terrain_019
+    4300012: Terrain_018
+    4300014: Terrain_017
+    4300016: Terrain_016
+    4300018: Terrain_015
+    4300020: Terrain_014
+    4300022: Terrain_013
+    4300024: Terrain_012
+    4300026: Terrain_011
+    4300028: Terrain_010
+    4300030: Terrain_009
+    4300032: Terrain_008
+    4300034: Terrain_007
+    4300036: Terrain_006
+    4300038: Terrain_005
+    4300040: Terrain_004
+    4300042: Terrain_003
+    4300044: Terrain_002
+    4300046: Terrain_001
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.75
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

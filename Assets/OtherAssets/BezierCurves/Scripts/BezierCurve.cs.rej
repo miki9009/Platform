@@ -1,0 +1,10 @@
+diff a/Assets/OtherAssets/BezierCurves/Scripts/BezierCurve.cs b/Assets/OtherAssets/BezierCurves/Scripts/BezierCurve.cs	(rejected hunks)
+@@ -378,7 +378,7 @@
+ 	/// </param>
+ 	public static Vector3 GetPoint(BezierPoint p1, BezierPoint p2, float t)
+ 	{
+-        t = Mathf.Clamp(t, 0.01f, 0.99f);
++        t = Mathf.Clamp01(t);
+         if (p1.handle2 != Vector3.zero)
+         {
+             if (p2.handle1 != Vector3.zero) return GetCubicCurvePoint(p1.position, p1.globalHandle2, p2.globalHandle1, p2.position, t);
