@@ -99,7 +99,6 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
 
     public void Start()
     {
-        turnSpeed = turnSpeed * Time.deltaTime;
         starsExplosion = StaticParticles.Instance.starsExplosion;
     }
 
@@ -152,7 +151,7 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
     private void Update()
     {
         if (target != null && !dead)
-        transform.rotation = Engine.Math.RotateTowardsTopDown(transform, target.position, turnSpeed);
+        transform.rotation = Engine.Math.RotateTowardsTopDown(transform, target.position, turnSpeed * Time.deltaTime);
     }
 
     public void OnHit()

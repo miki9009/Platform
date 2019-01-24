@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+
 namespace Engine
 {
     public class MeshMerge : MonoBehaviour
@@ -7,6 +9,7 @@ namespace Engine
         public MeshFilter[] meshFilters;
         public Transform parent;
         Vector3 pos;
+        public bool affectParent = true;
 
         public GameObject Merge()
         {
@@ -25,6 +28,18 @@ namespace Engine
             CombineInstance[] combine = new CombineInstance[meshFilters.Length];
             int i = 0;
             pos = Vector3.zero;
+
+            //Exclude Parent
+            if(!affectParent)
+            {
+                if (meshFilters[0].transform == parent.transform)
+                {
+                    meshFilters[0] = meshFilters[meshFilters.Length - 1];
+                    Array.Resize(ref meshFilters, meshFilters.Length - 1);
+                }
+            }
+
+
             while (i < meshFilters.Length)
             {
                 pos += meshFilters[i].transform.position;
@@ -54,7 +69,9 @@ namespace Engine
                 meshRenderer.transform.SetParent(parentParent);
                 meshRenderer.transform.SetSiblingIndex(parent.GetSiblingIndex());
             }
-            parent.gameObject.SetActive(false);
+
+            if(!affectParent)
+                parent.gameObject.SetActive(false);
             return obj;
         }
     }

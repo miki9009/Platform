@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879a7aab87322634eb6096b8846cee82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 15
+  turnSpeed: 1
   timeBetweenAttacks: 1
   canAttack: 0
   minAttackTime: 0.1

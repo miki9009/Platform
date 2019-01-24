@@ -5,6 +5,9 @@ using System.Linq;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Engine
 {
@@ -310,6 +313,24 @@ namespace Engine
             {
                 return new Vector3(0, 0, 0);
             }
+        }
+
+        public static Vector3 GetMouseEditor(Camera cam, int layer, QueryTriggerInteraction trigerInteraction)
+        {
+#if UNITY_EDITOR
+            var editorRect = EditorWindow.focusedWindow.position;
+            var windowSize = editorRect.size;
+            Vector2 rawMouseInput = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+            var mouseInput = new Vector2(rawMouseInput.x, -rawMouseInput.y + editorRect.size.y + editorRect.position.y);
+            Ray ray = cam.ScreenPointToRay(mouseInput);
+            RaycastHit groundHit;
+
+            if (Physics.Raycast(ray, out groundHit, Mathf.Infinity, layer, trigerInteraction))
+            {
+                return groundHit.point;
+            }
+#endif
+            return new Vector3(0, 0, 0);
         }
 
         /// <summary>
