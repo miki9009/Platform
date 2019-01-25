@@ -24,6 +24,7 @@ public class WorldWindow: UIWindow
         var window = UIWindow.GetWindow(UIWindow.LOADING_SCREEN);
         if (window != null)
             window.Show();
+        SceneManager.UnloadScene("game");
         SceneManager.UnloadSceneAsync("World");
         LevelManager.LoadMenu3D();
         SceneManager.sceneLoaded += RemoveLoadingScreen;

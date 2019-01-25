@@ -14,52 +14,25 @@ public class WorldLevel : MonoBehaviour
         GetComponentInParent<MapFocused>().levels.Add(this);
     }
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        World.Instance.Window.movement.PointerUp += WorldPointerUp;
-    }
-
-    private void OnDestroy()
-    {
-        World.Instance.Window.movement.PointerUp -= WorldPointerUp;
-    }
-
-    void WorldPointerUp(Vector3 position)
-    {
-        float dis = Vector3.Distance(transform.position, World.Instance.PointerPosition);
-        if (gameObject.activeInHierarchy && dis < sphereCollider.radius)
+        if (other.attachedRigidbody != null)
         {
-            Debug.Log("Tapped on " + name);
-            Tapped();
+            var character = other.attachedRigidbody.GetComponentInParent<Character>();
+            if (character != null && character.IsLocalPlayer)
+                GoToLevelAdditive();
         }
-
     }
 
-
-
-    WorldWindow window;
-    void Tapped()
+    void GoToLevelAdditive()
     {
-        window = UIWindow.GetWindow<WorldWindow>();
-        window.Hidden += UnloadWorld;
-        window.Hide(); 
+        LevelManager.ChangeLevel(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetLevelName(customLevel));
     }
 
-    void UnloadWorld()
-    {
-        window.Hidden -= UnloadWorld;
-        try
-        {
-            Camera.main.gameObject.SetActive(false);
-        }
-        catch { }
-        SceneManager.UnloadSceneAsync("World");
-        SceneManager.sceneUnloaded += BeginLoading;
-    }
 
-    void BeginLoading(Scene scene)
-    {
-        SceneManager.sceneUnloaded -= BeginLoading;
-        LevelManager.BeginCustomLevelLoadSequenceAdditive(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetLevelName(customLevel));
-    }
+    //void BeginLoading(Scene scene)
+    //{
+    //    //SceneManager.sceneUnloaded -= BeginLoading;
+    //    LevelManager.BeginCustomLevelLoadSequenceAdditive(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetLevelName(customLevel));
+    //}
 }

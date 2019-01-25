@@ -7,69 +7,47 @@ using UnityEngine.SceneManagement;
 public class World : MonoBehaviour
 {
     public static event Action Initialized;
-    public LayerMask collisionLayer;
     public static World Instance { get; private set; }
 
-    public Camera worldCamera;
-    public Transform pointerObject;
-
     public WorldWindow Window { get; private set; }
+    [CustomLevelSelector]
+    public string customLevel;
 
-    private BoxCollider _box;
-    public Bounds PointerBounds
-    {
-        get
-        {
-            return _box.bounds;
-        }
-    }
+    static string levelName;
 
     bool showFps;
     private void Awake()
     {
-        _box = pointerObject.GetComponent<BoxCollider>();
         Instance = this;
+        levelName = customLevel;
         Window = UIWindow.GetWindow<WorldWindow>(); 
         if(Window!=null)
         {
             Debug.Log("Initialized world");
         }
 
+        Character.CharacterCreated += InitCharacter;
+
         if(DataManager.Exists())
             showFps = DataManager.Settings.showFps;
         Initialized?.Invoke();
     }
 
-    private void Start()
+    private void OnDestroy()
     {
-        GameManager.OnLevelClear();
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("World"));
-        var window = UIWindow.GetWindow(UIWindow.LOADING_SCREEN);
-        if (window != null)
-            window.Hide();
-        BackToFullViewButtonEnable(false);
-
+        Character.CharacterCreated -= InitCharacter;
     }
 
-    public void BackToFullViewButtonEnable(bool val)
+    void InitCharacter(Character character)
     {
-        Window.backToFullViewButton.SetActive(val);
+        character.transform.localScale = new Vector3(2, 2, 2);
     }
 
-    public Vector3 PointerPosition { get; private set; }
-    private void Update()
+    [EventMethod]
+    public static void BackToWorld()
     {
-        PointerPosition = Engine.Mouse.GetMouse(worldCamera, collisionLayer.value, QueryTriggerInteraction.Ignore);
-        pointerObject.position = PointerPosition;
+            LevelManager.ChangeLevel(LevelsConfig.GetSceneName("World"), LevelsConfig.GetLevelName(levelName));
     }
-
-#if UNITY_EDITOR
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(PointerPosition, 2);
-    }
-#endif
 
     private void OnGUI()
     {

@@ -161,6 +161,7 @@ namespace Engine.UI
 
         public void Show()
         {
+            Console.WriteLine("Show: " + ID, Console.LogColor.Orange);
             gameObject.SetActive(true);
             OnBeforeShow();
             show = StartCoroutine(ShowE());
@@ -178,6 +179,11 @@ namespace Engine.UI
 
         public void Hide()
         {
+            Console.WriteLine("Trying to Hide: " + ID, Console.LogColor.Orange);
+            if(ID == "GameUI")
+            {
+
+            }
             if (hide != null || !gameObject.activeInHierarchy) return;
             hide = StartCoroutine(HideE());
         }
@@ -217,6 +223,7 @@ namespace Engine.UI
         IEnumerator ShowE()
         {
             BeginShow?.Invoke();
+            Console.WriteLine("Hiding: " + ID, Console.LogColor.Orange);
             switch (anchor)
             {
                 case Anchor.Left:

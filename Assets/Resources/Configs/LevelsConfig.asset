@@ -30,3 +30,6 @@ MonoBehaviour:
   - sceneName: Caves
     levels:
     - 0
+  - sceneName: World
+    levels:
+    - 0
