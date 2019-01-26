@@ -79,7 +79,12 @@ namespace Engine.Props
                 }
                 Gizmos.color = Color.green;
                 var s = new Vector3(scale.x * prefabScale.x, scale.y * prefabScale.y, scale.z * prefabScale.z);
-                Gizmos.DrawWireCube(camPos, new Vector3(bounds.size.x * s.x, bounds.size.y * s.y, bounds.size.z * s.z));
+                var originalMatrix = Gizmos.matrix;
+                Matrix4x4 rotationMatrix = Matrix4x4.TRS(camPos, Quaternion.Euler(propPrefab.transform.eulerAngles + prefabRotation), s);
+                //Matrix4x4 rotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(prefabRotation));
+                Gizmos.matrix = rotationMatrix;
+                Gizmos.DrawWireCube(Vector3.zero, new Vector3(bounds.size.x * s.x, bounds.size.y * s.y, bounds.size.z * s.z));
+                Gizmos.matrix = originalMatrix;
             }
         }
 

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Engine.Threads;
+using UnityEngine.Events;
 
 namespace Engine.UI
 {
@@ -22,6 +23,9 @@ namespace Engine.UI
             Top,
             None
         }
+
+        public UnityEvent OnWillShowEvent;
+        public UnityEvent OnWillHideEvent;
 
         public float X
         {
@@ -54,6 +58,14 @@ namespace Engine.UI
         Coroutine hide;
         Coroutine fadeOut;
         Coroutine fadeIn;
+
+        public bool Visible
+        {
+            get
+            {
+                return gameObject.activeInHierarchy;
+            }
+        }
 
         public virtual void OnHidden(){}
 
@@ -118,7 +130,7 @@ namespace Engine.UI
             rect.anchoredPosition = startPos;
         }
 
-        private void Start()
+        public virtual void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             SetStartPos();
@@ -222,6 +234,7 @@ namespace Engine.UI
 
         IEnumerator ShowE()
         {
+            OnWillShowEvent.Invoke();
             BeginShow?.Invoke();
             Console.WriteLine("Hiding: " + ID, Console.LogColor.Orange);
             switch (anchor)
@@ -271,6 +284,7 @@ namespace Engine.UI
 
         IEnumerator HideE()
         {
+            OnWillHideEvent.Invoke();
             BeginHide?.Invoke();
             switch (anchor)
             {

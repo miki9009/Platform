@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2723040160211868582}
   - component: {fileID: 1954768829313021878}
-  - component: {fileID: 5584244662504606413}
   m_Layer: 0
   m_Name: MeshPainter
   m_TagString: Untagged
@@ -50,11 +49,12 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 1024
-  camPos: {x: 0, y: 0, z: 0}
+  prefabContainer: {fileID: 0}
   propPrefab: {fileID: 771175496142808662, guid: 62ef815f0de500f4e9d663e3da6b2df1,
     type: 3}
   createdProps: []
   minDistanceBwetweenProps: 1
+  useNormalRotation: 0
   prefabRotation: {x: -45, y: -90, z: 0}
   prefabScale: {x: 2, y: 2, z: 2}
   randomRotation: 0
@@ -64,19 +64,8 @@ MonoBehaviour:
   randomScale: 1
   minScale: 0.5
   maxScale: 1
+  useRandomPrefabs: 0
+  randomPrefabs: []
+  camPos: {x: 101.8215, y: 24.499996, z: -84.42833}
+  normal: {x: 0, y: 0.99999994, z: -0.00000011920927}
   target: {fileID: 0}
---- !u!114 &5584244662504606413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348371673805031502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c87b95daf727f54eafad89a215ea8e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshFilters: []
-  parent: {fileID: 2837714090953573091, guid: 5e1990ecadb016c4aad36a2ab3c386cb, type: 3}
-  affectParent: 1
