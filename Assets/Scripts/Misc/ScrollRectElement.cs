@@ -1,10 +1,7 @@
-﻿using System;
-namespace Application
+﻿using UnityEngine;
+
+public class ScrollRectElement : MonoBehaviour
 {
-    public class NewClass
-    {
-        public NewClass()
-        {
-        }
-    }
+    public bool selected;
 }
+
