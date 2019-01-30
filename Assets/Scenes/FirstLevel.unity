@@ -11833,12 +11833,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 246858742}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &246858744 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5502847088362829354, guid: 3e0929224cb46444ab57b90d763b1c7f,
-    type: 3}
-  m_PrefabInstance: {fileID: 246858742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &247135727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c5e30f9142b7d524880487415683434d,
@@ -25836,37 +25830,38 @@ PrefabInstance:
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: createdProps.Array.size
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 246858744}
+      objectReference: {fileID: 1844557033}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: camPos.x
-      value: 48.99
+      value: 153.67085
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: camPos.y
-      value: -8.626512
+      value: 2.9377778
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: camPos.z
-      value: -96.33629
+      value: -103.754616
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: propPrefab
       value: 
-      objectReference: {fileID: 100000, guid: 3531d1238093c614bab38db5b0dbc2fe, type: 3}
+      objectReference: {fileID: 1730406902580098, guid: 30e4a43308b371e4cac3aea2509e1725,
+        type: 3}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: erase
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
@@ -25881,22 +25876,22 @@ PrefabInstance:
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: useNormalRotation
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: normal.x
-      value: -1.0000002
+      value: 0.02949788
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: prefabRotation.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: prefabRotation.y
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
@@ -25926,12 +25921,12 @@ PrefabInstance:
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: normal.y
-      value: 0
+      value: 0.9995456
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
       propertyPath: normal.z
-      value: 0
+      value: 0.0062101097
       objectReference: {fileID: 0}
     - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
         type: 3}
@@ -26132,6 +26127,26 @@ PrefabInstance:
         type: 3}
       propertyPath: createdProps.Array.data[42]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
+        type: 3}
+      propertyPath: randomScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
+        type: 3}
+      propertyPath: prefabScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
+        type: 3}
+      propertyPath: prefabScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954768829313021878, guid: 668c2728b1af9b847a125bd3d06689b8,
+        type: 3}
+      propertyPath: prefabScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668c2728b1af9b847a125bd3d06689b8, type: 3}
@@ -98705,7 +98720,7 @@ GameObject:
   - component: {fileID: 2038582998}
   - component: {fileID: 2038582997}
   m_Layer: 10
-  m_Name: FirstLevel:0
+  m_Name: FirstLevel:1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98723,7 +98738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5b2c245d1500c40b3cee661e7fb38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: 0
+  levelName: 1
 --- !u!4 &2038582998
 Transform:
   m_ObjectHideFlags: 0

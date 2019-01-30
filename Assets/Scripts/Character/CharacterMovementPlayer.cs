@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
 {
-    int direction2D = 1;
-
     protected Button btnLeft;
     protected Button btnRight;
     protected Button btnJump;

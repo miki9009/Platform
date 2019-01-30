@@ -15,7 +15,10 @@ public class MissionsManager : Module
     {
         missionsConfig = ConfigsManager.GetConfig<MissionsConfig>();
         var unlocked = new List<bool>();
-        missionsConfig.missions.ForEach(x => unlocked.Add(x.unlocked));
+        for (int i = 0; i < missionsConfig.containers.Count; i++)
+        {
+            missionsConfig.containers[i].missions.ForEach(x => unlocked.Add(x.unlocked));
+        }
         var array = unlocked.ToArray();
         unlockedMissions = DataProperty<bool[]>.Get("UnlockedMissions", array);
         GameManager.GameReady += InitializeMissions;

@@ -44,6 +44,11 @@ public class CharacterMovementAI : CharacterMovement
         path = pathMovement.GetPath(Destination);
     }
 
+    private void OnDestroy()
+    {
+        GameManager.LevelClear -= DestroyMe;
+    }
+
     public void ChangeState(AIState state)
     {
         currentState = state;
@@ -57,9 +62,9 @@ public class CharacterMovementAI : CharacterMovement
         var dir = Vector.Direction(transform.position, nextPoint);
         dir.y = 0;
         if (onGround)
-            transform.rotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * character.stats.turningSpeed);
         else
-            transform.rotation = lastRot;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * character.stats.turningSpeed);
         lastRot = transform.rotation;
     }
 
@@ -125,7 +130,8 @@ public class CharacterMovementAI : CharacterMovement
 
     void DestroyMe()
     {
-        Destroy(gameObject);
+        if(gameObject)
+            Destroy(gameObject);
     }
 
     public void ClearPath()

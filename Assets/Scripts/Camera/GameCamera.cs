@@ -129,6 +129,7 @@ public class GameCamera : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, target.position - Vector3.right * localPosition.x + Vector3.up * localPosition.y + Vector3.forward * localPosition.z, Time.deltaTime * speed);
         transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, Quaternion.LookRotation(Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor)), rotationSpeed * Time.deltaTime);
+        //transform.rotation = Quaternion.LookRotation( Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor));
     }
 
     void WagonUpdate()

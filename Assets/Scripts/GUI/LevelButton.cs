@@ -18,6 +18,7 @@ public class LevelButton : MonoBehaviour
             Camera.main.gameObject.SetActive(false);
         }
         catch { }
+        WorldWindow.HideWorldWindow();
         LevelManager.BeginCustomLevelLoadSequenceAdditive(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetLevelName(customLevel));
     }
 

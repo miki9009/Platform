@@ -92,6 +92,8 @@ public class SignificantCollection : LevelElement
         get { return collections.Count; }
     }
 
+
+
     public static CollectionObject FindNearest(Vector3 position)
     {
         float dis = Mathf.Infinity;
@@ -99,6 +101,8 @@ public class SignificantCollection : LevelElement
         CollectionObject nearest = null;
         foreach (var item in collections.Values)
         {
+            if (item.AINotReachable) continue;
+
             dis2 = Vector3.Distance(position, item.transform.position);
             if(dis2 < dis)
             {

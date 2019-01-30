@@ -32,7 +32,7 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	public bool snapToElement = true;
 	public bool customInteria = false;
 	public float customInteriaDecelerationRate = 0.1f;
-    public bool isGarageItemsHolder;
+    public bool isScrollElementsHolder;
     public int lastIndex = 10;
     public event System.Action<int> Snapped;
 
@@ -44,7 +44,7 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 		}
 	}
 
-    public Dictionary<RectTransform, ScrollRectElement> garageItems;
+    public Dictionary<RectTransform, ScrollRectElement> scrollElements;
 
 	public List<RectTransform> Elements { get { return _elements; } }
 
@@ -139,15 +139,15 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 				if (_scrollRect.content.GetChild(i).gameObject.activeSelf)
 					_elements.Add((RectTransform)_scrollRect.content.GetChild(i));
 			}
-            if (isGarageItemsHolder)
+            if (isScrollElementsHolder)
             {
-                garageItems = new Dictionary<RectTransform, ScrollRectElement>();
+                scrollElements = new Dictionary<RectTransform, ScrollRectElement>();
                 for (int i = 0; i < _elements.Count; i++)
                 {
                     ScrollRectElement item = _elements[i].GetComponent<ScrollRectElement>();
                     if (item != null)
                     {
-                        garageItems.Add(_elements[i], item);
+                        scrollElements.Add(_elements[i], item);
                     }
                 }
             }
@@ -496,7 +496,6 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	public void SetCurrentElementAndMove(int index)
 	{
 		Initialize();
-        Debug.LogError("SetCurrentElementAndMove");
 		for (var i = 0; i < _insideElements.Count; i++)
 		{
 			if (_insideElements[i] == _elements[index])
@@ -581,10 +580,10 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             if (value == null) return;
             if(selected != null)
             {
-                selected.selected = false;
+                selected.IsSelected = false;
             }
             selected = value;
-            selected.selected = true;
+            selected.IsSelected = true;
         }
         get
         {
@@ -627,11 +626,11 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
     public virtual void ManageSelection(RectTransform rect, bool visible)
     {
-        if (rect && garageItems != null)
+        if (rect && scrollElements != null)
         {
-            if(garageItems.ContainsKey(rect))
+            if(scrollElements.ContainsKey(rect))
             {
-                var item = garageItems[rect];
+                var item = scrollElements[rect];
 
                 if(visible)
                 {
@@ -640,7 +639,12 @@ public class ScrollRectSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
                     //    item.SetNewToFalseOnItem();
                     //}
                     preview = item;
-                    DefineSelected(item);
+                    item.IsSelected = true;
+                   // DefineSelected(item);
+                }
+                else
+                {
+                    item.IsSelected = false;
                 }
             }
         }

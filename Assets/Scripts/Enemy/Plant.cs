@@ -111,6 +111,7 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         float dis2;
         foreach (var character in characters)
         {
+            if (!character) continue;
             dis2 = Vector3.Distance(character.transform.position, transform.position);
             if (dis2 < dis1)
             {

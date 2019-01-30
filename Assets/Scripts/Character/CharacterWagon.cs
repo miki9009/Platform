@@ -35,6 +35,8 @@ public class CharacterWagon : CharacterMovementPlayer, ILocalPlayer
         cam.ResetView();
         cam.regularUpdate = true;
         cam.ChangeToWagonView();
+        cam.minDistance = 10;
+        cam.maxDistance = 10;
        // sensor = new GameObject("WagonSensor").transform;
         try
         {

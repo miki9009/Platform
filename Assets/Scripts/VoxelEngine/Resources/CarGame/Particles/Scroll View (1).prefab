@@ -290,8 +290,8 @@ MonoBehaviour:
   snapCenter: {fileID: 931535077}
   elementSizeY: 200
   scrollRect: {fileID: 82408145}
-  downArrow: {fileID: 0}
-  upArrow: {fileID: 0}
+  downArrow: {fileID: 3221588867516960291}
+  upArrow: {fileID: 4323088648277628222}
   viewPort: {fileID: 1004450186}
   scrollSensitivity: 5
   lerpSpeed: 0.5

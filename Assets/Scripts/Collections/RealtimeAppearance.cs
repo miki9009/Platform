@@ -16,15 +16,18 @@ public class RealtimeAppearance : LevelElement
         DetachChildren();
         if (!activated)
         {
-            StartCoroutine(DeactivateChildren(5));
+            Deactivate(5);
         }
     }
+
+    Coroutine activation;
+    Coroutine deactivation;
 
     private void OnTriggerEnter(Collider other)
     {
         if (!activated)
         {
-            StartCoroutine(ActivateChildren());
+            Activate();
         }
         activated = true;
     }
@@ -33,7 +36,7 @@ public class RealtimeAppearance : LevelElement
     {
         if (activated)
         {
-            StartCoroutine(DeactivateChildren(0));
+            Deactivate(0);
             activated = false;
         }
     }
@@ -84,6 +87,32 @@ public class RealtimeAppearance : LevelElement
         transform.DetachChildren();
     }
 
+    void Deactivate(int waitFrames)
+    {
+        if (activation != null)
+        {
+            StopCoroutine(activation);
+            activation = null;
+        }
+        if (deactivation == null)
+        {
+            deactivation = StartCoroutine(DeactivateChildren(waitFrames));
+        }
+    }
+
+    void Activate()
+    {
+        if(deactivation != null)
+        {
+            StopCoroutine(deactivation);
+            deactivation = null;
+        }
+        if(activation==null)
+        {
+            activation = StartCoroutine(ActivateChildren());
+        }
+    }
+
     private IEnumerator DeactivateChildren(int waitFrames)
     {
         var wait = new WaitForSeconds(0.1f);
@@ -109,6 +138,7 @@ public class RealtimeAppearance : LevelElement
                 yield return null;
             }
         }
+        deactivation = null;
         yield return null;
     }
 
@@ -134,6 +164,7 @@ public class RealtimeAppearance : LevelElement
                 yield return wait;
             }
         }
+        activation = null;
         yield return null;
     }
 #if UNITY_EDITOR

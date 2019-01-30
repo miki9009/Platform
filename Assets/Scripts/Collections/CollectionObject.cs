@@ -14,6 +14,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
 
     private Character character;
     private Vector3 localScale;
+    public bool AINotReachable { get; set; }
 
     public delegate void Collect(GameObject collector);
     public event Collect OnCollected;

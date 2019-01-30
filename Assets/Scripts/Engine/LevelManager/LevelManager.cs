@@ -253,6 +253,11 @@ public class LevelManager : MonoBehaviour
         GameManager.OnLevelClear();
         SceneManager.UnloadSceneAsync(instance.gameScene);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        var window = UIWindow.GetWindow("GameUI");
+        if(window!=null)
+        {
+            window.FadeOut();
+        }
         if(loadMenu3D)
             LoadMenu3D();
     }

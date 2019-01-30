@@ -1088,7 +1088,8 @@ MonoBehaviour:
     firstStart: 1
     buttonMovement: 0
     showFps: 0
-    graphicsLevel: 0
+    graphicsLevel: 3
+    lowFrameRate: 0
 --- !u!114 &114865189228509114
 MonoBehaviour:
   m_ObjectHideFlags: 0

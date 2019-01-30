@@ -7,7 +7,7 @@ using UnityEngine;
 public class MissionsConfig : Config
 {
     public const string key = "Configs/MissionsConfig";
-    public List<Mission> missions;
+    public List<MissionContainer> containers;
 
     static MissionsConfig instance;
     public static MissionsConfig Instance
@@ -27,14 +27,38 @@ public class MissionsConfig : Config
         }
     }
 
-    public Mission GetMission(string id)
+    public List<Mission> GetMissions(string scene)
     {
-        for (int i = 0; i < missions.Count; i++)
+        foreach (var container in containers)
         {
-            if (missions[i].level == id)
+            if (container.scene == scene)
+                return container.missions;
+        }
+        Debug.LogError("No missions on scene: " + scene);
+        return null;
+    }
+
+    public Mission GetMission(string scene, string missionID)
+    {
+        var missions = GetMissions(scene);
+        for (int i = 0; i < containers.Count; i++)
+        {
+            if (missions[i].level == missionID)
                 return missions[i];
         }
-        Debug.LogError("Mission with ID " + id + " not found");
+        Debug.LogError("Mission with ID " + missionID + " not found");
+        return null;
+    }
+
+    public Mission GetMission(string missionID)
+    {
+        var missions = GetMissions(LevelsConfig.GetSceneName(missionID));
+        for (int i = 0; i < containers.Count; i++)
+        {
+            if (missions[i].level == missionID)
+                return missions[i];
+        }
+        Debug.LogError("Mission with ID " + missionID + " not found");
         return null;
     }
 }
@@ -47,4 +71,12 @@ public class Mission
     public bool passed;
     public bool unlocked;
     public bool[] unlocks;
+}
+
+[Serializable]
+public class MissionContainer
+{
+    [LevelSelector]
+    public string scene;
+    public List<Mission> missions;
 }

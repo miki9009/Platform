@@ -183,6 +183,11 @@ namespace AI
             {
                 destination = collection.transform.position;
                 CharacterMovement.path =  CharacterMovement.pathMovement.GetPath(destination);
+                if(CharacterMovement.path.Length == 1)
+                {
+                    collection.AINotReachable = true;
+                    CharacterMovement.path = CharacterMovement.pathMovement.GetPath(destination);
+                }
             }
         }
 

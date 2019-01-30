@@ -53,6 +53,7 @@ namespace Engine.Props
         Vector3 scale;
         private void OnDrawGizmos()
         {
+            if (Application.isPlaying) return;
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(camPos, 0.75f);
             Gizmos.color = Color.blue;

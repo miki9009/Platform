@@ -12,28 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59dc00b9c160c9409e826b0b7aec50d, type: 3}
   m_Name: MissionsConfig
   m_EditorClassIdentifier: 
-  missions:
-  - level: Mine:0
-    passed: 0
-    unlocked: 1
-    unlocks: 
-  - level: FirstLevel:0
-    passed: 0
-    unlocked: 1
-    unlocks: 
-  - level: SecondLevel:0
-    passed: 0
-    unlocked: 1
-    unlocks: 
-  - level: ThirdScene:0
-    passed: 0
-    unlocked: 1
-    unlocks: 
-  - level: Caves:0
-    passed: 0
-    unlocked: 1
-    unlocks: 
-  - level: World:0
-    passed: 0
-    unlocked: 1
-    unlocks: 
+  containers:
+  - scene: Mine
+    missions:
+    - level: Mine:0
+      passed: 0
+      unlocked: 0
+      unlocks: 
+  - scene: FirstLevel
+    missions:
+    - level: FirstLevel:0
+      passed: 0
+      unlocked: 0
+      unlocks: 
+    - level: FirstLevel:1
+      passed: 0
+      unlocked: 0
+      unlocks: 
+  - scene: SecondLevel
+    missions:
+    - level: SecondLevel:0
+      passed: 0
+      unlocked: 0
+      unlocks: 
+  - scene: ThirdScene
+    missions:
+    - level: ThirdScene:0
+      passed: 0
+      unlocked: 0
+      unlocks: 
+  - scene: Caves
+    missions:
+    - level: Caves:0
+      passed: 0
+      unlocked: 0
+      unlocks: 

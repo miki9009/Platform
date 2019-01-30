@@ -15,12 +15,13 @@ public class SettingsWindow : UIWindow
     public string[] graphicsLevel;
     int selectedGraphics = 1;
 
-
+    static SettingsWindow instance;
     bool buttonsMovement;
     bool showFps;
 
     private void Awake()
     {
+        instance = this;
         BeginShow += AssignSettings;
     }
 
@@ -29,6 +30,7 @@ public class SettingsWindow : UIWindow
         int width = Screen.currentResolution.width;
         int height = Screen.currentResolution.height;
         currentRes = new Vector2(width, height);
+        SetQuality();
         for (int i = 0; i < resolutions.Length; i++)
         {
             if (currentRes == resolutions[i])
@@ -39,9 +41,15 @@ public class SettingsWindow : UIWindow
         SetResolutionString(width, height);
         buttonsMovement = DataManager.Settings.buttonMovement;
         showFps = DataManager.Settings.showFps;
-        selectedGraphics = DataManager.Settings.graphicsLevel;
+
         graphicsLabel.text = graphicsLevel[selectedGraphics];
         SetLowFrameRateLoad(DataManager.Settings.lowFrameRate);
+        SetFpsShowString(showFps);
+    }
+
+    public static void SetQuality()
+    {
+        instance.selectedGraphics = DataManager.Settings.graphicsLevel;
     }
 
     public override void OnHidden()
@@ -55,7 +63,7 @@ public class SettingsWindow : UIWindow
         }
         else
         {
-            Application.targetFrameRate = 30;
+            Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 1;
         }
     }
