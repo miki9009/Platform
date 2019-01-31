@@ -21,7 +21,7 @@ public class SpawningPlace : MonoBehaviour
         foreach (var obj in activeSpawns)
         {
             if (obj == null) continue;
-            obj.Recycle();
+            obj.AdditionalRecycle();
         }
 
         activeSpawns.Clear();

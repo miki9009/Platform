@@ -194,7 +194,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
         }
     }
 
-    public virtual void Recycle()
+    public virtual void AdditionalRecycle()
     {
         BackToCollection();
     }

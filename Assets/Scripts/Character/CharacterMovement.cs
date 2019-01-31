@@ -242,7 +242,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     }
 
 
-    void Shoot()
+    void WeaponAttack()
     {
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -250,6 +250,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             Attack();
         }
 #endif
+
     }
 
     public void Jump()
@@ -385,6 +386,21 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public void AnimationSetTrigger(string triggerName)
     {
         anim.SetTrigger(triggerName);
+    }
+
+    protected void Shoot()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            ShootProjectile();
+        }
+    }
+
+    void ShootProjectile()
+    {
+        var spawn = SpawnManager.GetSpawn("Fireball", true);
+        var fireball = spawn.GetComponent<Fireball>();
+        fireball.Shoot(character.rightLowerArm.position, Quaternion.Euler(targetEuler).Vector(), transform);
     }
 
     //void OnDrawGizmos()

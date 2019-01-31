@@ -5,12 +5,12 @@ public static class SpawnManager
 {
     //static Dictionary<string, GameObject> spawnsOriginal = new Dictionary<string, GameObject>();
 
-    static Dictionary<string, Stack<GameObject>> spawns = new Dictionary<string, Stack<GameObject>>();
+    static Dictionary<string, Queue<GameObject>> spawns = new Dictionary<string, Queue<GameObject>>();
 
 
     public static void AddSpawn(string name, GameObject prefab, int count)
     {
-        var stack = new Stack<GameObject>();
+        var stack = new Queue<GameObject>();
         for (int i = 0; i < count; i++)
         {
             var obj = Object.Instantiate(prefab);
@@ -23,7 +23,7 @@ public static class SpawnManager
                 Debug.LogError("IPoolObject not found on: " + prefab.name);
             }
 
-            stack.Push(obj);
+            stack.Enqueue(obj);
         }
         if(!spawns.ContainsKey(name))
         {
@@ -56,7 +56,7 @@ public static class SpawnManager
         GameObject obj;
         if(stack.Count > 0)
         {
-            obj = stack.Pop();
+            obj = stack.Dequeue();
         }
         else
         {
@@ -67,18 +67,20 @@ public static class SpawnManager
         return obj;
     }
 
-    static void PutSpawnBack(Spawn spawn)
+    static void Pool(Spawn spawn)
     {
         if (!spawns.ContainsKey(spawn.SpawnName)) return;
+        Debug.Log("Pool: " + spawn.SpawnName);
         var stack = spawns[spawn.SpawnName];
-        stack.Push(spawn.gameObject);
+        stack.Enqueue(spawn.gameObject);
     }
 
     public static void Recycle(IPoolObject obj)
     {
+        Debug.Log("Recycle: " + obj.GameObject.name);
         var spawn = obj.GameObject.GetComponent<Spawn>();
-        PutSpawnBack(spawn);
-        obj.Recycle();
+        Pool(spawn);
+        obj.AdditionalRecycle();
         obj.GameObject.transform.position = Vector3.zero;
         if(obj.GameObject.activeInHierarchy)
             obj.GameObject.SetActive(false);
@@ -93,7 +95,7 @@ public static class SpawnManager
 public interface IPoolObject
 {
     GameObject GameObject { get; }
-    void Recycle();
+    void AdditionalRecycle();
 }
 
 

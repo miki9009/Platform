@@ -227,7 +227,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         CollectionManager.Instance.SetCollection(character.character.ID, CollectionType.KillEnemy, 1);
     }
 
-    public virtual void Recycle()
+    public virtual void AdditionalRecycle()
     {
         dead = false;
         enemyDeath.StopAllCoroutines();

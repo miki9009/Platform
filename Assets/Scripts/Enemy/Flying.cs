@@ -11,7 +11,7 @@ public class Flying : Enemy
         aimedPos = transform.position;
     }
 
-    public override void Recycle()
+    public override void AdditionalRecycle()
     {
         
     }
