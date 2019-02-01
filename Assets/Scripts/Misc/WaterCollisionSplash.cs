@@ -46,6 +46,6 @@ public class WaterCollisionSplash : MonoBehaviour
         character.gameObject.SetActive(false);
         yield return new WaitForSeconds(2);
         if(character != null && character.movement != null)
-            character.movement.DieNonAnimation();
+            character.movement.RemoveCharacter();
     }
 }

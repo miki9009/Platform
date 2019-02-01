@@ -268,11 +268,4 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         sinus = Mathf.Lerp(sinus, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
         model.transform.localEulerAngles = new Vector3(0, 0, Mathf.Clamp(-sinus / 3, -15, 15));
     }
-#if UNITY_EDITOR
-    protected override void Update()
-    {
-        base.Update();
-        Shoot();
-    }
-#endif
 }

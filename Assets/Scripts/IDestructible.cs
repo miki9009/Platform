@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDestructible
 {
-    void Hit(CharacterMovement character);
+    void Hit(Character character);
     Transform Transform { get;}
     Rigidbody Rigidbody { get; }
 }

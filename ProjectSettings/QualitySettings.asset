@@ -78,7 +78,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Android
-    pixelLightCount: 10
+    pixelLightCount: 1
     shadows: 1
     shadowResolution: 1
     shadowProjection: 1
@@ -90,9 +90,9 @@ QualitySettings:
     shadowmaskMode: 0
     blendWeights: 1
     textureQuality: 0
-    anisotropicTextures: 0
+    anisotropicTextures: 1
     antiAliasing: 0
-    softParticles: 0
+    softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 1

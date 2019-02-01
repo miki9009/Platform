@@ -79,22 +79,22 @@ public class ThrowableObject : MonoBehaviour, IRightArmItem
         }
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.layer == Layers.Enemy)
-        {
-            var affected = other.gameObject.GetComponentInParent<IThrowableAffected>();
-            if (affected != null)
-            {
-                affected.OnHit();
-            }
-            else
-            {
-                Debug.Log("Affected not found");
-            }
-        }
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.layer == Layers.Enemy)
+    //    {
+    //        var affected = other.gameObject.GetComponentInParent<IThrowableAffected>();
+    //        if (affected != null)
+    //        {
+    //            affected.OnHit();
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Affected not found");
+    //        }
+    //    }
 
-    }
+    //}
 
 }
 
@@ -103,5 +103,5 @@ public class ThrowableObject : MonoBehaviour, IRightArmItem
 /// </summary>
 public interface IThrowableAffected
 {
-    void OnHit();
+    void OnHit(Character character);
 }

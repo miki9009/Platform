@@ -94,6 +94,7 @@ public class Controller : MonoBehaviour
     void OnRestart()
     {
         IsRestarting = false;
+        LastCheckpoint = null;
         RestartCharacter(Character.GetLocalPlayer());
     }
 
@@ -146,13 +147,19 @@ public class Controller : MonoBehaviour
 
         int currentRestarts = CollectionManager.Instance.GetCollection(character.ID, CollectionType.Restart);
         var collections = DataManager.Collections;
-        if(collections.restarts > 0 || currentRestarts > 0)
+        #region DEBUG
+        collections.restarts = 1;
+        #endregion
+
+        if (LastCheckpoint!=null && collections.restarts > 0 || currentRestarts > 0)
         {
             RestartCharacter(character);
         }
         else
         {
-            GameManager.Instance.EndGame(GameManager.GameState.Failed);
+            //Character.GetLocalPlayer().movement.RemoveCharacter();
+            UIWindow.GetWindow(UIWindow.END_SCREEN).RestartLevel();
+            //GameManager.Instance.EndGame(GameManager.GameState.Failed);
             //UIWindow.GetWindow(UIWindow.END_SCREEN).RestartLevel();
         }
         yield return null;
@@ -160,6 +167,7 @@ public class Controller : MonoBehaviour
 
     void RestartCharacter(Character character)
     {
+        Console.WriteLine("Character Restart. ", Console.LogColor.Lime);
         if (character == null) return;
         character.movement.enabled = true;
         character.stats.health = 1;
@@ -179,7 +187,7 @@ public class Controller : MonoBehaviour
         if(character.rb != null)
             character.rb.velocity = Vector3.zero;
         //character.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
-        gameCamera.GetComponent<GameCamera>().target = character.transform;
+        gameCamera.GetComponent<GameCamera>().SetTarget(character.transform);
         if (LastCheckpoint != null)
         {
             LastCheckpoint.ResetToCheckpoint(character);
@@ -188,6 +196,9 @@ public class Controller : MonoBehaviour
         {
             character.transform.position = character.movement.StartPosition;
         }
+        character.movement.CharacterSetActive(true);
+        IsRestarting = false;
+
     }
 
     public Material material;

@@ -46,7 +46,7 @@ public class CameraTrigger : LevelElement
         while (time < 1)
         {
             time += Time.deltaTime * speed;
-            GameCam.localPosition = Vector3.Lerp(GameCam.localPosition, new Vector3(-localPosition.x,localPosition.y, localPosition.z), time);
+            GameCam.localPosition = Vector3.Lerp(GameCam.localPosition, new Vector3(localPosition.x,localPosition.y, localPosition.z), time);
             yield return null;
         }
         routine = null;

@@ -121,18 +121,25 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Die()
     {
-        character.IsDead = true;
-        activationCollider.enabled = false;
         anim.Play("Die");
-        enabled = false;
-        Invoke("DieNonAnimation", 2f);
+        RemoveCharacter();
     }
 
-    public void DieNonAnimation()
+    public void CharacterSetActive(bool val)
+    {
+        character.IsDead = !val;
+        enabled = val;
+        activationCollider.enabled = val;
+        enabled = val;
+        if(!val)
+            StopAllCoroutines();
+    }
+
+    public void RemoveCharacter()
     {
         if (this == null) return;
-        enabled = false;
-        StopAllCoroutines();
+        CharacterSetActive(false);
+
         if(IsLocalPlayer)
             Controller.Instance.OnPlayerDead(character);
     }
@@ -267,20 +274,20 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             timeLastJump -= Time.deltaTime;
         }
     }
-
+    //public float force = 10;
     public void Move()
     {
         var velo = rb.velocity;
         float y = velo.y;
         velo.y = 0;
         float mag = velo.magnitude;
-        rb.rotation = transform.rotation;
-        if (Mathf.Abs(velo.magnitude) < stats.runSpeed)
+        //rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
+        if (velo.magnitude < stats.runSpeed)
         {
-            velo = transform.forward * (mag + forwardPower);
+            //rb.AddForce(rb.rotation.Vector() * forwardPower * force, ForceMode.Acceleration);
+            velo = rb.rotation.Vector() * (mag + forwardPower);
             velo.y = y;
             rb.velocity = velo;
-            rb.rotation = transform.rotation;
         }
     }
 
@@ -311,11 +318,17 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             //else
             //{
                 //Debug.Log("Ground Attack");
+            if(MeleeAttack!=null)
+            {
+                MeleeAttack.Invoke();
+            }
+            else
+            {
                 attack = true;
                 anim.Play("Attack");
                 isAttacking = true;
                 attackParticles.Play();
-                MeleeAttack?.Invoke();
+            }
                 if (PhotonManager.IsMultiplayer && character.IsLocalPlayer)
                     PhotonManager.SendMessage(PhotonEventCode.ATTACK, character.ID, null);
             //}
@@ -360,7 +373,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         {
             if (script != null)
             {
-                script.Hit(this);
+                script.Hit(character);
                 //script.Rigidbody.velocity = Vector3.zero;
                // script.Rigidbody.AddForce((Vector.Direction(transform.position, script.Transform.position) + Vector3.up * 2) * character.stats.attackForce, ForceMode.VelocityChange);
                 StaticParticles.PlayHitParticles(script.Transform.position + Vector3.up);
@@ -386,21 +399,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public void AnimationSetTrigger(string triggerName)
     {
         anim.SetTrigger(triggerName);
-    }
-
-    protected void Shoot()
-    {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            ShootProjectile();
-        }
-    }
-
-    void ShootProjectile()
-    {
-        var spawn = SpawnManager.GetSpawn("Fireball", true);
-        var fireball = spawn.GetComponent<Fireball>();
-        fireball.Shoot(character.rightLowerArm.position, Quaternion.Euler(targetEuler).Vector(), transform);
     }
 
     //void OnDrawGizmos()

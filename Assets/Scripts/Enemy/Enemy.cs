@@ -204,7 +204,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     }
 
 
-    public void Hit(CharacterMovement character)
+    public void Hit(Character character)
     {
         anim.SetTrigger("hit");
         dead = true;
@@ -224,7 +224,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         rb.velocity = Vector3.zero;
         starsExplosion.transform.position = transform.position;
         starsExplosion.Play();
-        CollectionManager.Instance.SetCollection(character.character.ID, CollectionType.KillEnemy, 1);
+        CollectionManager.Instance.SetCollection(character.ID, CollectionType.KillEnemy, 1);
     }
 
     public virtual void AdditionalRecycle()
@@ -252,10 +252,10 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         starsExplosion.Stop();
     }
 
-    public void OnHit()
+    public void OnHit(Character character)
     {
         starsExplosion.Play();
-        Hit(null);
+        Hit(character);
     }
 
 

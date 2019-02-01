@@ -122,10 +122,10 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         }
     }
 
-    public void Hit(CharacterMovement character)
+    public void Hit(Character character)
     {
         if (dead) return;
-        CollectionManager.Instance.SetCollection(character.character.ID, CollectionType.KillEnemy, 1);
+        CollectionManager.Instance.SetCollection(character.ID, CollectionType.KillEnemy, 1);
         starsExplosion.transform.position = transform.position;
         starsExplosion.Play();
         collisionBroadcast.CollisionEntered -= Attack;
@@ -155,8 +155,8 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         transform.rotation = Engine.Math.RotateTowardsTopDown(transform, target.position, turnSpeed * Time.deltaTime);
     }
 
-    public void OnHit()
+    public void OnHit(Character character)
     {
-        Hit(null);
+        Hit(character);
     }
 }

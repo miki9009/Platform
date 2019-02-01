@@ -253,7 +253,7 @@ public class CharacterWagon : CharacterMovementPlayer, ILocalPlayer
 
     void Restart()
     {
-        DieNonAnimation();
+        RemoveCharacter();
     }
 
     public int criticalDir;

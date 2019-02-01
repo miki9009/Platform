@@ -116,11 +116,11 @@ public class Crate : MonoBehaviour, IDestructible
         gameObject.SetActive(false);
     }
 
-    public void Hit(CharacterMovement character)
+    public void Hit(Character character)
     {
         if (destructed) return;
         destructed = true;
-        CollectionManager.Instance.SetCollection(character.character.ID, CollectionType.DestroyCrate, 1);
+        CollectionManager.Instance.SetCollection(character.ID, CollectionType.DestroyCrate, 1);
         crateExplosion.transform.position = transform.position;
         crateExplosion.Play();
         StartCoroutine(CollectionCreate());

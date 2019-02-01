@@ -10,37 +10,38 @@ public class Weapon : MonoBehaviour, IRightArmItem
 
     public CollectionObject CollectionObject { get; set; }
 
-    private void Start()
+    void OnEnable()
     {
+        Apply();
         character.AddItem(this);
     }
 
-    void Attack()
+    public virtual void Attack()
     {
-        attackParticles.Play();
+        if(attackParticles)
+            attackParticles.Play();
     }
 
 
-    public void Remove()
+    public virtual void Remove()
     {
         Engine.PoolingObject.Recycle(gameObject.GetName(), gameObject, () =>
         {
             if (character != null)
-            character.movement.MeleeAttack -= Attack;
+            character.movement.MeleeAttack = null;
          });
-        Debug.Log("Remove");
         collectionObject.BackToCollection(true);
     }
 
-    public void Clear()
+    public virtual void Clear()
     {
         Remove();
     }
 
-    public void Apply()
+    public virtual void Apply()
     {
-        character = transform.root.GetComponent<Character>();
-        character.movement.MeleeAttack += Attack;
+        character = GetComponentInParent<Character>();
+        //character.movement.MeleeAttack = null;
     }
 
     public void BackToCollection()

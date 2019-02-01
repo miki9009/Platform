@@ -218,6 +218,7 @@ public enum CollectionType
     KillEnemy = 13,
     WaypointVisited = 14,
     FirePlaceReached = 15,
-    Growth = 16
+    Growth = 16,
+    Fireball = 17
 }
 
