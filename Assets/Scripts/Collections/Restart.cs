@@ -19,6 +19,6 @@ public class Restart : Collection
             collected = true;
             gameObject.SetActive(false);
         }
-        OnCollected += (x) => { itemCollected.Value = true; };
+        Collected += (x) => { itemCollected.Value = true; };
     }
 }

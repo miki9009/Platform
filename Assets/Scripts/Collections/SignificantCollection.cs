@@ -5,34 +5,45 @@ using UnityEngine;
 public class SignificantCollection : LevelElement
 {
     static Dictionary<int, CollectionObject> collections = new Dictionary<int, CollectionObject>();
+    public static event System.Action<int> SignificantCollected;
 
     CollectionObject collection;
-    int id;
+    public int ID
+    {
+        get { return collection.ID; }
+    }
     private void Awake()
     {
         collection = GetComponent<CollectionObject>();
-        id = collection.GetInstanceID();
+        collection.Collected += OnCollected;
     }
 
     private void OnEnable()
     {
-        if(!collections.ContainsKey(id))
+        if(!collections.ContainsKey(ID))
         {
-            collections.Add(id, collection);
+            collections.Add(ID, collection);
         }
     }
 
     private void OnDisable()
     {
-        if(collections.ContainsKey(id))
+        if(collections.ContainsKey(ID))
         {
-            collections.Remove(id);
+            collections.Remove(ID);
         }
+    }
+
+    void OnCollected(GameObject gameObject)
+    {
+         Remove();
+         SignificantCollected?.Invoke(ID);
     }
 
     private void OnDestroy()
     {
-
+        if(collection)
+            collection.Collected -= OnCollected;
     }
 
     public bool isSignificant;
@@ -77,9 +88,9 @@ public class SignificantCollection : LevelElement
 
     void Remove()
     {
-        if (collections.ContainsKey(id))
+        if (collections.ContainsKey(ID))
         {
-            collections.Remove(id);
+            collections.Remove(ID);
         }
         if(collections.Count == 0)
         {

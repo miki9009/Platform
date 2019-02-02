@@ -17,13 +17,29 @@ namespace AI
     {
         public CharacterMovementAI characterMovementAi;
         public Func<bool> Execute;
-        AIBehaviourState currentState;
+        AIBehaviourState _curState;
+        AIBehaviourState CurrentState
+        {
+            get
+            {
+                return _curState;
+            }
+
+            set
+            {
+                if(_curState!=null)
+                {
+                    _curState.ClearForGC();
+                }
+                _curState = value;
+            }
+        }
     
         public bool Idle
         {
             get
             {
-                return currentState.State == AIState.Idle;
+                return CurrentState.State == AIState.Idle;
             }
         }
 
@@ -31,30 +47,36 @@ namespace AI
         {
             get
             {
-                return currentState.destination;
+                return CurrentState.destination;
             }
         }
 
         public AIBehaviour(CharacterMovementAI characterMovementAi)
         {
-            currentState = new AIIdle(AIState.Idle, characterMovementAi);
+            CurrentState = new AIIdle(AIState.Idle, characterMovementAi);
             this.characterMovementAi = characterMovementAi;
         }
 
         public void AssignState(AIState state)
         {
-            if (currentState != null && currentState.State == state) return;
+            if (CurrentState != null && CurrentState.State == state) return;
             switch (state)
             {
                 case AIState.Waypoints:
-                    currentState = new AIWaypoint(state, characterMovementAi);
-                    Execute = currentState.Execute;
+                    CurrentState = new AIWaypoint(state, characterMovementAi);
+                    Execute = CurrentState.Execute;
                     break;
                 case AIState.Collection:
-                    currentState = new AICollection(state, characterMovementAi);
-                    Execute = currentState.Execute;
+                    CurrentState = new AICollection(state, characterMovementAi);
+                    Execute = CurrentState.Execute;
                     break;
             }
+        }
+
+        public void Clear()
+        {
+            if (CurrentState != null)
+                CurrentState.ClearForGC();
         }
     }
 
@@ -63,7 +85,8 @@ namespace AI
     {
         public abstract bool Execute();
         protected abstract void Initialize();
-        public CharacterMovementAI CharacterMovement { get; }
+        public abstract void ClearForGC();
+        public CharacterMovementAI AIMovement { get; }
         public AIState State { get; }
         public Vector3 destination;
         protected bool initialized;
@@ -71,7 +94,7 @@ namespace AI
         public AIBehaviourState(AIState state, CharacterMovementAI character)
         {
             destination = character.transform.position;
-            CharacterMovement = character;
+            AIMovement = character;
             Initialize();
             Behaviour = character.aIBehaviour;
             State = state;
@@ -84,6 +107,10 @@ namespace AI
         public AIIdle(AIState state, CharacterMovementAI character) : base(state, character){ }
         protected override void Initialize(){}
         public override bool Execute(){ return true; }
+        public override void ClearForGC()
+        {
+            //throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -131,6 +158,14 @@ namespace AI
         {
             return true;
         }
+
+        public override void ClearForGC()
+        {
+            if(waypoint)
+            {
+                waypoint.Visited -= WaypointVisited;
+            }
+        }
     }
 
     /// <summary>
@@ -145,7 +180,7 @@ namespace AI
         }
 
         Transform transform;
-        float time = 1;
+        float refreshTime = 1;
 
         CollectionObject collection;
 
@@ -155,6 +190,7 @@ namespace AI
             if(collection == null)
             {
                 Refresh();
+                refreshTime = 1;
             }
             else
             {
@@ -163,13 +199,13 @@ namespace AI
                     collection = null;
                 }
             }
-            if(time > 0)
+            if(refreshTime > 0)
             {
-                time -= 0.016f;
+                refreshTime -= 0.016f;
             }
             else
             {
-                time = 1;
+                refreshTime = 1;
                 Refresh();
             }
             return true;
@@ -182,11 +218,11 @@ namespace AI
             if (collection != null)
             {
                 destination = collection.transform.position;
-                CharacterMovement.path =  CharacterMovement.pathMovement.GetPath(destination);
-                if(CharacterMovement.path.Length == 1)
+                AIMovement.path =  AIMovement.pathMovement.GetPath(destination);
+                if(AIMovement.path.Length == 1)
                 {
                     collection.AINotReachable = true;
-                    CharacterMovement.path = CharacterMovement.pathMovement.GetPath(destination);
+                    AIMovement.path = AIMovement.pathMovement.GetPath(destination);
                 }
             }
         }
@@ -194,15 +230,31 @@ namespace AI
         protected override void Initialize()
         {
             CollectionManager.Instance.Collected += OnCollected;
+            SignificantCollection.SignificantCollected += OnSingificantCollected;
         }
 
         void OnCollected(int id, CollectionType collection, int amount)
         {
-            if(id == CharacterMovement.character.ID)
+            if(id == AIMovement.character.ID)
             {
-                SignificantCollection.Remove(this.collection);
                 this.collection = null;
             }
+        }
+
+        void OnSingificantCollected(int id)
+        {
+            if(collection && id == collection.ID)
+            {
+                Refresh();
+                refreshTime = 0;
+            }
+        }
+
+        public override void ClearForGC()
+        {
+            if (!CollectionManager.Instance) return;
+            CollectionManager.Instance.Collected -= OnCollected;
+            SignificantCollection.SignificantCollected -= OnSingificantCollected;
         }
     }
 }

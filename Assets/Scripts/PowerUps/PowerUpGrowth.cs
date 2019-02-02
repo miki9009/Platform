@@ -21,7 +21,7 @@ public class PowerUpGrowth : PowerUp
     {
         base.Start();
         col = GetComponent<SphereCollider>();
-        GetComponent<CollectionObject>().OnCollected += (GameObject obj) =>
+        GetComponent<CollectionObject>().Collected += (GameObject obj) =>
         {
             col.enabled = false;
             character = obj.GetComponentInParent<Character>();

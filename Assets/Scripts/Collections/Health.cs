@@ -9,7 +9,7 @@ public class Health : CollectionObject
     protected override void Start()
     {
         base.Start();
-        OnCollected += Event_OnCollected;
+        Collected += Event_OnCollected;
         //OnCollected += 
     }
 

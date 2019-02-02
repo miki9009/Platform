@@ -176,6 +176,11 @@ namespace Engine.UI
             Console.WriteLine("Show: " + ID, Console.LogColor.Orange);
             gameObject.SetActive(true);
             OnBeforeShow();
+            if(hide!=null)
+            {
+                StopCoroutine(hide);
+                hide = null;
+            }
             show = StartCoroutine(ShowE());
         }
 
@@ -192,17 +197,23 @@ namespace Engine.UI
         public void Hide()
         {
             Console.WriteLine("Trying to Hide: " + ID, Console.LogColor.Orange);
-            if(ID == "GameUI")
-            {
-
-            }
             if (hide != null || !gameObject.activeInHierarchy) return;
+            if (show != null)
+            {
+                StopCoroutine(show);
+                show = null;
+            }
             hide = StartCoroutine(HideE());
         }
 
         public void FadeOut()
         {
             if (fadeOut != null) return;
+            if (fadeIn != null)
+            {
+                StopCoroutine(fadeIn);
+                fadeIn = null;
+            }
             fadeOut = StartCoroutine(FadeOutE());
         }
         IEnumerator FadeOutE()
@@ -219,6 +230,11 @@ namespace Engine.UI
         public void FadeIn()
         {
             gameObject.SetActive(true);
+            if(fadeOut!=null)
+            {
+                StopCoroutine(fadeOut);
+                fadeOut = null;
+            }
             fadeIn = StartCoroutine(FadeInE());
         }
         IEnumerator FadeInE()

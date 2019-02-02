@@ -7,7 +7,7 @@ public class CollectionClock : CollectionObject
     protected override void Start()
     {
         base.Start();
-        OnCollected += AddTime;
+        Collected += AddTime;
     }
 
     void AddTime(object obj)

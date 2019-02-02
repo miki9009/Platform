@@ -13,11 +13,6 @@ public class CollectionManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
-            {
-                var obj = new GameObject("CollectionManager");
-                instance = obj.AddComponent<CollectionManager>();
-            }
             return instance;
         } 
         private set

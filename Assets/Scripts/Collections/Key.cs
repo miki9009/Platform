@@ -20,6 +20,6 @@ public class Key : Collection
             collected = true;
             gameObject.SetActive(false);
         }
-        OnCollected += (x) => { itemCollected.Value = true; };
+        Collected += (x) => { itemCollected.Value = true; };
     }
 }

@@ -47,6 +47,7 @@ public class CharacterMovementAI : CharacterMovement
     private void OnDestroy()
     {
         GameManager.LevelClear -= DestroyMe;
+        aIBehaviour.Clear();
     }
 
     public void ChangeState(AIState state)

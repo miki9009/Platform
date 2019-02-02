@@ -11,7 +11,7 @@ public class PowerUpThrowable : PowerUp
         base.Start();
         col = GetComponent<SphereCollider>();
         collectionObject = GetComponent<CollectionObject>();
-        collectionObject.OnCollected += (GameObject obj) =>
+        collectionObject.Collected += (GameObject obj) =>
         {
             col.enabled = false;
             character = obj.GetComponentInParent<Character>();

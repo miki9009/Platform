@@ -17,14 +17,26 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
     public bool AINotReachable { get; set; }
 
     public delegate void Collect(GameObject collector);
-    public event Collect OnCollected;
-    public event Action<GameObject> OnLeaveTrigger;
+    public event Collect Collected;
+    public event Action<GameObject> TriggerLeaved;
     [HideInInspector] public Rigidbody rigid;
 
     protected Coroutine collectedCoroutine;
 
     [NonSerializedAttribute]
     public CollectionDisplay display;
+
+    int _id = -1;
+    public int ID
+    {
+        get
+        {
+            if (_id == -1)
+                _id = GetInstanceID();
+            return _id;
+        }
+
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -33,13 +45,13 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
         {
             if (collected) return;
             collected = true;
-            OnCollected?.Invoke(obj);
+            Collected?.Invoke(obj);
             character = other.GetComponentInParent<Character>();
             int playerID = character.ID;
             if(character.movement.IsLocalPlayer)
                 display.ShowDisplay();
             CollectionManager.Instance.SetCollection(playerID, type, val);            
-            collectedCoroutine = StartCoroutine(Collected());
+            collectedCoroutine = StartCoroutine(CollectedCor());
             if (emmitParticles)
             {
                 CollectionManager.Instance.EmmitParticles(type, transform.position + Vector3.up, particlesAmmount);
@@ -52,7 +64,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
 
     void OnTriggerExit(Collider other)
     {
-        OnLeaveTrigger?.Invoke(other.gameObject);
+        TriggerLeaved?.Invoke(other.gameObject);
     }
 
     void OnEnable()
@@ -77,6 +89,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
 
     void RemoveFromLevelCollection()
     {
+        if (!CollectionManager.Instance) return;
         if (collected && CollectionManager.Instance.LevelCollections.ContainsKey(this))
         {
             CollectionManager.Instance.LevelCollections.Remove(this);
@@ -85,6 +98,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
 
     void AddToLevelCollection()
     {
+        if (!CollectionManager.Instance) return;
         if (!collected && !CollectionManager.Instance.LevelCollections.ContainsKey(this))
         {
             CollectionManager.Instance.LevelCollections.Add(this, type);
@@ -132,7 +146,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
         transform.rotation = rotation;
     }
 
-    protected virtual IEnumerator Collected()
+    protected virtual IEnumerator CollectedCor()
     {
         while(transform.localScale.x > 0.05)
         {
@@ -190,7 +204,7 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
         if (character != null && character == this.character)
         {
             collected = false;
-            OnLeaveTrigger -= SetCollectionObjectActive;
+            TriggerLeaved -= SetCollectionObjectActive;
         }
     }
 

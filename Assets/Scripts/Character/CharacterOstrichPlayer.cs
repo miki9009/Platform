@@ -57,13 +57,13 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         velo.y = 0;
         float mag = velo.magnitude;
         anim.SetFloat("Hspeed", mag);
-        rb.rotation = transform.rotation;
-        if (Mathf.Abs(velo.magnitude) < stats.runSpeed)
+        //rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
+        if (velo.magnitude < stats.runSpeed)
         {
-            velo = transform.forward * (mag + forwardPower);
+            //rb.AddForce(rb.rotation.Vector() * forwardPower * force, ForceMode.Acceleration);
+            velo = rb.rotation.Vector() * (mag + forwardPower);
             velo.y = y;
             rb.velocity = velo;
-            rb.rotation = transform.rotation;
         }
     }
 
@@ -178,16 +178,5 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         {
             jumpInput = 1;
         }
-    }
-
-    float sinus;
-    protected override void Rotation()
-    {
-        var vec = Controller.Instance.gameCamera.transform.forward;
-        vec.y = 0;
-        Quaternion rot = Quaternion.Euler(targetEuler);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.2f);
-        sinus = Mathf.Lerp(sinus, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
-        model.transform.localEulerAngles = new Vector3(0, 0, Mathf.Clamp(-sinus / 3, -15, 15));
     }
 }

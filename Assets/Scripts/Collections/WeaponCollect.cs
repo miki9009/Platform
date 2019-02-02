@@ -8,7 +8,7 @@ public class WeaponCollect : MonoBehaviour
     private void Start()
     {
         collection = GetComponent<CollectionObject>();
-        collection.OnCollected += CreateWeapon;
+        collection.Collected += CreateWeapon;
     }
 
     void CreateWeapon(GameObject obj)
