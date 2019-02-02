@@ -5,4 +5,5 @@
     public const byte PLAYER_JOINED = 3;
     public const byte PLAYER_LEFT = 4;
     public const byte ENEMY_ATTACK = 5;
+    public const byte AI_PATH = 6;
 }

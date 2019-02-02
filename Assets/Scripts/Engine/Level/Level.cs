@@ -37,6 +37,13 @@ namespace Engine
         }
         public static Dictionary<int, LevelElement> loadedElements = new Dictionary<int, LevelElement>();
         static Dictionary<object, string> levelElements;
+        public static Dictionary<object, string> LevelElements
+        {
+            get
+            {
+                return levelElements;
+            }
+        }
         [CustomLevelSelector]
         public string levelName;
 

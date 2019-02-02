@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PathMovement : MonoBehaviour
+public class PathMovement : MonoBehaviour, IMultiplayerElement
 {
 
     Transform targetPrev;
@@ -31,14 +31,34 @@ public class PathMovement : MonoBehaviour
 
     Vector3 startPos;
     Vector3 curPos;
-    bool remoteControl;
+    public bool remoteControl;
     bool isMultiplayer;
+    MultiplayerElement multiplayerElement;
+    
 
     public Vector3 Direction
     {
         get
         {
             return direction;
+        }
+    }
+
+    public bool IsRemote { get; set; }
+
+    public bool IsMultiplayer
+    {
+        get
+        {
+            return isMultiplayer;
+        }
+        set
+        {
+            if(value && !isMultiplayer)
+            {
+                multiplayerElement = GetComponent<MultiplayerElement>();
+            }
+            isMultiplayer = value;
         }
     }
 
@@ -55,9 +75,6 @@ public class PathMovement : MonoBehaviour
         queryFilter = new NavMeshQueryFilter() { agentTypeID = 0, areaMask = 1 };
         path = new NavMeshPath();
         //GetPath();
-        isMultiplayer = PhotonManager.IsMultiplayer;
-        remoteControl = isMultiplayer && !PhotonManager.IsMaster;
-
     }
 
 
@@ -111,6 +128,12 @@ public class PathMovement : MonoBehaviour
             {
                 //Debug.Log("FOUND PATH");
                 pathPoints = SetupPath(path.corners);
+                if (isMultiplayer)
+                {
+                    multiplayerElement.SendMultiplayerMessage(PhotonEventCode.AI_PATH, pathPoints);
+                    Debug.Log("Sending Path");
+                }
+
                 return pathPoints;
             }
             else
