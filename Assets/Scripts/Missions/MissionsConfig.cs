@@ -61,6 +61,12 @@ public class MissionsConfig : Config
         Debug.LogError("Mission with ID " + missionID + " not found");
         return null;
     }
+
+    public static string GetMode(string missionID)
+    {
+        var mission = Instance.GetMission(missionID);
+        return mission.mode;
+    }
 }
 
 [Serializable]
@@ -68,6 +74,8 @@ public class Mission
 {
     [CustomLevelSelector]
     public string level;
+    [ModesDrawer]
+    public string mode;
     public bool passed;
     public bool unlocked;
     public bool[] unlocks;

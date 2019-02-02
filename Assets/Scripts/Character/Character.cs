@@ -179,6 +179,8 @@ public class Character : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(allCharacters.Contains(this))
+            allCharacters.Remove(this);
         PhotonManager.RemovePlayer(this);
     }
 

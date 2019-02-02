@@ -62,7 +62,7 @@ public class CollectionManager : MonoBehaviour
         {
             if (collections[playerID].Collection.ContainsKey(type))
             {
-                collections[playerID].Collection[type] = val;
+                collections[playerID].Collection[type] += val;
                 OnCollected(playerID, type, val);
                 //Debug.Log("Collected: " + type);
             }
@@ -88,7 +88,7 @@ public class CollectionManager : MonoBehaviour
             {
                 collections[playerID].Collection[type] += val;
                 OnCollected(playerID, type, val);
-                //Debug.Log("Collected: " + type);
+                Debug.Log("Collected: " + type);
             }
             else
             {
@@ -102,6 +102,15 @@ public class CollectionManager : MonoBehaviour
             SetCollection(playerID, type, val);
         }
 
+    }
+
+    public CollectionSet GetPlayerCollectionSet(int playerID)
+    {
+        if (collections.ContainsKey(playerID))
+        {
+            return collections[playerID];
+        }
+        return null;
     }
 
 

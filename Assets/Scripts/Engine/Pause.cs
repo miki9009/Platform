@@ -31,6 +31,7 @@ namespace Engine
 
         public void PauseEnter()
         {
+            GameManager.IsPaused = true;
             Time.timeScale = 0;
             MonoBehaviour[] scripts = FindObjectsOfType<MonoBehaviour>();
             monoObjects = new Dictionary<int, MonoBehaviour>();
@@ -64,6 +65,7 @@ namespace Engine
             {
                 OnPauseLeave.Invoke();
             }
+            GameManager.IsPaused = false;
         }
 
     }

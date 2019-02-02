@@ -10,14 +10,15 @@ namespace Engine
     {
         static int selected;
         static int levelSelected;
+        static int currentModeIndex;
         bool firstTime = true;
         LevelSelector levels;
-
+        //ModeConfig modeConfig;
 
         public override void OnInspectorGUI()
         {
             var script = (Level)target;
-
+            
             if(levels == null)
                 levels = new LevelSelector();
 
@@ -51,7 +52,17 @@ namespace Engine
                 levelSelected = EditorGUILayout.Popup(levelSelected, customLevels);
             EditorGUILayout.EndHorizontal();
 
-            if(customLevels!=null&& customLevels.Length > levelSelected)
+            //EditorGUILayout.BeginHorizontal();
+            //if(modeConfig == null)
+            //{
+            //    modeConfig = Config.Config.GetConfigEditor<ModeConfig>(ModeConfig.key);
+            //}
+            //EditorGUILayout.LabelField("Mode: ");
+            //    currentModeIndex = EditorGUILayout.Popup(currentModeIndex, modeConfig.modes);
+            //    LevelSettings.CurrentLevelSettings.mode = modeConfig.modes[currentModeIndex];
+            //EditorGUILayout.EndHorizontal();
+
+            if (customLevels!=null&& customLevels.Length > levelSelected)
             {
                // Color defaultColor = UnityEngine.GUI.backgroundColor;
                // UnityEngine.GUI.backgroundColor = Color.gray;
@@ -72,4 +83,6 @@ namespace Engine
             }
         }
     }
+
+
 }

@@ -18,10 +18,10 @@ public class LevelManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
-            {
-                instance = new GameObject("LevelManager").AddComponent<LevelManager>();
-            }
+            //if (instance == null)
+            //{
+            //    instance = new GameObject("LevelManager").AddComponent<LevelManager>();
+            //}
             return instance;
         }
         private set
@@ -30,11 +30,27 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public string LastCustomLevel
+    static string _customLevelToLoad;
+    public static string CurrentCustomLevel
     {
         get
         {
-            return customLevelToLoad;
+            return _customLevelToLoad;
+        }
+
+        set
+        {
+            _customLevelToLoad = value;
+        }
+
+    }
+
+    static string _sceneToLoad;
+    public static string SceneToLoad
+    {
+        get
+        {
+            return _sceneToLoad;
         }
     }
 
@@ -42,7 +58,7 @@ public class LevelManager : MonoBehaviour
     public string scenesPath;
     public List<string> scenes;
     public List<Scenes> levels;
-    public string currentLevel;
+    public static string CurrentScene;
     [LevelSelector]
     public string gameScene;
 
@@ -55,6 +71,8 @@ public class LevelManager : MonoBehaviour
     }
 
 
+
+
     private void Awake()
     {
         instance = this;
@@ -65,13 +83,13 @@ public class LevelManager : MonoBehaviour
         SceneManager.activeSceneChanged += PrintSceneName;
         GameManager.GameReady += () =>
         {
-            currentLevel = SceneManager.GetActiveScene().name;
-            bool isLevel = levels.Exists(x => x.sceneName == currentLevel);
+            CurrentScene = SceneManager.GetActiveScene().name;
+            bool isLevel = levels.Exists(x => x.sceneName == CurrentScene);
             if (isLevel)
             {
                 for (int i = 0; i < levels.Count; i++)
                 {
-                    if (levels[i].sceneName == currentLevel)
+                    if (levels[i].sceneName == CurrentScene)
                     {
                         levelIndex = i;
                         Debug.Log("LEVEL LOADED: " + levels[levelIndex].sceneName);
@@ -198,19 +216,17 @@ public class LevelManager : MonoBehaviour
     //    SceneManager.sceneLoaded += instance.AddLevelScene;
     //}
 
-    static string levelToLoad;
-    static string customLevelToLoad;
     public static void BeginCustomLevelLoadSequenceAdditive(string sceneName, string customLevel)
     {
-        levelToLoad = sceneName;
-        customLevelToLoad = customLevel;
+        _sceneToLoad = sceneName;
+        CurrentCustomLevel = customLevel;
 
         var scene = SceneManager.GetSceneByName("Menu3D");
         if(scene.isLoaded)
             SceneManager.UnloadSceneAsync(scene);
 
-        Debug.Log("Current level set to: " + levelToLoad);
-        GameManager.CurrentLevel = levelToLoad;
+        Debug.Log("Current level set to: " + _sceneToLoad);
+        GameManager.CurrentScene = _sceneToLoad;
         LoadScene(LevelManager.Instance.gameScene, LoadSceneMode.Additive);
         SceneManager.sceneLoaded += instance.AddLevelScene;
         LoadCustomLevel += OnLoadCustomLevel;
@@ -219,17 +235,17 @@ public class LevelManager : MonoBehaviour
     public static void ChangeLevel(string sceneName, string customLevel)
     {
         GameManager.OnLevelClear();
-        if(sceneName == GameManager.CurrentLevel)
+        if(sceneName == GameManager.CurrentScene)
         {
             LoadOnlyCusomLevel(customLevel);
         }
         else
         {
-            SceneManager.UnloadSceneAsync(GameManager.CurrentLevel);
-            levelToLoad = sceneName;
-            customLevelToLoad = customLevel;
-            Debug.Log("Current level set to: " + levelToLoad);
-            GameManager.CurrentLevel = levelToLoad;
+            SceneManager.UnloadSceneAsync(GameManager.CurrentScene);
+            _sceneToLoad = sceneName;
+            CurrentCustomLevel = customLevel;
+            Debug.Log("Current level set to: " + _sceneToLoad);
+            GameManager.CurrentScene = _sceneToLoad;
             instance.AddLevelScene(SceneManager.GetSceneByName(sceneName), LoadSceneMode.Additive);
             LoadCustomLevel += OnLoadCustomLevel;
         }
@@ -240,10 +256,10 @@ public class LevelManager : MonoBehaviour
         Character character = Character.GetLocalPlayer();
         if (character != null)
             Destroy(character.gameObject);
-        if (!string.IsNullOrEmpty(LevelManager.Instance.LastCustomLevel))
+        if (!string.IsNullOrEmpty(CurrentCustomLevel))
         {
-            customLevelToLoad = customLevel;
-            Level.LoadWithScene(SceneManager.GetActiveScene().name, customLevel);
+            CurrentCustomLevel = customLevel;
+            Level.LoadWithScene(SceneManager.GetActiveScene().name, CurrentCustomLevel);
         }
     }
 
@@ -265,14 +281,14 @@ public class LevelManager : MonoBehaviour
     void AddLevelScene(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= AddLevelScene;
-        LoadScene(levelToLoad, LoadSceneMode.Additive);
+        LoadScene(_sceneToLoad, LoadSceneMode.Additive);
         SceneManager.sceneLoaded += SetActiveScene;
     }
 
     static event Action LoadCustomLevel;
     void SetActiveScene(Scene scene, LoadSceneMode mode)
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelToLoad));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneToLoad));
         SceneManager.sceneLoaded -= SetActiveScene;
         LoadCustomLevel?.Invoke();
     }
@@ -286,9 +302,9 @@ public class LevelManager : MonoBehaviour
 
     static void OnLoadCustomLevel()
     {
-        if(!string.IsNullOrEmpty(customLevelToLoad))
+        if(!string.IsNullOrEmpty(CurrentCustomLevel))
         {
-            Level.LoadWithScene(SceneManager.GetActiveScene().name, customLevelToLoad);
+            Level.LoadWithScene(SceneManager.GetActiveScene().name, CurrentCustomLevel);
         }
         LoadCustomLevel -= OnLoadCustomLevel;
     }

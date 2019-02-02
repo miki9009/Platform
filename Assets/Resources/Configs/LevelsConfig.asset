@@ -22,6 +22,7 @@ MonoBehaviour:
     levels:
     - 0
     - 1
+    - Multiplayer1
   - sceneName: SecondLevel
     levels:
     - 0

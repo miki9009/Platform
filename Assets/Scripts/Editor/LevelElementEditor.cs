@@ -4,10 +4,11 @@ using UnityEngine;
 
 [CustomEditor(typeof(LevelElement), true)]
 [CanEditMultipleObjects]
-public class LevelElementZEditor : Editor
+public class LevelElementEditor : Editor
 {
     public void OnEnable()
     {
+        if (Application.isPlaying) return;
         var instance = (LevelElement)target;
         if(instance.elementID == -1)
         {

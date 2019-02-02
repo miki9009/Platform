@@ -16,34 +16,45 @@ MonoBehaviour:
   - scene: Mine
     missions:
     - level: Mine:0
+      mode: Mine
       passed: 0
       unlocked: 0
       unlocks: 
   - scene: FirstLevel
     missions:
     - level: FirstLevel:0
+      mode: Single_Challenge
       passed: 0
       unlocked: 0
       unlocks: 
     - level: FirstLevel:1
+      mode: Single_Score
+      passed: 0
+      unlocked: 0
+      unlocks: 
+    - level: FirstLevel:Multiplayer1
+      mode: Multi_Score
       passed: 0
       unlocked: 0
       unlocks: 
   - scene: SecondLevel
     missions:
     - level: SecondLevel:0
+      mode: Single_Challenge
       passed: 0
       unlocked: 0
       unlocks: 
   - scene: ThirdScene
     missions:
     - level: ThirdScene:0
+      mode: Single_Challenge
       passed: 0
       unlocked: 0
       unlocks: 
   - scene: Caves
     missions:
     - level: Caves:0
+      mode: Single_Challenge
       passed: 0
       unlocked: 0
       unlocks: 

@@ -29325,15 +29325,15 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 11400000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
---- !u!198 &3271757659977970259 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3271757659992780179}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3271757659993175827 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f06e78284f831ae469c74624ab5d513b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3271757659992780179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3271757659977970259 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b,
     type: 3}
   m_PrefabInstance: {fileID: 3271757659992780179}
   m_PrefabAsset: {fileID: 0}

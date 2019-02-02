@@ -85,8 +85,6 @@ public class PhotonManager : Photon.MonoBehaviour
         GlobalMessageReceived?.Invoke(code, content);
     }
 
-
-
     private static void PhotonEventListner(byte code, object content, int senderID)
     {
         switch(code)
@@ -120,7 +118,8 @@ public class PhotonManager : Photon.MonoBehaviour
     void OnJoinedRoom()
     {
         Debug.Log("Joined Room");
-        var player = PhotonNetwork.Instantiate(playerPrefabName, SpawnPoint.spawnPoints[_players.Count].transform.position, SpawnPoint.spawnPoints[_players.Count].transform.rotation,0);
+        var player = PhotonNetwork.Instantiate(playerPrefabName, SpawnPoint.spawnPoints[Players.Count].transform.position, SpawnPoint.spawnPoints[Players.Count].transform.rotation,0);
+        Players.Add(player.GetComponent<Character>());
     }
 
     //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

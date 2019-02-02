@@ -11,6 +11,8 @@ namespace Engine
     {
         static LevelsConfig config;
 
+        //public LevelSettings levelSettings;
+
         public static LevelsConfig Config
         {
             get
@@ -131,6 +133,7 @@ namespace Engine
         public static void LoadWithScene(string scene, string levelName)
         {
             sceneName = scene;
+            GameManager.GameMode = MissionsConfig.GetMode(LevelsConfig.GetFullName(scene, levelName));
             Load(levelName);
         }
 
@@ -220,3 +223,19 @@ namespace Engine
         }
     }
 }
+
+//public class LevelSettings
+//{
+//    static LevelSettings _levelSettings;
+//    public static LevelSettings CurrentLevelSettings
+//    {
+//        get
+//        {
+//            if (_levelSettings == null)
+//                _levelSettings = new LevelSettings();
+//            return _levelSettings;
+//        }
+//    }
+
+//    public string mode;
+//}

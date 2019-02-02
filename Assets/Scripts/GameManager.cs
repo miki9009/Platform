@@ -8,6 +8,14 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(999)]
 public class GameManager : MonoBehaviour
 {
+    public enum GameState
+    {
+        Idle,
+        Completed,
+        Failed,
+        Paused
+    }
+
     public static event Action LevelClear;
     public static event Action GameReady;
     public static event Action<string> LevelChanged;
@@ -15,19 +23,58 @@ public class GameManager : MonoBehaviour
     public static event Action Restart;
     public static bool IsSceneLoaded { get; private set; }
     public static bool isLevel;
-    public static string CurrentLevel { get; set; }
+    public static string CurrentScene { get; set; }
+    public static string GameMode { get; set; }
+    static GameState prevState;
+    static GameState _state;
+    public static GameState State
+    {
+        get
+        {
+            return _state;
+        }
+        set
+        {
+            if (value != prevState)
+                prevState = _state;
+            _state = value;
+        }
+    }
+
+    static bool _isPaused;
+    public static bool IsPaused
+    {
+        get
+        {
+            return _isPaused;
+        }
+        set
+        {
+            _isPaused = value;
+            if(_isPaused)
+            {
+                State = GameState.Paused;
+            }
+            else
+            {
+                if (State == GameState.Paused)
+                    State = prevState;
+            }
+        }
+    }
+
+    public static string CustomLevelID
+    {
+        get
+        {
+            return LevelManager.CurrentCustomLevel;
+        }
+    }
     
     public static GameManager Instance { get; private set; }
 
 
     private string currentName;
-    public string LevelName
-    {
-        get
-        {
-            return SceneManager.GetActiveScene().name;
-        }
-    }
 
     private void Awake()
     {
@@ -54,20 +101,21 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelChangedEvent(string levelName)
     {
-        LevelChanged?.Invoke(LevelName);
+        LevelChanged?.Invoke(CurrentScene);
     }
 
     void OnLevelChanged(Scene scene, Scene scene2)
     {
-        OnLevelChangedEvent(LevelName);
-        Debug.Log("Game Manager: Level Changed to: " + LevelName);
+        OnLevelChangedEvent(CurrentScene);
+        Debug.Log("Game Manager: Level Changed to: " + CurrentScene);
     }
 
+   
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Game Manager: Level Loaded: " + LevelName);
-        if(scene.name == CurrentLevel)
+        Debug.Log("Game Manager: Level Loaded: " + CurrentScene);
+        if(scene.name == CurrentScene)
             StartCoroutine(LevelLoadedCor());
     }
 
@@ -102,18 +150,6 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    public enum GameState
-    {
-        Idle,
-        Completed, 
-        Failed
-    }
-
-    public static GameState State
-    {
-        get; private set;
-    }
-
     public void EndGame(GameState state)
     {
         State = state;
@@ -142,16 +178,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        //levelName = SceneManager.GetActiveScene().name;
-        //SceneManager.UnloadSceneAsync(levelName);
-        //SceneManager.sceneUnloaded += Restart;
         OnLevelClear();
-        //Character character = Character.GetLocalPlayer();
-        //if (character != null)
-        //    Destroy(character.gameObject);
-        //if (!string.IsNullOrEmpty(LevelManager.Instance.LastCustomLevel))
-        //    Level.LoadWithScene(SceneManager.GetActiveScene().name, LevelManager.Instance.LastCustomLevel);
-        LevelManager.LoadOnlyCusomLevel(LevelManager.Instance.LastCustomLevel);
+        LevelManager.LoadOnlyCusomLevel(LevelManager.CurrentCustomLevel);
         if (Instance != null)
         {
             OnRestart();
