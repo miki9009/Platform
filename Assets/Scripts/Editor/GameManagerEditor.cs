@@ -129,9 +129,13 @@ using UnityEngine;
                     {
                         GUI.backgroundColor = Color.gray;
                         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                        EditorGUILayout.BeginHorizontal(EditorStyles.largeLabel);
+                        EditorGUILayout.BeginHorizontal(GUI.skin.box);
                         EditorGUILayout.LabelField("ID: ", style2, GUILayout.MinWidth(50));
                         EditorGUILayout.LabelField(character.ID.ToString(), style, GUILayout.MinWidth(50));
+                        EditorGUILayout.EndHorizontal();
+                        EditorGUILayout.BeginHorizontal(EditorStyles.largeLabel);
+                        EditorGUILayout.LabelField("Host: ", style2, GUILayout.MinWidth(50));
+                        EditorGUILayout.LabelField(character.Host ? "True" : "False", style, GUILayout.MinWidth(50));
                         EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginHorizontal(GUI.skin.box);
                         EditorGUILayout.LabelField("Is Local: ", style2, GUILayout.MinWidth(50));
@@ -145,6 +149,7 @@ using UnityEngine;
                         EditorGUILayout.LabelField("Is Dead: ", style2, GUILayout.MinWidth(50));
                         EditorGUILayout.LabelField(character.IsDead ? "True" : "False", style, GUILayout.MinWidth(50));
                         EditorGUILayout.EndHorizontal();
+
                         EditorGUILayout.EndVertical();
 
                         if (CollectionManager.Instance == null) continue;

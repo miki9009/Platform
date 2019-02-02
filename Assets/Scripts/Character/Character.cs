@@ -22,6 +22,14 @@ public class Character : MonoBehaviour
     public IEquipment rightArmItem;
     public IEquipment leftArmItem;
 
+    public bool Host
+    {
+        get
+        {
+            return PhotonManager.IsMaster;
+        }
+    }
+
     bool _isDead;
     public bool IsDead
     {
