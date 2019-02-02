@@ -133,10 +133,10 @@ using UnityEngine;
                         EditorGUILayout.LabelField("ID: ", style2, GUILayout.MinWidth(50));
                         EditorGUILayout.LabelField(character.ID.ToString(), style, GUILayout.MinWidth(50));
                         EditorGUILayout.EndHorizontal();
-                        EditorGUILayout.BeginHorizontal(EditorStyles.largeLabel);
-                        EditorGUILayout.LabelField("Host: ", style2, GUILayout.MinWidth(50));
-                        EditorGUILayout.LabelField(character.Host ? "True" : "False", style, GUILayout.MinWidth(50));
-                        EditorGUILayout.EndHorizontal();
+                        //EditorGUILayout.BeginHorizontal(EditorStyles.largeLabel);
+                        //EditorGUILayout.LabelField("Host: ", style2, GUILayout.MinWidth(50));
+                        //EditorGUILayout.LabelField(character.Host ? "True" : "False", style, GUILayout.MinWidth(50));
+                        //EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginHorizontal(GUI.skin.box);
                         EditorGUILayout.LabelField("Is Local: ", style2, GUILayout.MinWidth(50));
                         EditorGUILayout.LabelField(character.IsLocalPlayer ? "True" : "False", style, GUILayout.MinWidth(50));
@@ -196,6 +196,27 @@ using UnityEngine;
         if (foldout[3])
         {
             GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Is Multiplayer: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(PhotonManager.IsMultiplayer ? "True" : "False", style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Is Master Client: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(PhotonManager.IsMaster ? "True" : "False", style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Is Connected: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(PhotonManager.IsConnected ? "True" : "False", style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Players Count: ", style2, GUILayout.MinWidth(50));

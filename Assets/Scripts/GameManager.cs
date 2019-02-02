@@ -21,10 +21,24 @@ public class GameManager : MonoBehaviour
     public static event Action<string> LevelChanged;
     public static event Action GameFinished;
     public static event Action Restart;
+    public static event Action<string> GameModeChanged;
     public static bool IsSceneLoaded { get; private set; }
     public static bool isLevel;
     public static string CurrentScene { get; set; }
-    public static string GameMode { get; set; }
+
+    static string _gameMode;
+    public static string GameMode
+    {
+        get
+        {
+            return _gameMode;
+        }
+        set
+        {
+            _gameMode = value;
+            GameModeChanged?.Invoke(value);
+        }
+    }
     static GameState prevState;
     static GameState _state;
     public static GameState State

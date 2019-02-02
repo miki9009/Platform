@@ -13,6 +13,14 @@ public class PhotonManager : Photon.MonoBehaviour
         }
     }
 
+    public static bool IsConnected
+    {
+        get
+        {
+            return PhotonNetwork.connected;
+        }
+    }
+
     private static bool notStarted;
 
     static List<Character> _players;
@@ -41,19 +49,37 @@ public class PhotonManager : Photon.MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
-        IsMultiplayer = true;
-        notStarted = true;
+        GameManager.GameModeChanged += GameManager_GameModeChanged;
     }
 
     private void OnDestroy()
     {
         IsMultiplayer = false;
+        if(IsConnected)
+            DisconnectClient();
         LevelManager.BeforeSceneLoading -= DisconnectClient;
+        GameManager.GameModeChanged -= GameManager_GameModeChanged;
     }
 
-    private void Start()
+    private void GameManager_GameModeChanged(string mode)
     {
+        if (mode.Contains("Multi"))
+        {
+            StartMutliplayer();
+        }
+        else if (IsMultiplayer)
+        {
+            IsMultiplayer = false;
+            notStarted = true;
+        }
+    }
+
+    private void StartMutliplayer()
+    {
+        instance = this;
+        IsMultiplayer = true;
+        notStarted = true;
+
         if (PhotonNetwork.ConnectUsingSettings(version))
         {
             Debug.Log("Connected");
