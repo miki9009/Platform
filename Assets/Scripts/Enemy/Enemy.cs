@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     protected bool canAttack = false;
     protected int pathIndex = 0;
     protected Vector3[] path;
+    bool remoteControl;
 
     void Awake()
     {

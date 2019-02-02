@@ -71,24 +71,19 @@ public class CharacterPhoton : Photon.MonoBehaviour
     {
         if (stream.isWriting)
         {
-            if(isMaster)
-            {
-                stream.SendNext(transform.position);
-                stream.SendNext(transform.rotation);
-                if (rb != null)
-                    stream.SendNext(rb.velocity);
-                else
-                    stream.SendNext(Vector3.zero);
-            }
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+            if (rb != null)
+                stream.SendNext(rb.velocity);
+            else
+                stream.SendNext(Vector3.zero);
+
         }
         else
         {
-            if (!isMaster)
-            {
-                photonPos = (Vector3)stream.ReceiveNext();
-                photonRot = (Quaternion)stream.ReceiveNext();
-                velo = (Vector3)stream.ReceiveNext();
-            }
+            photonPos = (Vector3)stream.ReceiveNext();
+            photonRot = (Quaternion)stream.ReceiveNext();
+            velo = (Vector3)stream.ReceiveNext();
         }
     }
 

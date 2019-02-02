@@ -10,7 +10,7 @@ public class LevelElementEditor : Editor
     {
         if (Application.isPlaying) return;
         var instance = (LevelElement)target;
-        if(instance.elementID == -1)
+        if(instance.elementID == -1 || instance.elementID > Level.maxID)
         {
             instance.elementID =Level.GetID();
         }

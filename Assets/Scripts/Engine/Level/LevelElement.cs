@@ -48,6 +48,10 @@ namespace Engine
 
         public virtual void OnSave()
         {
+            if(elementID > Level.maxID)
+            {
+                elementID = Level.GetID();
+            }
             data = new Dictionary<string, object>();
             Vector pos = transform.position;
             data.Add("Position", pos);
@@ -58,7 +62,7 @@ namespace Engine
             data.Add("ArrowTarget", arrowTarget);
             data.Add("ID", elementID);
             data.Add("ActiveAndEnabled", activeAndEnabled);
-
+            
             var childCount = transform.childCount;
             List<int> children = new List<int>();
             for (int i = 0; i < childCount; i++)

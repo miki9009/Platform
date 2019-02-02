@@ -43,21 +43,18 @@ namespace Engine
         public static string sceneName;
 
         static Dictionary<int, string> levelElementIDs = new Dictionary<int, string>();
-
+        public static int maxID = -2;
         public static int GetID()
         {
             bool contains = true;
             int id = -1;
-            int maxID = 9999999;
+            int minID = -9999999;
             int i = maxID;
-            while(contains && maxID > 0)
+            while(contains)
             {
-                id = UnityEngine.Random.Range(0, maxID);
+                id = UnityEngine.Random.Range(minID, maxID);
                 contains = levelElementIDs.ContainsKey(id);
-                maxID--;
             }
-            if (maxID == 0)
-                Debug.LogError("All ID's used");
             return id;
         }
 
@@ -221,7 +218,18 @@ namespace Engine
             Console.WriteLine("LevelLoaded", Console.LogColor.Green);
             LevelLoaded?.Invoke();
         }
+
+        public void ReloadIDs()
+        {
+            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            foreach (var element in elements)
+            {
+                element.elementID = GetID();
+            }
+        }
     }
+
+
 }
 
 //public class LevelSettings

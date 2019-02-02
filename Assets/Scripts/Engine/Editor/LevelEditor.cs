@@ -81,6 +81,10 @@ namespace Engine
             {
                 script.Clear();
             }
+            if (GUILayout.Button("Reload IDs"))
+            {
+                script.ReloadIDs();
+            }
         }
     }
 

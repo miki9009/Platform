@@ -31,6 +31,8 @@ public class PathMovement : MonoBehaviour
 
     Vector3 startPos;
     Vector3 curPos;
+    bool remoteControl;
+    bool isMultiplayer;
 
     public Vector3 Direction
     {
@@ -49,11 +51,15 @@ public class PathMovement : MonoBehaviour
         startPos = transform.position;
         curPos = startPos;
         rndGenerator = new System.Random(Mathf.Abs(System.Environment.TickCount + gameObject.GetHashCode()));
-
+        pathPoints = new Vector3[] { transform.position };
         queryFilter = new NavMeshQueryFilter() { agentTypeID = 0, areaMask = 1 };
         path = new NavMeshPath();
-        GetPath();
+        //GetPath();
+        isMultiplayer = PhotonManager.IsMultiplayer;
+        remoteControl = isMultiplayer && !PhotonManager.IsMaster;
+
     }
+
 
     public void Inputs(out float horInput, out float verInput)
     {
@@ -95,13 +101,17 @@ public class PathMovement : MonoBehaviour
 
     public Vector3[] GetPath(Vector3 targetPoint)
     {
+        if (remoteControl)
+            return pathPoints;
+
         Vector3 startPoint = transform.position;
         if (NavMesh.CalculatePath(GetNavMeshPosition(startPoint), GetNavMeshPosition(targetPoint), queryFilter, path))
         {
             if (path.status == NavMeshPathStatus.PathComplete)
             {
                 //Debug.Log("FOUND PATH");
-                return SetupPath(path.corners);
+                pathPoints = SetupPath(path.corners);
+                return pathPoints;
             }
             else
             {
@@ -114,11 +124,11 @@ public class PathMovement : MonoBehaviour
 
 
 
-    public void GetPath()
-    {
-        var newTargetPosition = GetRandomPointOnNavMesh();
-        GetPath(newTargetPosition);
-    }
+    //public void GetPath()
+    //{
+    //    var newTargetPosition = GetRandomPointOnNavMesh();
+    //    GetPath(newTargetPosition);
+    //}
 
     public Vector3 GetRandomPointOnNavMesh()
     {
