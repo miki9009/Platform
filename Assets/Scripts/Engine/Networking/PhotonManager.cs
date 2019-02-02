@@ -118,8 +118,7 @@ public class PhotonManager : Photon.MonoBehaviour
     void OnJoinedRoom()
     {
         Debug.Log("Joined Room");
-        var player = PhotonNetwork.Instantiate(playerPrefabName, SpawnPoint.spawnPoints[Players.Count].transform.position, SpawnPoint.spawnPoints[Players.Count].transform.rotation,0);
-        Players.Add(player.GetComponent<Character>());
+        PhotonNetwork.Instantiate(playerPrefabName, SpawnPoint.spawnPoints[Players.Count].transform.position, SpawnPoint.spawnPoints[Players.Count].transform.rotation,0);
     }
 
     //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
