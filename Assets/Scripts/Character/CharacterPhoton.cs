@@ -10,13 +10,13 @@ public class CharacterPhoton : Photon.MonoBehaviour
     Quaternion photonRot;
     Vector3 velo;
     bool attack;
+    bool isMaster;
 
     private void Awake()
     {
         character = GetComponent<Character>();
         movement = GetComponent<CharacterMovement>();
         rb = GetComponent<Rigidbody>();
-
     }
 
     private void Start()
@@ -55,7 +55,14 @@ public class CharacterPhoton : Photon.MonoBehaviour
     void Initialize()
     {
         if (!character.IsLocalPlayer)
+        {
+            photonPos = transform.position;
+            velo = rb.velocity;
+            photonRot = transform.rotation;
+            isMaster = PhotonManager.IsMaster;
             StartCoroutine(HandlePhotonObject());
+        }
+
 
         PhotonManager.MessageReceived += AttackEventListner;
     }
@@ -64,18 +71,24 @@ public class CharacterPhoton : Photon.MonoBehaviour
     {
         if (stream.isWriting)
         {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-            if (rb != null)
-                stream.SendNext(rb.velocity);
-            else
-                stream.SendNext(Vector3.zero);
+            if(isMaster)
+            {
+                stream.SendNext(transform.position);
+                stream.SendNext(transform.rotation);
+                if (rb != null)
+                    stream.SendNext(rb.velocity);
+                else
+                    stream.SendNext(Vector3.zero);
+            }
         }
         else
         {
-            photonPos = (Vector3)stream.ReceiveNext();
-            photonRot = (Quaternion)stream.ReceiveNext();
-            velo = (Vector3)stream.ReceiveNext();
+            if (!isMaster)
+            {
+                photonPos = (Vector3)stream.ReceiveNext();
+                photonRot = (Quaternion)stream.ReceiveNext();
+                velo = (Vector3)stream.ReceiveNext();
+            }
         }
     }
 

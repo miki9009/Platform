@@ -64,6 +64,14 @@ public class Character : MonoBehaviour
         }
     }
 
+    public bool IsHost
+    {
+        get
+        {
+            return PhotonManager.IsMaster && IsLocalPlayer && !IsBot;
+        }
+    }
+
 
     Identification identity;
 

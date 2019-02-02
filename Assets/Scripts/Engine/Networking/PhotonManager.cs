@@ -44,6 +44,7 @@ public class PhotonManager : Photon.MonoBehaviour
     public static event System.Action<byte, object> GlobalMessageReceived;
     public static event System.Action<Character> PlayerJoined;
     public static event System.Action<int> PlayerLeft;
+    public static event System.Action ChangedToMasterClient;
 
     private static PhotonManager instance;
 
@@ -145,6 +146,16 @@ public class PhotonManager : Photon.MonoBehaviour
     {
         Debug.Log("Joined Room");
         PhotonNetwork.Instantiate(playerPrefabName, SpawnPoint.spawnPoints[Players.Count].transform.position, SpawnPoint.spawnPoints[Players.Count].transform.rotation,0);
+    }
+
+    void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        if(IsMaster)
+        {
+            Console.WriteLine("Changed to MasterClient", Console.LogColor.Blue);
+            ChangedToMasterClient?.Invoke();
+        }
+
     }
 
     //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

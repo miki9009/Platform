@@ -4,4 +4,5 @@
     public const byte TIME = 2;
     public const byte PLAYER_JOINED = 3;
     public const byte PLAYER_LEFT = 4;
+    public const byte ENEMY_ATTACK = 5;
 }
