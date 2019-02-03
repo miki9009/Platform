@@ -115,6 +115,7 @@ public class PhotonManager : Photon.MonoBehaviour
 
     private static void PhotonEventListner(byte code, object content, int senderID)
     {
+        Console.WriteLine("CODE: " + code, Console.LogColor.Lime);
         switch(code)
         {
             case PhotonEventCode.ATTACK:
@@ -235,8 +236,8 @@ public class PhotonManager : Photon.MonoBehaviour
             _players = new List<Character>();
         _players.Add(movement);
 
-        if (movement.networking.isMine)
-            SendGlobalMessage(PhotonEventCode.PLAYER_JOINED, movement.ID, true, ReceiverGroup.Others);
+        if (movement.IsLocalPlayer)
+            SendGlobalMessage(PhotonEventCode.PLAYER_JOINED, movement.ID);
         if(Players.Count == instance.minPlayers &&  notStarted)
         {
             GameManager.OnGameReady();
@@ -249,8 +250,8 @@ public class PhotonManager : Photon.MonoBehaviour
             _players = new List<Character>();
         if (_players.Contains(movement))
             _players.Remove(movement);
-        if(IsMultiplayer && movement.networking.isMine)
-            SendGlobalMessage(PhotonEventCode.PLAYER_LEFT, movement.ID, true, ReceiverGroup.Others);
+        if(IsMultiplayer)
+            SendGlobalMessage(PhotonEventCode.PLAYER_LEFT, movement.ID);
     }
 
     static void OnPlayerJoined(object content)
@@ -263,6 +264,7 @@ public class PhotonManager : Photon.MonoBehaviour
             PlayerJoined?.Invoke(character);
             if(character == Character.GetLocalPlayer())
             {
+                Debug.Log("IS Master: " + IsMaster);
                 MultiplayerInitialized?.Invoke();
             }
         }

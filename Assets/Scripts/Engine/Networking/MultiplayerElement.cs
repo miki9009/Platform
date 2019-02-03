@@ -54,12 +54,12 @@ public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
 
     private void Initialize()
     {
+        Debug.Log("Initialized Multiplayer ");
         id = GetComponent<LevelElement>().elementID;
         _isMultiplayer = PhotonManager.IsMultiplayer;
         _isRemote = _isMultiplayer && !PhotonManager.IsMaster;
         if(_isRemote)
             PhotonManager.MessageReceived += PhotonManager_MessageReceived;
-        Debug.Log("Is remote: " +_isRemote);
     }
 
     protected abstract void PhotonManager_MessageReceived(byte code, int id, object content);
