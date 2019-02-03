@@ -5342,7 +5342,7 @@ MonoBehaviour:
   componentsToDisable:
   - {fileID: 114347752646955234}
   - {fileID: 114404410248717780}
-  messagesInterval: 1
+  messagesInterval: 0.25
   _isMultiplayer: 0
   id: 0
   lerpSpeed: 2

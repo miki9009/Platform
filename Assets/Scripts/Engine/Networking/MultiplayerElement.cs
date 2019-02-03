@@ -47,6 +47,8 @@ public class MultiplayerElement : MonoBehaviour, IMultiplayerElement
             _isMultiplayer = false;
             return;
         }
+        lastRecievedPos = transform.position;
+        lastRecievedRot = transform.rotation;
 
         _isMultiplayer = true;
         PhotonManager.MultiplayerInitialized += Initialize;
@@ -110,7 +112,6 @@ public class MultiplayerElement : MonoBehaviour, IMultiplayerElement
     {
         while(true)
         {
-            Debug.Log("Sending path ID: " + ID);
             SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { transform.position, transform.rotation });
             yield return new WaitForSeconds(messagesInterval);
         }
