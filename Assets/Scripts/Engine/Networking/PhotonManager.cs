@@ -120,6 +120,10 @@ public class PhotonManager : Photon.MonoBehaviour
                 var arg0 = (object[])content;
                 OnMessageReceived(code, (int)arg0[0], arg0[1]);
                 break;
+            case PhotonEventCode.AI_PATH:
+                var arg1 = (object[])content;
+                OnMessageReceived(code, (int)arg1[0], arg1[1]);
+                break;
             case PhotonEventCode.TIME:
                 OnGlobalMessageReceived(code, content);
                 break;
