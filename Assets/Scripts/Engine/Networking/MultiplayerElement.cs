@@ -33,15 +33,19 @@ public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
 
     protected virtual void Awake()
     {
-        if (!PhotonManager.IsMultiplayer)
+        if (!GameManager.GameMode.Contains("Multi"))
+        {
+            _isRemote = false;
+            _isMultiplayer = false;
             return;
+        }
         _isMultiplayer = true;
-        Level.LevelLoaded += Initialize;
+        PhotonManager.MultiplayerInitialized += Initialize;
     }
 
     private void OnDestroy()
     {
-        Level.LevelLoaded -= Initialize;
+        PhotonManager.MultiplayerInitialized -= Initialize;
         if(_isMultiplayer)
         {
             PhotonManager.MessageReceived -= PhotonManager_MessageReceived;

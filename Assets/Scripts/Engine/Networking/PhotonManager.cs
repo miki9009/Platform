@@ -45,6 +45,7 @@ public class PhotonManager : Photon.MonoBehaviour
     public static event System.Action<Character> PlayerJoined;
     public static event System.Action<int> PlayerLeft;
     public static event System.Action ChangedToMasterClient;
+    public static event System.Action MultiplayerInitialized;
 
     private static PhotonManager instance;
 
@@ -148,7 +149,6 @@ public class PhotonManager : Photon.MonoBehaviour
 
     void OnJoinedRoom()
     {
-        Debug.Log("Joined Room");
         PhotonNetwork.Instantiate(playerPrefabName, SpawnPoint.spawnPoints[Players.Count].transform.position, SpawnPoint.spawnPoints[Players.Count].transform.rotation,0);
     }
 
@@ -261,6 +261,10 @@ public class PhotonManager : Photon.MonoBehaviour
         {
             Debug.Log("Player Joined " + character.ID);
             PlayerJoined?.Invoke(character);
+            if(character == Character.GetLocalPlayer())
+            {
+                MultiplayerInitialized?.Invoke();
+            }
         }
         else
         {
