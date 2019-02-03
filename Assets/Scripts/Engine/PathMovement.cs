@@ -125,11 +125,6 @@ public class PathMovement : MonoBehaviour
             {
                 //Debug.Log("FOUND PATH");
                 pathPoints = SetupPath(path.corners);
-                if (IsMultiplayer)
-                {
-                    multiplayerElement.SendMultiplayerMessage(PhotonEventCode.AI_PATH, pathPoints);
-                    Debug.Log("Sending path ID: " + multiplayerElement.ID);
-                }
 
                 return pathPoints;
             }

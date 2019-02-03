@@ -89,7 +89,6 @@ public class PhotonManager : Photon.MonoBehaviour
         }
         LevelManager.BeforeSceneLoading += DisconnectClient;
         StartCoroutine(UpdateCoroutine());
-
     }
 
     void DisconnectClient()
@@ -163,18 +162,6 @@ public class PhotonManager : Photon.MonoBehaviour
 
     }
 
-    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.isWriting)
-    //    {
-
-    //    }
-    //    else
-    //    {
-
-    //    }
-    //}
-
     public static void SendMessage(byte photonEventCode, int networkingID, object content, bool reliable = false, ReceiverGroup receivers = ReceiverGroup.Others)
     {
         var obj = new object[]{ networkingID, content };
@@ -221,7 +208,6 @@ public class PhotonManager : Photon.MonoBehaviour
                     GameManager.OnGameReady();
                     notStarted = false;
                 }
-
 #endif
             }
             yield return new WaitForSeconds(1);

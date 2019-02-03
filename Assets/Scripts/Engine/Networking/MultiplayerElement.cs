@@ -35,6 +35,7 @@ public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
     {
         if (!GameManager.GameMode.Contains("Multi"))
         {
+            enabled = false;
             _isRemote = false;
             _isMultiplayer = false;
             return;
