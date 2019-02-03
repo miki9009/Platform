@@ -15,7 +15,7 @@ public class MultiplayerPathMovement : MultiplayerElement
         if(id == this.id)
         {
             path.pathPoints = (Vector3[])content;
-            Debug.Log("Recieving path");
+            Debug.Log("Recieving path ID: " + id);
         }
     }
 }

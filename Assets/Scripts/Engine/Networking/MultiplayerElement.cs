@@ -2,22 +2,47 @@
 using Engine;
 
 [RequireComponent(typeof(LevelElement))]
-public abstract class MultiplayerElement : MonoBehaviour
+public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
 {
-    bool isMultiplayer;
-    protected int id;
+    public bool _isMultiplayer;
+    public int id;
+
+    public int ID
+    {
+        get
+        {
+            return id;
+        }
+    }
+
+    public bool _isRemote;
+    public bool IsRemote
+    {
+        get
+        {
+            return _isRemote;
+        }
+    }
+    public bool IsMultiplayer
+    {
+        get
+        {
+            return _isMultiplayer;
+        }
+    }
+
     protected virtual void Awake()
     {
         if (!PhotonManager.IsMultiplayer)
             return;
-        isMultiplayer = true;
+        _isMultiplayer = true;
         Level.LevelLoaded += Initialize;
     }
 
     private void OnDestroy()
     {
         Level.LevelLoaded -= Initialize;
-        if(isMultiplayer)
+        if(_isMultiplayer)
         {
             PhotonManager.MessageReceived -= PhotonManager_MessageReceived;
         }
@@ -25,18 +50,12 @@ public abstract class MultiplayerElement : MonoBehaviour
 
     private void Initialize()
     {
-        var multiplayerElement = GetComponent<IMultiplayerElement>();
-        if (multiplayerElement == null)
-        {
-            Debug.LogError("Didn't find IMultiplayer on gameObject: " + name);
-            return;
-        }
-
         id = GetComponent<LevelElement>().elementID;
-        PhotonManager.MessageReceived += PhotonManager_MessageReceived;
-
-        multiplayerElement.IsMultiplayer = PhotonManager.IsMultiplayer;
-        multiplayerElement.IsRemote = multiplayerElement.IsMultiplayer && !PhotonManager.IsMaster;
+        _isMultiplayer = PhotonManager.IsMultiplayer;
+        _isRemote = _isMultiplayer && !PhotonManager.IsMaster;
+        if(_isRemote)
+            PhotonManager.MessageReceived += PhotonManager_MessageReceived;
+        Debug.Log("Is remote: " +_isRemote);
     }
 
     protected abstract void PhotonManager_MessageReceived(byte code, int id, object content);
@@ -50,6 +69,8 @@ public abstract class MultiplayerElement : MonoBehaviour
 
 public interface IMultiplayerElement
 {
-    bool IsRemote { get; set; }
-    bool IsMultiplayer { get; set; }
+    int ID { get; }
+    bool IsRemote { get;  }
+    bool IsMultiplayer { get; }
+    void SendMultiplayerMessage(byte code, object content);
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PathMovement : MonoBehaviour, IMultiplayerElement
+public class PathMovement : MonoBehaviour
 {
 
     Transform targetPrev;
@@ -31,9 +31,7 @@ public class PathMovement : MonoBehaviour, IMultiplayerElement
 
     Vector3 startPos;
     Vector3 curPos;
-    public bool remoteControl;
-    bool isMultiplayer;
-    MultiplayerElement multiplayerElement;
+    IMultiplayerElement multiplayerElement;
     
 
     public Vector3 Direction
@@ -44,21 +42,19 @@ public class PathMovement : MonoBehaviour, IMultiplayerElement
         }
     }
 
-    public bool IsRemote { get; set; }
+    public bool IsRemote
+    {
+        get
+        {
+            return multiplayerElement.IsRemote; 
+        }
+    }
 
     public bool IsMultiplayer
     {
         get
         {
-            return isMultiplayer;
-        }
-        set
-        {
-            if(value && !isMultiplayer)
-            {
-                multiplayerElement = GetComponent<MultiplayerElement>();
-            }
-            isMultiplayer = value;
+            return multiplayerElement.IsMultiplayer;
         }
     }
 
@@ -68,6 +64,7 @@ public class PathMovement : MonoBehaviour, IMultiplayerElement
 
     void Awake()
     {
+        multiplayerElement = GetComponent<IMultiplayerElement>();
         startPos = transform.position;
         curPos = startPos;
         rndGenerator = new System.Random(Mathf.Abs(System.Environment.TickCount + gameObject.GetHashCode()));
@@ -118,7 +115,7 @@ public class PathMovement : MonoBehaviour, IMultiplayerElement
 
     public Vector3[] GetPath(Vector3 targetPoint)
     {
-        if (remoteControl)
+        if (IsRemote)
             return pathPoints;
 
         Vector3 startPoint = transform.position;
@@ -128,10 +125,10 @@ public class PathMovement : MonoBehaviour, IMultiplayerElement
             {
                 //Debug.Log("FOUND PATH");
                 pathPoints = SetupPath(path.corners);
-                if (isMultiplayer)
+                if (IsMultiplayer)
                 {
                     multiplayerElement.SendMultiplayerMessage(PhotonEventCode.AI_PATH, pathPoints);
-                    Debug.Log("Sending Path");
+                    Debug.Log("Sending path ID: " + multiplayerElement.ID);
                 }
 
                 return pathPoints;
