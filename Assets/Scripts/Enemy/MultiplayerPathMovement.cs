@@ -19,6 +19,7 @@ public class MultiplayerPathMovement : MultiplayerElement
             var objs = (object[])content;
             path.pathPoints = (Vector3[])objs[0];
             transform.position = (Vector3)objs[1];
+            transform.rotation = (Quaternion)objs[1];
             Debug.Log("Recieving path ID: " + id);
         }
     }
@@ -35,7 +36,7 @@ public class MultiplayerPathMovement : MultiplayerElement
 
             if (IsMultiplayer && !IsRemote)
             {
-                SendMultiplayerMessage(PhotonEventCode.AI_PATH, new object[] { path.pathPoints, transform.position });
+                SendMultiplayerMessage(PhotonEventCode.AI_PATH, new object[] { path.pathPoints, transform.position, transform.rotation });
                 Debug.Log("Sending path ID: " + ID);
             }
         }
