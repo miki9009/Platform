@@ -12,20 +12,22 @@ public class MultiplayerPathMovement : MultiplayerElement
         path = GetComponent<PathMovement>();
     }
 
+    Vector3 lastRecievedPos;
+
     protected override void PhotonManager_MessageReceived(byte code, int id, object content)
     {
         if(id == this.id)
         {
             var objs = (object[])content;
             path.pathPoints = (Vector3[])objs[0];
-            transform.position = (Vector3)objs[1];
-            transform.rotation = (Quaternion)objs[1];
+            lastRecievedPos = (Vector3)objs[1];
             Debug.Log("Recieving path ID: " + id);
         }
     }
 
     private void Update()
     {
+        transform.position = Vector3.Lerp(transform.position, lastRecievedPos,Time.deltaTime);
         if (curTime > 0)
         {
             curTime -= Time.deltaTime;
@@ -36,7 +38,7 @@ public class MultiplayerPathMovement : MultiplayerElement
 
             if (IsMultiplayer && !IsRemote)
             {
-                SendMultiplayerMessage(PhotonEventCode.AI_PATH, new object[] { path.pathPoints, transform.position, transform.rotation });
+                SendMultiplayerMessage(PhotonEventCode.AI_PATH, new object[] { path.pathPoints, transform.position });
                 Debug.Log("Sending path ID: " + ID);
             }
         }
