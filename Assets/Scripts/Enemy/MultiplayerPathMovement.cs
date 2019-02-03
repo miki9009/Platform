@@ -27,7 +27,8 @@ public class MultiplayerPathMovement : MultiplayerElement
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, lastRecievedPos,Time.deltaTime);
+        if(IsRemote)          
+            transform.position = Vector3.Lerp(transform.position, lastRecievedPos,Time.deltaTime);
         if (curTime > 0)
         {
             curTime -= Time.deltaTime;
@@ -38,7 +39,7 @@ public class MultiplayerPathMovement : MultiplayerElement
 
             if (IsMultiplayer && !IsRemote)
             {
-                SendMultiplayerMessage(PhotonEventCode.AI_PATH, new object[] { path.pathPoints, transform.position });
+                SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { path.pathPoints, transform.position });
                 Debug.Log("Sending path ID: " + ID);
             }
         }

@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using Engine;
+using System.Collections;
 
 [RequireComponent(typeof(LevelElement))]
-public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
+public class MultiplayerElement : MonoBehaviour, IMultiplayerElement
 {
+    public MonoBehaviour[] componentsToDisable;
+    public float messagesInterval = 1;
+
     public bool _isMultiplayer;
     public int id;
+    public float lerpSpeed = 2;
+    protected Vector3 lastRecievedPos;
+    protected Quaternion lastRecievedRot;
 
     public int ID
     {
@@ -40,6 +47,7 @@ public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
             _isMultiplayer = false;
             return;
         }
+
         _isMultiplayer = true;
         PhotonManager.MultiplayerInitialized += Initialize;
     }
@@ -60,15 +68,53 @@ public abstract class MultiplayerElement : MonoBehaviour, IMultiplayerElement
         _isMultiplayer = PhotonManager.IsMultiplayer;
         _isRemote = _isMultiplayer && !PhotonManager.IsMaster;
         if(_isRemote)
+        {
+            foreach (var component in componentsToDisable)
+            {
+                component.enabled = false;
+            }
             PhotonManager.MessageReceived += PhotonManager_MessageReceived;
+        }
+        else
+        {
+            StartCoroutine(Sending());
+        }
     }
 
-    protected abstract void PhotonManager_MessageReceived(byte code, int id, object content);
+    protected virtual void PhotonManager_MessageReceived(byte code, int id, object content)
+    {
+        if(code == PhotonEventCode.MULTIPLAYERELEMENT && id == ID)
+        {
+            var objects = (object[])content;
+            lastRecievedPos = (Vector3)objects[0];
+            lastRecievedRot = (Quaternion)objects[1];
+        }
+    }
 
 
     public void SendMultiplayerMessage(byte code, object content)
     {
         PhotonManager.SendMessage(code, id, content);
+    }
+
+    void Update()
+    {
+        if(IsRemote)
+        {
+            transform.position = Vector3.Lerp(transform.position, lastRecievedPos, Time.deltaTime * lerpSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lastRecievedRot, Time.deltaTime * lerpSpeed);
+        }
+    }
+
+    IEnumerator Sending()
+    {
+        while(true)
+        {
+            Debug.Log("Sending path ID: " + ID);
+            SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { transform.position, transform.rotation });
+            yield return new WaitForSeconds(messagesInterval);
+        }
+
     }
 }
 
