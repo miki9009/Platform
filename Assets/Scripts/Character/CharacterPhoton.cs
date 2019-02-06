@@ -34,7 +34,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
     private void OnDestroy()
     {
         PhotonManager.MessageReceived -= AttackEventListner;
-
+        PhotonManager.MessageReceived -= DeathEventListner;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,12 +61,29 @@ public class CharacterPhoton : Photon.MonoBehaviour
             photonRot = transform.rotation;
             isMaster = PhotonManager.IsMaster;
             StartCoroutine(HandlePhotonObject());
+
+            PhotonManager.MessageReceived += AttackEventListner;
+            PhotonManager.MessageReceived += DeathEventListner;
+        }
+        else
+        {
+            character.movement.AttackBroadcast += Movement_AttackBroadcast;
+            character.movement.DieBroadcast += Movement_DieBroadcast;
         }
 
-
-        PhotonManager.MessageReceived += AttackEventListner;
-        PhotonManager.MessageReceived += DeathEventListner;
     }
+
+    void Movement_DieBroadcast()
+    {
+        PhotonManager.SendMessage(PhotonEventCode.PlayerDie, character.ID, null);
+    }
+
+
+    void Movement_AttackBroadcast()
+    {
+        PhotonManager.SendMessage(PhotonEventCode.ATTACK, character.ID, null);
+    }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -138,7 +155,6 @@ public class CharacterPhoton : Photon.MonoBehaviour
         yield return new WaitForSeconds(2);
         Console.WriteLine("Character Restart. ", Console.LogColor.Lime);
         if (character == null) yield break;
-        character.movement.enabled = true;
         character.stats.health = 1;
         character.movement.anim.Play("Idle");
         int currentRestarts = CollectionManager.Instance.GetCollection(character.ID, CollectionType.Restart);
@@ -151,6 +167,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
         {
             character.movement.characterHealth.AddHealth(character.stats.health);
             character.movement.CharacterSetActive(true);
+            character.movement.enabled = true;
         }
 
         isMultiplayerRestarting = false;

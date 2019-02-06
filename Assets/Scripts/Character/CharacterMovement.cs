@@ -19,6 +19,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public Character character;
     [HideInInspector] public CharacterHealth characterHealth;
     public Action MeleeAttack;
+    public event Action AttackBroadcast;
+    public event Action DieBroadcast;
     public event Action<IThrowable, Vector3> Thrown;
     public float addForce = 1;
     public bool attack;
@@ -46,7 +48,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         get
         {
-            return character == Character.GetLocalPlayer();
+            return character.IsLocalPlayer;
         }
     }
 
@@ -122,9 +124,9 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public void Die()
     {
         anim.Play("Die");
+        DieBroadcast?.Invoke();
         if (PhotonManager.IsMultiplayer)
         {
-            PhotonManager.SendMessage(PhotonEventCode.PlayerDie, character.ID, null);
             character.characterPhoton.RestartCharacter();
         }
         else
@@ -326,7 +328,9 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             //}
             //else
             //{
-                //Debug.Log("Ground Attack");
+            //Debug.Log("Ground Attack");
+
+            AttackBroadcast?.Invoke();
             if(MeleeAttack!=null)
             {
                 MeleeAttack.Invoke();
@@ -338,8 +342,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 isAttacking = true;
                 attackParticles.Play();
             }
-                if (PhotonManager.IsMultiplayer)
-                    PhotonManager.SendMessage(PhotonEventCode.ATTACK, character.ID, null);
             //}
 
         }
