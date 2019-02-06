@@ -65,6 +65,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
 
 
         PhotonManager.MessageReceived += AttackEventListner;
+        PhotonManager.MessageReceived += DeathEventListner;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -99,6 +100,19 @@ public class CharacterPhoton : Photon.MonoBehaviour
             }
         }
     }
+
+    private void DeathEventListner(byte code, int networkingID, object content)
+    {
+
+        if (networkingID == character.networking.viewID)
+        {
+            if (code == PhotonEventCode.PlayerDie)
+            {
+                movement.Die();
+            }
+        }
+    }
+
 
 
     IEnumerator HandlePhotonObject()

@@ -121,6 +121,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Die()
     {
+        if (PhotonManager.IsMultiplayer)
+            PhotonManager.SendMessage(PhotonEventCode.PlayerDie, character.ID, null);
         anim.Play("Die");
         RemoveCharacter();
     }
@@ -329,7 +331,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 isAttacking = true;
                 attackParticles.Play();
             }
-                if (PhotonManager.IsMultiplayer && character.IsLocalPlayer)
+                if (PhotonManager.IsMultiplayer)
                     PhotonManager.SendMessage(PhotonEventCode.ATTACK, character.ID, null);
             //}
 
