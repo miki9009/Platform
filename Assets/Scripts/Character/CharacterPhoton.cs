@@ -89,10 +89,11 @@ public class CharacterPhoton : Photon.MonoBehaviour
 
     private void AttackEventListner(byte code, int networkingID, object content)
     {
-        Debug.Log("Raised Attack");
+
         if (networkingID == character.networking.viewID)
         {
-            if(code == PhotonEventCode.ATTACK)
+            Debug.Log("Raised Attack");
+            if (code == PhotonEventCode.ATTACK)
             {
                 movement.Attack();
             }

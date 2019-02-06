@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 114894731749074592}
   - component: {fileID: 114607260565011280}
   - component: {fileID: 114242669257015052}
+  - component: {fileID: 7467964079904737802}
   m_Layer: 8
   m_Name: Wasp
   m_TagString: Untagged
@@ -457,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfcd443f202b4248ae50f4a20544e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: 7367706
+  elementID: -4315583
   arrowTarget: 0
   activeAndEnabled: 1
 --- !u!54 &54681978876406534
@@ -539,3 +540,21 @@ MonoBehaviour:
   localVelocityMag: 0
   direction: {x: 0, y: 0, z: 0}
   noPath: 0
+--- !u!114 &7467964079904737802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905441075248960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8ac12bb5bb7a6499120e3ae1380919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentsToDisable: []
+  messagesInterval: 1
+  _isMultiplayer: 0
+  id: 0
+  lerpSpeed: 2
+  _isRemote: 0

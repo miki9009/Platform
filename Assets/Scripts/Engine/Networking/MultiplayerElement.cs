@@ -93,6 +93,10 @@ public class MultiplayerElement : MonoBehaviour, IMultiplayerElement
         }
     }
 
+    public virtual void SendContent()
+    {
+        SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { transform.position, transform.rotation });
+    }
 
     public void SendMultiplayerMessage(byte code, object content)
     {
@@ -112,7 +116,7 @@ public class MultiplayerElement : MonoBehaviour, IMultiplayerElement
     {
         while(true)
         {
-            SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { transform.position, transform.rotation });
+            SendContent();
             yield return new WaitForSeconds(messagesInterval);
         }
 
