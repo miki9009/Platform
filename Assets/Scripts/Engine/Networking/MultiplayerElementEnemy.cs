@@ -9,7 +9,7 @@ public class MultiplayerElementEnemy : MultiplayerElement
     protected override void Awake()
     {
         base.Awake();
-        anim.GetCurrentAnimatorClipInfo(0);
+        currentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
         currentClipName = currentClipInfo[0].clip.name;
     }
 
@@ -31,7 +31,7 @@ public class MultiplayerElementEnemy : MultiplayerElement
 
     public override void SendContent()
     {
-        currentClipName = currentClipInfo[0].clip.name;
+        currentClipName = anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
         SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { transform.position, transform.rotation,  currentClipName});
     }
 
