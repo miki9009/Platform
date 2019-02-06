@@ -182,11 +182,14 @@ public class Controller : MonoBehaviour
         else
         {
             collections.restarts--;
-            DataManager.SaveData();
+            if (character.IsLocalPlayer)
+                DataManager.SaveData();
+
         }
         if(character.rb != null)
             character.rb.velocity = Vector3.zero;
         //character.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
+
         gameCamera.GetComponent<GameCamera>().SetTarget(character.transform);
         if (LastCheckpoint != null)
         {
@@ -198,7 +201,6 @@ public class Controller : MonoBehaviour
         }
         character.movement.CharacterSetActive(true);
         IsRestarting = false;
-
     }
 
     public Material material;

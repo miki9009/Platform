@@ -121,10 +121,17 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Die()
     {
-        if (PhotonManager.IsMultiplayer)
-            PhotonManager.SendMessage(PhotonEventCode.PlayerDie, character.ID, null);
         anim.Play("Die");
-        RemoveCharacter();
+        if (PhotonManager.IsMultiplayer)
+        {
+            PhotonManager.SendMessage(PhotonEventCode.PlayerDie, character.ID, null);
+            character.characterPhoton.RestartCharacter();
+        }
+        else
+        {
+            RemoveCharacter();
+        }
+
     }
 
     public void CharacterSetActive(bool val)
