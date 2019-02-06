@@ -140,28 +140,19 @@ public class CharacterPhoton : Photon.MonoBehaviour
         if (character == null) yield break;
         character.movement.enabled = true;
         character.stats.health = 1;
-        character.movement.characterHealth.AddHealth(character.stats.health);
         character.movement.anim.Play("Idle");
         int currentRestarts = CollectionManager.Instance.GetCollection(character.ID, CollectionType.Restart);
-        var collections = DataManager.Collections;
-        if (currentRestarts > 0)
-        {
-            CollectionManager.Instance.SetCollection(character.ID, CollectionType.Restart, currentRestarts - 1);
-        }
-        else
-        {
-            collections.restarts--;
-            if (character.IsLocalPlayer)
-                DataManager.SaveData();
-
-        }
         if (character.rb != null)
             character.rb.velocity = Vector3.zero;
         //character.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
 
         character.transform.position = character.movement.StartPosition;
+        if (character.IsLocalPlayer)
+        {
+            character.movement.characterHealth.AddHealth(character.stats.health);
+            character.movement.CharacterSetActive(true);
+        }
 
-        character.movement.CharacterSetActive(true);
         isMultiplayerRestarting = false;
 
     }
