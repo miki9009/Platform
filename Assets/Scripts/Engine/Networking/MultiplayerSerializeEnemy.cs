@@ -10,8 +10,10 @@ public class MultiplayerSerializeEnemy : MultiplayerSerializeElement
         Objects[0] = transform.position;
         Objects[1] = transform.rotation;
     }
-    protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        Debug.Log("Serialize");
         if (stream.isWriting)
         {
             stream.SendNext(transform.position);
@@ -26,6 +28,7 @@ public class MultiplayerSerializeEnemy : MultiplayerSerializeElement
 
     private void Update()
     {
+        if (!IsRemote) return;
         transform.position = Vector3.Lerp(transform.position, (Vector3)Objects[0], 0.1f);
         transform.rotation = Quaternion.Lerp(transform.rotation, (Quaternion)Objects[1], 0.1f);
     }

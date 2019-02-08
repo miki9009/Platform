@@ -5182,7 +5182,7 @@ GameObject:
   - component: {fileID: 114824271099281944}
   - component: {fileID: 114347752646955234}
   - component: {fileID: 114174608598359520}
-  - component: {fileID: 2335446663007305169}
+  - component: {fileID: 4985468256116965143}
   m_Layer: 8
   m_Name: Blob
   m_TagString: Untagged
@@ -5327,7 +5327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b1987dfbdb4814da8af4448bb1506d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2335446663007305169
+--- !u!114 &4985468256116965143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5336,12 +5336,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1922504674343324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cfbcdd043af1bc49afb59e2b9e0a5a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 08b8d9adfc92df245aea4391618e189a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisable:
-  - {fileID: 114404410248717780}
   - {fileID: 114347752646955234}
+  - {fileID: 114404410248717780}
   _isMultiplayer: 0
   id: 0
   _isRemote: 0
+  messagesInterval: 0.02
+  anim: {fileID: 95577888507177188}

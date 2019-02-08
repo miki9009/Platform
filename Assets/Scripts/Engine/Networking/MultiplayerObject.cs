@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class MultiplayerObject : MonoBehaviour
+public abstract class MultiplayerObject : Photon.MonoBehaviour
 {
     public MonoBehaviour[] componentsToDisable;
 
@@ -30,6 +30,8 @@ public abstract class MultiplayerObject : MonoBehaviour
             return _isMultiplayer;
         }
     }
+
+
 
     protected abstract void OnWillDestroy();
     protected abstract void OnMultiplayerInitialize();
