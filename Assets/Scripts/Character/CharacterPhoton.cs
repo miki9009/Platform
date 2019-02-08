@@ -75,7 +75,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
 
     void Movement_DieBroadcast()
     {
-        PhotonManager.SendMessage(PhotonEventCode.PlayerDie, character.ID, null);
+        PhotonManager.SendMessage(PhotonEventCode.DIE, character.ID, null);
     }
 
 
@@ -126,7 +126,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
 
         if (networkingID == character.networking.viewID)
         {
-            if (code == PhotonEventCode.PlayerDie)
+            if (code == PhotonEventCode.DIE)
             {
                 movement.Die();
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Engine;
+using System;
 
 public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAnimator, IPoolObject
 {
@@ -13,6 +14,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     public float looseTargetDistance = 10;
     public float patrolDistance = 10;
     public float attackDistance = 3;
+    public event Action<Character> EnemyHit;
 
     [Label("Wait time before next path")]
     public float waitTime = 3;
@@ -226,6 +228,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         starsExplosion.transform.position = transform.position;
         starsExplosion.Play();
         CollectionManager.Instance.SetCollection(character.ID, CollectionType.KillEnemy, 1);
+        EnemyHit?.Invoke(character);
     }
 
     public virtual void AdditionalRecycle()

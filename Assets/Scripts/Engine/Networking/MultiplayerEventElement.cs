@@ -34,9 +34,7 @@ public class MultiplayerEventElement : MultiplayerObject, IMultiplayerElement
         else
         {
             PhotonManager.MessageReceived += PhotonManager_MessageReceived;
-            Debug.Log("Connected");
         }
-
     }
 
     protected virtual void PhotonManager_MessageReceived(byte code, int id, object content)
@@ -59,14 +57,7 @@ public class MultiplayerEventElement : MultiplayerObject, IMultiplayerElement
         PhotonManager.SendMessage(code, ID, content);
     }
 
-    protected void Update()
-    {
-        if(IsRemote)
-        {
-            transform.position = Vector3.Lerp(transform.position, lastRecievedPos, Time.deltaTime * lerpSpeed);
-            transform.rotation = Quaternion.Lerp(transform.rotation, lastRecievedRot, Time.deltaTime * lerpSpeed);
-        }
-    }
+
 
     IEnumerator Sending()
     {
