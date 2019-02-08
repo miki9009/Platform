@@ -42,29 +42,13 @@ public class PathMovement : MonoBehaviour
         }
     }
 
-    public bool IsRemote
-    {
-        get
-        {
-            return multiplayerElement.IsRemote; 
-        }
-    }
-
-    public bool IsMultiplayer
-    {
-        get
-        {
-            return multiplayerElement.IsMultiplayer;
-        }
-    }
-
     public delegate void TargetPoint();
     public event TargetPoint OnReachDestination;
     public bool noPath = false;
 
     void Awake()
     {
-        multiplayerElement = GetComponent<IMultiplayerElement>();
+       // multiplayerElement = GetComponent<IMultiplayerElement>();
         startPos = transform.position;
         curPos = startPos;
         rndGenerator = new System.Random(Mathf.Abs(System.Environment.TickCount + gameObject.GetHashCode()));
@@ -115,8 +99,6 @@ public class PathMovement : MonoBehaviour
 
     public Vector3[] GetPath(Vector3 targetPoint)
     {
-        if (IsRemote)
-            return pathPoints;
 
         Vector3 startPoint = transform.position;
         if (NavMesh.CalculatePath(GetNavMeshPosition(startPoint), GetNavMeshPosition(targetPoint), queryFilter, path))

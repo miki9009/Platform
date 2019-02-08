@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class MultiplayerSerializeEnemy : MultiplayerSerializeElement
 {
+    protected override void OnMultiplayerAwake()
+    {
+        base.OnMultiplayerAwake();
+        Objects = new object[2];
+        Objects[0] = transform.position;
+        Objects[1] = transform.rotation;
+    }
     protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)

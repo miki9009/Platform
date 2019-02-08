@@ -107,7 +107,6 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     protected float collidingTime;
     protected virtual void Update()
     {
-        if(pathMovement.IsRemote) return;
         anim.SetFloat("hSpeed", rb.velocity.magnitude);
         if (target != null)
         {
