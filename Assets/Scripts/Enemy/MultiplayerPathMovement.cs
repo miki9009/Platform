@@ -2,7 +2,7 @@
 
 using Engine;
 
-public class MultiplayerPathMovement : MultiplayerElement
+public class MultiplayerPathMovement : MultiplayerEventElement
 {
     PathMovement path;
     public float timeMessageSend = 1;

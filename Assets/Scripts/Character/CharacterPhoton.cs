@@ -105,6 +105,9 @@ public class CharacterPhoton : Photon.MonoBehaviour
         }
     }
 
+
+
+
     private void AttackEventListner(byte code, int networkingID, object content)
     {
 

@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 
-public class MultiplayerElementEnemy : MultiplayerElement
+public class MultiplayerElementEnemy : MultiplayerEventElement
 {
     public Animator anim;
     AnimatorClipInfo[] currentClipInfo;
     string currentClipName;
 
-    protected override void Awake()
+    Vector3 lastRecievedPos;
+    private Quaternion lastRecievedRot;
+
+    protected override void OnMultiplayerAwake()
     {
-        base.Awake();
+        base.OnMultiplayerAwake();
         currentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
         currentClipName = currentClipInfo[0].clip.name;
     }
@@ -34,5 +37,6 @@ public class MultiplayerElementEnemy : MultiplayerElement
         currentClipName = anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
         SendMultiplayerMessage(PhotonEventCode.MULTIPLAYERELEMENT, new object[] { transform.position, transform.rotation,  currentClipName});
     }
+
 
 }
