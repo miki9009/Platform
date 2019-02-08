@@ -6,5 +6,5 @@
     public const byte PLAYER_LEFT = 4;
     public const byte ENEMY_ATTACK = 5;
     public const byte MULTIPLAYERELEMENT = 6;
-    public const byte DIE = 6;
+    public const byte DIE = 7;
 }

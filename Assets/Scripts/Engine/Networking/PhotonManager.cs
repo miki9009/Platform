@@ -125,6 +125,10 @@ public class PhotonManager : Photon.MonoBehaviour
                 var arg1 = (object[])content;
                 OnMessageReceived(code, (int)arg1[0], arg1[1]);
                 break;
+            case PhotonEventCode.DIE:
+                var arg2 = (object[])content;
+                OnMessageReceived(code, (int)arg2[0], arg2[1]);
+                break;
             case PhotonEventCode.TIME:
                 OnGlobalMessageReceived(code, content);
                 break;
