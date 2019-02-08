@@ -12,11 +12,10 @@ public class MultiplayerPathMovement : MultiplayerEventElement
         path = GetComponent<PathMovement>();
     }
 
-    Vector3 lastRecievedPos;
 
     protected override void PhotonManager_MessageReceived(byte code, int id, object content)
     {
-        if(id == this.id)
+        if(id == this.ID)
         {
             var objs = (object[])content;
             path.pathPoints = (Vector3[])objs[0];

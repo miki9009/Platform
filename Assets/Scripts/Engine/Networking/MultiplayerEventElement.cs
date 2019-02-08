@@ -56,7 +56,7 @@ public class MultiplayerEventElement : MultiplayerObject, IMultiplayerElement
 
     public void SendMultiplayerMessage(byte code, object content)
     {
-        PhotonManager.SendMessage(code, id, content);
+        PhotonManager.SendMessage(code, ID, content);
     }
 
     protected void Update()

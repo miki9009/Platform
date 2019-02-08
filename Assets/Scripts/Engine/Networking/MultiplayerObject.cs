@@ -8,13 +8,12 @@ public abstract class MultiplayerObject : Photon.MonoBehaviour
     public LevelElement levelElement;
 
     public bool _isMultiplayer;
-    public int id;
 
     public int ID
     {
         get
         {
-            return id;
+            return levelElement.elementID;
         }
     }
 
