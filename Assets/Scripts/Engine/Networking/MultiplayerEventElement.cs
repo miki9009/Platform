@@ -7,9 +7,9 @@ public class MultiplayerEventElement : MultiplayerObject, IMultiplayerElement
 {
 
     public float messagesInterval = 1;
-    private Vector3 lastRecievedPos;
-    private Quaternion lastRecievedRot;
-    private float lerpSpeed = 10;
+    protected Vector3 lastRecievedPos;
+    protected Quaternion lastRecievedRot;
+    public float lerpSpeed = 10;
 
     protected override void OnMultiplayerAwake()
     {
@@ -31,6 +31,12 @@ public class MultiplayerEventElement : MultiplayerObject, IMultiplayerElement
     {
         if(!_isRemote)
             StartCoroutine(Sending());
+        else
+        {
+            PhotonManager.MessageReceived += PhotonManager_MessageReceived;
+            Debug.Log("Connected");
+        }
+
     }
 
     protected virtual void PhotonManager_MessageReceived(byte code, int id, object content)
@@ -53,7 +59,7 @@ public class MultiplayerEventElement : MultiplayerObject, IMultiplayerElement
         PhotonManager.SendMessage(code, id, content);
     }
 
-    void Update()
+    protected void Update()
     {
         if(IsRemote)
         {

@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using Engine;
+using UnityEngine;
 
+[RequireComponent(typeof(LevelElement))]
 public abstract class MultiplayerObject : Photon.MonoBehaviour
 {
     public MonoBehaviour[] componentsToDisable;
+    public LevelElement levelElement;
 
     public bool _isMultiplayer;
     public int id;
@@ -47,6 +50,8 @@ public abstract class MultiplayerObject : Photon.MonoBehaviour
             return;
         }
 
+        if(!levelElement) levelElement = GetComponent<LevelElement>();
+
         _isMultiplayer = true;
         PhotonManager.MultiplayerInitialized += Initialize;
 
@@ -70,6 +75,7 @@ public abstract class MultiplayerObject : Photon.MonoBehaviour
                 component.enabled = false;
             }
         }
+        OnMultiplayerInitialize();
     }
 
 

@@ -6,9 +6,6 @@ public class MultiplayerElementEnemy : MultiplayerEventElement
     AnimatorClipInfo[] currentClipInfo;
     string currentClipName;
 
-    Vector3 lastRecievedPos;
-    private Quaternion lastRecievedRot;
-
     protected override void OnMultiplayerAwake()
     {
         base.OnMultiplayerAwake();
