@@ -166,26 +166,35 @@ public class LevelManager : MonoBehaviour
     public static string[] GetScenesStatic()
     {
         List<string> scenes = new List<string>();
-        scenes.Clear();
-        var path = Application.dataPath + "/Scenes";
-        if (Directory.Exists(path))
+        try
         {
-            var files = Directory.GetFiles(path);
 
-            foreach (var file in files)
+            scenes.Clear();
+            var path = Application.dataPath + "/Scenes";
+            if (Directory.Exists(path))
             {
-                var f = file.Substring(path.Length + 1);
-                if (f.Contains(".unity") && !f.Contains(".meta"))
+                var files = Directory.GetFiles(path);
+
+                foreach (var file in files)
                 {
-                    var str = f.Split('.');
-                    scenes.Add(str[0]);
+                    var f = file.Substring(path.Length + 1);
+                    if (f.Contains(".unity") && !f.Contains(".meta"))
+                    {
+                        var str = f.Split('.');
+                        scenes.Add(str[0]);
+                    }
                 }
             }
+            else
+            {
+                Debug.LogError("Make sure that /Scenes exist, and that scenes are inside of it");
+            }
         }
-        else
+        catch
         {
-            Debug.LogError("Make sure that /Scenes exist, and that scenes are inside of it");
+
         }
+
         return scenes.ToArray();
     }
 
@@ -227,7 +236,7 @@ public class LevelManager : MonoBehaviour
 
         Debug.Log("Current level set to: " + _sceneToLoad);
         GameManager.CurrentScene = _sceneToLoad;
-        LoadScene(LevelManager.Instance.gameScene, LoadSceneMode.Additive);
+        LoadScene(Instance.gameScene, LoadSceneMode.Additive);
         SceneManager.sceneLoaded += instance.AddLevelScene;
         LoadCustomLevel += OnLoadCustomLevel;
     }

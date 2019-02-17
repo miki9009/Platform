@@ -17,6 +17,7 @@ public class Character : MonoBehaviour
     public Transform leftLowerArm;
     public Transform rightUpperArm;
     public Transform rightLowerArm;
+    public Transform chest;
     public SkinnedMeshRenderer bodyMeshRenderer;
     
     public IEquipment rightArmItem;

@@ -102,6 +102,7 @@ ModelImporter:
     7400038: JumpCrate
     7400040: IdleRock
     7400042: SitOstrich
+    7400044: SitScooter
     9500000: //RootNode
     13700000: Body
     13700002: Body_000
@@ -163,10 +164,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
-      takeName: Idle
+      name: SitScooter
+      takeName: SitScooter
       firstFrame: -1
-      lastFrame: 30
+      lastFrame: 0
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

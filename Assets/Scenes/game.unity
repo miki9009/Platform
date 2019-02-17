@@ -295,9 +295,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1208659932, guid: 2719bd86fbe8575458e16ef1ac5e7544, type: 3}
+      propertyPath: staticZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208659932, guid: 2719bd86fbe8575458e16ef1ac5e7544, type: 3}
+      propertyPath: scooterSpeedFactor
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1512761383, guid: 2719bd86fbe8575458e16ef1ac5e7544, type: 3}
       propertyPath: spawnPrefabs.Array.data[0].count
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114137575460718046, guid: 2719bd86fbe8575458e16ef1ac5e7544,
+        type: 3}
+      propertyPath: gameCamera
+      value: 
+      objectReference: {fileID: 3271757659172611858}
+    - target: {fileID: 1009020829427280, guid: 2719bd86fbe8575458e16ef1ac5e7544, type: 3}
+      propertyPath: m_Layer
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2719bd86fbe8575458e16ef1ac5e7544, type: 3}
@@ -307,3 +324,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3271757659172611856}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3271757659172611858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1208659932, guid: 2719bd86fbe8575458e16ef1ac5e7544,
+    type: 3}
+  m_PrefabInstance: {fileID: 3271757659172611856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53bbf84b6b3a8849b2e22decb25885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

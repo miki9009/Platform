@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &430139343231389131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 51847601877067707}
+  - component: {fileID: 4657159397879878726}
+  m_Layer: 9
+  m_Name: CharacterBoatInstantiator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &51847601877067707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430139343231389131}
+  m_LocalRotation: {x: -0, y: 0.7455342, z: -0, w: 0.6664675}
+  m_LocalPosition: {x: 14.672388, y: 6.4442205, z: -12.541863}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4657159397879878726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430139343231389131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17161387ee4c6d540a0338cd59ae646a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementID: -1549903
+  arrowTarget: 0
+  activeAndEnabled: 1
+  prefab: {fileID: 6331245300444608704, guid: cec6bf12cddb4874fa0bba5ca4d38749, type: 3}
+  color: {r: 0.12834764, g: 1, b: 0, a: 0.5882353}

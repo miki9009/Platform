@@ -21,6 +21,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
     protected Vector3 lastAttackTouchPosition;
     protected Vector3 curHorTouched;
     protected Vector3 pointingDir;
+    public float maxAngle = 180;
 
     protected float angle;
 
@@ -105,7 +106,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
 
     }
 
-    void GestureMovement()
+    protected void GestureMovement()
     {
         bool pressedHorizontalCurrent = false;
         int touchCount = Input.touchCount;
@@ -188,6 +189,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         {
             pointingDir = Vector.Direction(horTouched, curHorTouched);
             angle = -Vector2.SignedAngle(Vector2.up, pointingDir);
+            angle = Mathf.Clamp(angle, -maxAngle, maxAngle);
             forwardPower = Mathf.Clamp(horDistance, 0, 100) / 100;
             targetEuler = new Vector3(0, Camera.eulerAngles.y + angle, 0);
         }
@@ -244,7 +246,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         }
     }
 
-    void ButtonsMovement()
+    protected void ButtonsMovement()
     {
         horInput = 0;
         if (buttonsInitialized)
@@ -258,14 +260,15 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         }
     }
 
-    float sinus;
+    protected float modelZFactor;
     protected override void Rotation()
     {
         var vec = Controller.Instance.gameCamera.transform.forward;
         vec.y = 0;
         Quaternion rot = Quaternion.Euler(targetEuler);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.2f);
-        sinus = Mathf.Lerp(sinus, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
-        model.transform.localEulerAngles = new Vector3(0, 0, Mathf.Clamp(-sinus / 3, -15, 15));
+        modelZFactor = Mathf.Lerp(modelZFactor, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
+        var euler = model.transform.localEulerAngles;
+        model.transform.localEulerAngles = new Vector3(euler.x, 0, Mathf.Clamp(-modelZFactor / 3, -15, 15));
     }
 }

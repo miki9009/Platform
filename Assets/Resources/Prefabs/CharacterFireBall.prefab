@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8905635629656299357}
   - component: {fileID: 7272877951804203752}
   - component: {fileID: 2882796057161068263}
+  - component: {fileID: 4811762452468830116}
   m_Layer: 18
   m_Name: CharacterFireBall
   m_TagString: Untagged
@@ -4533,7 +4534,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7272877951804203752
 Rigidbody:
@@ -4574,6 +4575,19 @@ MonoBehaviour:
   enemy: {fileID: 0}
   casterType: 0
   autoAimSpeed: 4
+--- !u!135 &4811762452468830116
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356588750503430468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7103277669437684959
 PrefabInstance:
   m_ObjectHideFlags: 0

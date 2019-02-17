@@ -8,6 +8,7 @@ public class LevelVisualSettings : LevelElement
     public Material standardVertex;
     public bool rotateSkybox;
     public float rotationSpeed = 5;
+    public bool enableBloom = true;
     Material skybox;
 
     [Range(0,1.5f)]
@@ -23,6 +24,7 @@ public class LevelVisualSettings : LevelElement
         data.Add("BloomThreshold", bloomThreshold);
         data.Add("Smoothness", materialSmoothness);
         data.Add("UseSkyboxRotation", rotateSkybox);
+        data.Add("EnableBloom", enableBloom);
     }
 
     public override void OnLoad()
@@ -44,7 +46,15 @@ public class LevelVisualSettings : LevelElement
             rotateSkybox = (bool)data["UseSkyboxRotation"];
             skybox = RenderSettings.skybox;
         }
-        if(data.ContainsKey("Smoothness"))
+        if (data.ContainsKey("EnableBloom"))
+        {
+            enableBloom = (bool)data["EnableBloom"];
+            if(Application.isPlaying && !enableBloom)
+            {
+                Controller.Instance.bloom.enabled = false;
+            }
+        }
+        if (data.ContainsKey("Smoothness"))
         {
             try
             {

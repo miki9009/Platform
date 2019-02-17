@@ -51,7 +51,6 @@ public class MultiplayerElementEnemy : MultiplayerEventElement
     {
         base.OnWillDestroy();
         PhotonManager.MessageReceived -= OnDie;
-        enemy.EnemyHit -= TriggerDieEvent;
     }
 
     private void OnDie(byte code, int networkingID, object content)

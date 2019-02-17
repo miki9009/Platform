@@ -10,6 +10,7 @@ TagManager:
   - EditorRotation
   - SunRay
   - grass
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Collector
   - Destructible
   - Magnet
-  - CutOut
+  - Glow
   - ThrowableObject
   - TwoDimensionTrigger
   - Reflective

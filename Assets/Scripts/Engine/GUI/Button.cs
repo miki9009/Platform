@@ -11,6 +11,7 @@ namespace Engine.UI
     [RequireComponent(typeof(RectTransform))]
     public class Button : MonoBehaviour
     {
+    
         public enum ButtonShape { Circle, Rectangle}
         public string buttonName;
         [HideInInspector]public float radius;
@@ -20,7 +21,7 @@ namespace Engine.UI
         Colour color;
         private bool wasAwaken = false;
         public ButtonShape buttonShape;
-
+        public bool enabled = true;
         public UnityEvent OnTapPressed;
         public UnityEvent OnTapContinue;
         public UnityEvent OnTapRelesed;
@@ -40,6 +41,8 @@ namespace Engine.UI
         {
             if (!Application.isPlaying) return;
             GameGUI.buttons.Add(this);
+            if (!enabled)
+                gameObject.SetActive(false);
         }
 
         protected void OnEnable()

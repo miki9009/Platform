@@ -39,12 +39,15 @@ public class Pipe : LevelElement
     IEnumerator JumpToPipeCor(CharacterMovement movement)
     {
         var cam = Controller.Instance.gameCamera.GetComponent<GameCamera>();
-        float lastSpeed = cam.speed;
-        cam.speed = lastSpeed / 6;
+        //float lastSpeed = cam.speed;
+        //cam.speed = lastSpeed / 6;
         characterMovement = movement;
         movement.rb.AddForce(Vector3.up * pipeForce, ForceMode.VelocityChange);
         movement.MovementEnable(false);
         Used = true;
+        var target = cam.target;
+        var camStartPos = target.position;
+        cam.SetTarget(null);
         //bool pipeEntered = false;
         //float animation = 0;
         movement.SetAnimation("JumpUp");
@@ -77,17 +80,24 @@ public class Pipe : LevelElement
         //parts.Emit(numberOfLeaves);
         float progress = 0;
         cam.motionBlure.enabled = blur;
-        Vector3 aim = curve.GetPointAt(0.999f);
+
+        Vector3 aim = points[1].position;
+        Debug.Log("AIM: " + aim);
         //aim.y = currentCharacterPos.y;
         characterRotation = movement.transform.rotation;
         Quaternion destinationRotation = Quaternion.LookRotation(Vector.Direction(movement.transform.position, points[1].position));
+        float camProgress = 0;
         while (progress < 0.999f)
-        {
+        {   
             characterRotation = Quaternion.Slerp(characterRotation, destinationRotation, Time.deltaTime * 10);
             progress += Time.deltaTime / 2;
             progress = Mathf.Clamp(progress, 0, 0.999f);
+            cam.CameraLookAtPosition(Vector3.Lerp(camStartPos, aim, camProgress));
+            camProgress = Mathf.Clamp01(progress * 2);
             cam.motionBlure.blurAmount = 1 - progress;
             currentCharacterPos = curve.GetPointAt(progress);
+            characterMovement.transform.position = currentCharacterPos;
+            characterMovement.transform.rotation = characterRotation;
             yield return null;
         }
         characterMovement.transform.position = points[1].position;
@@ -95,17 +105,13 @@ public class Pipe : LevelElement
         //movement.rb.velocity = Vector3.zero;
         Used = false;
         movement.MovementEnable(true);
-        cam.speed = lastSpeed;
+        //cam.SetTarget(target);
+        //cam.speed = lastSpeed;
+        yield return new WaitForSeconds(0.1f);
+        cam.SetTarget(target);
     }
 
-    void FixedUpdate()
-    {
-        if (Used && characterMovement != null)
-        {
-            characterMovement.transform.position = currentCharacterPos;
-            characterMovement.transform.rotation = characterRotation;
-        }
-    }
+
 
     public Transform[] points;
     Float3[] pointsPos;

@@ -23,10 +23,12 @@ public class SettingsWindow : UIWindow
     {
         instance = this;
         BeginShow += AssignSettings;
+        AssignSettings();
     }
 
     private void AssignSettings()
     {
+        Debug.Log("Settings Loaded");
         int width = Screen.currentResolution.width;
         int height = Screen.currentResolution.height;
         currentRes = new Vector2(width, height);
@@ -45,6 +47,7 @@ public class SettingsWindow : UIWindow
         graphicsLabel.text = graphicsLevel[selectedGraphics];
         SetLowFrameRateLoad(DataManager.Settings.lowFrameRate);
         SetFpsShowString(showFps);
+        SetFPS();
     }
 
     public static void SetQuality()
@@ -56,6 +59,11 @@ public class SettingsWindow : UIWindow
     {
         base.OnHidden();
         Debug.Log("Target frame rate: " + (DataManager.Settings.lowFrameRate ? 30 : 60));
+
+    }
+
+    void SetFPS()
+    {
         if (DataManager.Settings.lowFrameRate)
         {
             Application.targetFrameRate = 30;

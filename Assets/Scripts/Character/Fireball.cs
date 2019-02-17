@@ -33,6 +33,13 @@ public class Fireball : MonoBehaviour, IPoolObject
         Restart();
     }
 
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.transform == caster) return;
+        StaticParticles.CreateExplosion(transform.position);
+        Pool();
+    }
+
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.transform == caster) return;
@@ -45,9 +52,14 @@ public class Fireball : MonoBehaviour, IPoolObject
                 enemy.OnHit(character);
             else
                 Debug.LogError("Didn't find Enemy Component on: " + collision.name);
+            StaticParticles.CreateExplosion(transform.position);
+            Pool();
         }
-        StaticParticles.CreateExplosion(transform.position);
-        Pool();
+        else
+        {
+            return;
+        }
+
     }
 
     Transform target;
@@ -75,13 +87,13 @@ public class Fireball : MonoBehaviour, IPoolObject
         Invoke("Pool", poolTime);
     }
 
-    void FixedUpdate()
-    {
-        if (target != null)
-        {
-            rb.velocity = Vector3.Lerp(rb.velocity.normalized, Vector.Direction(transform.position, target.position + Vector3.up*1.5f), Time.deltaTime * autoAimSpeed) * force;
-        }
-    }
+    //void FixedUpdate()
+    //{
+    //    if (target != null)
+    //    {
+    //        rb.velocity = Vector3.Lerp(rb.velocity.normalized, Vector.Direction(transform.position, target.position + Vector3.up*1.5f), Time.deltaTime * autoAimSpeed) * force;
+    //    }
+    //}
 
     public void Shoot(Vector3 startPos, Vector3 dir, Enemy enemy)
     {

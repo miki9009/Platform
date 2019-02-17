@@ -17,7 +17,7 @@ namespace Engine
 
         public override void OnInspectorGUI()
         {
-            var script = (Level)target;
+            //var script = (Level)target;
             
             if(levels == null)
                 levels = new LevelSelector();
@@ -38,9 +38,9 @@ namespace Engine
                 selected = EditorGUILayout.Popup(selected, levels.items);
             EditorGUILayout.EndHorizontal();
 
-            Level.sceneName = levels.items[selected];
+            Level.SceneName = levels.items[selected];
 
-            var levelGroup = Level.Config.GetLevel(Level.sceneName);
+            var levelGroup = Level.Config.GetLevel(Level.SceneName);
             string[] customLevels = new string[0];
             if(levelGroup != null)
             {
@@ -66,24 +66,24 @@ namespace Engine
             {
                // Color defaultColor = UnityEngine.GUI.backgroundColor;
                // UnityEngine.GUI.backgroundColor = Color.gray;
-                script.levelName = customLevels[levelSelected];
+                Level.levelName = customLevels[levelSelected];
 
                 if (GUILayout.Button("Save"))
                 {
-                    Level.Save(script.levelName);
+                    Level.Save(Level.levelName);
                 }
                 if (GUILayout.Button("Load"))
                 {
-                    Level.Load(script.levelName);
+                    Level.Load(Level.levelName);
                 }
             }
             if (GUILayout.Button("Clear"))
             {
-                script.Clear();
+                Level.Clear();
             }
             if (GUILayout.Button("Reload IDs"))
             {
-                script.ReloadIDs();
+                Level.ReloadIDs();
             }
         }
     }

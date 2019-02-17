@@ -51,9 +51,9 @@ MonoBehaviour:
   sun: {fileID: 0}
   sizeX: 67
   sizeZ: 50
-  noise: 0.974
+  noise: 1
   enableReflection: 1
-  enableRefraction: 1
+  enableRefraction: 0
   reflection:
     disablePixelLights: 1
     textureSize: 128

@@ -50,7 +50,7 @@ public class Controller : MonoBehaviour
 
     [HideInInspector] public List<Character> characters = new List<Character>();
 
-    [HideInInspector] public GameCamera gameCamera;
+    public GameCamera gameCamera;
     [HideInInspector] public GameObject GUI;
     Vector2 startResolution;
 
@@ -61,7 +61,6 @@ public class Controller : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        gameCamera = Camera.main.GetComponentInParent<GameCamera>();
         if (gameCamera == null)
         {
             Debug.LogError("Main camera is not set");

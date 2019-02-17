@@ -58,3 +58,17 @@ MonoBehaviour:
       passed: 0
       unlocked: 0
       unlocks: 
+  - scene: Ice1
+    missions:
+    - level: Ice1:0
+      mode: Single_Challenge
+      passed: 0
+      unlocked: 0
+      unlocks: 
+  - scene: WaterLand
+    missions:
+    - level: WaterLand:0
+      mode: Single_Challenge
+      passed: 0
+      unlocked: 0
+      unlocks: 

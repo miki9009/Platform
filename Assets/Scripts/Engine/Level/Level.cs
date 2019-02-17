@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Engine
 {
@@ -44,10 +46,27 @@ namespace Engine
                 return levelElements;
             }
         }
-        [CustomLevelSelector]
-        public string levelName;
+        //[CustomLevelSelector]
+        public static string levelName;
 
-        public static string sceneName;
+        static string _sceneName;
+        public static string SceneName
+        {
+            get
+            {
+                if(string.IsNullOrEmpty(_sceneName))
+                {
+                    _sceneName = Config.selectedScene;
+                }
+                return _sceneName;
+            }
+
+            set
+            {
+                _sceneName = value;
+                Config.selectedScene = _sceneName;
+            }
+        }
 
         static Dictionary<int, string> levelElementIDs = new Dictionary<int, string>();
         public static int maxID = -2;
@@ -87,13 +106,13 @@ namespace Engine
                     levelElements.Add(element.data, element.GetName());
                 }
 
-                if(string.IsNullOrEmpty(sceneName))
+                if(string.IsNullOrEmpty(SceneName))
                 {
                     Debug.LogError("Scene Name is empty, did not save");
                     return;
                 }
 
-                string levelsPath = Config.levelPaths + "/"+ sceneName;
+                string levelsPath = Config.levelPaths + "/"+ SceneName;
                 string partPath = Application.dataPath + "/Resources/" + levelsPath;
                 if (!Directory.Exists(partPath))
                 {
@@ -118,7 +137,7 @@ namespace Engine
             ClearIDs();
         }
 
-        public void Clear()
+        public static void Clear()
         {
             var elements = GameObject.FindObjectsOfType<LevelElement>();
             foreach (var element in elements)
@@ -136,7 +155,7 @@ namespace Engine
 
         public static void LoadWithScene(string scene, string levelName)
         {
-            sceneName = scene;
+            SceneName = scene;
             GameManager.GameMode = MissionsConfig.GetMode(LevelsConfig.GetFullName(scene, levelName));
             Load(levelName);
         }
@@ -144,13 +163,6 @@ namespace Engine
         public static void Load(string levelName)
         {
             var elements = GameObject.FindObjectsOfType<LevelElement>();
-#if UNITY_EDITOR
-            var levelComponent = GameObject.FindObjectOfType<Level>();
-            if (levelComponent != null)
-                levelComponent.gameObject.name = sceneName + ":"+ levelName;
-            else
-                Debug.LogError("No Level Component found");
-#endif
             if (Application.isPlaying)
             {
                 for (int i = 0; i < elements.Length; i++)
@@ -165,7 +177,7 @@ namespace Engine
                     DestroyImmediate(elements[i].gameObject);
                 }
             }
-            string partPath = Config.levelPaths + sceneName;
+            string partPath = Config.levelPaths + SceneName;
             ClearIDs(); //CLEAR IDS
             string assetPath = partPath +"/" + levelName;
             TextAsset asset = Resources.Load(assetPath) as TextAsset;
@@ -226,7 +238,7 @@ namespace Engine
             LevelLoaded?.Invoke();
         }
 
-        public void ReloadIDs()
+        public static void ReloadIDs()
         {
             var elements = GameObject.FindObjectsOfType<LevelElement>();
             foreach (var element in elements)
@@ -234,23 +246,84 @@ namespace Engine
                 element.elementID = GetID();
             }
         }
+#if UNITY_EDITOR
+        public static void Play()
+        {
+            EditorApplication.ExecuteMenuItem("Edit/Play");
+        }
+#endif
+
+        public static void StartLevelSequence()
+        {
+            Debug.Log("Loading...");
+            SceneManager.sceneLoaded -= LoadInit;
+            SceneManager.sceneLoaded += LoadInit;
+        }
+
+        static void LoadInit(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= LoadInit;
+            SceneManager.sceneLoaded += LoadMenu;
+            SceneManager.LoadSceneAsync("init", LoadSceneMode.Single);   }
+
+        static void LoadMenu(Scene scene, LoadSceneMode mode)
+        {
+            if(scene.name == "menu")
+            {
+                SceneManager.sceneLoaded -= LoadMenu;
+                CoroutineHost.Start(TestLevelSequence());
+            }
+        }
+
+        static IEnumerator TestLevelSequence()
+        {
+            bool loaded = false;
+            while(!loaded)
+            {
+                if(SceneManager.GetSceneByName("menu3D").isLoaded)
+                {
+                    LevelManager.BeginCustomLevelLoadSequenceAdditive(Config.selectedScene, Config.selectedLevel);
+                    loaded = true;
+                }
+                yield return null;
+            }
+            loaded = false;
+            while (!loaded)
+            {
+                if (SceneManager.GetSceneByName(Config.selectedScene).isLoaded)
+                {
+                    UI.UIWindow.GetWindow("MainMenu").Hide();
+                    loaded = true;
+                }
+                yield return null;
+            }
+        }
     }
+#if UNITY_EDITOR
+    public class ApplicationInitialization
+    {
+        [UnityEditor.InitializeOnLoadMethod]
+        static void OnInit()
+        {
+            try
+            {
+
+                //Debug.Log("startApp: " + startApplication);
+
+                if(Level.Config.testLevel)
+                {
+                    Debug.Log("Testing Level");
+                    Level.StartLevelSequence();
+                }
+
+            }
+            catch
+            {
+
+            }
 
 
+        }
+    }
+#endif
 }
-
-//public class LevelSettings
-//{
-//    static LevelSettings _levelSettings;
-//    public static LevelSettings CurrentLevelSettings
-//    {
-//        get
-//        {
-//            if (_levelSettings == null)
-//                _levelSettings = new LevelSettings();
-//            return _levelSettings;
-//        }
-//    }
-
-//    public string mode;
-//}

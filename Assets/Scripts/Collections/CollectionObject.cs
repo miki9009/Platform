@@ -233,6 +233,7 @@ public enum CollectionType
     WaypointVisited = 14,
     FirePlaceReached = 15,
     Growth = 16,
-    Fireball = 17
+    Fireball = 17,
+    Jetpack
 }
 

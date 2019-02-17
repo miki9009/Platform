@@ -18,7 +18,11 @@ public class GameCamera : MonoBehaviour
     public bool rotateAround;
     public Transform[] camAnchors;
     public float maxDistance = 20;
-    
+
+    public bool staticZ;
+    float startZ;
+    public bool staticX;
+    float startX;
 
     public Component vignatteAberration;
     public MotionBlur motionBlure;
@@ -27,7 +31,7 @@ public class GameCamera : MonoBehaviour
     
     public float minDistance = 5;
 
-    public float UpFactorAtStart { get; private set; }
+    public float UpFactorAtStart { get;  set; }
     public Vector3 localPosition;
     public bool regularUpdate;
     Controller.GameType gameType;
@@ -37,6 +41,8 @@ public class GameCamera : MonoBehaviour
     float time = 0;
     public bool collides;
     Collider col;
+   
+    public float disToTarget;
 	void Start ()
     {
         gameType = Controller.Instance.gameType;
@@ -91,6 +97,8 @@ public class GameCamera : MonoBehaviour
     void ResetCamera()
     {
         Body = MainUpdate;
+        mainCamera.fieldOfView = 60;
+        mainCamera.farClipPlane = 90;
     }
 
     public void SetCamera(CameraType type)
@@ -127,9 +135,24 @@ public class GameCamera : MonoBehaviour
 
     void NonRotationUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position - Vector3.right * localPosition.x + Vector3.up * localPosition.y + Vector3.forward * localPosition.z, Time.deltaTime * speed);
+        //var pos = Vector3.Lerp(transform.position, target.position - Vector3.right * localPosition.x + Vector3.up * localPosition.y + Vector3.forward * localPosition.z, Time.deltaTime * speed);
+        var pos = target.position - Vector3.right * localPosition.x + Vector3.up * localPosition.y + Vector3.forward * localPosition.z;
+        if (staticZ)
+        {
+            pos.z = startZ;
+        }
+        if (staticX)
+        {
+            pos.x = startX;
+        }
+        transform.position = pos;
         transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, Quaternion.LookRotation(Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor)), rotationSpeed * Time.deltaTime);
         //transform.rotation = Quaternion.LookRotation( Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor));
+    }
+
+    public void CameraLookAtPosition(Vector3 destination)
+    {
+        transform.position = destination - Vector3.right * localPosition.x + Vector3.up * localPosition.y + Vector3.forward * localPosition.z;
     }
 
     void WagonUpdate()
@@ -172,9 +195,18 @@ public class GameCamera : MonoBehaviour
             enabled = true;
 
         this.target = target;
+
+        if (staticX || staticZ)
+        {
+            transform.position =  target.position - Vector3.right * localPosition.x + Vector3.up * localPosition.y + Vector3.forward * localPosition.z;
+            transform.rotation = Quaternion.LookRotation(Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor));
+        }
+        startZ = transform.position.z;
+        startX = transform.position.x;
+
         enabled = true;
         gameObject.SetActive(true);
-        transform.position = target.position + target.forward * -10;
+        //transform.position = target.position + target.forward * -10;
     }
 
     /// <summary>
@@ -210,6 +242,29 @@ public class GameCamera : MonoBehaviour
     {
         Body = WagonUpdate;
         upFactor = 3;
+    }
+
+    public void ChangeToScooterView()
+    {
+        Body = ScooterUpdate;
+        upFactor = 3;
+    }
+
+    float curSpeed;
+    public float scooterSpeedFactor = 1;
+    void ScooterUpdate()
+    {
+        if (target == null) return;
+        Vector3 pos = transform.position;
+        pos.y = target.position.y;
+        Vector3 dir = Vector.Direction(target.position, pos);
+        pos = target.position + dir * minDistance;
+        pos.y += localPosition.y;
+        disToTarget = Vector3.Distance(transform.position, target.position);
+        curSpeed = disToTarget / 14 * Time.deltaTime * scooterSpeedFactor;
+        transform.position = Vector3.Lerp(transform.position, target.position - target.forward * minDistance + Vector3.up * localPosition.y, curSpeed);
+
+        transform.rotation = Quaternion.LookRotation(Vector.Direction(transform.position, target.position + Vector3.up * upFactor));       
     }
 
     public void ChangeToRegularCharacterView()

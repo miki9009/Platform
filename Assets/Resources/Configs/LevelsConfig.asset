@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf12861784ad3f4480aa1e97e988338, type: 3}
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
+  testLevel: 1
+  selectedScene: Ice1
+  selectedLevel: 0
   levelPaths: Levels/
   levelElementsPath: LevelElements/
   levels:
@@ -33,5 +36,11 @@ MonoBehaviour:
     levels:
     - 0
   - sceneName: World
+    levels:
+    - 0
+  - sceneName: Ice1
+    levels:
+    - 0
+  - sceneName: WaterLand
     levels:
     - 0

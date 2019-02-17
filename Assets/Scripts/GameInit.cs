@@ -43,23 +43,25 @@ public class GameInit : MonoBehaviour
             {
                 var settings = (Settings.Container)DataManager.Instance.GetData(DataManager.Containers.SETTINGS);
 #if UNITY_EDITOR
-                if (!disableFirstRunInEditor)
-                {
-                    if (!settings.runBenchmark)
+
+
+                    if (!disableFirstRunInEditor)
                     {
-                        Screen.SetResolution((int)settings.resolution.x, (int)settings.resolution.y, true);
-                        LevelManager.GoToSingleScene(firstScene, false);
+                        if (!settings.runBenchmark)
+                        {
+                            Screen.SetResolution((int)settings.resolution.x, (int)settings.resolution.y, true);
+                            LevelManager.GoToSingleScene(firstScene, false);
+                        }
+                        else
+                        {
+                            LevelManager.GoToSingleScene(benchmarkScene, false);
+                        }
                     }
                     else
                     {
-                        LevelManager.GoToSingleScene(benchmarkScene,false);
+                        LevelManager.GoToSingleScene(firstScene, false);
+                        LevelManager.LoadMenu3D();
                     }
-                }
-                else
-                {
-                    LevelManager.GoToSingleScene(firstScene,false);
-                    LevelManager.LoadMenu3D();
-                }
 #else
                 if (!settings.runBenchmark)
                 {
@@ -72,6 +74,7 @@ public class GameInit : MonoBehaviour
                     LevelManager.GoToSingleScene(benchmarkScene);
                 }
 #endif
+                
             };
         }
     }

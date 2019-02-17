@@ -6,10 +6,13 @@ public class GameCameraSettings : LevelElement
     public float x = 0;
     public float y = 5;
     public float z = -9;
+    public bool staticX;
+    public bool staticZ;
     public float forwardFactor = 1.5f;
     public float rotationSpeed = 5;
     public float upFactor = 3;
     public float speed = 10;
+
 
     public override void ElementStart()
     {
@@ -27,7 +30,10 @@ public class GameCameraSettings : LevelElement
         cam.forwardFactor = forwardFactor;
         cam.rotationSpeed = rotationSpeed;
         cam.upFactor = upFactor;
+        cam.UpFactorAtStart = upFactor;
         cam.speed = speed;
+        cam.staticX = staticX;
+        cam.staticZ = staticZ;
     }
 
     public override void OnLoad()
@@ -46,6 +52,14 @@ public class GameCameraSettings : LevelElement
             if (data.ContainsKey("Z"))
             {
                 z = (float)data["Z"];
+            }
+            if (data.ContainsKey("StaticX"))
+            {
+                staticX = (bool)data["StaticX"];
+            }
+            if (data.ContainsKey("StaticZ"))
+            {
+                staticZ = (bool)data["StaticZ"];
             }
             if (data.ContainsKey("ForwardFactor"))
             {
@@ -78,6 +92,8 @@ public class GameCameraSettings : LevelElement
             data["RotationSpeed"] = rotationSpeed;
             data["UpFactor"] = upFactor;
             data["Speed"] = speed;
+            data["StaticZ"] = staticZ;
+            data["StaticX"] = staticX;
         }
     }
 }

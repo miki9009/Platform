@@ -121,7 +121,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         smoke.Stop();
     }
 
-    public void Die()
+    public virtual void Die()
     {
         anim.Play("Die");
         DieBroadcast?.Invoke();
@@ -190,7 +190,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         }
     }
 
-    public void Hit(Enemy enemy = null, int hp = 1, bool heavyAttack = false)
+    public virtual void Hit(Enemy enemy = null, int hp = 1, bool heavyAttack = false)
     {
         if (stats.health <= 0 || Invincible || (isAttacking && !heavyAttack)) return;
         hp = Mathf.Clamp(hp, 1, stats.health);
@@ -224,7 +224,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         starsExplosion.Play();
     }
 
-    public void SetAnimationHorizontal(Vector3 velo)
+    public virtual void SetAnimationHorizontal(Vector3 velo)
     {
         if (anim == null) return;
         velocity = velo;
@@ -286,7 +286,9 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         }
     }
     //public float force = 10;
-    public void Move()
+    public bool onIce;
+    public float iceForce = 30;
+    public virtual void Move()
     {
         var velo = rb.velocity;
         float y = velo.y;
@@ -295,15 +297,23 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         //rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
         if (velo.magnitude < stats.runSpeed)
         {
+            if(onIce)
+            {
+                rb.AddForce(rb.rotation.Vector() * forwardPower * iceForce, ForceMode.Acceleration);
+            }
+            else
+            {
+                velo = rb.rotation.Vector() * (mag + forwardPower);
+                velo.y = y;
+                rb.velocity = velo;
+            }
             //rb.AddForce(rb.rotation.Vector() * forwardPower * force, ForceMode.Acceleration);
-            velo = rb.rotation.Vector() * (mag + forwardPower);
-            velo.y = y;
-            rb.velocity = velo;
+
         }
     }
 
 
-    public void Attack()
+    public virtual void Attack()
     {
         //Debug.Log("Attack");
         if (character.IsDead || attack) return;
@@ -352,7 +362,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     HashSet<IDestructible> scripts = new HashSet<IDestructible>();
 
 
-    public void StateAnimatorInitialized()
+    public virtual void StateAnimatorInitialized()
     {
         throwAnimationHash = Animator.StringToHash("Throw");
         attackAnimationHash = Animator.StringToHash("Attack");

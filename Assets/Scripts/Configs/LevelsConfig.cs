@@ -10,6 +10,9 @@ public class LevelsConfig : Config
     public static string currentScene;
 
     public const string key = "Configs/LevelsConfig";
+    public bool testLevel;
+    public string selectedScene;
+    public string selectedLevel;
     public string levelPaths;
     public string levelElementsPath;
     public List<LevelGroup> levels;
