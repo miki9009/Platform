@@ -16,7 +16,6 @@ public class Buoy : LevelElement
             boxCollider.center = (Float3)data["Center"];
             boxCollider.size = (Float3)data["Size"];
         }
-
     }
 
     public override void OnSave()

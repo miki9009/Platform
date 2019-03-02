@@ -116,7 +116,7 @@ namespace Engine
             }
         }
 
-        void CheckTargetPointer(Character character)
+        protected virtual void CheckTargetPointer(Character character)
         {
             if (arrowTarget)
             {

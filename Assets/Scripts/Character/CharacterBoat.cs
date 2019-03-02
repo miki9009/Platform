@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterBoat : CharacterMovementPlayer, ILocalPlayer
 {
     public ParticleSystem waterDrops;
-
+    public float scooterSpeed = 30;
     public override bool IsPlayer
     {
         get
@@ -26,11 +26,13 @@ public class CharacterBoat : CharacterMovementPlayer, ILocalPlayer
         cam.ChangeToScooterView();
         cam.minDistance = 10;
         cam.maxDistance = 10;
-        iceForce = 30;
-        character.stats.runSpeed = 30;
+        var pos = cam.localPosition;
+        pos.y = 7;
+        cam.localPosition = pos;
         cam.speed = 2;
         cam.mainCamera.fieldOfView = 40;
-        cam.mainCamera.farClipPlane = 250;
+        cam.mainCamera.farClipPlane = 150;
+        character.stats.turningSpeed = 3;
         // sensor = new GameObject("WagonSensor").transform;
         try
         {
@@ -97,22 +99,34 @@ public class CharacterBoat : CharacterMovementPlayer, ILocalPlayer
         float y = velo.y;
         velo.y = 0;
         mag = velo.magnitude;
+        float pwr = 0;
+#if (UNITY_EDITOR)
+        pwr = Input.GetAxis("Vertical");
+        if(pwr == 0)
+#endif
+        pwr = btnAttack.isTouched ? 1 : 0;
+
         rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
-        rb.AddForce(rb.rotation.Vector() * forwardPower * iceForce, ForceMode.Acceleration);
+        rb.AddForce(rb.rotation.Vector() * pwr * iceForce, ForceMode.Acceleration);
         if (onGround)
-           rb.AddForce(Vector3.up * forwardPower * mag / 40, ForceMode.VelocityChange);
-        if (onGround && Engine.Math.Probability(mag/stats.runSpeed))
+           rb.AddForce(Vector3.up * pwr * mag / 40, ForceMode.VelocityChange);
+        if (onGround && Engine.Math.Probability(mag/scooterSpeed))
         {
             waterDrops.Emit(4);
         }
 
     }
 
+    protected Vector3 TargetEuler(float angle)
+    {
+        return new Vector3(0, transform.eulerAngles.y + angle, 0);
+    }
+
     protected override void Rotation()
     {
         var vec = Controller.Instance.gameCamera.transform.forward;
         vec.y = 0;
-        Quaternion rot = Quaternion.Euler(targetEuler);
+        Quaternion rot = Quaternion.Euler(TargetEuler(angle));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * stats.turningSpeed / 2);
 #if (UNITY_EDITOR)
         if (angle > 180)
@@ -120,9 +134,10 @@ public class CharacterBoat : CharacterMovementPlayer, ILocalPlayer
         angle = Mathf.Clamp(angle, -maxAngle, maxAngle);
 #endif
         float factor = angle / 90;
+
         modelZFactor = Mathf.Clamp(Mathf.Lerp(modelZFactor, factor * 90, Time.deltaTime * stats.turningSpeed / 2),-30,30);
         var euler = model.transform.localEulerAngles;
-        model.transform.localEulerAngles = new Vector3(-30 * mag / stats.runSpeed, 0, -modelZFactor);
+        model.transform.localEulerAngles = new Vector3(-scooterSpeed * mag / iceForce, 0, -modelZFactor);
     }
 
     protected override void FixedUpdate()

@@ -201,5 +201,17 @@ public class GameManager : MonoBehaviour
     }
 
 
+    //private void OnGUI()
+    //{
+    //    var characters = Character.allCharacters;
+    //    if(characters!=null && characters.Count > 0)
+    //    {
+    //        for (int i = 0; i < characters.Count; i++)
+    //        {
+    //            Draw.TextColor(10, 50 * i, 255, 0, 0, 1, characters[i].gameProgress.CurrentWaypoint);
+    //        }
+    //    }
+    //}
+
 
 }

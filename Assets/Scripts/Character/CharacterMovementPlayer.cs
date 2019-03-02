@@ -53,6 +53,14 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         }
     }
 
+    public override bool IsBot
+    {
+        get
+        {
+            return false;
+        }
+    }
+
     protected override void Initialize()
     {
         Controller.Instance.gameCamera.regularUpdate = false;
@@ -245,6 +253,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             jumpInput = 1;
         }
     }
+
 
     protected void ButtonsMovement()
     {

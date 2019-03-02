@@ -32,7 +32,6 @@ public class FloatingManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Adding FloatingManager");
         floatingManagers.Add(this);
         xSize = lowPoly.sizeX;
     }

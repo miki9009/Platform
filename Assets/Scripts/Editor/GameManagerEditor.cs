@@ -5,104 +5,107 @@ using UnityEditor;
 using UnityEngine;
 
 
-    [CustomEditor(typeof(GameManager))]
-    public class GameManagerEditor : Editor
+[CustomEditor(typeof(GameManager))]
+public class GameManagerEditor : Editor
+{
+    GameManager gameManager;
+
+    bool toggleTxt = false;
+
+    string[] referencesPopup;
+    int[] referenceLength;
+    Color lime = new Color(0.72f, 1, 0.223f);
+    Color characterColor;
+    Color defaultColor;
+    Color col;
+    GUIStyle style;
+    GUIStyle style2;
+    bool styleInit;
+    bool[] foldout;
+    bool[] characterCollectionsFoldout;
+    bool[] characterGameProgressFoldout;
+
+    public override void OnInspectorGUI()
     {
-        GameManager gameManager;
-
-        bool toggleTxt = false;
-
-        string[] referencesPopup;
-        int[] referenceLength;
-        Color lime = new Color(0.72f, 1, 0.223f);
-        Color characterColor;
-        Color defaultColor;
-        Color col;
-        GUIStyle style;
-        GUIStyle style2;
-        bool styleInit;
-        bool[] foldout;
-        bool[] characterFoldouts;
-        public override void OnInspectorGUI()
+        gameManager = (GameManager)target;
+        if (!GameManager.Instance)
         {
-            gameManager = (GameManager)target;
-            if(!GameManager.Instance)
-            {
-                EditorGUILayout.LabelField("Preview only available in Play Mode");
-                return;
-            }
+            EditorGUILayout.LabelField("Preview only available in Play Mode");
+            return;
+        }
 
-            if(!styleInit)
-            {
-                Debug.Log("Init style");
-                styleInit = true;
-                defaultColor = GUI.backgroundColor;
-                col = new Color(0.5f, 0.7f, 0.8f);
-                style = new GUIStyle();
-                style.normal.textColor = lime;
-                style.alignment = TextAnchor.MiddleRight;
+        if (!styleInit)
+        {
+            Debug.Log("Init style");
+            styleInit = true;
+            defaultColor = GUI.backgroundColor;
+            col = new Color(0.5f, 0.7f, 0.8f);
+            style = new GUIStyle();
+            style.normal.textColor = lime;
+            style.alignment = TextAnchor.MiddleRight;
 
-                style2 = new GUIStyle();
-                style2.normal.textColor = Color.white;
-                foldout = new bool[30];
-                characterFoldouts = new bool[20];
-                characterColor = new Color32(177, 190, 198, 1);
-            }
+            style2 = new GUIStyle();
+            style2.normal.textColor = Color.white;
+            foldout = new bool[30];
+            characterCollectionsFoldout = new bool[Character.allCharacters.Count];
+            characterGameProgressFoldout = new bool[Character.allCharacters.Count];
+            characterColor = new Color32(177, 190, 198, 1);
+        }
 
-            foldout[0] = EditorGUILayout.Foldout(foldout[0], "GAMEPLAY" , true, EditorStyles.toolbarButton);
+        foldout[0] = EditorGUILayout.Foldout(foldout[0], "GAMEPLAY", true, EditorStyles.toolbarButton);
 
-            if(foldout[0])
-            {
-                //GameState
-                GUI.backgroundColor = col;
-                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Game State: ", style2, GUILayout.MinWidth(50));
-                EditorGUILayout.LabelField(GameManager.State.ToString(), style, GUILayout.MinWidth(50));
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Paused: ", style2, GUILayout.MinWidth(50));
-                EditorGUILayout.LabelField(GameManager.IsPaused ? "True" : "False", style, GUILayout.MinWidth(50));
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndVertical();
-                GUI.backgroundColor = defaultColor;
+        if (foldout[0])
+        {
+            //GameState
+            GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Game State: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(GameManager.State.ToString(), style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Paused: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(GameManager.IsPaused ? "True" : "False", style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            GUI.backgroundColor = defaultColor;
 
-                //Scene
-                GUI.backgroundColor = col;
+            //Scene
+            GUI.backgroundColor = col;
 
 
-                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Scene: ", style2, GUILayout.MinWidth(50));
-                EditorGUILayout.LabelField(string.IsNullOrEmpty(GameManager.CurrentScene) ? "None" : GameManager.CurrentScene, style, GUILayout.MinWidth(50));
-                EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Scene: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(string.IsNullOrEmpty(GameManager.CurrentScene) ? "None" : GameManager.CurrentScene, style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
 
-                EditorGUILayout.EndVertical();
+            EditorGUILayout.EndVertical();
 
-                GUI.backgroundColor = defaultColor;
+            GUI.backgroundColor = defaultColor;
 
-                //CustomLevel
-                GUI.backgroundColor = col;
-                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Custom Level Name: ", style2, GUILayout.MinWidth(50));
-                EditorGUILayout.LabelField(GameManager.CustomLevelID, style, GUILayout.MinWidth(50));
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndVertical();
-                GUI.backgroundColor = defaultColor;
+            //CustomLevel
+            GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Custom Level Name: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(GameManager.CustomLevelID, style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            GUI.backgroundColor = defaultColor;
 
-                //Mode
-                GUI.backgroundColor = col;
-                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Game Mode: ", style2, GUILayout.MinWidth(50));
-                EditorGUILayout.LabelField(GameManager.GameMode, style, GUILayout.MinWidth(50));
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndVertical();
-                GUI.backgroundColor = defaultColor;
-            }
+            //Mode
+            GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Game Mode: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(GameManager.GameMode, style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            GUI.backgroundColor = defaultColor;
+        }
 
-            foldout[1] = EditorGUILayout.Foldout(foldout[1], "CONTROLLER", true, EditorStyles.toolbarButton);
+        foldout[1] = EditorGUILayout.Foldout(foldout[1], "CONTROLLER", true, EditorStyles.toolbarButton);
 
         if (foldout[1])
         {
@@ -130,6 +133,11 @@ using UnityEngine;
                         GUI.backgroundColor = Color.gray;
                         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                         EditorGUILayout.BeginHorizontal(GUI.skin.box);
+                        EditorGUILayout.ObjectField(character, typeof(Character),true);
+                        EditorGUILayout.EndHorizontal();
+
+                        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                        EditorGUILayout.BeginHorizontal(GUI.skin.box);
                         EditorGUILayout.LabelField("ID: ", style2, GUILayout.MinWidth(50));
                         EditorGUILayout.LabelField(character.ID.ToString(), style, GUILayout.MinWidth(50));
                         EditorGUILayout.EndHorizontal();
@@ -154,8 +162,8 @@ using UnityEngine;
 
                         if (CollectionManager.Instance == null) continue;
 
-                        characterFoldouts[foldoundIndex] = EditorGUILayout.Foldout(characterFoldouts[foldoundIndex], "Collections:", true, EditorStyles.toolbarButton);
-                        if (characterFoldouts[foldoundIndex])
+                        characterCollectionsFoldout[foldoundIndex] = EditorGUILayout.Foldout(characterCollectionsFoldout[foldoundIndex], "Collections:", true, EditorStyles.toolbarButton);
+                        if (characterCollectionsFoldout[foldoundIndex])
                         {
                             var collectionSet = CollectionManager.Instance.GetPlayerCollectionSet(character.ID);
                             if (collectionSet != null)
@@ -180,6 +188,33 @@ using UnityEngine;
                                 EditorGUILayout.EndVertical();
                             }
                         }
+
+                        characterGameProgressFoldout[foldoundIndex] = EditorGUILayout.Foldout(characterGameProgressFoldout[foldoundIndex], "Game Progress:", true, EditorStyles.toolbarButton);
+                        if (characterGameProgressFoldout[foldoundIndex])
+                        {
+                            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                            EditorGUILayout.BeginHorizontal(GUI.skin.box);
+                            EditorGUILayout.LabelField("Placement: ", style2, GUILayout.MinWidth(50));
+                            EditorGUILayout.LabelField(character.gameProgress.Placement.ToString(), style, GUILayout.MinWidth(50));
+                            EditorGUILayout.EndHorizontal();
+                            EditorGUILayout.EndVertical();
+
+                            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                            EditorGUILayout.BeginHorizontal(GUI.skin.box);
+                            EditorGUILayout.LabelField("Race Progress: ", style2, GUILayout.MinWidth(50));
+                            EditorGUILayout.LabelField(character.gameProgress.raceProgress.ToString(), style, GUILayout.MinWidth(50));
+                            EditorGUILayout.EndHorizontal();
+                            EditorGUILayout.EndVertical();
+
+
+                            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                            EditorGUILayout.BeginHorizontal(GUI.skin.box);
+                            EditorGUILayout.LabelField("Waypoint: ", style2, GUILayout.MinWidth(50));
+                            EditorGUILayout.LabelField(character.gameProgress.CurrentWaypoint.ToString(), style, GUILayout.MinWidth(50));
+                            EditorGUILayout.EndHorizontal();
+                            EditorGUILayout.EndVertical();
+                        }
+
                         GUI.backgroundColor = defaultColor;
 
                         foldoundIndex++;
@@ -226,148 +261,5 @@ using UnityEngine;
             GUI.backgroundColor = defaultColor;
         }
 
-
-        //            if (foldout == null || foldout.Count != gameManager.sequence.sequences.Count)
-        //            {
-        //                int count = gameManager.sequence.sequences.Count;
-
-        //                if (foldout == null)
-        //                    foldout = new List<bool>();
-        //                while (foldout.Count < count)
-        //                {
-        //                    foldout.Add(false);
-        //                }
-        //                while (foldout.Count > count)
-        //                {
-        //                    foldout.RemoveAt(foldout.Count - 1);
-        //                }
-        //            }
-
-        //            Color defaultColor = GUI.backgroundColor;
-
-        //            referencesPopup = new string[gameManager.levelElementReferences.Count];
-        //            for (int i = 0; i < referencesPopup.Length; i++)
-        //            {
-        //                if (gameManager.levelElementReferences[i] != null)
-        //                    referencesPopup[i] = gameManager.levelElementReferences[i].elementID.ToString();
-        //            }
-
-        //            referenceLength = new int[gameManager.levelElementReferences.Count];
-
-        //            Color col = new Color(0.5f, 0.7f, 0.8f);
-
-        //            for (int i = 0; i < gameManager.sequence.sequences.Count; i++)
-        //            {
-
-        //                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-        //                GUI.backgroundColor = col;
-        //                foldout[i] = EditorGUILayout.Foldout(foldout[i], "SEQUENCE: " + i, true);
-        //                if (foldout[i])
-        //                {
-        //                    var sequence = gameManager.sequence.sequences[i];
-
-        //                    for (int j = 0; j < sequence.objectives.Count; j++)
-        //                    {
-        //                        EditorGUILayout.LabelField("Objective", EditorStyles.boldLabel);
-        //                        var objective = sequence.objectives[j];
-        //                        GUILayout.BeginVertical(EditorStyles.helpBox);
-
-        //                        GUILayout.BeginHorizontal();
-        //                        GUILayout.Label("Title", GUILayout.Width(50));
-        //                        objective.title = GUILayout.TextField(objective.title, GUILayout.Width(250), GUILayout.MinWidth(50));
-        //                        objective.triggerSequence = GUILayout.Toggle(objective.triggerSequence, "Trigger Sequence");
-        //                        objective.optional = GUILayout.Toggle(objective.optional, "Is Optional");
-        //                        if (GUILayout.Button("X", GUILayout.Width(35)))
-        //                        {
-        //                            sequence.objectives.Remove(objective);
-        //                        }
-        //                        GUILayout.EndHorizontal();
-        //                        GUILayout.BeginHorizontal();
-        //                        EditorGUILayout.LabelField("Collection Type: ", GUILayout.Width(100));
-        //                        objective.collectionType = (CollectionType)EditorGUILayout.EnumPopup(objective.collectionType, GUILayout.MinWidth(150), GUILayout.MinWidth(50));
-        //                        EditorGUILayout.LabelField("Amount: ", GUILayout.Width(70));
-        //                        objective.collectionAmount = EditorGUILayout.IntField(objective.collectionAmount);
-        //                        GUILayout.EndHorizontal();
-        //                        GUILayout.Space(10);
-        //                        GUILayout.EndVertical();
-        //                        GUILayout.BeginHorizontal();
-        //                        objective.isTimer = GUILayout.Toggle(objective.isTimer, "Is Timer");
-        //                        if (objective.isTimer)
-        //                        {
-        //                            EditorGUILayout.LabelField("Time: ", GUILayout.Width(100));
-        //                            objective.time = EditorGUILayout.FloatField(objective.time);
-        //                        }
-        //                        GUILayout.EndHorizontal();
-        //                        GUILayout.BeginHorizontal();
-        //                        objective.triggerObject = GUILayout.Toggle(objective.triggerObject, "Trigger object:", GUILayout.Width(100));
-        //                        int referenceIndex = 0;
-        //                        if (objective.triggerObject)
-        //                        {
-        //                            if (objective.references != -1)
-        //                            {
-        //                                bool found = false;
-        //                                for (int k = 0; k < referencesPopup.Length; k++)
-        //                                {
-        //                                    if (objective.references.ToString() == referencesPopup[k])
-        //                                    {
-        //                                        found = true;
-        //                                        referenceIndex = k;
-        //                                        break;
-        //                                    }
-        //                                }
-        //                                if (!found) objective.references = -1;
-        //                            }
-        //                            EditorGUILayout.LabelField("Reference Object: ", GUILayout.Width(150));
-        //                            referenceIndex = EditorGUILayout.Popup(referenceIndex, referencesPopup, EditorStyles.popup);
-        //                            if (referenceIndex < referencesPopup.Length && referencesPopup[referenceIndex] != null)
-        //                                objective.references = int.Parse(referencesPopup[referenceIndex]);
-        //                        }
-
-        //                        GUILayout.EndHorizontal();
-        //                    }
-        //                    GUI.backgroundColor = Color.white;
-        //                    EditorGUILayout.BeginHorizontal();
-        //                    if (GUILayout.Button("Add Objective"))
-        //                    {
-        //                        sequence.objectives.Add(new CollectionObjective());
-        //                    }
-        //                    if (GUILayout.Button("Remove Sequence"))
-        //                    {
-        //                        gameManager.sequence.sequences.Remove(sequence);
-        //                    }
-        //                    EditorGUILayout.EndHorizontal();
-        //                }
-        //                EditorGUILayout.EndHorizontal();
-        //            }
-        //            GUI.backgroundColor = new Color(0.6f, 0.6f, 0.6f);
-        //            if (GUILayout.Button("Add Sequence"))
-        //            {
-        //                gameManager.sequence.sequences.Add(new Sequence());
-        //            }
-
-        //#if UNITY_EDITOR
-        //            if (gameManager.catchReferences)
-        //            {
-        //                gameManager.CatchReferences();
-        //                gameManager.catchReferences = false;
-        //            }
-        //#endif
-
-        //            var references = gameManager.levelElementReferences;
-        //            for (int i = 0; i < references.Count; i++)
-        //            {
-        //                references[i] = (LevelElement)EditorGUILayout.ObjectField(references[i], typeof(LevelElement), true);
-        //            }
-        //            if (GUILayout.Button("Add ObjectField"))
-        //            {
-        //                references.Add(null);
-        //            }
-        //            gameManager.returnToVillage = GUILayout.Toggle(gameManager.returnToVillage, "Return to Village on complete");
-
-
-        //            GUI.backgroundColor = defaultColor;
-
-
-
     }
-    }
+}

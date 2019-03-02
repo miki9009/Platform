@@ -7,7 +7,7 @@ public class CharacterMovementAI : CharacterMovement
     public PathMovement pathMovement;
 
     public Vector3[] path;
-    int pathIndex = 0;
+    protected int pathIndex = 0;
     Vector3 startPos;
     Vector3 Destination
     {
@@ -16,17 +16,26 @@ public class CharacterMovementAI : CharacterMovement
             return aIBehaviour.Destination;
         }
     }
-    Vector3 nextPoint;
+    public Vector3 nextPoint;
     public AIBehaviour aIBehaviour;
     public AIState aiState;
     AIState currentState;
     bool initialized;
+    public float nextPointminDistance = 1;
 
     public override bool IsPlayer
     {
         get
         {
             return false;
+        }
+    }
+
+    public override bool IsBot
+    {
+        get
+        {
+            return true;
         }
     }
 
@@ -61,6 +70,7 @@ public class CharacterMovementAI : CharacterMovement
     {
         if (currentState == AIState.Idle) return;
         var dir = Vector.Direction(transform.position, nextPoint);
+        if (dir == Vector3.zero) return;
         dir.y = 0;
         if (onGround)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * character.stats.turningSpeed);
@@ -73,11 +83,20 @@ public class CharacterMovementAI : CharacterMovement
     {
         anim.SetBool("onGround", onGround);
     }
+
+    public virtual float MinDistanceToPoint
+    {
+        get
+        {
+            return nextPointminDistance;
+        }
+    }
+
     float dis;
     float timeBetweenJumps = 2;
     float curentTimeBetweenJumps;
     Quaternion lastRot;
-    void DoMovement()
+    protected virtual void DoMovement()
     {
         if (aIBehaviour.Execute())
         {
@@ -85,7 +104,7 @@ public class CharacterMovementAI : CharacterMovement
             {
                 ChangeState(AIState.Idle);
             }
-            if (path != null && Vector3.Distance(transform.position, nextPoint) > 1f)
+            if (path != null && Vector3.Distance(transform.position, nextPoint) > MinDistanceToPoint)
             {
                 //transform.rotation = Math.RotateTowardsTopDown(transform, path[pathIndex], Time.deltaTime * 5);
                 forwardPower = 1;
@@ -118,8 +137,12 @@ public class CharacterMovementAI : CharacterMovement
                 else
                 {
                     path = pathMovement.GetPath(Destination);
+                    //Debug.Log("Path created");
+                    nextPoint = transform.position;
                     pathIndex = 0;
                 }
+
+
             }
         }
         else if(currentState != AIState.Idle)
@@ -140,16 +163,24 @@ public class CharacterMovementAI : CharacterMovement
         path = null;
     }
 
+
+
 #if UNITY_EDITOR
     public Color gizmoColor = Color.blue;
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         if (path != null && path.Length > 0)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, nextPoint);
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(Destination, 1);
+            Gizmos.DrawSphere(path[0], 1);
+            for (int i = 1; i < path.Length; i++)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(path[i-1], path[i]);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(path[i], 1);
+            }
+
 
         }
 

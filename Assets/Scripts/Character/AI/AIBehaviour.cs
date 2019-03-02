@@ -9,7 +9,7 @@ namespace AI
     {
         Idle,
         Waypoints,
-        Collection
+        Collection,
     }
 
     [Serializable]
@@ -134,23 +134,23 @@ namespace AI
             waypoint = waypoints[waypointIndex];
             waypoint.Visited += WaypointVisited;
             destination = waypoint.transform.position;
+            AIMovement.pathMovement.GetPath(destination);
         }
 
         void WaypointVisited(CharacterMovement characterMovement)
         {
-            if (characterMovement.GetType() != typeof(CharacterMovementAI)) return;
+            if (!characterMovement.character.IsBot) return;
             var characterMovementAi = (CharacterMovementAI)characterMovement;
             if(characterMovementAi.aIBehaviour == Behaviour)
             {
                 waypoint.Visited -= WaypointVisited;
-                if (waypointIndex + 1 < waypoints.Count)
-                    waypointIndex++;
-                else
-                    waypointIndex = 0;
+                waypointIndex = characterMovementAi.character.gameProgress.CurrentWaypoint;
                 waypoint = waypoints[waypointIndex];
                 waypoint.Visited += WaypointVisited;
 
                 destination = waypoint.transform.position;
+                //AIMovement.ClearPath();
+                AIMovement.ClearPath();
             }
         }
 

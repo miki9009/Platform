@@ -73,11 +73,11 @@ namespace Engine.UI
 
         public static UIWindow GetWindow(string ID)
         {
-            var window = windows.SingleOrDefault(x => x.ID == ID);
-            if (window == null)
-            {
-                Debug.LogError("Window with ID: " + ID + " not found.");
-            }
+            var window = windows.FirstOrDefault(x => x.ID == ID);
+            //if (window == null)
+            //{
+            //    Debug.LogError("Window with ID: " + ID + " not found.");
+            //}
             return window;
         }
 
@@ -173,7 +173,7 @@ namespace Engine.UI
 
         public void Show()
         {
-            Console.WriteLine("Show: " + ID, Console.LogColor.Orange);
+            //Console.WriteLine("Show: " + ID, Console.LogColor.Orange);
             gameObject.SetActive(true);
             OnBeforeShow();
             if(hide!=null)
@@ -196,7 +196,7 @@ namespace Engine.UI
 
         public void Hide()
         {
-            Console.WriteLine("Trying to Hide: " + ID, Console.LogColor.Orange);
+            //Console.WriteLine("Trying to Hide: " + ID, Console.LogColor.Orange);
             if (hide != null || !gameObject.activeInHierarchy) return;
             if (show != null)
             {
@@ -252,7 +252,7 @@ namespace Engine.UI
         {
             OnWillShowEvent.Invoke();
             BeginShow?.Invoke();
-            Console.WriteLine("Hiding: " + ID, Console.LogColor.Orange);
+            //Console.WriteLine("Hiding: " + ID, Console.LogColor.Orange);
             switch (anchor)
             {
                 case Anchor.Left:

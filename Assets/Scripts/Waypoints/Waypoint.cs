@@ -12,14 +12,22 @@ public class Waypoint : LevelElement
     public bool active;
 
     Vector3 startScale;
-    MeshRenderer meshRenderer;
+    Character character;
 
     private void Awake()
     {
-        startScale = transform.localScale;
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
-        meshRenderer.enabled = false;
         Character.CharacterCreated += CheckActive;
+    }
+
+    protected override void CheckTargetPointer(Character character)
+    {
+        if (arrowTarget && index == WaypointManager.Instance.currentWaypoint.index)
+        {
+            if (character != null && ArrowActivator == null)
+            {
+                TargetPointerManager.PrepareArrow(character.transform, transform);
+            }
+        }
     }
 
     private void CheckActive(Character character)
@@ -38,20 +46,37 @@ public class Waypoint : LevelElement
     public override void ElementStart()
     {
         base.ElementStart();
-        transform.localScale = new Vector3(startScale.x, 0.1f, startScale.z);
+        startScale = transform.localScale;
+        transform.localScale = new Vector3(startScale.x, 1f, startScale.z);
+        Initialize();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        var character = other.GetComponentInParent<Character>();
-        Visited?.Invoke(character.movement);
-        if (active && WaypointManager.Instance.currentWaypoint == this)
+        character = other.GetComponentInParent<Character>();
+        bool isOnLastWaypoint = character.gameProgress.CurrentWaypoint == WaypointManager.Instance.waypoints.Count - 1;
+        if (character.gameProgress.CurrentWaypoint == index || isOnLastWaypoint)
         {
-            if(character.movement.IsLocalPlayer)
-                StartCoroutine(Shrink());
 
-            CollectionManager.Instance.OnCollected(character.ID, CollectionType.WaypointVisited,1);
+            if (isOnLastWaypoint)
+            {
+                character.gameProgress.lap++;
+                character.gameProgress.CurrentWaypoint = 0;
+            }
+            else
+            {
+                character.gameProgress.CurrentWaypoint = index + 1;
+            }
+            Visited?.Invoke(character.movement);
+            if (active && WaypointManager.Instance.currentWaypoint == this)
+            {
+                if (character.movement.IsLocalPlayer)
+                    StartCoroutine(Shrink());
+
+                CollectionManager.Instance.OnCollected(character.ID, CollectionType.WaypointVisited, 1);
+            }
         }
+
     }
 
     private void Initialize()
@@ -70,7 +95,6 @@ public class Waypoint : LevelElement
     IEnumerator Expand()
     {
         if (!Application.isPlaying) yield break;
-        meshRenderer.enabled = true;
         if (arrowTarget && ArrowActivator!=null)
         {
             ArrowActivator.Enable(true);
@@ -113,10 +137,9 @@ public class Waypoint : LevelElement
         while (duration < 1)
         {
             duration += Time.deltaTime / fadeDuration;
-            transform.localScale = new Vector3(startScale.x, Mathf.Lerp(height, 0, ease(duration)), startScale.z);
+            transform.localScale = new Vector3(startScale.x, Mathf.Lerp(height, 1, ease(duration)), startScale.z);
             yield return null;
         }
-        meshRenderer.enabled = false;
     }
 
     public override void OnLoad()
@@ -138,7 +161,7 @@ public class Waypoint : LevelElement
                 fadeDuration = (float)obj;
             }
 
-            Initialize();
+
         }
     }
 

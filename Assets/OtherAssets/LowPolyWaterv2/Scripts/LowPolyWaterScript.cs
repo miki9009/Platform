@@ -9,7 +9,6 @@ namespace LPWAsset {
     public class LowPolyWaterScript : MonoBehaviour {
 
         public enum GridType { Hexagonal=0, Square=1, HexagonalLOD=2, Custom=3};
-
         #region Public Variables
         public GridType gridType = GridType.Hexagonal;
         [Range(0, 1f)]
@@ -46,6 +45,21 @@ namespace LPWAsset {
         #endregion
 
         #region Unity functions
+        public LowPolyWaterRenderer waterRenderer;
+
+        bool isVisible;
+        public bool IsVisible
+        {
+            get
+            {
+                return isVisible;
+            }
+
+            set
+            {
+                isVisible = value;
+            }
+        }
 
 		//void OnGUI()
 		//{
@@ -57,6 +71,7 @@ namespace LPWAsset {
 		//}
 
         void OnEnable() {
+
             #if UNITY_EDITOR
                 if(material != null) LPWHiddenProps.Calculate(material);
                 LPWHiddenProps.Scale(this);
@@ -84,8 +99,22 @@ namespace LPWAsset {
             #endif
         }
 
+
         void Update() {
             // Pass the sun info to the material
+            if (!waterRenderer)
+            {
+                if (transform.childCount > 0)
+                {
+                    var child = transform.GetChild(0);
+                    waterRenderer = child.gameObject.AddComponent<LowPolyWaterRenderer>();
+                }
+            }
+            else
+            {
+                if (!IsVisible) return;
+            }
+
             if (sun == null) {
                 var lights = Light.GetLights(LightType.Directional, SortingLayer.GetLayerValueFromName("Default"));
                 if(lights.Length > 0) sun = lights[0];

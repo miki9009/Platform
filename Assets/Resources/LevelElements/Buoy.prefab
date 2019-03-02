@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 5682007313845703912}
   - component: {fileID: 5123187361846866315}
   - component: {fileID: 4147446479140227057}
+  - component: {fileID: 3902597324096101152}
   m_Layer: 10
   m_Name: Buoy
   m_TagString: Untagged
@@ -73,7 +74,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 50, z: 50}
+  m_Size: {x: 1, y: 50, z: 25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4147446479140227057
 MonoBehaviour:
@@ -87,10 +88,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a777156d32125440a1d0c53676cd7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -1
+  elementID: -2615263
   arrowTarget: 0
   activeAndEnabled: 1
   boxCollider: {fileID: 5123187361846866315}
+  color: {r: 1, g: 0, b: 0, a: 1}
+  draw: 1
+--- !u!208 &3902597324096101152
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6884968799198274364}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.665, y: 29.025, z: 13.67}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4283831970053955447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d86bbfb471a0e1b4aaa67d76f4a431ca, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d86bbfb471a0e1b4aaa67d76f4a431ca, type: 3}
       propertyPath: m_LocalRotation.y
@@ -140,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d86bbfb471a0e1b4aaa67d76f4a431ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d86bbfb471a0e1b4aaa67d76f4a431ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

@@ -78,7 +78,7 @@ Material:
     - _Shadow: 0.6
     - _ShoreDistance: 1.5
     - _ShoreIntensity: 0.5
-    - _Specular: 150
+    - _Specular: 7
     - _Speed: 0.5
     - _Speed_: 2
     - _Steepness: 0.15
@@ -94,6 +94,6 @@ Material:
     - _Direction_: {r: -1, g: -0.00000008742278, b: -2.4, a: -0.00000020981467}
     - _FresColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShoreColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.57254905, g: 0.8944328, b: 1, a: 1}
+    - _SpecColor: {r: 0, g: 0.81081104, b: 1, a: 1}
     - _Sun: {r: -0.021311633, g: 0.76604444, b: 0.64243406, a: 0}
     - _SunColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}

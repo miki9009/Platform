@@ -40,6 +40,14 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public ThrowableObject ThrowObject { get; set; }
     public Vector3 StartPosition { get; private set; }
     public bool ButtonsInput { get; set; }
+    public virtual bool IsBot
+    {
+        get
+        {
+            return false;
+        }
+    }
+
     public AnimatorBehaviour AnimatorBehaviour
     {
         get; set;
@@ -186,7 +194,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         else if(other.gameObject.layer == Layers.Environment || other.gameObject.layer == Layers.Destructible)
         {
             onGround = true;
-            smoke2.Emit(15);
+            smoke2.Play();
         }
     }
 

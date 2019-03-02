@@ -19,7 +19,12 @@ public class Character : MonoBehaviour
     public Transform rightLowerArm;
     public Transform chest;
     public SkinnedMeshRenderer bodyMeshRenderer;
-    
+    public GameProgress gameProgress;
+
+    public event Action<int> PlacementChanged;
+    public event Action<int> WaypointVisited;
+    public event Action<Character> Dead;
+
     public IEquipment rightArmItem;
     public IEquipment leftArmItem;
 
@@ -45,6 +50,7 @@ public class Character : MonoBehaviour
                 }
             }
             _isDead = value;
+            Dead?.Invoke(this);
         }
     }
     public CharacterPhoton characterPhoton;
@@ -61,7 +67,7 @@ public class Character : MonoBehaviour
     {
         get
         {
-            return movement.GetType() == typeof(CharacterMovementAI);
+            return movement.IsBot;
         }
     }
 
@@ -148,6 +154,7 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         allCharacters.Add(this);
+        gameProgress = new GameProgress(this);
         movement = GetComponent<CharacterMovement>();
         identity = new Identification();
 
@@ -216,6 +223,15 @@ public class Character : MonoBehaviour
         return null;
     }
 
+    public void OnPlacementChanged(int placement)
+    {
+        PlacementChanged?.Invoke(placement);
+    }
+
+    public void OnWaypointVisited(int index)
+    {
+        WaypointVisited?.Invoke(index);
+    }
 
 }
 public class Identification
@@ -236,6 +252,60 @@ public class Identification
         id = counter; 
         counter++;
     }
+}
+
+[Serializable]
+public class GameProgress
+{
+    Character _character;
+    public GameProgress(Character character)
+    {
+        _character = character;
+    }
+    public int Placement
+    {
+        get
+        {
+            return _placement;
+        }
+        set
+        {
+            _placement = value;
+            if(_character && _placement != _prevPlacement)
+            {
+                Debug.Log("Changed to place: " + _placement + "; lap: " + lap);
+                _character.OnPlacementChanged(value);
+                _prevPlacement = _placement;
+            }
+        }
+    }
+
+    public int CurrentWaypoint
+    {
+        get
+        {
+            return _currentWaypoint;
+        }
+
+        set
+        {
+            if(_currentWaypoint != value)
+            {
+                _currentWaypoint = value;
+                if(_character)
+                {
+                    _character.OnWaypointVisited(_currentWaypoint);
+                }
+            }
+
+        }
+    }
+
+    public float raceProgress = 0;
+    int _currentWaypoint = 0;
+    public int lap = 1;
+    int _placement;
+    int _prevPlacement;
 }
 
 public interface IEquipment

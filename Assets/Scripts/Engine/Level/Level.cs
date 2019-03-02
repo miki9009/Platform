@@ -84,6 +84,17 @@ namespace Engine
             return id;
         }
 
+        public static bool ContainsID(LevelElement element)
+        {
+            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            for (int i = 0; i < elements.Length; i++)
+            {
+                if (elements[i].elementID == element.elementID && elements[i] != element)
+                    return true;
+            }
+            return false;
+        }
+
         public static void RemoveID(int id)
         {
             if (levelElementIDs.ContainsKey(id))
@@ -262,9 +273,17 @@ namespace Engine
 
         static void LoadInit(Scene scene, LoadSceneMode mode)
         {
-            SceneManager.sceneLoaded -= LoadInit;
-            SceneManager.sceneLoaded += LoadMenu;
-            SceneManager.LoadSceneAsync("init", LoadSceneMode.Single);   }
+            if(scene.name == "init")
+            {
+                return;
+            }
+            else
+            {
+                SceneManager.sceneLoaded -= LoadInit;
+                SceneManager.sceneLoaded += LoadMenu;
+                SceneManager.LoadSceneAsync("init", LoadSceneMode.Single);
+            }
+        }
 
         static void LoadMenu(Scene scene, LoadSceneMode mode)
         {

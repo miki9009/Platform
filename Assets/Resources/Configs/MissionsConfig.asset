@@ -68,7 +68,7 @@ MonoBehaviour:
   - scene: WaterLand
     missions:
     - level: WaterLand:0
-      mode: Single_Challenge
+      mode: Single_Race
       passed: 0
       unlocked: 0
       unlocks: 

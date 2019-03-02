@@ -31,6 +31,7 @@ public class WaypointManager : MonoBehaviour
         Debug.Log("Waypoints Manager cleard");
         instance = null;
         GameManager.LevelClear -= Clear;
-        Destroy(gameObject);
+        if(this != null && gameObject)
+            Destroy(gameObject);
     }
 }

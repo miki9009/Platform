@@ -49,8 +49,8 @@ MonoBehaviour:
   customMesh: {fileID: 0}
   material: {fileID: 2100000, guid: c8e45c486f2408241bccd31d49796397, type: 2}
   sun: {fileID: 0}
-  sizeX: 100
-  sizeZ: 100
+  sizeX: 50
+  sizeZ: 50
   noise: 1
   enableReflection: 1
   enableRefraction: 0
@@ -67,4 +67,5 @@ MonoBehaviour:
   receiveShadows: 0
   waveScale: -1337
   gridTypeLite: 0
+  waterRenderer: {fileID: 0}
   displayProgress: 0
