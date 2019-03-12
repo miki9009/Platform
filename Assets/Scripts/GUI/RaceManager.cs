@@ -7,10 +7,21 @@ using System.Linq;
 public class RaceManager : MonoBehaviour
 {
     Character[] characters;
+    bool startRace = false;
+    public int timer = 3;
     private void Start()
     {
         GameManager.LevelClear += Stop;
+
     }
+
+    private void OnDestroy()
+    {
+        GameManager.LevelClear -= Stop;
+
+    }
+
+
 
     bool activated = false;
     public void Activate()
@@ -48,7 +59,7 @@ public class RaceManager : MonoBehaviour
                 float totalDis = Vector3.Distance(WaypointManager.Instance.waypoints[gameProgress.CurrentWaypoint].transform.position, WaypointManager.Instance.waypoints[prevWaypoint].transform.position);
                 float curDis = Vector3.Distance(WaypointManager.Instance.waypoints[gameProgress.CurrentWaypoint].transform.position, characters[i].transform.position);
                 float disProgress = (1 - (curDis / totalDis)) / totalWaypoints;
-                characters[i].gameProgress.raceProgress = (waypointProgress + disProgress) * characters[i].gameProgress.lap;
+                characters[i].gameProgress.raceProgress = (waypointProgress + disProgress) + characters[i].gameProgress.lap;
                 yield return null;
             }
             yield return null;

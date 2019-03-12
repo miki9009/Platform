@@ -42,7 +42,7 @@ public class GameCamera : MonoBehaviour
     public bool collides;
     Collider col;
    
-    public float disToTarget;
+    float disToTarget;
 	void Start ()
     {
         gameType = Controller.Instance.gameType;
@@ -148,6 +148,17 @@ public class GameCamera : MonoBehaviour
         transform.position = pos;
         transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, Quaternion.LookRotation(Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor)), rotationSpeed * Time.deltaTime);
         //transform.rotation = Quaternion.LookRotation( Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor));
+        float colDis;
+        if (CheckCollision(out colDis))
+        {
+            var dir = Vector.Direction(target.position, transform.position);
+            if(Vector3.Distance(mainCamera.transform.position, target.position) > minDistanceToPlayer)
+                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, target.position + dir * colDis, Time.deltaTime * speed / 2);
+        }
+        else
+        {
+            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, Vector3.zero, Time.deltaTime * speed/2);
+        }
     }
 
     public void CameraLookAtPosition(Vector3 destination)
@@ -166,6 +177,21 @@ public class GameCamera : MonoBehaviour
         transform.position = target.position - target.forward * minDistance + Vector3.up * localPosition.y;
 
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector.Direction(transform.position, target.position + Vector3.up * upFactor)), rotationSpeed * Time.deltaTime);
+    }
+
+    public float minDistanceToPlayer = 5;
+    bool CheckCollision(out float dis)
+    {
+        RaycastHit hit;
+        Debug.DrawLine(target.position + Vector3.up * 3, transform.position);
+        Vector3 dir = Vector.Direction(target.position + Vector3.up * 3, transform.position);
+        if (Physics.SphereCast(target.position + Vector3.up * 3, 0.5f, dir, out hit,maxDistance , collisionLayer.value,  QueryTriggerInteraction.Ignore))
+        {
+            dis = Vector3.Distance(target.position, hit.point); 
+            return true;
+        }
+        dis = 0;
+        return false;
     }
 
     public void Stay(bool move)
@@ -224,6 +250,7 @@ public class GameCamera : MonoBehaviour
     Coroutine shakeCor;
     IEnumerator ShakeCor(float time, float force, float amplitude)
     {
+        Debug.Log("Shake");
         float x, y, z;
         while (time > 0)
         {
@@ -272,11 +299,11 @@ public class GameCamera : MonoBehaviour
         upFactor = UpFactorAtStart;
     }
 
-    private void OnDrawGizmos()
-    {
-        if(target!=null)
-            Gizmos.DrawLine(target.position +Vector3.up, target.position + Vector3.up + Vector.Direction(target.position, transform.position) * minDistance);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    if(target!=null)
+    //        Gizmos.DrawLine(target.position +Vector3.up, target.position + Vector3.up + Vector.Direction(target.position, transform.position) * minDistance);
+    //}
 
 
 

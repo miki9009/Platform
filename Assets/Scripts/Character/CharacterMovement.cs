@@ -33,6 +33,10 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public Animator anim;
 
     public Transform powerUpAnchor;
+    public bool Initialized
+    {
+        get;private set;
+    }
 
     public float airForce = 5;
 
@@ -121,6 +125,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             enabled = false;
         else
             Initialize();
+
+        Initialized = true;
     }
 
     public void OnTriggerExit(Collider other)
@@ -176,7 +182,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 smoke.Play();
             }
             attack = false;
-            anim.SetBool("attackStay", false);
+            if(anim)
+                anim.SetBool("attackStay", false);
         }
     }
 

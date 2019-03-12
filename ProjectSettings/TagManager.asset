@@ -11,6 +11,7 @@ TagManager:
   - SunRay
   - grass
   - FxTemporaire
+  - RollingStoneTrigge
   layers:
   - Default
   - TransparentFX

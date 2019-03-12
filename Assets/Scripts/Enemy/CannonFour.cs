@@ -60,7 +60,7 @@ public class CannonFour : Cannon
             }
     }
 
-    void Shooting()
+    public void Shooting()
     {
         if (triggered && characters.Count > 0)
         {
@@ -83,6 +83,24 @@ public class CannonFour : Cannon
                     Shoot(target.position,false);
             }
 
+        }
+    }
+
+    public override void Shoot(Vector3 position, bool useGravity = true)
+    {
+        Projectile p = null;
+        if (projectiles.Count > 0)
+        {
+            p = projectiles.Pop();
+        }
+        else
+        {
+            p = Instantiate(projectile, transform).GetComponent<Projectile>();
+        }
+        if (p != null)
+        {
+            p.transform.position = barrel.position;
+            p.Shoot(this, barrel.forward, force * forceDivider * 5, useGravity);
         }
     }
 }

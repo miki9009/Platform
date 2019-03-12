@@ -16,7 +16,7 @@ public class Cannon : LevelElement, IShooter
     public float force = 10;
     protected float curTimeBeforeShooting = 0;
     public float forceDivider = 5;
-    Stack<Projectile> projectiles;
+    protected Stack<Projectile> projectiles;
     public ParticleSystem parts;
 
     public ParticleSystem Trails
@@ -107,7 +107,7 @@ public class Cannon : LevelElement, IShooter
         projectile.gameObject.SetActive(false);
     }
 
-    public void Shoot(Vector3 position, bool useGravity = true)
+    public virtual void Shoot(Vector3 position, bool useGravity = true)
     {
         Projectile p = null;
         if(projectiles.Count > 0)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8053740289285323487}
   - component: {fileID: 8053740289285323472}
   - component: {fileID: 6867225053288348757}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: WallCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,3 +58,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 0, b: 0, a: 0.5803922}
+  draw: 1

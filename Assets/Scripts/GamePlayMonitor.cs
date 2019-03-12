@@ -9,7 +9,7 @@ public class GamePlayMonitor : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Level.LevelLoaded += Initialize;
+        GameManager.GameReady += Initialize;
     }
 
     private void Initialize()
@@ -19,5 +19,10 @@ public class GamePlayMonitor : MonoBehaviour
             raceManager.Activate();
             Console.WriteLine("Activated Race Mode", Console.LogColor.Orange);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GameReady -= Initialize;
     }
 }

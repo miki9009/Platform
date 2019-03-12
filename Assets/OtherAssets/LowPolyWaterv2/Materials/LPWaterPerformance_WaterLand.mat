@@ -64,7 +64,7 @@ Material:
     - _Length: 4
     - _LightAbs: 0
     - _NormalOffset: 0
-    - _Opacity: 0.5
+    - _Opacity: 1
     - _PointLights: 0
     - _RHeight: 0.2
     - _RHeight_: 0.8
@@ -78,7 +78,7 @@ Material:
     - _Shadow: 0.6
     - _ShoreDistance: 1.5
     - _ShoreIntensity: 0.5
-    - _Specular: 7
+    - _Specular: 100
     - _Speed: 0.5
     - _Speed_: 2
     - _Steepness: 0.15

@@ -276,8 +276,8 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         vec.y = 0;
         Quaternion rot = Quaternion.Euler(targetEuler);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.2f);
-        modelZFactor = Mathf.Lerp(modelZFactor, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
-        var euler = model.transform.localEulerAngles;
-        model.transform.localEulerAngles = new Vector3(euler.x, 0, Mathf.Clamp(-modelZFactor / 3, -15, 15));
+        //modelZFactor = Mathf.Lerp(modelZFactor, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
+        //var euler = model.transform.localEulerAngles;
+        //model.transform.localEulerAngles = new Vector3(euler.x, 0, Mathf.Clamp(-modelZFactor / 3, -30,30));
     }
 }

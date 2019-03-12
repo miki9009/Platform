@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
+            if (string.IsNullOrEmpty(_gameMode)) return "";
             return _gameMode;
         }
         set

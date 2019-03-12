@@ -153,18 +153,16 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        allCharacters.Add(this);
         gameProgress = new GameProgress(this);
         movement = GetComponent<CharacterMovement>();
         identity = new Identification();
-
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
-
     }
 
     void Start()
     {
+        allCharacters.Add(this);    //DON"T MOVE TO AWAKE, NEEDS TO BE A FRAME BREAK BETWEEN REMOVE AND ADD
         if (movement is ILocalPlayer)
         {
             if(PhotonManager.IsMultiplayer) //MULTIPLAYER
@@ -297,7 +295,6 @@ public class GameProgress
                     _character.OnWaypointVisited(_currentWaypoint);
                 }
             }
-
         }
     }
 

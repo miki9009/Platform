@@ -10136,8 +10136,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114847762505081622}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114847762505081622
@@ -10182,6 +10182,9 @@ MonoBehaviour:
   rightLowerArm: {fileID: 4574165934073940}
   chest: {fileID: 4637251974211886}
   bodyMeshRenderer: {fileID: 137924348840373068}
+  gameProgress:
+    raceProgress: 0
+    lap: 0
   characterPhoton: {fileID: 114847762505081622}
 --- !u!114 &114260549044847582
 MonoBehaviour:

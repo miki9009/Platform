@@ -43,7 +43,8 @@ public class Projectile : MonoBehaviour
         if(shooter!=null)
         {
             shooter.ResetProjectile(this);
-            shooter.Trails.Stop();
+            if(shooter.Trails)
+                shooter.Trails.Stop();
         }
         else
         {

@@ -14,6 +14,11 @@ public class CoroutineHost : MonoBehaviour
         instance.StopCoroutine(coroutine);
     }
 
+    public static void Stop(Coroutine coroutine)
+    {
+        instance.StopCoroutine(coroutine);
+    }
+
     private void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);

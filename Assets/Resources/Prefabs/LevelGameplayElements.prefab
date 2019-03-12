@@ -98,7 +98,7 @@ MonoBehaviour:
   speed: 5
   rotateAround: 0
   camAnchors: []
-  maxDistance: 20
+  maxDistance: 10
   staticZ: 0
   staticX: 0
   vignatteAberration: {fileID: 4236626060186302}
@@ -109,7 +109,7 @@ MonoBehaviour:
   localPosition: {x: 8, y: 10, z: 0}
   regularUpdate: 0
   collides: 0
-  disToTarget: 0
+  minDistanceToPlayer: 0
   lastCollideObject: {fileID: 0}
   collisionLayer:
     serializedVersion: 2
@@ -537,8 +537,8 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009020829427280}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -29330,6 +29330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd763cc656881841b9781c2ad9467e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 3
 --- !u!1001 &3271757659992780179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29401,7 +29402,8 @@ PrefabInstance:
       propertyPath: lengthInSec
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
 --- !u!198 &3271757659977970259 stripped
 ParticleSystem:
