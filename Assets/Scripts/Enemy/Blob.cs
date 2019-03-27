@@ -13,6 +13,7 @@ public class Blob : Enemy
     {
         base.Start();
         chTime = chargeTime;
+        Debug.Log("Start");
     }
 
     private void OnTriggerEnter(Collider other)

@@ -6,6 +6,7 @@ public class Health : CollectionObject
 {
     public ParticleSystem heartExplosion;
     public ParticleSystem heartInside;
+    public int increaseHealth = 10;
     protected override void Start()
     {
         base.Start();
@@ -20,8 +21,8 @@ public class Health : CollectionObject
         var character = obj.GetComponentInParent<Character>();
         if (character != null)
         {
-            character.stats.health++;
-            character.movement.characterHealth.AddHealth(character.stats.health);
+            character.Health = character.Health + increaseHealth;
+            //character.movement.characterHealth.AddHealth(character.stats.health);
         }
     }
 

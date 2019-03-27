@@ -46,7 +46,7 @@ public class MonkeyCoconut : MonoBehaviour
                    var c =  Parent.gameObject.GetComponent<Character>();
                     if(c!= null)
                     {
-                        monkey.Hit(c);
+                        monkey.Hit(c.movement);
                         gameObject.SetActive(false);
                     }
                 }

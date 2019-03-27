@@ -41,6 +41,7 @@ public class GameCamera : MonoBehaviour
     float time = 0;
     public bool collides;
     Collider col;
+    public bool isPhysic;
    
     float disToTarget;
 	void Start ()
@@ -149,16 +150,20 @@ public class GameCamera : MonoBehaviour
         transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, Quaternion.LookRotation(Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor)), rotationSpeed * Time.deltaTime);
         //transform.rotation = Quaternion.LookRotation( Vector.Direction(mainCamera.transform.position, target.position + Vector3.up * upFactor));
         float colDis;
-        if (CheckCollision(out colDis))
+        if(isPhysic)
         {
-            var dir = Vector.Direction(target.position, transform.position);
-            if(Vector3.Distance(mainCamera.transform.position, target.position) > minDistanceToPlayer)
-                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, target.position + dir * colDis, Time.deltaTime * speed / 2);
+            if (CheckCollision(out colDis))
+            {
+                var dir = Vector.Direction(target.position, transform.position);
+                if (Vector3.Distance(mainCamera.transform.position, target.position) > minDistanceToPlayer)
+                    mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, target.position + dir * colDis, Time.deltaTime * speed / 2);
+            }
+            else
+            {
+                mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, Vector3.zero, Time.deltaTime * speed / 2);
+            }
         }
-        else
-        {
-            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, Vector3.zero, Time.deltaTime * speed/2);
-        }
+
     }
 
     public void CameraLookAtPosition(Vector3 destination)

@@ -116,10 +116,22 @@ public class Crate : MonoBehaviour, IDestructible
         gameObject.SetActive(false);
     }
 
-    public void Hit(Character character)
+    public void CallShake()
+    {
+        Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
+    }
+
+    public void Hit(IDestructible destructible)
     {
         if (destructed) return;
+        Character character = null;
+        if (destructible is CharacterMovement)
+        {
+            character = ((CharacterMovement)destructible).character;
+        }
+        CallShake();
         destructed = true;
+        Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
         CollectionManager.Instance.SetCollection(character.ID, CollectionType.DestroyCrate, 1);
         crateExplosion.transform.position = transform.position;
         crateExplosion.Play();

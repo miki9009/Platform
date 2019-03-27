@@ -24,9 +24,12 @@ public class Character : MonoBehaviour
     public event Action<int> PlacementChanged;
     public event Action<int> WaypointVisited;
     public event Action<Character> Dead;
+        public CharacterPhoton characterPhoton;
 
     public IEquipment rightArmItem;
     public IEquipment leftArmItem;
+
+
 
     bool _isDead;
     public bool IsDead
@@ -53,7 +56,22 @@ public class Character : MonoBehaviour
             Dead?.Invoke(this);
         }
     }
-    public CharacterPhoton characterPhoton;
+
+    public int Health
+    {
+        get
+        {
+            return (stats != null ? stats.Health : 0);
+        }
+
+        set
+        {
+            Debug.Log("HP: " + value);
+            stats.Health = value;
+        }
+    }
+
+
 
     public bool IsLocalPlayer
     {
@@ -147,12 +165,12 @@ public class Character : MonoBehaviour
         Controller.Instance.gameCamera.SetTarget(transform);
         stats = CharacterSettingsModule.Statistics;
         ChangeArmor(stats.armorType);
-        CharacterCreated?.Invoke(this);
     }
 
 
     private void Awake()
     {
+        GameManager.LevelClear += KillMe;
         gameProgress = new GameProgress(this);
         movement = GetComponent<CharacterMovement>();
         identity = new Identification();
@@ -188,7 +206,13 @@ public class Character : MonoBehaviour
         {
             ID = identity.ID;
         }
+        stats.Initialize(this);
+        CharacterCreated?.Invoke(this);
+    }
 
+    void KillMe()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDestroy()
@@ -196,6 +220,7 @@ public class Character : MonoBehaviour
         if(allCharacters.Contains(this))
             allCharacters.Remove(this);
         PhotonManager.RemovePlayer(this);
+        GameManager.LevelClear -= KillMe;
     }
 
     void DisableOnNotMine()

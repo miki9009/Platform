@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ice1.unity
     guid: 55030b01e4c3a2e4fa0115d6fec43c4a
+  - enabled: 1
+    path: Assets/Scenes/Temple1.unity
+    guid: 371e9f0dcc0bf1d40b0c226a8d114e69
   m_configObjects: {}

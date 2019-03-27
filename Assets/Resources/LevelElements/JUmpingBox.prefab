@@ -72,10 +72,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ca3439084da1f47b7ec13bc933fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: 7596856
+  elementID: -6036718
   arrowTarget: 0
   activeAndEnabled: 1
-  skinMesh: {fileID: 0}
+  skinMesh: {fileID: 5246416363383565424}
   expandSpeed: 5
   bounds:
     m_Center: {x: 0, y: -0.1, z: 0}
@@ -127,7 +127,7 @@ SkinnedMeshRenderer:
   m_Mesh: {fileID: 4300000, guid: dbe2e081cf3f0e44b9fb8c21a6fd16cf, type: 3}
   m_Bones: []
   m_BlendShapeWeights:
-  - 0
+  - 100
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: 0, y: -0.00012600422, z: -2.1257474}

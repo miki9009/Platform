@@ -5,7 +5,7 @@ using UnityEngine;
 using Engine;
 using Engine.UI;
 
-public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnimator
+public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnimator, IDestructible
 {
     public bool onGround = true;
     public ParticleSystem smoke2;
@@ -19,6 +19,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public Character character;
     [HideInInspector] public CharacterHealth characterHealth;
     public Action MeleeAttack;
+    public Action StopAttack;
     public event Action AttackBroadcast;
     public event Action DieBroadcast;
     public event Action<IThrowable, Vector3> Thrown;
@@ -31,6 +32,9 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public float pipeFactor;
     [NonSerialized]
     public Animator anim;
+    public float meleeAttackRadius = 2;
+
+    float startAttackRadius;
 
     public Transform powerUpAnchor;
     public bool Initialized
@@ -56,6 +60,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         get; set;
     }
+
+
     public bool IsLocalPlayer
     {
         get
@@ -91,7 +97,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public ParticleSystem smoke;
 
     protected Vector3 targetEuler;
-    protected bool canMove = true;
 
     protected abstract void Initialize();
     protected abstract void Inputs();
@@ -100,7 +105,12 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public bool isRemoteControl { get; set; }
     public abstract bool IsPlayer { get; }
 
+    public Transform Transform
+    {
+        get { return transform; }
+    }
 
+    public Rigidbody Rigidbody { get { return rb; } }
 
     private void Awake()
     {
@@ -120,6 +130,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         anim = character.anim;
         smokeExplosion = StaticParticles.Instance.smokeExplosion;
         starsExplosion = StaticParticles.Instance.starsExplosion;
+
+        startAttackRadius = meleeAttackRadius;
 
         if (isRemoteControl)
             enabled = false;
@@ -147,7 +159,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         {
             RemoveCharacter();
         }
-
     }
 
     public void CharacterSetActive(bool val)
@@ -187,45 +198,51 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         }
     }
 
-    public void OnTriggerEnter(Collider other)
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.layer == 11)
+    //    {
+    //        var enemy = other.transform.root.gameObject.GetComponent<Enemy>();
+    //        if (enemy == null) return;
+    //        if (!enemy.dead && enemy.isAttacking)
+    //        {
+    //            Hit(enemy);
+    //        }
+    //    }
+    //    else if(other.gameObject.layer == Layers.Environment || other.gameObject.layer == Layers.Destructible)
+    //    {
+    //        onGround = true;
+    //        smoke2.Play();
+    //    }
+    //}
+
+    public void Hit(IDestructible attacker)
     {
-        if (other.gameObject.layer == 11)
-        {
-            var enemy = other.transform.root.gameObject.GetComponent<Enemy>();
-            if (enemy == null) return;
-            if (!enemy.dead && enemy.isAttacking)
-            {
-                Hit(enemy);
-            }
-        }
-        else if(other.gameObject.layer == Layers.Environment || other.gameObject.layer == Layers.Destructible)
-        {
-            onGround = true;
-            smoke2.Play();
-        }
+        Debug.Log("Not Implemented.");
     }
 
     public virtual void Hit(Enemy enemy = null, int hp = 1, bool heavyAttack = false)
     {
-        if (stats.health <= 0 || Invincible || (isAttacking && !heavyAttack)) return;
-        hp = Mathf.Clamp(hp, 1, stats.health);
+        if (character.Health <= 0 || Invincible || (isAttacking && !heavyAttack)) return;
+        //hp = Mathf.Clamp(hp, 1, character.Health);
 
-        if (IsLocalPlayer)
-        {
-            {
-                for (int i = 0; i < hp; i++)
-                {
-                    characterHealth.RemoveHealth(stats.health - i - 1);
-                }
-            }
-        }
+        //if (IsLocalPlayer)
+        //{
+        //    {
+        //        for (int i = 0; i < hp; i++)
+        //        {
+        //            characterHealth.RemoveHealth(stats.health - i - 1);
+        //        }
+        //    }
+        //}
 
-        stats.health -= hp;
+        character.Health = character.Health - hp;
 
-        if (stats.health > 0)
+        if (character.Health > 0)
         {
             anim.SetTrigger("hit");
-            rb.AddForce(Vector3.up * 10, ForceMode.VelocityChange);
+            if(rb.velocity.y < 10)
+                rb.AddForce(Vector3.up * 10, ForceMode.VelocityChange);
         }
         else
         {
@@ -253,10 +270,10 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     // Update is called once per frame
     protected virtual void FixedUpdate ()
     {
+        Rotation();
         SetAnimationHorizontal(rb.velocity);
         Move();
-        Rotation();
-        if(onGround)
+        if (onGround)
             rb.AddForce(Vector3.up * addForce);
     }
 
@@ -266,12 +283,11 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         Movement();
         Inputs();
         Jump();
-        if (attack)
-        {
+        //if (attack)
+        //{
             attack = false;
-            AttackCollision();
-        }
-
+        //    AttackCollision();
+        //}
     }
 
 
@@ -335,7 +351,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
             if (Thrown != null)
             {
-                canMove = false;
                 RaycastHit hit;
                 if (Physics.SphereCast(transform.position, 5, transform.forward, out hit, 50, enemyLayer.value, QueryTriggerInteraction.Ignore))
                 {
@@ -360,17 +375,27 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             {
                 MeleeAttack.Invoke();
             }
-            else
-            {
-                attack = true;
-                anim.Play("Attack");
-                isAttacking = true;
-                attackParticles.Play();
-            }
+            //else
+            //{
+            //    PerformMeleeAttack();
+            //}
             //}
 
         }
         //}
+    }
+
+    public void PerformMeleeAttack()
+    {
+        isAttacking = true;
+        attack = true;
+        anim.Play("Attack");
+        //attackParticles.Play();
+    }
+
+    public void ResetAttackRadius()
+    {
+        meleeAttackRadius = startAttackRadius;
     }
 
     public LayerMask collisionLayer;
@@ -385,42 +410,42 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         {
             if (animatorStateInfo.shortNameHash == throwAnimationHash)
             {
-                canMove = true;
+                //CanMove = true;
             }
             else if (animatorStateInfo.shortNameHash == attackAnimationHash)
             {
                 isAttacking = false;
+                StopAttack?.Invoke();
             }
         };
     }
 
-    protected void AttackCollision()
-    {
-        Ray ray = new Ray(curPos, Vector3.down);
-        RaycastHit[] hits = Physics.SphereCastAll(curPos, 2, Vector3.down, 10, collisionLayer.value,QueryTriggerInteraction.Ignore);
-        for (int i = 0; i < hits.Length; i++)
-        {
-            //Debug.Log("Hit: " + hits[i].transform.name);
-            //Debug.Log(hits[i].collider.GetType());
-            scripts.Add(hits[i].collider.GetComponentInParent<IDestructible>());
+    //protected void AttackCollision()
+    //{
+    //    Ray ray = new Ray(curPos, Vector3.down);
+    //    RaycastHit[] hits = Physics.SphereCastAll(curPos, meleeAttackRadius, Vector3.down, 10, collisionLayer.value,QueryTriggerInteraction.Ignore);
+    //    for (int i = 0; i < hits.Length; i++)
+    //    {
+    //        //Debug.Log("Hit: " + hits[i].transform.name);
+    //        //Debug.Log(hits[i].collider.GetType());
+    //        scripts.Add(hits[i].collider.GetComponentInParent<IDestructible>());
 
-        }
-        foreach (var script in scripts)
-        {
-            if (script != null)
-            {
-                script.Hit(character);
-                //script.Rigidbody.velocity = Vector3.zero;
-               // script.Rigidbody.AddForce((Vector.Direction(transform.position, script.Transform.position) + Vector3.up * 2) * character.stats.attackForce, ForceMode.VelocityChange);
-                StaticParticles.PlayHitParticles(script.Transform.position + Vector3.up);
-                smokeExplosion.transform.position = script.Transform.position;
-                smokeExplosion.Play();
-                //attack = false;
-            }
-        }
-        scripts.Clear();
-    }
-
+    //    }
+    //    foreach (var script in scripts)
+    //    {
+    //        if (script != null)
+    //        {
+    //            script.Hit(character);
+    //            //script.Rigidbody.velocity = Vector3.zero;
+    //           // script.Rigidbody.AddForce((Vector.Direction(transform.position, script.Transform.position) + Vector3.up * 2) * character.stats.attackForce, ForceMode.VelocityChange);
+    //            StaticParticles.PlayHitParticles(script.Transform.position + Vector3.up);
+    //            smokeExplosion.transform.position = script.Transform.position;
+    //            smokeExplosion.Play();
+    //            //attack = false;
+    //        }
+    //    }
+    //    scripts.Clear();
+    //}
 
     public void MovementEnable(bool enable)
     {
@@ -437,11 +462,14 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         anim.SetTrigger(triggerName);
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + rotation * 10);
-    //}
+    public void Hit(Character character)
+    {
+        //throw new NotImplementedException();
+    }
 
-
-
+    public void CallShake()
+    {
+        if(!character.IsLocalPlayer)
+            Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
+    }
 }

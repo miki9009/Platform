@@ -206,13 +206,24 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
             anim.Play("Idle");
     }
 
-
-    public void Hit(Character character)
+    public void CallShake()
     {
+        Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
+    }
+
+    public void Hit(IDestructible destructible)
+    {
+        Character character = null;
+        if (destructible is CharacterMovement)
+        {
+            character = ((CharacterMovement)destructible).character;
+        }
+        if (character == null) return;
         anim.SetTrigger("hit");
         dead = true;
         enemyDeath.StartCoroutine(enemyDeath.DestroyMe());
         enabled = false;
+        CallShake();
         if (colliders == null)
         {
             colliders = GetComponentsInChildren<Collider>();
@@ -259,7 +270,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     public void OnHit(Character character)
     {
         starsExplosion.Play();
-        Hit(character);
+        Hit(character.movement);
     }
 
 

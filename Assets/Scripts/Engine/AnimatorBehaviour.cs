@@ -54,7 +54,7 @@ namespace Engine
 
         [HideInInspector]public GameObject gameObject;
         public IStateAnimator state;
-        bool initialized = false;
+        protected bool initialized = false;
 
         
 
@@ -131,10 +131,7 @@ namespace Engine
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (StateUpdate != null)
-            {
-                StateUpdate();
-            }
+            StateUpdate?.Invoke();
         }
     }
 

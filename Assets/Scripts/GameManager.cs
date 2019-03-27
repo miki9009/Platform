@@ -193,8 +193,17 @@ public class GameManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        CoroutineHost.Start(RestartLevelCoroutine());
+    }
+
+    IEnumerator RestartLevelCoroutine()
+    {
         OnLevelClear();
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
         LevelManager.LoadOnlyCusomLevel(LevelManager.CurrentCustomLevel);
+
         if (Instance != null)
         {
             OnRestart();

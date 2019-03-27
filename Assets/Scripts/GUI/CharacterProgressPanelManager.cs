@@ -54,7 +54,14 @@ public class CharacterProgressPanelManager : MonoBehaviour
     {
         timerLabel.gameObject.SetActive(false);
         if(GameManager.GameMode.Contains("Race"))
+        {
+            localPlacement.gameObject.SetActive(true);
             Activate();
+        }
+        else
+        {
+            localPlacement.gameObject.SetActive(false);
+        }
     }
 
     Coroutine activeCoroutine;
@@ -100,7 +107,13 @@ public class CharacterProgressPanelManager : MonoBehaviour
         if(GameMode == Mode.Race)
         {
             Character.GetLocalPlayer().WaypointVisited += CheckLap;
+            localPlacement.gameObject.SetActive(true);
         }
+        else
+        {
+            localPlacement.gameObject.SetActive(false);
+        }
+
     }
 
     void CheckLap(int waypointIndex)

@@ -10,6 +10,7 @@ public class Checkpoint : MonoBehaviour
     public ParticleSystem parts;
     public Transform restartPosition;
     private static List<Checkpoint> checkpoints = new List<Checkpoint>();
+    public ParticleSystem resurectParticleSystem;
 
     private void Awake()
     {
@@ -43,6 +44,8 @@ public class Checkpoint : MonoBehaviour
     public void ResetToCheckpoint(Character character)
     {
         character.transform.position = restartPosition.position;
+        resurectParticleSystem.transform.position = restartPosition.position + Vector3.up * 0.2f;
+        resurectParticleSystem.Play();
     }
 
 #if UNITY_EDITOR

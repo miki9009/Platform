@@ -39,6 +39,11 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         }
     }
 
+    public void CallShake()
+    {
+        Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
+    }
+
     public void StateAnimatorInitialized()
     {
         AnimatorBehaviour.StateExit += (animatorStateInfo) =>
@@ -122,9 +127,16 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         }
     }
 
-    public void Hit(Character character)
+    public void Hit(IDestructible destructible)
     {
         if (dead) return;
+        Character character = null;
+        if (destructible is CharacterMovement)
+        {
+            character = ((CharacterMovement)destructible).character;
+        }
+        if (character == null) return;
+        CallShake();
         CollectionManager.Instance.SetCollection(character.ID, CollectionType.KillEnemy, 1);
         starsExplosion.transform.position = transform.position;
         starsExplosion.Play();
@@ -157,6 +169,6 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
 
     public void OnHit(Character character)
     {
-        Hit(character);
+        Hit(character.movement);
     }
 }

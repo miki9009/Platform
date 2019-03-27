@@ -14,6 +14,7 @@ public class CollectionDisplay : MonoBehaviour
     Text text;
     float scale = 1;
     static readonly Vector3 scaleVector = new Vector3(1, 1, 1);
+    public bool writeCount;
 
     public void Awake()
     {
@@ -44,7 +45,15 @@ public class CollectionDisplay : MonoBehaviour
         showTime = 3;
         ammount++;
         scale = 1.2f;
-        text.text = "x" + ammount;
+        if(writeCount)
+        {
+            text.text = ammount + " / " + CollectionManager.GetCollectionCount(type);
+        }
+        else
+        {
+            text.text = "x" + ammount;
+        }
+
         if (coroutine == null)
         {
             if (CollectionDisplayManager.Instance.isDisplaying)

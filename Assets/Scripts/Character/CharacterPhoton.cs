@@ -37,10 +37,10 @@ public class CharacterPhoton : Photon.MonoBehaviour
         PhotonManager.MessageReceived -= DeathEventListner;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        movement.OnTriggerEnter(other);
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    movement.OnTriggerEnter(other);
+    //}
 
     private void OnTriggerExit(Collider other)
     {
@@ -158,7 +158,8 @@ public class CharacterPhoton : Photon.MonoBehaviour
         yield return new WaitForSeconds(2);
         Console.WriteLine("Character Restart. ", Console.LogColor.Lime);
         if (character == null) yield break;
-        character.stats.health = 1;
+        //character.stats.health = 1;
+        character.Health = character.stats.startHealth;
         character.movement.anim.Play("Idle");
         int currentRestarts = CollectionManager.Instance.GetCollection(character.ID, CollectionType.Restart);
         if (character.rb != null)
@@ -168,7 +169,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
         character.transform.position = character.movement.StartPosition;
         if (character.IsLocalPlayer)
         {
-            character.movement.characterHealth.AddHealth(character.stats.health);
+            //character.movement.characterHealth.AddHealth(character.stats.health);
             character.movement.CharacterSetActive(true);
             character.movement.enabled = true;
         }

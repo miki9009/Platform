@@ -6,34 +6,33 @@ using System.Linq;
 
 public class CollectionManager : MonoBehaviour
 {
-    static CollectionManager instance;
+    static Dictionary<CollectionType, int> collectionsCount = new Dictionary<CollectionType, int>();
     public Dictionary<CollectionObject, CollectionType> LevelCollections = new Dictionary<CollectionObject, CollectionType>();
     public ParticleSystem[] particles;
     public static CollectionManager Instance
     {
-        get
-        {
-            return instance;
-        } 
-        private set
-        {
-            instance = value;
-        }
+        get; private set;
     }
 
 
     private void OnDestroy()
     {
-        instance = null;
         Level.LevelLoaded-= Clear;
+        GameManager.LevelClear -= GameManager_LevelClear;
     }
 
 
     private void Awake()
     {
         collections = new Dictionary<int, CollectionSet>();
-        instance = this;
+        Instance = this;
         Level.LevelLoaded += Clear;
+        GameManager.LevelClear += GameManager_LevelClear;
+    }
+
+    private void GameManager_LevelClear()
+    {
+        collectionsCount.Clear();
     }
 
     Dictionary<int, CollectionSet> collections;
@@ -77,7 +76,6 @@ public class CollectionManager : MonoBehaviour
             collections.Add(playerID, new CollectionSet(type, playerID));
             SetCollection(playerID, type, val);
         }
-
     }
 
     public void AddToCollection(int playerID, CollectionType type, int val)
@@ -163,9 +161,28 @@ public class CollectionManager : MonoBehaviour
         }
     }
 
+    public static void AddCollectionCount(CollectionType type)
+    {
+        if (!collectionsCount.ContainsKey(type))
+            collectionsCount.Add(type, 1);
+        else
+            collectionsCount[type] += 1;
+    }
+
+    public static int GetCollectionCount(CollectionType type)
+    {
+        if (collectionsCount.ContainsKey(type))
+        {
+            return collectionsCount[type];
+        }
+        Debug.LogError("Collection with type: " + type + " not found.");
+        return 0;
+    }
+
     public void ResetCollections()
     {
         collections.Clear();
+
     }
 
 #if UNITY_EDITOR
@@ -177,7 +194,7 @@ public class CollectionManager : MonoBehaviour
     {
         if (!debug) return;
         int y = 50;
-        Draw.TextColorUnity(10, y, color, instance);
+        Draw.TextColorUnity(10, y, color, Instance);
         y += 30;
         foreach (var collection in collections)
         {

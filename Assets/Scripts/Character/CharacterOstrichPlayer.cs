@@ -34,11 +34,11 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         curPos = transform.position;
         Movement();
         Jump();
-        if (attack)
-        {
+        //if (attack)
+        //{
             attack = false;
-            AttackCollision();
-        }
+            //AttackCollision();
+        //}
     }
 
     protected override void FixedUpdate()
@@ -179,4 +179,6 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
             jumpInput = 1;
         }
     }
+
+
 }

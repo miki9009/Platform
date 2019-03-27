@@ -156,10 +156,10 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            //Character.GetLocalPlayer().movement.RemoveCharacter();
+            //Destroy(character);
+            //yield return null;
+            //yield return null;
             UIWindow.GetWindow(UIWindow.END_SCREEN).RestartLevel();
-            //GameManager.Instance.EndGame(GameManager.GameState.Failed);
-            //UIWindow.GetWindow(UIWindow.END_SCREEN).RestartLevel();
         }
         yield return null;
     }
@@ -169,8 +169,9 @@ public class Controller : MonoBehaviour
         Console.WriteLine("Character Restart. ", Console.LogColor.Lime);
         if (character == null) return;
         character.movement.enabled = true;
-        character.stats.health = 1;
-        character.movement.characterHealth.AddHealth(character.stats.health);
+        character.Health = character.stats.startHealth;
+        //character.stats.health = 1;
+       // character.movement.characterHealth.AddHealth(character.stats.health);
         character.movement.anim.Play("Idle");
         int currentRestarts = CollectionManager.Instance.GetCollection(character.ID, CollectionType.Restart);
         var collections = DataManager.Collections;

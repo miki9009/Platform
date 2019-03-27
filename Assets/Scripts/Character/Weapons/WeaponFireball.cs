@@ -31,6 +31,7 @@ public class WeaponFireball : Weapon
         if(character)
         {
             character.movement.MeleeAttack = Attack;
+            character.movement.StopAttack = StopAttack;
             lowerArm = character.rightLowerArm;
             upperArm = character.rightUpperArm;
         }

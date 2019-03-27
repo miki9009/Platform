@@ -86,6 +86,7 @@ namespace Engine.UI
 
         public bool IsInRange(Vector3 pos)
         {
+            if (!enabled) return false;
             if (buttonShape == ButtonShape.Circle)
             {
                 return Vector3.Distance(pos, rect.position) < (radius * GameGUI.ScreenScale.x);
@@ -138,6 +139,18 @@ namespace Engine.UI
             {
                 timerDoubleTap -= Time.deltaTime;
             }
+        }
+
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+            enabled = true;
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+            enabled = false;
         }
 
 #if UNITY_EDITOR

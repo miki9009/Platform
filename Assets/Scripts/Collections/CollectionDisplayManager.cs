@@ -47,6 +47,10 @@ public class CollectionDisplayManager : MonoBehaviour
         {
             var o = Instantiate(prefab, transform);
             obj = o.GetComponent<CollectionDisplay>();
+            if(type == CollectionType.Coin)
+            {
+                obj.writeCount = true;
+            }
             obj.name = "CollectionDisplay - " + type;
             obj.type = type;
             int index = (int)type;

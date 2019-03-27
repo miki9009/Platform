@@ -35,7 +35,29 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
                 _id = GetInstanceID();
             return _id;
         }
+    }
 
+    private void Awake()
+    {
+        localScale = transform.localScale;
+        CollectionManager.AddCollectionCount(type);
+        if (!GameManager.IsSceneLoaded)
+        {
+            GameManager.GameReady += AssignDisplayOnLoad;
+        }
+        else
+        {
+            display = CollectionDisplayManager.Instance.AssignDisplayObject(type);
+        }
+    }
+
+    protected virtual void Start()
+    {
+        var col = GetComponent<Collider>();
+        if (col != null)
+        {
+            col.enabled = true;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -72,7 +94,6 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
         AddToLevelCollection();
     }
 
-
     private void OnDisable()
     {
         if(collected && collectedCoroutine != null)
@@ -84,7 +105,6 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
                 Debug.Log("Should be Deactivated by Manager, but manager is null");
         }
         RemoveFromLevelCollection();
-
     }
 
     void RemoveFromLevelCollection()
@@ -102,29 +122,6 @@ public abstract class CollectionObject : MonoBehaviour, IPoolObject
         if (!collected && !CollectionManager.Instance.LevelCollections.ContainsKey(this))
         {
             CollectionManager.Instance.LevelCollections.Add(this, type);
-        }
-    }
-
-    private void Awake()
-    {
-        localScale = transform.localScale;
-        
-        if (!GameManager.IsSceneLoaded)
-        {
-            GameManager.GameReady += AssignDisplayOnLoad;
-        }
-        else
-        {
-            display = CollectionDisplayManager.Instance.AssignDisplayObject(type);
-        }
-    }
-
-    protected virtual void Start()
-    {
-        var col = GetComponent<Collider>();
-        if (col != null)
-        {
-            col.enabled = true;
         }
     }
 

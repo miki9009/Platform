@@ -280,4 +280,5 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         //var euler = model.transform.localEulerAngles;
         //model.transform.localEulerAngles = new Vector3(euler.x, 0, Mathf.Clamp(-modelZFactor / 3, -30,30));
     }
+
 }

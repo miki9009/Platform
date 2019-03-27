@@ -14,6 +14,23 @@ public class Jetpack : MonoBehaviour
     public LayerMask groundColliison;
     public ParticleSystem flames;
 
+    private void Awake()
+    {
+        GameManager.LevelClear += GameManager_LevelClear;
+    }
+
+    private void GameManager_LevelClear()
+    {
+        if(button == null)
+            button = GameGUI.GetButtonByName("ButtonAttack2");
+        button.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.LevelClear -= GameManager_LevelClear;
+    }
+
     public void SetCharacter(Character character)
     {
         this.character = character;
@@ -21,7 +38,7 @@ public class Jetpack : MonoBehaviour
         transform.localPosition = localPosOnBack;
         transform.localEulerAngles = rotationOnBack;
         button = GameGUI.GetButtonByName("ButtonAttack2");
-        button.gameObject.SetActive(true);
+        button.Enable();
     }
     bool hit;
     float curForce = 0;

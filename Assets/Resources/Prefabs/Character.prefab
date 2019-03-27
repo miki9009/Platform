@@ -10136,8 +10136,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114847762505081622}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114847762505081622
@@ -10167,7 +10167,7 @@ MonoBehaviour:
   networking: {fileID: 114668861302155250}
   stats:
     runSpeed: 8
-    health: 1
+    startHealth: 10
     jumpForce: 15
     turningSpeed: 5
     damage: 10
@@ -10213,6 +10213,7 @@ MonoBehaviour:
   isAttacking: 0
   velocity: {x: 0, y: 0, z: 0}
   pipeFactor: 0
+  meleeAttackRadius: 2
   powerUpAnchor: {fileID: 4764736621498302}
   airForce: 5
   onIce: 0

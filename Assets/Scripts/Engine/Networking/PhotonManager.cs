@@ -236,6 +236,7 @@ public class PhotonManager : Photon.MonoBehaviour
 
     public static void RemovePlayer(Character movement)
     {
+        PhotonNetwork.Destroy(movement.gameObject);
         if (_players == null)
             _players = new List<Character>();
         if (_players.Contains(movement))

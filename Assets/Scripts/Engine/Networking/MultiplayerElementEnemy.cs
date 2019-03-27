@@ -61,7 +61,7 @@ public class MultiplayerElementEnemy : MultiplayerEventElement
             var character = Character.GetCharacter(characterID);
             if (character != null)
             {
-                enemy.Hit(character);
+                enemy.Hit(character.movement);
             }
             else
             {
