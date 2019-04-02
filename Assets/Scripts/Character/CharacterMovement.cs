@@ -7,14 +7,13 @@ using Engine.UI;
 
 public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnimator, IDestructible
 {
+
     public bool onGround = true;
     public ParticleSystem smoke2;
     public Transform model;
     public LayerMask enemyLayer;
     public SphereCollider activationCollider;
     public ParticleSystem attackParticles;
-    [NonSerialized]
-    public bool movementEnabled = true;
     [HideInInspector]
     public Character character;
     [HideInInspector] public CharacterHealth characterHealth;
@@ -33,13 +32,15 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     [NonSerialized]
     public Animator anim;
     public float meleeAttackRadius = 2;
-
+    public bool shieldUp;
+    public bool isRolling;
+    protected float timeBeforeAnotherRoll = 0;
     float startAttackRadius;
 
     public Transform powerUpAnchor;
     public bool Initialized
     {
-        get;private set;
+        get; private set;
     }
 
     public float airForce = 5;
@@ -60,7 +61,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         get; set;
     }
-
 
     public bool IsLocalPlayer
     {
@@ -85,10 +85,11 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     //ANIMATIONS
     int throwAnimationHash;
     int attackAnimationHash;
+    int hitAnimationHash;
+    int rollAnimationHash;
+    int shieldAnimationHash;
     float disY;
     float timeLastJump = 0;
-    bool jumpReleased = true;
-    float modelZ = 0;
     float hspeed;
     float vspeed;
 
@@ -110,6 +111,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         get { return transform; }
     }
 
+    public bool MovementEnabled { get; set; } = true;
+
     public Rigidbody Rigidbody { get { return rb; } }
 
     private void Awake()
@@ -121,8 +124,9 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         disY = Screen.height / 8;
     }
 
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         curPos = transform.position;
         stats = character.stats;
@@ -150,6 +154,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public virtual void Die()
     {
         anim.Play("Die");
+        MovementEnabled = false;
         DieBroadcast?.Invoke();
         if (PhotonManager.IsMultiplayer)
         {
@@ -167,7 +172,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         enabled = val;
         activationCollider.enabled = val;
         enabled = val;
-        if(!val)
+        if (!val)
             StopAllCoroutines();
     }
 
@@ -176,7 +181,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if (this == null) return;
         CharacterSetActive(false);
 
-        if(IsLocalPlayer)
+        if (IsLocalPlayer)
             Controller.Instance.OnPlayerDead(character);
     }
 
@@ -193,28 +198,10 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 smoke.Play();
             }
             attack = false;
-            if(anim)
+            if (anim)
                 anim.SetBool("attackStay", false);
         }
     }
-
-    //public void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.layer == 11)
-    //    {
-    //        var enemy = other.transform.root.gameObject.GetComponent<Enemy>();
-    //        if (enemy == null) return;
-    //        if (!enemy.dead && enemy.isAttacking)
-    //        {
-    //            Hit(enemy);
-    //        }
-    //    }
-    //    else if(other.gameObject.layer == Layers.Environment || other.gameObject.layer == Layers.Destructible)
-    //    {
-    //        onGround = true;
-    //        smoke2.Play();
-    //    }
-    //}
 
     public void Hit(IDestructible attacker)
     {
@@ -224,25 +211,23 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public virtual void Hit(Enemy enemy = null, int hp = 1, bool heavyAttack = false)
     {
         if (character.Health <= 0 || Invincible || (isAttacking && !heavyAttack)) return;
-        //hp = Mathf.Clamp(hp, 1, character.Health);
 
-        //if (IsLocalPlayer)
-        //{
-        //    {
-        //        for (int i = 0; i < hp; i++)
-        //        {
-        //            characterHealth.RemoveHealth(stats.health - i - 1);
-        //        }
-        //    }
-        //}
+        if (shieldUp)
+        {
+            if (enemy != null)
+            {
+                rb.AddForce(enemy.transform.forward * 2, ForceMode.VelocityChange);
+                return;
+            }
+        }
 
         character.Health = character.Health - hp;
 
         if (character.Health > 0)
         {
             anim.SetTrigger("hit");
-            if(rb.velocity.y < 10)
-                rb.AddForce(Vector3.up * 10, ForceMode.VelocityChange);
+            MovementEnabled = false;
+            rb.AddForce(transform.forward * -2, ForceMode.VelocityChange);
         }
         else
         {
@@ -261,15 +246,21 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if (anim == null) return;
         velocity = velo;
         hspeed = new Vector2(velo.x, velo.z).magnitude;
-        vspeed = velocity.y; //Mathf.Lerp(vspeed,velocity.y, 0.05f);
+        vspeed = velocity.y;
         anim.SetFloat("hSpeed", hspeed);
         anim.SetFloat("vSpeed", vspeed);
         anim.SetBool("onGround", onGround);
     }
 
     // Update is called once per frame
-    protected virtual void FixedUpdate ()
+    protected virtual void FixedUpdate()
     {
+        if (!MovementEnabled)
+        {
+            if(shieldUp)
+                ShieldMovement();
+            return;
+        }
         Rotation();
         SetAnimationHorizontal(rb.velocity);
         Move();
@@ -277,17 +268,18 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             rb.AddForce(Vector3.up * addForce);
     }
 
+
+
     protected virtual void Update()
     {
+        if(timeBeforeAnotherRoll > 0)
+            timeBeforeAnotherRoll -= Time.deltaTime;
+        if (!MovementEnabled) return;
         curPos = transform.position;
         Movement();
         Inputs();
-        Jump();
-        //if (attack)
-        //{
-            attack = false;
-        //    AttackCollision();
-        //}
+        //Jump();
+        attack = false;
     }
 
 
@@ -304,19 +296,14 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Jump()
     {
-        if (jumpInput > 0 && onGround && timeLastJump < 0.1f)
+        if (jumpInput > 0 && onGround)
         {
-            timeLastJump = 1;
             rb.AddForce(Vector3.up * stats.jumpForce, ForceMode.VelocityChange);
             jumpInput = 0; 
             onGround = false;
         }
-        else
-        {
-            timeLastJump -= Time.deltaTime;
-        }
     }
-    //public float force = 10;
+
     public bool onIce;
     public float iceForce = 30;
     public virtual void Move()
@@ -325,7 +312,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         float y = velo.y;
         velo.y = 0;
         float mag = velo.magnitude;
-        //rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
         if (velo.magnitude < stats.runSpeed)
         {
             if(onIce)
@@ -338,15 +324,12 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 velo.y = y;
                 rb.velocity = velo;
             }
-            //rb.AddForce(rb.rotation.Vector() * forwardPower * force, ForceMode.Acceleration);
-
         }
     }
 
 
     public virtual void Attack()
     {
-        //Debug.Log("Attack");
         if (character.IsDead || attack) return;
 
             if (Thrown != null)
@@ -354,7 +337,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 RaycastHit hit;
                 if (Physics.SphereCast(transform.position, 5, transform.forward, out hit, 50, enemyLayer.value, QueryTriggerInteraction.Ignore))
                 {
-                    //Debug.Log(hit.transform.name);
                     transform.rotation = Engine.Math.RotateTowards(transform.position, hit.point);
                 }
                 anim.Play("Throw");
@@ -362,27 +344,12 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             }
             else
             {
-            //if(!onGround && rb.velocity.y > -2)
-            //{
-            //    rb.AddForce(Vector3.down * airForce, ForceMode.);
-            //}
-            //else
-            //{
-            //Debug.Log("Ground Attack");
-
             AttackBroadcast?.Invoke();
             if(MeleeAttack!=null)
             {
                 MeleeAttack.Invoke();
             }
-            //else
-            //{
-            //    PerformMeleeAttack();
-            //}
-            //}
-
         }
-        //}
     }
 
     public void PerformMeleeAttack()
@@ -390,7 +357,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         isAttacking = true;
         attack = true;
         anim.Play("Attack");
-        //attackParticles.Play();
     }
 
     public void ResetAttackRadius()
@@ -406,50 +372,49 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         throwAnimationHash = Animator.StringToHash("Throw");
         attackAnimationHash = Animator.StringToHash("Attack");
+        hitAnimationHash = Animator.StringToHash("hit");
+        rollAnimationHash = Animator.StringToHash("Roll");
+        shieldAnimationHash = Animator.StringToHash("Shield");
+
         AnimatorBehaviour.StateExit += (animatorStateInfo) =>
         {
-            if (animatorStateInfo.shortNameHash == throwAnimationHash)
+            //anim.ResetTrigger("ShieldDown");
+            if (animatorStateInfo.shortNameHash == throwAnimationHash) //THROW
             {
                 //CanMove = true;
             }
-            else if (animatorStateInfo.shortNameHash == attackAnimationHash)
+            else if (animatorStateInfo.shortNameHash == attackAnimationHash) //ATTACK
             {
+                ResetVelocity();
                 isAttacking = false;
                 StopAttack?.Invoke();
+            }
+            else if (animatorStateInfo.shortNameHash == hitAnimationHash) //GETS HIT
+            {
+                MovementEnabled = true;
+            }
+            else if (animatorStateInfo.shortNameHash == rollAnimationHash) //ROLLING
+            {
+                isRolling = false;
+                ResetVelocity();
+                MovementEnabled = true;
+                anim.SetTrigger("ShieldUp");
+                timeBeforeAnotherRoll = 0.25f;
+            }
+            if(animatorStateInfo.shortNameHash == shieldAnimationHash) //SHIELD
+            {
+
             }
         };
     }
 
-    //protected void AttackCollision()
-    //{
-    //    Ray ray = new Ray(curPos, Vector3.down);
-    //    RaycastHit[] hits = Physics.SphereCastAll(curPos, meleeAttackRadius, Vector3.down, 10, collisionLayer.value,QueryTriggerInteraction.Ignore);
-    //    for (int i = 0; i < hits.Length; i++)
-    //    {
-    //        //Debug.Log("Hit: " + hits[i].transform.name);
-    //        //Debug.Log(hits[i].collider.GetType());
-    //        scripts.Add(hits[i].collider.GetComponentInParent<IDestructible>());
-
-    //    }
-    //    foreach (var script in scripts)
-    //    {
-    //        if (script != null)
-    //        {
-    //            script.Hit(character);
-    //            //script.Rigidbody.velocity = Vector3.zero;
-    //           // script.Rigidbody.AddForce((Vector.Direction(transform.position, script.Transform.position) + Vector3.up * 2) * character.stats.attackForce, ForceMode.VelocityChange);
-    //            StaticParticles.PlayHitParticles(script.Transform.position + Vector3.up);
-    //            smokeExplosion.transform.position = script.Transform.position;
-    //            smokeExplosion.Play();
-    //            //attack = false;
-    //        }
-    //    }
-    //    scripts.Clear();
-    //}
-
-    public void MovementEnable(bool enable)
+    void ResetVelocity()
     {
-        movementEnabled = enable;
+        var velo = rb.velocity;
+        velo.x = 0;
+        velo.z = 0;
+        rb.velocity = velo;
+        anim.SetFloat("hSpeed", 0);
     }
 
     public void SetAnimation(string animationName)
@@ -472,4 +437,17 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if(!character.IsLocalPlayer)
             Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
     }
+
+    protected virtual void ShieldMovement()
+    {
+        if(shieldUp)
+        {
+            Console.WriteLine("Not implemented");
+        }
+    }
+
+    //void OnGUI()
+    //{
+    //    Draw.TextColor(10, 300, 255, 255, 255, 1, "Forward factor: " + forwardPower);
+    //}
 }

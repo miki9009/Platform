@@ -7,7 +7,8 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
 {
     protected Button btnLeft;
     protected Button btnRight;
-    protected Button btnJump;
+    [HideInInspector]
+    public Button btnJump;
     protected Button btnAttack;
     protected Button btnForward;
     protected Button btnMovement;
@@ -85,15 +86,21 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             else
             {
                 Movement = GestureMovement;
+                btnJump.OnTapRelesed.AddListener(OnJumpTapped);
             }
-            
+
         }
         catch (Exception ex)
         {
-            Movement = ButtonsMovement;
+            //Movement = ButtonsMovement;
             Debug.Log("Buttons are not initialized, you can still use keyboard for movement. " + ex );
             buttonsInitialized = false;
         }
+    }
+
+    void OnDestroy()
+    {
+        btnJump.OnTapRelesed.RemoveListener(OnJumpTapped);
     }
 
     Transform cam;
@@ -114,16 +121,16 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
 
     }
 
-    protected void GestureMovement()
+    protected virtual void GestureMovement()
     {
         bool pressedHorizontalCurrent = false;
         int touchCount = Input.touchCount;
         var touches = Input.touches;
-        jumpInput = 0;
+        //jumpInput = 0;
         horDistance = 0;
         forwardPower = 0;
         pressedHorizontalCurrent = false;
-        angle = 0;
+        //angle = 0;
 
         if (btnMovement.isTouched || horPressed)
         {
@@ -204,13 +211,13 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
 
 #if UNITY_EDITOR
 
-        if (jumpInput == 0)
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                jumpInput = 1;
-            }
+            jumpInput = 1;
+            Jump();
         }
+  
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -230,6 +237,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             {
                 if (verTouched.y < lastAttackTouchPosition.y)
                 {
+                    Console.WriteLine("Jump Input");
                     jumpInput = 1;
                     verTouched.y = 0;
                     lastAttackTouchPosition.y = 0;
@@ -247,13 +255,16 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
                 }
             }
         }
-
-        if (btnJump.isTouched)
-        {
-            jumpInput = 1;
-        }
     }
 
+    void OnJumpTapped()
+    {
+        if(btnJump.PressedTime < 0.25f)
+        {
+            jumpInput = 1;
+            Jump();
+        }
+    }
 
     protected void ButtonsMovement()
     {
@@ -263,7 +274,10 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             if (btnRight.isTouched) horInput = 1;
             if (btnLeft.isTouched) horInput = -1;
             if (btnJump.isTouched)
+            {
+                Console.WriteLine("Jump input");
                 jumpInput = 1;
+            }
             else
                 jumpInput = 0;
         }
@@ -276,9 +290,47 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         vec.y = 0;
         Quaternion rot = Quaternion.Euler(targetEuler);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.2f);
-        //modelZFactor = Mathf.Lerp(modelZFactor, angle < 90 && angle > -90 ? angle : angle > 0 ? 180 - angle : -180 - angle, Time.deltaTime * 10);
-        //var euler = model.transform.localEulerAngles;
-        //model.transform.localEulerAngles = new Vector3(euler.x, 0, Mathf.Clamp(-modelZFactor / 3, -30,30));
     }
+
+    bool isTouched;
+    protected override void ShieldMovement()
+    {
+        if (timeBeforeAnotherRoll > 0) return;
+        isTouched = false;
+        isTouched = btnMovement.isTouched;
+
+#if UNITY_EDITOR
+        if (!isTouched)
+            isTouched = (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && Input.GetKey(KeyCode.LeftShift);
+#endif
+
+        if (!isRolling)
+        {
+            if (isTouched)
+            {
+                anim.SetTrigger("roll");
+                isRolling = true;
+            }
+        }
+        else
+        {
+            forwardPower = 1;
+            Move();
+        }
+
+        if(isTouched)
+        {
+            GestureMovement();
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, angle + 90, 0), character.stats.turningSpeed);
+        }
+    }
+
+    //void OnGUI()
+    //{
+    //    Draw.TextColor(10, 300, 255, 0, 0, 1, "Movement Enabled: " + MovementEnabled);
+    //    Draw.TextColor(10, 350, 255, 0, 0, 1, "Shield up: " + shieldUp);
+    //    Draw.TextColor(10, 400, 255, 0, 0, 1, "Is Touched: " + isTouched);
+    //    Draw.TextColor(10, 450, 255, 0, 0, 1, "Is Rolling: " + isRolling);
+    //}
 
 }

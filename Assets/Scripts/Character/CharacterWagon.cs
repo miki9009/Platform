@@ -204,7 +204,6 @@ public class CharacterWagon : CharacterMovementPlayer, ILocalPlayer
          lean = Mathf.Lerp(lean, angle, Time.deltaTime * 10);
     }
 
-    public float maxAngle = 30;
     float finalAngle;
     public float critical = 0;
     public float maxCritical = 800;

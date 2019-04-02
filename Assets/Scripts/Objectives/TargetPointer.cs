@@ -5,7 +5,7 @@ public class TargetPointer : MonoBehaviour
     public Transform target;
     public Transform origin;
 
-    public static event System.Action Dectivate;
+    //public static event System.Action Dectivate;
 
     private void Update()
     {

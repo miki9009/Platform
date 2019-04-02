@@ -8,6 +8,7 @@ public class Console
     }
     public static void WriteLine(object message, LogColor color = LogColor.White)
     {
+#if UNITY_ENGINE
         string col = "white";
         switch(color)
         {
@@ -43,5 +44,6 @@ public class Console
                 break;
         }
         Debug.Log("<color="+col+">"+message+"</color>");
+#endif
     }
 }

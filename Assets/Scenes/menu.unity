@@ -1102,7 +1102,6 @@ MonoBehaviour:
   radius: 45
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -1123,6 +1122,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   showDebug: 0
@@ -1342,7 +1342,6 @@ MonoBehaviour:
   radius: 50
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -1363,6 +1362,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 0}
   showDebug: 0
@@ -4977,7 +4977,6 @@ GameObject:
   - component: {fileID: 406318665}
   - component: {fileID: 406318664}
   - component: {fileID: 406318663}
-  - component: {fileID: 406318662}
   m_Layer: 0
   m_Name: ButtonResetCameraView
   m_TagString: Untagged
@@ -5005,18 +5004,6 @@ RectTransform:
   m_AnchoredPosition: {x: 6.1, y: -131.6}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &406318662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406318660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fabc80ad034a8c044918169df5389b8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &406318663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5058,7 +5045,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 406318662}
+      - m_Target: {fileID: 0}
         m_MethodName: ResetView
         m_Mode: 1
         m_Arguments:
@@ -6680,7 +6667,6 @@ MonoBehaviour:
   radius: 112.5
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -6701,6 +6687,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   showDebug: 0
@@ -8269,7 +8256,6 @@ MonoBehaviour:
   radius: 55
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -8290,6 +8276,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   showDebug: 0
@@ -12136,7 +12123,6 @@ MonoBehaviour:
   radius: 55
   isTouched: 0
   buttonShape: 0
-  enabled: 0
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -12157,6 +12143,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   showDebug: 0
@@ -13922,7 +13909,6 @@ MonoBehaviour:
   radius: 55
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -13943,6 +13929,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 113
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   showDebug: 0
@@ -14133,7 +14120,6 @@ MonoBehaviour:
   radius: 45
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -14154,6 +14140,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   showDebug: 0
@@ -16588,7 +16575,6 @@ MonoBehaviour:
   radius: 55
   isTouched: 0
   buttonShape: 0
-  enabled: 1
   OnTapPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -16609,6 +16595,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  keyMap: 0
   maskAlpha: 0.5
   gizmosColor: {r: 1, g: 0, b: 0, a: 0}
   showDebug: 0

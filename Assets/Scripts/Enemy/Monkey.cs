@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 public class Monkey : Enemy
 {
-    public TriggerBroadcast triggerBroadcast;
 
-    private void Awake()
+    protected override void Awake()
     {
         triggerBroadcast.TriggerEntered += TriggerEnter;
 

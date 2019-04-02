@@ -11,7 +11,7 @@ public class Benchmark : MonoBehaviour
 
     Vector2 resolution;
     Vector2 curResolution;
-    float curResFactor = 1;
+    //float curResFactor = 1;
     private void Start()
     {
         resolution = new Vector2(Screen.width, Screen.height);

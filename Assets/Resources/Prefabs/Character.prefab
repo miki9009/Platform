@@ -10136,8 +10136,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114847762505081622}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114847762505081622
@@ -10214,6 +10214,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   pipeFactor: 0
   meleeAttackRadius: 2
+  shieldUp: 0
   powerUpAnchor: {fileID: 4764736621498302}
   airForce: 5
   onIce: 0
@@ -10221,6 +10222,7 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 39168
+  btnJump: {fileID: 0}
   maxAngle: 180
 --- !u!1 &1759384840010874
 GameObject:

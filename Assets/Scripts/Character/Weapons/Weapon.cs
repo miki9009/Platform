@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour, IRightArmItem
     public GameObject collectionPrefab;
     public ParticleSystem attackParticles;
     [HideInInspector] public Character character;
-    public CollectionObject collectionObject;
     public float attackRadius = 3;
     public TriggerBroadcastStay triggerBroadcast;
 
@@ -88,7 +87,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
         }
         float halfAttack = attackTime/2;
 
-        character.movement.enabled = false;
+        character.movement.MovementEnabled = false;
         var velo = character.rb.velocity;
         velo.x = 0;
         velo.z = 0;
@@ -114,7 +113,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
         canInflictDamage = false;
         if (character && !character.IsDead)
         {
-            character.movement.enabled = true;
+            character.movement.MovementEnabled = true;
         }
     }
 
@@ -130,7 +129,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
             }
 
          });
-        collectionObject.BackToCollection(true);
+        CollectionObject.BackToCollection(true);
     }
 
     public virtual void Clear()
@@ -148,7 +147,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
 
     public void BackToCollection()
     {
-        throw new System.NotImplementedException();
+        Console.WriteLine("Not implemented.");
     }
 }
 

@@ -2,7 +2,7 @@
 
 public class Native : Enemy
 {
-    public TriggerBroadcast triggerBroadcast;
+    //public TriggerBroadcast triggerBroadcast;
 
     //private void Awake()
     //{

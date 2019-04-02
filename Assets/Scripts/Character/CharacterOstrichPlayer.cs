@@ -67,7 +67,7 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         }
     }
 
-    private void GestureMovement()
+    protected override void GestureMovement()
     {
         bool pressedHorizontalCurrent = false;
         int touchCount = Input.touchCount;

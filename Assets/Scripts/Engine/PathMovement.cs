@@ -115,7 +115,7 @@ public class PathMovement : MonoBehaviour
                 noPath = true;
             }
         }
-        Debug.Log("DIDN'T FIND PATH");
+        //Debug.Log("DIDN'T FIND PATH");
         return new Vector3[] { transform.position };
     }
 

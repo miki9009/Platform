@@ -10,7 +10,7 @@ public class TwoDimensionTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (movement.movementEnabled)
+        if (movement.MovementEnabled)
         {
             var trans = movement.transform;
             trans.position = Vector3.Lerp(trans.position, new Vector3(trans.position.x, trans.position.y, transform.position.z), Time.deltaTime);

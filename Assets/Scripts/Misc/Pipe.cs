@@ -43,7 +43,7 @@ public class Pipe : LevelElement
         //cam.speed = lastSpeed / 6;
         characterMovement = movement;
         movement.rb.AddForce(Vector3.up * pipeForce, ForceMode.VelocityChange);
-        movement.MovementEnable(false);
+        movement.MovementEnabled = false;
         Used = true;
         var target = cam.target;
         var camStartPos = target.position;
@@ -104,7 +104,7 @@ public class Pipe : LevelElement
         cam.motionBlure.enabled = false;
         //movement.rb.velocity = Vector3.zero;
         Used = false;
-        movement.MovementEnable(true);
+        movement.MovementEnabled = true;
         //cam.SetTarget(target);
         //cam.speed = lastSpeed;
         yield return new WaitForSeconds(0.1f);

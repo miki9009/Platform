@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     public float patrolDistance = 10;
     public float attackDistance = 3;
     public event Action<Character> EnemyHit;
+    public TriggerBroadcast triggerBroadcast;
 
     [Label("Wait time before next path")]
     public float waitTime = 3;
@@ -63,9 +64,13 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
     protected Vector3[] path;
     bool remoteControl;
 
-    void Awake()
+    protected virtual void Awake()
     {
         colliders = GetComponents<Collider>();
+        if (triggerBroadcast)
+            triggerBroadcast.TriggerEntered += OnTriggerBroadcast;
+        else
+            Debug.Log("Trigger broadcast is null");
     }
 
 	protected virtual void Start ()
@@ -89,6 +94,18 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         }
 
  //       Debug.Log("Path points: " + path.Length);
+    }
+
+    bool canInflictDamage = false;
+    void OnTriggerBroadcast(Collider other)
+    {
+        if (!canInflictDamage || other.gameObject.layer != Layers.Character) return;
+        canInflictDamage = false;
+        var character = other.GetComponent<Character>();
+        if(character!=null)
+        {
+            character.movement.Hit(this, 1);
+        }
     }
 
     protected virtual void OnCollisionEnter(Collision other)
@@ -283,6 +300,7 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
             if (animatorStateInfo.shortNameHash == attackHashName)
             {
                 isAttacking = true;
+                canInflictDamage = true;
             }
         };
 

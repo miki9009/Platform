@@ -97,7 +97,7 @@ namespace Engine.UI
 
 
         RectTransform rect;
-        Vector2 desiredPos;
+        Vector2 desiredPos = Vector2.zero;
         Vector2 startPos;
         CanvasGroup canvasGroup;
 

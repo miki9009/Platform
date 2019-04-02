@@ -11,7 +11,7 @@ namespace Engine.UI
     [RequireComponent(typeof(RectTransform))]
     public class Button : MonoBehaviour
     {
-    
+        
         public enum ButtonShape { Circle, Rectangle}
         public string buttonName;
         [HideInInspector]public float radius;
@@ -21,11 +21,13 @@ namespace Engine.UI
         Colour color;
         private bool wasAwaken = false;
         public ButtonShape buttonShape;
-        public bool enabled = true;
+        //public bool enabled = true;
         public UnityEvent OnTapPressed;
         public UnityEvent OnTapContinue;
         public UnityEvent OnTapRelesed;
         public UnityEvent OnDoubleTap;
+        public float PressedTime { get; private set; }
+        public KeyCode keyMap;
 
         float timerDoubleTap = 0;
         float interval = 0.25f;
@@ -122,7 +124,8 @@ namespace Engine.UI
             if (timerDoubleTap > 0)
             {
                 OnDoubleTap.Invoke();
-            }            
+            }
+            PressedTime += Time.deltaTime;
         }
 
         public void NotTouched()
@@ -139,6 +142,7 @@ namespace Engine.UI
             {
                 timerDoubleTap -= Time.deltaTime;
             }
+            PressedTime = 0;
         }
 
         public void Enable()
@@ -163,6 +167,14 @@ namespace Engine.UI
         private void Update()
         {
             if (showDebug) yy = 50;
+            //if (Input.GetKey(keyMap))
+            //{
+            //    Touch();
+            //}
+            //else
+            //{
+            //    NotTouched();
+            //}
         }
         private static int yy;
         private void OnGUI()

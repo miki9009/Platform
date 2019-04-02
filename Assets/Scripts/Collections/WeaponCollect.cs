@@ -1,22 +1,15 @@
 ﻿using UnityEngine;
 
-public class WeaponCollect : MonoBehaviour
+public class WeaponCollect : ItemCollect
 {
-    public GameObject weaponPrefab;
-    CollectionObject collection;
-
-    private void Start()
+    protected override void CreateItem(GameObject obj)
     {
-        collection = GetComponent<CollectionObject>();
-        collection.Collected += CreateWeapon;
-    }
-
-    void CreateWeapon(GameObject obj)
-    {
-        var character = obj.transform.root.GetComponent<Character>();
-        var weaponObj = Instantiate(weaponPrefab, character.rightLowerArm);
-        var weapon = weaponObj.GetComponent<Weapon>();
-        weapon.character = character;
-        weapon.collectionObject = collection;
+        base.CreateItem(obj);
+        if(itemObj && character)
+        {
+            var weapon = itemObj.GetComponent<Weapon>();
+            weapon.character = character;
+            weapon.CollectionObject = collection;
+        }
     }
 }

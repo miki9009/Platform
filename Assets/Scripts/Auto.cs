@@ -413,18 +413,18 @@ public static class Auto
     {
         var range = to - from;
         return ((Time.time + duration * offsetPercent) * (Mathf.Abs(range) / duration)) % 1;
-        var total = (Time.time + duration * offsetPercent) * (Mathf.Abs(range) / duration);
-        if (range > 0)
-        {
-            Debug.LogError(Time.time + "  /  " + (from + Time.time - (range * Mathf.FloorToInt((Time.time / range)))));
-            return from + Time.time - (range * Mathf.FloorToInt((Time.time / range)));
-        }
-        else
-        {
-            //			return from - (Time.time - (Mathf.Abs(range) * Mathf.FloorToInt((total / Mathf.Abs(range)))));
-            Debug.LogError((from - (Time.time - (Mathf.Abs(range) * ((total / Mathf.Abs(range)))))));
-            return from - (Time.time - (Mathf.Abs(range) * ((total / Mathf.Abs(range)))));
-        }
+        //var total = (Time.time + duration * offsetPercent) * (Mathf.Abs(range) / duration);
+        //if (range > 0)
+        //{
+        //    Debug.LogError(Time.time + "  /  " + (from + Time.time - (range * Mathf.FloorToInt((Time.time / range)))));
+        //    return from + Time.time - (range * Mathf.FloorToInt((Time.time / range)));
+        //}
+        //else
+        //{
+        //    //			return from - (Time.time - (Mathf.Abs(range) * Mathf.FloorToInt((total / Mathf.Abs(range)))));
+        //    Debug.LogError((from - (Time.time - (Mathf.Abs(range) * ((total / Mathf.Abs(range)))))));
+        //    return from - (Time.time - (Mathf.Abs(range) * ((total / Mathf.Abs(range)))));
+        //}
     }
 
     public static float LoopFixed(float duration, float from, float to, float offsetPercent)

@@ -2,7 +2,6 @@
 
 public class MonkeyThrowable : Enemy
 {
-    public TriggerBroadcast triggerBroadcast;
     float curAttackTimer = 0;
     public GameObject coconutPrefab;
 
@@ -14,7 +13,7 @@ public class MonkeyThrowable : Enemy
     public float coconutSpeed;
     public float throwAfterTime = 1.5f;
 
-    void Awake()
+    protected override void Awake()
     {
         triggerBroadcast.TriggerEntered += (Collider col) =>
         {

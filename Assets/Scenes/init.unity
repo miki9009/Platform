@@ -1011,7 +1011,6 @@ MonoBehaviour:
   - sceneName: level2
   - sceneName: level1
   - sceneName: level2
-  currentLevel: 
   gameScene: game
 --- !u!114 &114522632755878372
 MonoBehaviour:

@@ -97,7 +97,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4392688505625346}
-  - {fileID: 4418575888063636}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -63.21, z: 0}
@@ -178,6 +177,7 @@ MonoBehaviour:
   looseTargetDistance: 20
   patrolDistance: 10
   attackDistance: 3
+  triggerBroadcast: {fileID: 8726545664366189844}
   waitTime: 3
   action: 0
   isAttacking: 0
@@ -186,7 +186,6 @@ MonoBehaviour:
   stars: {fileID: 0}
   dead: 0
   gizmoColor: {r: 0, g: 1, b: 0.048275948, a: 0.291}
-  triggerBroadcast: {fileID: 114954679784007320}
 --- !u!114 &114567259686920402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,11 +233,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisable: []
-  messagesInterval: 1
+  levelElement: {fileID: 0}
   _isMultiplayer: 0
-  id: 0
-  lerpSpeed: 2
   _isRemote: 0
+  messagesInterval: 1
+  lerpSpeed: 2
 --- !u!1 &1118503834387882
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,66 +379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334c448027ffe2548a5609468b04c416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1366140949305878
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4418575888063636}
-  - component: {fileID: 114954679784007320}
-  - component: {fileID: 54540287017706568}
-  m_Layer: 12
-  m_Name: Trigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4418575888063636
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366140949305878}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.644, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4052834525626192}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114954679784007320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366140949305878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57bb9fb44cdd001458d5812a679453a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!54 &54540287017706568
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366140949305878}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &1367013074297728
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4338584008260230}
   - component: {fileID: 135320499096690340}
+  - component: {fileID: 8726545664366189844}
   m_Layer: 11
   m_Name: hand_R
   m_TagString: Untagged
@@ -892,6 +832,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0.09, y: -0.65, z: -0.06}
+--- !u!114 &8726545664366189844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938634561065406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57bb9fb44cdd001458d5812a679453a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1939882940060416
 GameObject:
   m_ObjectHideFlags: 0
