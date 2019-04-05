@@ -18,6 +18,16 @@ public class Shield : MonoBehaviour, ILefttArmItem
         Apply();
     }
 
+    public void Use()
+    {
+        ShieldOn();
+    }
+
+    public void StopUsing()
+    {
+        ShieldOff();
+    }
+
     public void Apply()
     {
         character = GetComponentInParent<Character>();
@@ -27,13 +37,15 @@ public class Shield : MonoBehaviour, ILefttArmItem
             return;
         }
         movement = character.movement;
+        movement.Shield = this;
         CollectionObject = GetComponent<CollectionObject>();
         if (character.IsLocalPlayer)
         {
             var mov = movement as CharacterMovementPlayer;
             button = mov.btnJump;
         }
-        StartCoroutine(PlayerUpdate());
+        if(character.IsLocalPlayer)
+            StartCoroutine(PlayerUpdate());
     }
 
     public void BackToCollection()
@@ -43,6 +55,8 @@ public class Shield : MonoBehaviour, ILefttArmItem
 
     public void Remove()
     {
+        if(movement.Shield == this)
+            movement.Shield = null;
         StopAllCoroutines();
         Engine.PoolingObject.Recycle(gameObject.GetName(), gameObject, () =>
         {
@@ -64,36 +78,45 @@ public class Shield : MonoBehaviour, ILefttArmItem
             {
                 movement.shieldUp = true;
 #if UNITY_EDITOR
-                if (button.PressedTime > 0.25f || Input.GetKey(KeyCode.LeftShift))
+                if (button.PressedTime > 0.3f || Input.GetKey(KeyCode.LeftShift))
 #else
-                if (button.PressedTime > 0.25f)
+                if (button.PressedTime > 0.3f)
 #endif
                 {
-                    if (movement.MovementEnabled)
-                    {
-                        //Console.WriteLine("Was touched");
-                        movement.MovementEnabled = false;
-                        movement.anim.SetTrigger("ShieldUp");
-                        var velo = movement.velocity;
-                        velo.x = 0;
-                        velo.z = 0;
-                        movement.rb.velocity = velo;
-                    }
+                    ShieldOn();
                 }
             }
             else
             {
-                if(movement.shieldUp && !movement.isRolling)
-                {
-                    movement.shieldUp = false;
-                    movement.anim.SetTrigger("ShieldDown");
-                    movement.MovementEnabled = true;
-                }
-
+                ShieldOff();
             }
             yield return null;
         }
     }
+
+    public void ShieldOn()
+    {
+        if (movement.MovementEnabled)
+        {
+            //Console.WriteLine("Was touched");
+            movement.MovementEnabled = false;
+            movement.anim.ResetTrigger("ShieldDown");
+            movement.anim.SetTrigger("ShieldUp");
+            movement.timeBeforeAnotherRoll = 0.25f;
+            movement.ResetVelocity();
+        }
+    }
+
+    public void ShieldOff()
+    {
+        if (movement.shieldUp && !movement.isRolling)
+        {
+            movement.shieldUp = false;
+            movement.anim.SetTrigger("ShieldDown");
+            movement.MovementEnabled = true;
+        }
+    }
+
 
     void OnCharacterDead()
     {

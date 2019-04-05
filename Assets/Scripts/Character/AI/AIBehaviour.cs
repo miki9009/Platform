@@ -10,6 +10,7 @@ namespace AI
         Idle,
         Waypoints,
         Collection,
+        DeathMatch
     }
 
     [Serializable]
@@ -68,6 +69,10 @@ namespace AI
                     break;
                 case AIState.Collection:
                     CurrentState = new AICollection(state, characterMovementAi);
+                    Execute = CurrentState.Execute;
+                    break;
+                case AIState.DeathMatch:
+                    CurrentState = new AIDeathMatch(state, characterMovementAi);
                     Execute = CurrentState.Execute;
                     break;
             }

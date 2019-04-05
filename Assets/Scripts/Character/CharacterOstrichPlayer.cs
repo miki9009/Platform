@@ -33,7 +33,7 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         //base.Update();
         curPos = transform.position;
         Movement();
-        Jump();
+        //Jump();
         //if (attack)
         //{
             attack = false;
@@ -46,9 +46,10 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         //base.FixedUpdate();
         Rotation();
         OstrichMove();
-        if (onGround)
+        if (OnGround)
             rb.AddForce(Vector3.up * addForce);
     }
+
 
     public void OstrichMove()
     {
@@ -72,7 +73,7 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         bool pressedHorizontalCurrent = false;
         int touchCount = Input.touchCount;
         var touches = Input.touches;
-        jumpInput = 0;
+        //jumpInput = 0;
         horDistance = 0;
         forwardPower = 0;
         pressedHorizontalCurrent = false;
@@ -163,7 +164,7 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
                 }
                 else
                 {
-                    if (!onGround)
+                    if (!OnGround)
                     {
                         lastAttackTouchPosition.y = 0;
                         rb.velocity = Vector3.down * stats.attackForce;

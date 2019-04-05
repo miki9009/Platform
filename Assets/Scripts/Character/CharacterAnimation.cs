@@ -36,6 +36,6 @@ public class CharacterAnimation : MonoBehaviour
         var velo = character.rb.velocity;
         anim.SetFloat("vSpeed", velo.y);
         anim.SetFloat("hSpeed", Mathf.Abs(velo.x));
-        anim.SetBool("onGround", movement.onGround);
+        anim.SetBool("onGround", movement.OnGround);
     }
 }

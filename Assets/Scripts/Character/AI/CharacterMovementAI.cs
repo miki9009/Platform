@@ -22,6 +22,17 @@ public class CharacterMovementAI : CharacterMovement
     AIState currentState;
     bool initialized;
     public float nextPointminDistance = 1;
+    public float ForwardPower
+    {
+        get
+        {
+            return forwardPower;
+        }
+        set
+        {
+            forwardPower = value;
+        }
+    }
 
     public override bool IsPlayer
     {
@@ -72,7 +83,7 @@ public class CharacterMovementAI : CharacterMovement
         var dir = Vector.Direction(transform.position, nextPoint);
         if (dir == Vector3.zero) return;
         dir.y = 0;
-        if (onGround)
+        if (OnGround)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * character.stats.turningSpeed);
         else
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * character.stats.turningSpeed);
@@ -81,7 +92,7 @@ public class CharacterMovementAI : CharacterMovement
 
     protected override void Inputs()
     {
-        anim.SetBool("onGround", onGround);
+        //anim.SetBool("onGround", OnGround);
     }
 
     public virtual float MinDistanceToPoint
@@ -106,9 +117,8 @@ public class CharacterMovementAI : CharacterMovement
             }
             if (path != null && Vector3.Distance(transform.position, nextPoint) > MinDistanceToPoint)
             {
-                //transform.rotation = Math.RotateTowardsTopDown(transform, path[pathIndex], Time.deltaTime * 5);
                 forwardPower = 1;
-                if (!aIBehaviour.Idle && rb.velocity.magnitude < stats.runSpeed / 3 && onGround && Mathf.Abs(rb.velocity.y) < 5)
+                if (!aIBehaviour.Idle && rb.velocity.magnitude < stats.runSpeed / 3 && OnGround && Mathf.Abs(rb.velocity.y) < 5)
                 {
                     if (curentTimeBetweenJumps >= timeBetweenJumps)
                     {
@@ -121,7 +131,7 @@ public class CharacterMovementAI : CharacterMovement
                         jumpInput = 0;
                     }
                 }
-                if (onGround && curentTimeBetweenJumps < timeBetweenJumps)
+                if (OnGround && curentTimeBetweenJumps < timeBetweenJumps)
                 {
                     curentTimeBetweenJumps += Time.deltaTime;
                 }
@@ -141,8 +151,6 @@ public class CharacterMovementAI : CharacterMovement
                     nextPoint = transform.position;
                     pathIndex = 0;
                 }
-
-
             }
         }
         else if(currentState != AIState.Idle)
@@ -162,6 +170,7 @@ public class CharacterMovementAI : CharacterMovement
     {
         path = null;
     }
+
 
 
 

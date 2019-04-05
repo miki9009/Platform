@@ -14,7 +14,7 @@ public class CameraAnchorTarget : MonoBehaviour
 
     private void Update()
     {
-        if (characterMovement.onGround)
+        if (characterMovement.OnGround)
         {
             transform.position = characterMovement.transform.position;
         }

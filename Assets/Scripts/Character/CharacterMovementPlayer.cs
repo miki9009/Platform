@@ -215,7 +215,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jumpInput = 1;
-            Jump();
+            //Jump();
         }
   
 
@@ -238,14 +238,14 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
                 if (verTouched.y < lastAttackTouchPosition.y)
                 {
                     Console.WriteLine("Jump Input");
-                    jumpInput = 1;
+                    //jumpInput = 1;
                     verTouched.y = 0;
                     lastAttackTouchPosition.y = 0;
                     verDistance = 0;
                 }
                 else
                 {
-                    if (!onGround)
+                    if (!OnGround)
                     {
                         lastAttackTouchPosition.y = 0;
                         rb.velocity = Vector3.down * stats.attackForce;
@@ -259,10 +259,11 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
 
     void OnJumpTapped()
     {
+        Debug.Log("Jump tapped");
         if(btnJump.PressedTime < 0.25f)
         {
             jumpInput = 1;
-            Jump();
+            //Jump();
         }
     }
 
@@ -276,10 +277,10 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             if (btnJump.isTouched)
             {
                 Console.WriteLine("Jump input");
-                jumpInput = 1;
+                //jumpInput = 1;
             }
-            else
-                jumpInput = 0;
+            //else
+            //    jumpInput = 0;
         }
     }
 
@@ -295,18 +296,27 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
     bool isTouched;
     protected override void ShieldMovement()
     {
-        if (timeBeforeAnotherRoll > 0) return;
-        isTouched = false;
+        if (timeBeforeAnotherRoll > 0)
+        {
+            ResetVelocity();
+            return;
+        }
+        //isTouched = false;
         isTouched = btnMovement.isTouched;
 
 #if UNITY_EDITOR
         if (!isTouched)
-            isTouched = (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && Input.GetKey(KeyCode.LeftShift);
+            isTouched = ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0));
 #endif
+        Roll(isTouched);
 
+    }
+
+    public override void Roll(bool roll)
+    {
         if (!isRolling)
         {
-            if (isTouched)
+            if (roll)
             {
                 anim.SetTrigger("roll");
                 isRolling = true;
@@ -318,13 +328,12 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             Move();
         }
 
-        if(isTouched)
+        if (roll)
         {
-            GestureMovement();
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, angle + 90, 0), character.stats.turningSpeed);
+             GestureMovement();
+             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, angle + 90, 0), character.stats.turningSpeed);
         }
     }
-
     //void OnGUI()
     //{
     //    Draw.TextColor(10, 300, 255, 0, 0, 1, "Movement Enabled: " + MovementEnabled);

@@ -51,7 +51,8 @@ public class CollectionDisplay : MonoBehaviour
         }
         else
         {
-            text.text = "x" + ammount;
+            if(text)
+                text.text = "x" + ammount;
         }
 
         if (coroutine == null)
@@ -61,12 +62,14 @@ public class CollectionDisplay : MonoBehaviour
                 CollectionDisplayManager.Instance.StopDisplaying();
             }
             CollectionDisplayManager.Instance.isDisplaying = true;
-            coroutine = StartCoroutine(Activate());
+            coroutine = CoroutineHost.Start(Activate());
         }
     }
 
     IEnumerator Activate()
     {
+        if(group == null || !gameObject.activeInHierarchy)
+            yield break;
         while (group.alpha < 1)
         {
             group.alpha += 0.1f;

@@ -60,9 +60,9 @@ public class CharacterBoatAI : CharacterMovementAI
 
         rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
         rb.AddForce(rb.rotation.Vector() * pwr * speedModifier * iceForce, ForceMode.Acceleration);
-        if (onGround)
+        if (OnGround)
             rb.AddForce(Vector3.up * pwr * mag / 40, ForceMode.VelocityChange);
-        if (onGround && Engine.Math.Probability(mag / scooterSpeed))
+        if (OnGround && Engine.Math.Probability(mag / scooterSpeed))
         {
             waterDrops.Emit(4);
         }

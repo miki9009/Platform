@@ -22,7 +22,8 @@ public class CharacterProgressPanel : MonoBehaviour
 
     private void Character_Dead(Character character)
     {
-        OnDestroy();
+        if (character == this.Character)
+            Destroy(gameObject);
     }
 
     private void Character_WaypointVisited(int index)

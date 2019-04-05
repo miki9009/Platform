@@ -7,8 +7,20 @@ using Engine.UI;
 
 public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnimator, IDestructible
 {
-
-    public bool onGround = true;
+    bool _onGround;
+    public bool OnGround
+    {
+        get
+        {
+            return _onGround;
+        }
+        set
+        {
+            _onGround = value;
+            if(anim)
+                anim.SetBool("onGround", value);
+        }
+    }
     public ParticleSystem smoke2;
     public Transform model;
     public LayerMask enemyLayer;
@@ -34,8 +46,13 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public float meleeAttackRadius = 2;
     public bool shieldUp;
     public bool isRolling;
-    protected float timeBeforeAnotherRoll = 0;
+    public float timeBeforeAnotherRoll = 0;
     float startAttackRadius;
+    protected Vector3 forward;
+    public Shield Shield
+    {
+        get;set;
+    }
 
     public Transform powerUpAnchor;
     public bool Initialized
@@ -122,6 +139,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         smoke = GetComponentInChildren<ParticleSystem>();
         StartPosition = transform.position;
         disY = Screen.height / 8;
+        OnGround = true;
     }
 
 
@@ -132,6 +150,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         stats = character.stats;
         rb = character.rb;
         anim = character.anim;
+        anim.SetBool("onGround", OnGround);
         smokeExplosion = StaticParticles.Instance.smokeExplosion;
         starsExplosion = StaticParticles.Instance.starsExplosion;
 
@@ -147,12 +166,13 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void OnTriggerExit(Collider other)
     {
-        onGround = false;
+        OnGround = false;
         smoke.Stop();
     }
 
     public virtual void Die()
     {
+        Debug.Log("Died");
         anim.Play("Die");
         MovementEnabled = false;
         DieBroadcast?.Invoke();
@@ -189,7 +209,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         if (other.gameObject.layer == Layers.Environment)
         {
-            onGround = true;
+            OnGround = true;
         }
         if (other.gameObject.layer != 12 && other.gameObject.layer != 13)
         {
@@ -205,12 +225,29 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Hit(IDestructible attacker)
     {
-        Debug.Log("Not Implemented.");
+        Character character = null;
+        if(attacker as CharacterMovement)
+        {
+            character = (attacker as CharacterMovement).character;
+            Hit(character);
+        }
+        else
+        {
+            Debug.Log("error");
+        }
+
     }
 
     public virtual void Hit(Enemy enemy = null, int hp = 1, bool heavyAttack = false)
     {
-        if (character.Health <= 0 || Invincible || (isAttacking && !heavyAttack)) return;
+        if(shieldUp)
+        {
+            Debug.Log("Blocked by shield");
+        }
+        if (character.Health <= 0 || Invincible || (shieldUp && !heavyAttack))
+        {
+            return;
+        }
 
         if (shieldUp)
         {
@@ -249,7 +286,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         vspeed = velocity.y;
         anim.SetFloat("hSpeed", hspeed);
         anim.SetFloat("vSpeed", vspeed);
-        anim.SetBool("onGround", onGround);
     }
 
     // Update is called once per frame
@@ -264,8 +300,10 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         Rotation();
         SetAnimationHorizontal(rb.velocity);
         Move();
-        if (onGround)
+        if (OnGround)
             rb.AddForce(Vector3.up * addForce);
+        if (jumpInput > 0)
+            Jump();
     }
 
 
@@ -275,6 +313,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if(timeBeforeAnotherRoll > 0)
             timeBeforeAnotherRoll -= Time.deltaTime;
         if (!MovementEnabled) return;
+
+        forward = transform.forward;
         curPos = transform.position;
         Movement();
         Inputs();
@@ -282,6 +322,11 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         attack = false;
     }
 
+    //void LateUpdate()
+    //{
+    //    if (jumpInput > 0)
+    //        Jump();
+    //}
 
     void WeaponAttack()
     {
@@ -296,11 +341,12 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Jump()
     {
-        if (jumpInput > 0 && onGround)
+        if (jumpInput > 0 && OnGround)
         {
+            jumpInput = 0;
             rb.AddForce(Vector3.up * stats.jumpForce, ForceMode.VelocityChange);
-            jumpInput = 0; 
-            onGround = false;
+            //anim.Play("JumpUp");
+            OnGround = false;
         }
     }
 
@@ -376,6 +422,16 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         rollAnimationHash = Animator.StringToHash("Roll");
         shieldAnimationHash = Animator.StringToHash("Shield");
 
+        AnimatorBehaviour.StateEnter += (animatorStateInfo)=>
+        {
+            //if(animatorStateInfo.shortNameHash == attackAnimationHash)
+            //{
+            //    var velo = rb.velocity;
+            //    hspeed = new Vector2(velo.x, velo.z).magnitude;
+            //    anim.SetFloat("hSpeed", hspeed);
+            //}
+        };
+
         AnimatorBehaviour.StateExit += (animatorStateInfo) =>
         {
             //anim.ResetTrigger("ShieldDown");
@@ -385,7 +441,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             }
             else if (animatorStateInfo.shortNameHash == attackAnimationHash) //ATTACK
             {
-                ResetVelocity();
+               // ResetVelocity();
                 isAttacking = false;
                 StopAttack?.Invoke();
             }
@@ -398,17 +454,18 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 isRolling = false;
                 ResetVelocity();
                 MovementEnabled = true;
-                anim.SetTrigger("ShieldUp");
+                //anim.SetTrigger("ShieldUp");
+                anim.SetTrigger("ShieldDown");
                 timeBeforeAnotherRoll = 0.25f;
             }
             if(animatorStateInfo.shortNameHash == shieldAnimationHash) //SHIELD
             {
-
+                shieldUp = false;
             }
         };
     }
 
-    void ResetVelocity()
+    public void ResetVelocity()
     {
         var velo = rb.velocity;
         velo.x = 0;
@@ -429,7 +486,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void Hit(Character character)
     {
-        //throw new NotImplementedException();
+        Hit(null, 2);
     }
 
     public void CallShake()
@@ -443,6 +500,28 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if(shieldUp)
         {
             Console.WriteLine("Not implemented");
+        }
+    }
+
+    public virtual void Roll(bool roll)
+    {
+        if (!isRolling)
+        {
+            if (roll)
+            {
+                anim.SetTrigger("roll");
+                isRolling = true;
+            }
+        }
+        else
+        {
+            forwardPower = 1;
+            Move();
+        }
+
+        if (roll)
+        {
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.LookRotation(-forward), character.stats.turningSpeed);
         }
     }
 

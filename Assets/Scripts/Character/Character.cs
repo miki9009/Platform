@@ -23,7 +23,6 @@ public class Character : MonoBehaviour
 
     public event Action<int> PlacementChanged;
     public event Action<int> WaypointVisited;
-    public event Action<Character> Dead;
         public CharacterPhoton characterPhoton;
 
     public IEquipment rightArmItem;
@@ -66,8 +65,11 @@ public class Character : MonoBehaviour
 
         set
         {
-            Debug.Log("HP: " + value);
             stats.Health = value;
+            if(stats.Health <=0)
+            {
+                movement.Die();
+            }
         }
     }
 
@@ -101,7 +103,7 @@ public class Character : MonoBehaviour
     Identification identity;
 
     public static event Action<Character> CharacterCreated;
-
+    public static event Action<Character> Dead;
     public static List<Character> allCharacters = new List<Character>();
 
     public int ID
@@ -219,7 +221,9 @@ public class Character : MonoBehaviour
     {
         if(allCharacters.Contains(this))
             allCharacters.Remove(this);
-        PhotonManager.RemovePlayer(this);
+
+        if(GetComponent<PhotonView>())
+            PhotonManager.RemovePlayer(this);
         GameManager.LevelClear -= KillMe;
     }
 
@@ -344,4 +348,8 @@ public interface ILocalPlayer
 }
 
 public interface IRightArmItem : IEquipment{ }
-public interface ILefttArmItem : IEquipment { }
+public interface ILefttArmItem : IEquipment
+{
+    void Use();
+    void StopUsing();
+}

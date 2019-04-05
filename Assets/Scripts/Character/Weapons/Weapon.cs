@@ -76,6 +76,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
         Transform enemy = null;
         foreach (var hit in hits)
         {
+            if (hit.transform == character.transform) continue;
             angle2 = Vector3.Angle(character.transform.forward, hit.transform.position);
             if(angle2 < angle)
             {

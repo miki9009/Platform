@@ -29,7 +29,8 @@ public class CollectionDisplayManager : MonoBehaviour
             x.StopAllCoroutines();
             x.coroutine = null;
             x.enabled = false;
-            x.group.alpha = 0;
+            if(x.group)
+                x.group.alpha = 0;
         });
     }
 

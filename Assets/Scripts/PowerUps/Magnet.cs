@@ -28,6 +28,16 @@ public class Magnet : MonoBehaviour, ILefttArmItem
         Character.AddItem(this);
     }
 
+    public void Use()
+    {
+        Debug.Log("Not implemented");
+    }
+
+    public void StopUsing()
+    {
+        Debug.Log("Not implemented");
+    }
+
     public void Apply()
     {
         Debug.Log("Applied Magnet");

@@ -9791,7 +9791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a925c55b6da7d3d41a7d30368a14e51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onGround: 1
   smoke2: {fileID: 198298795771031466}
   model: {fileID: 4407194298126188}
   enemyLayer:
@@ -9807,13 +9806,16 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   pipeFactor: 0
   meleeAttackRadius: 2
+  shieldUp: 0
+  isRolling: 0
+  timeBeforeAnotherRoll: 0
   powerUpAnchor: {fileID: 0}
   airForce: 5
   onIce: 0
   iceForce: 30
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 39168
+    m_Bits: 39680
   pathMovement: {fileID: 114829963162330416}
   path: []
   nextPoint: {x: 0, y: 0, z: 0}
