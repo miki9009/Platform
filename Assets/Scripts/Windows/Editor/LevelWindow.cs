@@ -109,6 +109,10 @@ class LevelWindow : EditorWindow
             var objects = GameObject.FindObjectsOfType<GameObject>();
             Debug.Log("Found: " + objects.Length + " Game Objects.");
         }
+        if (GUILayout.Button("Load Non compressed"))
+        {
+            Level.Load(Level.levelName,false);
+        }
     }
 
 

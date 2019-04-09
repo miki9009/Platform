@@ -67,16 +67,27 @@ namespace Engine
             return saved;
         }
 
-        public static bool SaveByte(string fileName, object data, bool useFullPath = false)
+        /// <summary>
+        /// Saving serializable object to data
+        /// </summary>
+        /// <param name="fileName">Name of the file to save</param>
+        /// <param name="data">Object to be serialized must be Serializable</param>
+        /// <returns></returns>
+        public static bool Save(string fileName, object data, bool compressed, bool useFullPath = false)
         {
             bool saved = false;
-            FileStream file = null;
+            System.IO.Compression.GZipStream zipFile = null;
             try
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                string path = useFullPath ? fileName : Application.persistentDataPath + string.Format("/{0}", fileName);
-                file = File.Create(path);
-                bf.Serialize(file, data);
+                string path = "";
+                if (useFullPath)
+                    path = fileName;
+                else
+                    path = Application.persistentDataPath + string.Format("/{0}", fileName);
+                //bf.Serialize(file, data);
+                zipFile = new System.IO.Compression.GZipStream(File.Create(path), System.IO.Compression.CompressionMode.Compress);
+                bf.Serialize(zipFile, data);
             }
             catch (Exception ex)
             {
@@ -85,9 +96,9 @@ namespace Engine
             }
             finally
             {
-                if (file != null)
+                if (zipFile != null)
                 {
-                    file.Close();
+                    zipFile.Close();
                     saved = true;
                 }
                 else
@@ -96,8 +107,18 @@ namespace Engine
                 }
             }
             Saved?.Invoke();
+            if (saved)
+            {
+                Debug.Log("Save successful");
+            }
+            else
+            {
+                Debug.LogError("Didn't save");
+            }
             return saved;
         }
+
+        
 
         /// <summary>
         /// Loading object from file, remember that it has to be the same type that was saved to a file
@@ -144,16 +165,63 @@ namespace Engine
             return data;
         }
 
-        public static object DeserializeFile(string file)
+        /// <summary>
+        /// Loading object from file, remember that it has to be the same type that was saved to a file
+        /// </summary>
+        /// <typeparam name="T">Object's class</typeparam>
+        /// <param name="fileName">file to load from</param>
+        /// <returns>Returns an object loaded from file</returns>
+        public static object Load(string fileName, bool compressed, bool useFullPath = false)
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            return bf.Deserialize(GenerateStreamFromString(file));
+            object data = null;
+            Unity.IO.Compression.GZipStream zipFile = null;
+            try
+            {
+                string path = "";
+                if (useFullPath)
+                    path = fileName;
+                else
+                    path = Application.persistentDataPath + string.Format("/{0}", fileName);
+
+                if (File.Exists(path))
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    zipFile = new Unity.IO.Compression.GZipStream(File.OpenRead(path), Unity.IO.Compression.CompressionMode.Decompress);
+                    data = bf.Deserialize(zipFile);
+                    zipFile.Close();
+                }
+                else
+                {
+                    Debug.Log("Path doesn't exist: " + path);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex.Message);
+            }
+            finally
+            {
+                if (zipFile != null)
+                {
+                    zipFile.Close();
+                }
+            }
+            Loaded?.Invoke();
+            return data;
         }
+
 
         public static object DesirializeFile(byte[] bytes)
         {
             BinaryFormatter bf = new BinaryFormatter();
             return bf.Deserialize(new MemoryStream(bytes));
+        }
+
+        public static object DesirializeFile(byte[] bytes, bool compressed)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            var zipFile = new Unity.IO.Compression.GZipStream(new MemoryStream(bytes), Unity.IO.Compression.CompressionMode.Decompress);
+            return bf.Deserialize(zipFile);
         }
 
         public static string SerializeJSON<T>(T obj)

@@ -130,7 +130,7 @@ namespace Engine
                     Directory.CreateDirectory(partPath);
                 }
                 string savePath = partPath + "/"+ levelName + ".txt";
-                Data.Save(savePath, levelElements, true);
+                Data.Save(savePath, levelElements, true, true);
             }
             catch(Exception ex)
             {
@@ -171,7 +171,7 @@ namespace Engine
             Load(levelName);
         }
 
-        public static void Load(string levelName)
+        public static void Load(string levelName, bool compressed = true)
         {
             var elements = GameObject.FindObjectsOfType<LevelElement>();
             if (Application.isPlaying)
@@ -199,7 +199,13 @@ namespace Engine
             }
             Debug.Log("Path: " + assetPath);
             var bytes = asset.bytes;
-            var data = Data.DesirializeFile(bytes);
+
+            object data = null;
+            if (compressed)
+                data = Data.DesirializeFile(bytes, true);
+            else
+                data = Data.DesirializeFile(bytes);
+
             levelElements = (Dictionary<object, string>)data;
             loadedElements.Clear();
             foreach (var element in levelElements)

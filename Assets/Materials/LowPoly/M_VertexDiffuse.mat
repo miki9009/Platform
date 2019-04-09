@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_VertexDiffuse
-  m_Shader: {fileID: 4800000, guid: 1370d5a4f4f180c4d82ddde85bc9dce2, type: 3}
+  m_Shader: {fileID: 4800000, guid: c0e65bad2aec54842885f1e149080f34, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
@@ -230,7 +230,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 1, g: 0.83125937, b: 0.5235849, a: 1}
+    - _Color: {r: 0.972549, g: 0.9019608, b: 0.7647059, a: 1}
     - _Color0: {r: 0, g: 0, b: 0, a: 1}
     - _Color1: {r: 0.14, g: 0.14, b: 0.14, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
