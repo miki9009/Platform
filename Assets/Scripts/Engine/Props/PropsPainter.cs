@@ -65,6 +65,7 @@ namespace Engine.Props
                 if(prevPrefab != propPrefab)
                 {
                     var mesh = propPrefab.GetComponentInChildren<MeshRenderer>();
+                    if (mesh == null) return;
                     bounds = mesh.bounds;
                     prevPrefab = propPrefab;
                     if(mesh.transform.parent!=null)

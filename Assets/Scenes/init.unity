@@ -159,6 +159,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8369019b5a8a6ec49a7d52f9776b331d, type: 2}
   - {fileID: 11400000, guid: aea88ab7ddc1f8f4f9f2eed08071123c, type: 2}
   - {fileID: 11400000, guid: 92432af8712c8dc45aeda6d4523c8712, type: 2}
+  - {fileID: 11400000, guid: 9cd404cbb07869c4383278a3e503cd3c, type: 2}
 --- !u!1 &310046170
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,9 +678,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4700885996015320}
+  - component: {fileID: 899151333}
   - component: {fileID: 114120777621195910}
   - component: {fileID: 114865189228509114}
-  - component: {fileID: 899151333}
   m_Layer: 0
   m_Name: GameInit
   m_TagString: Untagged
@@ -735,7 +736,7 @@ GameObject:
   - component: {fileID: 124403081502460210}
   m_Layer: 5
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1007,7 +1008,7 @@ MonoBehaviour:
   - menu
   - test
   levels:
-  - sceneName: level1
+  - sceneName: benchmark
   - sceneName: level2
   - sceneName: level1
   - sceneName: level2

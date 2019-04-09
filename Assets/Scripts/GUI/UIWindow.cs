@@ -59,6 +59,8 @@ namespace Engine.UI
         Coroutine fadeOut;
         Coroutine fadeIn;
 
+
+
         public bool Visible
         {
             get

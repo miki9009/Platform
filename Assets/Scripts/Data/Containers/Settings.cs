@@ -25,13 +25,13 @@ public class Settings : DataContainer
 
     private void Start()
     {
-        DataManager.Loaded += SetResolution;
+        //DataManager.Loaded += SetResolution;
     }
 
     void SetResolution()
     {
-        Screen.SetResolution((int)data.resolution.x, (int)data.resolution.y, true);
-        DataManager.Loaded -= SetResolution;
+       // Screen.SetResolution((int)data.resolution.x, (int)data.resolution.y, true);
+       // DataManager.Loaded -= SetResolution;
     }
 
     [Serializable]

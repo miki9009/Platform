@@ -8,7 +8,8 @@ public class DaysDrawer : PopUpAttribute
 {
     public DaysDrawer()
     {
-   //     items = Config.GetConfig<TestConfig>(TestConfig.path).weekDays;
+       // var config = Config.GetConfigEditor<LevelsConfig>();
+        items = new string[] { "COS", "saaa" };
     }
 
 }

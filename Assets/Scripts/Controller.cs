@@ -222,41 +222,44 @@ public class Controller : MonoBehaviour
     {
         int graphicsLevel = DataManager.Settings.graphicsLevel;
 
+        var mode = GameQualitySettings.CurrentMode;
+        var quality = GameQualitySettings.GetMode(mode);
+        gameCamera.mainCamera.farClipPlane = quality.cameraFarClip;
 
-        switch (graphicsLevel)
+        switch (mode)
         {
-            case 0: //Very Low
-                QualitySettings.SetQualityLevel(0);
-                gameCamera.mainCamera.farClipPlane = 60;
-                ChangeToLowDetailMaterial();
+            case GameQualitySettings.GameQuality.VeryLow: //Very Low
+                //QualitySettings.SetQualityLevel(0);
+                //gameCamera.mainCamera.farClipPlane = 60;
+                //ChangeToLowDetailMaterial();
                 bloom.enabled = false;
                 antialiasing.enabled = false;
                 break;
-            case 1: //Low
-                QualitySettings.SetQualityLevel(1);
-                gameCamera.mainCamera.farClipPlane = 90;
-                ChangeToLowDetailMaterial();
+            case GameQualitySettings.GameQuality.Low: //Low
+                //QualitySettings.SetQualityLevel(1);
+                //gameCamera.mainCamera.farClipPlane = 90;
+                //ChangeToLowDetailMaterial();
                 bloom.enabled = false;
                 antialiasing.enabled = false;
                 break;
-            case 2: //Medium
-                QualitySettings.SetQualityLevel(6);
-                gameCamera.mainCamera.farClipPlane = 90;
-                ChangeToLowDetailMaterial();
+            case GameQualitySettings.GameQuality.Meduim: //Medium
+                //QualitySettings.SetQualityLevel(6);
+                //gameCamera.mainCamera.farClipPlane = 90;
+                //ChangeToLowDetailMaterial();
                 bloom.enabled = false;
                 antialiasing.enabled = false;
                 break;
-            case 3: //High
-                QualitySettings.SetQualityLevel(6);
-                gameCamera.mainCamera.farClipPlane = 90;
-                ChangeToHighDetailMaterial();
+            case GameQualitySettings.GameQuality.High: //High
+                //QualitySettings.SetQualityLevel(6);
+                //gameCamera.mainCamera.farClipPlane = 90;
+                //ChangeToHighDetailMaterial();
                 bloom.enabled = true;
                 antialiasing.enabled = false;
                 break;
-            case 4: //Very High
-                QualitySettings.SetQualityLevel(6);
-                gameCamera.mainCamera.farClipPlane = 90;
-                ChangeToHighDetailMaterial();
+            case GameQualitySettings.GameQuality.Ultra: //Very High
+                //QualitySettings.SetQualityLevel(6);
+                //gameCamera.mainCamera.farClipPlane = 90;
+                //ChangeToHighDetailMaterial();
                 bloom.enabled = true;
                 antialiasing.enabled = true;
                 break;

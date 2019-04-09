@@ -22,6 +22,19 @@ namespace Engine.Config
             return (T)Resources.Load(key);
         }
 
+        //public static T GetConfig<T>() where T : Config
+        //{
+        //    var configs = Resources.FindObjectsOfTypeAll<T>();
+        //    if(configs.Length > 1)
+        //    {
+        //        Debug.LogError("There are more than 1 configs of type " + typeof(T));
+        //    }
+        //    if(configs.Length > 0)
+        //        return configs[0];
+        //    Debug.LogError("Config not found of type:  " + typeof(T));
+        //    return null;
+        //}
+
         //        public static T GetConfigEditor<T>() where T : Config
         //        {
         //#if UNITY_EDITOR

@@ -102,7 +102,13 @@ class LevelWindow : EditorWindow
             }
         }
 
+
         EditorGUILayout.EndHorizontal();
+        if (GUILayout.Button("Count GameObjects"))
+        {
+            var objects = GameObject.FindObjectsOfType<GameObject>();
+            Debug.Log("Found: " + objects.Length + " Game Objects.");
+        }
     }
 
 

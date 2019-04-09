@@ -9085,6 +9085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 346231497}
+  - component: {fileID: 346231498}
   m_Layer: 0
   m_Name: Fog
   m_TagString: Untagged
@@ -9154,6 +9155,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &346231498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346231496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b5861d6c2a35842b8a0e881b68a08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modes: 0300000004000000
 --- !u!4 &350484293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5266446499527872048, guid: f4a2781c0aa84ed4cbb67d42cb94dd12,
@@ -24951,6 +24965,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1393142588425871838, guid: 20e9ec8d7e779d6449e4671dd0a582bb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c5bf95008fd2a44cbec2aff45771fa1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e9ec8d7e779d6449e4671dd0a582bb, type: 3}
 --- !u!4 &912917049 stripped

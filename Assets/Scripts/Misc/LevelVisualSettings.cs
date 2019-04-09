@@ -4,8 +4,8 @@ using UnityEngine;
 public class LevelVisualSettings : LevelElement
 {
     public UnityEngine.Color color;
-    public Material material;
-    public Material standardVertex;
+    //public Material material;
+    //public Material standardVertex;
     public bool rotateSkybox;
     public float rotationSpeed = 5;
     public bool enableBloom = true;
@@ -13,16 +13,16 @@ public class LevelVisualSettings : LevelElement
 
     [Range(0,1.5f)]
     public float bloomThreshold = 0.6f;
-    [Range(0, 1)]
-    public float materialSmoothness = 0.7f; 
+    //[Range(0, 1)]
+    //public float materialSmoothness = 0.7f; 
 
     public override void OnSave()
     {
         base.OnSave();
         Engine.Colour col = color;
-        data.Add("Color", col);
+        //data.Add("Color", col);
         data.Add("BloomThreshold", bloomThreshold);
-        data.Add("Smoothness", materialSmoothness);
+        //data.Add("Smoothness", materialSmoothness);
         data.Add("UseSkyboxRotation", rotateSkybox);
         data.Add("EnableBloom", enableBloom);
     }
@@ -30,11 +30,11 @@ public class LevelVisualSettings : LevelElement
     public override void OnLoad()
     {
         base.OnLoad();
-        if(data.ContainsKey("Color"))
-        {
-            color = (Engine.Colour)data["Color"];
-            material.color = color;
-        }
+        //if(data.ContainsKey("Color"))
+        //{
+        //    color = (Engine.Colour)data["Color"];
+        //    material.color = color;
+        //}
         if(data.ContainsKey("BloomThreshold"))
         {
             bloomThreshold = (float)data["BloomThreshold"];
@@ -54,16 +54,16 @@ public class LevelVisualSettings : LevelElement
                 Controller.Instance.bloom.enabled = false;
             }
         }
-        if (data.ContainsKey("Smoothness"))
-        {
-            try
-            {
-                materialSmoothness = (float)data["Smoothness"];
-                material.SetFloat("_Glossiness", materialSmoothness);
-            }
-            catch { }
+        //if (data.ContainsKey("Smoothness"))
+        //{
+        //    try
+        //    {
+        //        materialSmoothness = (float)data["Smoothness"];
+        //        material.SetFloat("_Glossiness", materialSmoothness);
+        //    }
+        //    catch { }
 
-        }
+        //}
     }
 
     //float rotation = 1;

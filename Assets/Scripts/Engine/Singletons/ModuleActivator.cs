@@ -37,5 +37,13 @@ namespace Engine.Singletons
                 Activator.CreateInstance(module);
             }
         }
+
+        private void OnDestroy()
+        {
+            foreach (var module in modules)
+            {
+                module.BeforeDestroyed();
+            }
+        }
     }
 }

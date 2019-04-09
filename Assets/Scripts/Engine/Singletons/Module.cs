@@ -10,5 +10,10 @@ namespace Engine.Singletons
         }
 
         public abstract void Initialize();
+
+        public virtual void BeforeDestroyed()
+        {
+
+        }
     }
 }

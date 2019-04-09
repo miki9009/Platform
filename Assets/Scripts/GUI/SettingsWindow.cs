@@ -29,18 +29,9 @@ public class SettingsWindow : UIWindow
     private void AssignSettings()
     {
         Debug.Log("Settings Loaded");
-        int width = Screen.currentResolution.width;
-        int height = Screen.currentResolution.height;
-        currentRes = new Vector2(width, height);
-        SetQuality();
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            if (currentRes == resolutions[i])
-            {
-                index = i;
-            }
-        }
-        SetResolutionString(width, height);
+
+
+        GameQualitySettings.ChangeQuality(selectedGraphics);
         buttonsMovement = DataManager.Settings.buttonMovement;
         showFps = DataManager.Settings.showFps;
 
@@ -50,6 +41,7 @@ public class SettingsWindow : UIWindow
         SetFPS();
     }
 
+
     public static void SetQuality()
     {
         instance.selectedGraphics = DataManager.Settings.graphicsLevel;
@@ -58,6 +50,8 @@ public class SettingsWindow : UIWindow
     public override void OnHidden()
     {
         base.OnHidden();
+        SetFPS();
+        AssignSettings();
         Debug.Log("Target frame rate: " + (DataManager.Settings.lowFrameRate ? 30 : 60));
 
     }
@@ -67,25 +61,14 @@ public class SettingsWindow : UIWindow
         if (DataManager.Settings.lowFrameRate)
         {
             Application.targetFrameRate = 30;
-            QualitySettings.vSyncCount = 2;
+            //QualitySettings.vSyncCount = 2;
         }
         else
         {
             Application.targetFrameRate = 60;
-            QualitySettings.vSyncCount = 1;
+            //QualitySettings.vSyncCount = 1;
         }
     }
-
-    static Vector2[] resolutions = new Vector2[]
-    {
-        new Vector2(800,450),
-        new Vector2(1024, 576),
-        new Vector2(1280,720),
-        new Vector2(1366,768),
-        new Vector2(1536,846),
-        new Vector2(1680, 946),
-        new Vector2(1920,1080)
-    };
 
     public void Save()
     {
@@ -102,11 +85,11 @@ public class SettingsWindow : UIWindow
     public void ChangeResolution()
     {
         index++;
-        if (index >= resolutions.Length)
+        if (index >= GameQualitySettings.CachedResolutions.Length)
         {
             index = 0;
         }
-        currentRes = resolutions[index];
+        currentRes = GameQualitySettings.CachedResolutions[index];
         SetResolutionString(currentRes.x, currentRes.y);
     }
 
@@ -114,7 +97,6 @@ public class SettingsWindow : UIWindow
     {
         resolutionLabel.text = string.Format("{0}x{1}", width, height);
     }
-
 
     void SetFpsShowString(bool showFps)
     {
@@ -157,5 +139,11 @@ public class SettingsWindow : UIWindow
         lowFrameRateLabel.text = lowFrameRate ? "ON" : "OFF";
     }
 
+    void OnGUI()
+    {
+        Engine.Draw.TextColorSize(10, 10, 255, 0, 0, 1, 30, "Native resolution: " + GameQualitySettings.NativeResolution);
+        Engine.Draw.TextColorSize(10, 50, 255, 0, 0, 1, 30, "Aspect: " + GameQualitySettings.Aspect);
+        Engine.Draw.TextColorSize(10, 90, 255, 0, 0, 1, 30, "Quality: " + GameQualitySettings.CurrentMode);
+    }
 
 }
