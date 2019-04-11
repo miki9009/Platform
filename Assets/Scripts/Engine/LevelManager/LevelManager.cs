@@ -42,8 +42,9 @@ public class LevelManager : MonoBehaviour
         {
             _customLevelToLoad = value;
         }
-
     }
+
+    public static string CurrentCustomScene{get; private set;}
 
     static string _sceneToLoad;
     public static string SceneToLoad
@@ -225,10 +226,11 @@ public class LevelManager : MonoBehaviour
     //    SceneManager.sceneLoaded += instance.AddLevelScene;
     //}
 
-    public static void BeginCustomLevelLoadSequenceAdditive(string sceneName, string customLevel)
+    public static void BeginCustomLevelLoadSequenceAdditive(string sceneName, string customLevel, string customScene = null)
     {
         _sceneToLoad = sceneName;
         CurrentCustomLevel = customLevel;
+        CurrentCustomScene = customScene;
 
         var scene = SceneManager.GetSceneByName("Menu3D");
         if(scene.isLoaded)
@@ -268,7 +270,7 @@ public class LevelManager : MonoBehaviour
         if (!string.IsNullOrEmpty(CurrentCustomLevel))
         {
             CurrentCustomLevel = customLevel;
-            Level.LoadWithScene(SceneManager.GetActiveScene().name, CurrentCustomLevel);
+            Level.LoadWithScene(SceneManager.GetActiveScene().name, CurrentCustomLevel, null);
         }
     }
 
@@ -311,9 +313,15 @@ public class LevelManager : MonoBehaviour
 
     static void OnLoadCustomLevel()
     {
+        CurrentScene = SceneManager.GetActiveScene().name;
+        if (!string.IsNullOrEmpty(CurrentCustomScene))
+        {
+            CustomScene.Load(CurrentScene, CurrentCustomScene);
+        }
+
         if(!string.IsNullOrEmpty(CurrentCustomLevel))
         {
-            Level.LoadWithScene(SceneManager.GetActiveScene().name, CurrentCustomLevel);
+            Level.LoadWithScene(CurrentScene, CurrentCustomLevel, CurrentCustomScene);
         }
         LoadCustomLevel -= OnLoadCustomLevel;
     }

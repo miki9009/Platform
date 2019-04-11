@@ -28,17 +28,20 @@ public class SettingsWindow : UIWindow
 
     private void AssignSettings()
     {
-        Debug.Log("Settings Loaded");
-
-
-        GameQualitySettings.ChangeQuality(selectedGraphics);
-        buttonsMovement = DataManager.Settings.buttonMovement;
         showFps = DataManager.Settings.showFps;
+        selectedGraphics = DataManager.Settings.graphicsLevel;
+        buttonsMovement = DataManager.Settings.buttonMovement;
+        currentRes =  DataManager.Settings.resolution;
+        lowFrameRate = DataManager.Settings.lowFrameRate;
+        GameQualitySettings.ChangeQuality(selectedGraphics);
 
         graphicsLabel.text = graphicsLevel[selectedGraphics];
         SetLowFrameRateLoad(DataManager.Settings.lowFrameRate);
         SetFpsShowString(showFps);
         SetFPS();
+        Screen.SetResolution((int)currentRes.x, (int)currentRes.y, true);
+        SetResolutionString(currentRes.x, currentRes.y);
+        Debug.Log("Settings Loaded");
     }
 
 
@@ -142,8 +145,9 @@ public class SettingsWindow : UIWindow
     void OnGUI()
     {
         Engine.Draw.TextColorSize(10, 10, 255, 0, 0, 1, 30, "Native resolution: " + GameQualitySettings.NativeResolution);
-        Engine.Draw.TextColorSize(10, 50, 255, 0, 0, 1, 30, "Aspect: " + GameQualitySettings.Aspect);
-        Engine.Draw.TextColorSize(10, 90, 255, 0, 0, 1, 30, "Quality: " + GameQualitySettings.CurrentMode);
+        Engine.Draw.TextColorSize(10, 50, 255, 0, 0, 1, 30, "Current resolution: " + Screen.currentResolution);
+        Engine.Draw.TextColorSize(10, 90, 255, 0, 0, 1, 30, "Aspect: " + GameQualitySettings.Aspect);
+        Engine.Draw.TextColorSize(10, 130, 255, 0, 0, 1, 30, "Quality: " + GameQualitySettings.CurrentMode);
     }
 
 }

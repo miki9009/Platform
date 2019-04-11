@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
   testLevel: 1
-  selectedScene: Temple1
+  selectedScene: CustomScene
   selectedLevel: 0
   levelPaths: Levels/
   levelElementsPath: LevelElements/
@@ -45,5 +45,8 @@ MonoBehaviour:
     levels:
     - 0
   - sceneName: Temple1
+    levels:
+    - 0
+  - sceneName: CustomScene
     levels:
     - 0

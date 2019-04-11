@@ -17,6 +17,7 @@ MonoBehaviour:
     missions:
     - level: Mine:0
       mode: Mine
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -24,16 +25,19 @@ MonoBehaviour:
     missions:
     - level: FirstLevel:0
       mode: Single_Challenge
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
     - level: FirstLevel:1
       mode: Single_Score
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
     - level: FirstLevel:Multiplayer1
       mode: Multi_Score
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -41,6 +45,7 @@ MonoBehaviour:
     missions:
     - level: SecondLevel:0
       mode: Single_Challenge
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -48,6 +53,7 @@ MonoBehaviour:
     missions:
     - level: ThirdScene:0
       mode: Single_Challenge
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -55,6 +61,7 @@ MonoBehaviour:
     missions:
     - level: Caves:0
       mode: Single_Challenge
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -62,6 +69,7 @@ MonoBehaviour:
     missions:
     - level: Ice1:0
       mode: Single_Challenge
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -69,6 +77,7 @@ MonoBehaviour:
     missions:
     - level: WaterLand:0
       mode: Single_Race
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 
@@ -76,6 +85,15 @@ MonoBehaviour:
     missions:
     - level: Temple1:0
       mode: Single_Challenge
+      customScene: none
+      passed: 0
+      unlocked: 0
+      unlocks: 
+  - scene: CustomScene
+    missions:
+    - level: CustomScene:0
+      mode: Single_Challenge
+      customScene: CustomScene1
       passed: 0
       unlocked: 0
       unlocks: 

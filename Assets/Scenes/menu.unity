@@ -365,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: Level0
+  customScene: 
 --- !u!114 &93440297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3926,10 +3927,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 6345b1ba405542248a3d66c37d0b202f,
         type: 3}
+    - target: {fileID: 4921542318618324052, guid: 2ed94481fbb926e4bb54fb751946f392,
+        type: 3}
+      propertyPath: m_Text
+      value: Custom Scene
+      objectReference: {fileID: 0}
     - target: {fileID: 4347093224477088418, guid: 2ed94481fbb926e4bb54fb751946f392,
         type: 3}
       propertyPath: scene
       value: Temple1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347093223393291996, guid: 2ed94481fbb926e4bb54fb751946f392,
+        type: 3}
+      propertyPath: scene
+      value: CustomScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ed94481fbb926e4bb54fb751946f392, type: 3}
@@ -4323,6 +4334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: 
+  customScene: 
 --- !u!114 &369930715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7358,6 +7370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: 
+  customScene: 
 --- !u!114 &751085030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10172,6 +10185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: Village:0
+  customScene: 
 --- !u!114 &1312166635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10769,6 +10783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: Level0
+  customScene: 
 --- !u!114 &1364071862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11617,6 +11632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: Moutain:0
+  customScene: 
 --- !u!114 &1471446842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12520,6 +12536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customLevel: World:0
+  customScene: 
 --- !u!114 &1550094578
 MonoBehaviour:
   m_ObjectHideFlags: 0

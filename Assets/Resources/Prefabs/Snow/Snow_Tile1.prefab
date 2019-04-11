@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1127062181262956521}
   - component: {fileID: 8684848957668220785}
   - component: {fileID: 8592412729254931211}
+  - component: {fileID: 4744969151921696109}
   m_Layer: 10
   m_Name: Snow_Tile1
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2258215877953010169}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!33 &1127062181262956521
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -92,3 +93,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 2381909571719824884a78cd92daf8fd, type: 3}
+--- !u!114 &4744969151921696109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258215877953010169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementID: -1

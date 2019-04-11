@@ -29,8 +29,5 @@ public class CustomLevelSelector : Engine.PopUpAttribute
             }
         }
         items = list.ToArray();
-
     }
-  
-
 }

@@ -75,14 +75,6 @@ public class GameQualitySettings : Module
        // SetResolution();
     }
 
-    public static void SetResolution()
-    {
-        var qualityMode = config.qualityModes[qualitySettings];
-        int width = (int)(NativeResolution.x * qualityMode.resolutionRange);
-        int height = (int)(NativeResolution.y * qualityMode.resolutionRange);
-        Screen.SetResolution(width, height, true);
-    }
-
     public static QualityMode GetMode(int quality)
     {
         if (qualitySettings < 0 || qualitySettings >= config.qualityModes.Count)

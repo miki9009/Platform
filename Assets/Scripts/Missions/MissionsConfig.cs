@@ -76,6 +76,8 @@ public class Mission
     public string level;
     [ModesDrawer]
     public string mode;
+    [CustomSceneSelector]
+    public string customScene;
     public bool passed;
     public bool unlocked;
     public bool[] unlocks;

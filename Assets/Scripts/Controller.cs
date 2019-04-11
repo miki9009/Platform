@@ -87,7 +87,6 @@ public class Controller : MonoBehaviour
         GameManager.Restart -= OnRestart;
         LevelManager.BeforeSceneLoading -= ResetMaterial;
         material.color = new Color32(248, 230, 195,255);
-        ChangeToLowDetailMaterial();
     }
 
     void OnRestart()
@@ -207,17 +206,6 @@ public class Controller : MonoBehaviour
     public Shader lowDetailShader;
     public Shader highDetailShader;
     
-
-    void ChangeToHighDetailMaterial()
-    {
-        material.shader = highDetailShader;
-    }
-
-    void ChangeToLowDetailMaterial()
-    {
-        material.shader = lowDetailShader;
-    }
-
     void SetGraphicsLevel()
     {
         int graphicsLevel = DataManager.Settings.graphicsLevel;

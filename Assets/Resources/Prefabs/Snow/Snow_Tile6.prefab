@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 189521052208088125}
   - component: {fileID: 3058885935161136589}
   - component: {fileID: 3250899021705660765}
+  - component: {fileID: 7761678160254501741}
   m_Layer: 10
   m_Name: Snow_Tile6
   m_TagString: Untagged
@@ -92,3 +93,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: b5316e303270f174fa665613934ed9fa, type: 3}
+--- !u!114 &7761678160254501741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5749266745783007210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementID: -1

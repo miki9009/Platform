@@ -16,6 +16,7 @@ class LevelWindow : EditorWindow
 
     static int selected;
     static int levelSelected;
+    static int customSceneSelected;
     static int currentModeIndex;
     bool firstTime = true;
     LevelSelector levels;
@@ -34,6 +35,10 @@ class LevelWindow : EditorWindow
                     selected = i;
             }
 
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("LEVELS", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Scene Name: ");
         selected = EditorGUILayout.Popup(selected, levels.items);
@@ -43,23 +48,24 @@ class LevelWindow : EditorWindow
 
         var levelGroup = Level.Config.GetLevel(Level.SceneName);
         string[] customLevels = new string[0];
-        if (levelGroup != null)
+        if (levelGroup != null && levelGroup.levels != null)
         {
             customLevels = levelGroup.levels.ToArray();
-        }
 
-        EditorGUILayout.BeginHorizontal();
-        string currentCustomLevel = Level.Config.selectedLevel;
-        levelSelected = 0;
-        for (int i = 0; i < customLevels.Length; i++)
-        {
-            if (customLevels[i] == currentCustomLevel)
-                levelSelected = i;
+
+            EditorGUILayout.BeginHorizontal();
+            string currentCustomLevel = Level.Config.selectedLevel;
+            levelSelected = 0;
+            for (int i = 0; i < customLevels.Length; i++)
+            {
+                if (customLevels[i] == currentCustomLevel)
+                    levelSelected = i;
+            }
+            EditorGUILayout.LabelField("Custom Level: ");
+            levelSelected = EditorGUILayout.Popup(levelSelected, customLevels);
+            Level.Config.selectedLevel = customLevels[levelSelected];
+            EditorGUILayout.EndHorizontal();
         }
-        EditorGUILayout.LabelField("Custom Level: ");
-        levelSelected = EditorGUILayout.Popup(levelSelected, customLevels);
-        Level.Config.selectedLevel = customLevels[levelSelected];
-        EditorGUILayout.EndHorizontal();
 
         if (customLevels != null && customLevels.Length > levelSelected)
         {
@@ -90,10 +96,63 @@ class LevelWindow : EditorWindow
         {
             Level.ReloadIDs();
         }
-        Level.Config.testLevel = EditorGUILayout.Toggle( "Play on load", Level.Config.testLevel);
+
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("CUSTOM SCENES FOR: " + sceneName, EditorStyles.boldLabel);
+
+        var sceneGroup = CustomScene.Config.GetSceneGroup(sceneName);
+        CustomScene.Config.selectedScene = sceneName;
+        if (sceneGroup!=null)
+        {
+            
+            string[] customScenes = sceneGroup.customScenes.ToArray();
+
+
+                EditorGUILayout.BeginHorizontal();
+                string currentCustomScene = CustomScene.Config.selectedScene;
+                customSceneSelected = 0;
+                for (int i = 0; i < customScenes.Length; i++)
+                {
+                    if (customScenes[i] == currentCustomScene)
+                    customSceneSelected = i;
+                }
+                EditorGUILayout.LabelField("Custom Scene: ");
+            customSceneSelected = EditorGUILayout.Popup(customSceneSelected, customScenes);
+                CustomScene.Config.selectedScene = customScenes[customSceneSelected];
+                EditorGUILayout.EndHorizontal();
+
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(customScenes[customSceneSelected]);
+            if (GUILayout.Button("Save"))
+            {
+                CustomScene.Save(sceneName, customScenes[customSceneSelected]);
+            }
+            EditorGUILayout.EndHorizontal();
+
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(customScenes[customSceneSelected]);
+            if (GUILayout.Button("Load"))
+            {
+                CustomScene.Load(sceneName, customScenes[customSceneSelected]);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("Clear"))
+        {
+            CustomScene.Clear();
+        }
+
+        Level.Config.testLevel = EditorGUILayout.Toggle("Play on load", Level.Config.testLevel);
         EditorGUILayout.BeginHorizontal();
 
-        if(Level.Config.testLevel)
+        if (Level.Config.testLevel)
         {
             EditorGUILayout.LabelField("Play Level: ");
             if (GUILayout.Button("Play"))
@@ -102,17 +161,17 @@ class LevelWindow : EditorWindow
             }
         }
 
-
         EditorGUILayout.EndHorizontal();
+
         if (GUILayout.Button("Count GameObjects"))
         {
             var objects = GameObject.FindObjectsOfType<GameObject>();
             Debug.Log("Found: " + objects.Length + " Game Objects.");
         }
-        if (GUILayout.Button("Load Non compressed"))
-        {
-            Level.Load(Level.levelName,false);
-        }
+        //if (GUILayout.Button("Load Non compressed"))
+        //{
+        //    Level.Load(Level.levelName,false);
+        //}
     }
 
 

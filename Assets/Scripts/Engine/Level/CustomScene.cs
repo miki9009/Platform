@@ -9,19 +9,19 @@ using UnityEngine.SceneManagement;
 namespace Engine
 {
     [ExecuteInEditMode]
-    public class Level : MonoBehaviour
+    public class CustomScene : MonoBehaviour
     {
-        static LevelsConfig config;
+        static CustomScenesConfig config;
 
         //public LevelSettings levelSettings;
 
-        public static LevelsConfig Config
+        public static CustomScenesConfig Config
         {
             get
             {
-                if(config == null)
+                if (config == null)
                 {
-                    config = Engine.Config.Config.GetConfigEditor<LevelsConfig>(LevelsConfig.key);
+                    config = Engine.Config.Config.GetConfigEditor<CustomScenesConfig>(CustomScenesConfig.key);
                 }
                 return config;
             }
@@ -30,14 +30,14 @@ namespace Engine
         public static event Action LevelLoaded;
 
 
-        public static string LevelElementsPath
-        {
-            get
-            {
-                return Config.levelElementsPath;
-            }
-        }
-        public static Dictionary<int, LevelElement> loadedElements = new Dictionary<int, LevelElement>();
+        //public static string LevelElementsPath
+        //{
+        //    get
+        //    {
+        //        return Config.levelElementsPath;
+        //    }
+        //}
+        public static Dictionary<int, Scenery> loadedElements = new Dictionary<int, Scenery>();
         static Dictionary<object, string> levelElements;
         public static Dictionary<object, string> LevelElements
         {
@@ -54,7 +54,7 @@ namespace Engine
         {
             get
             {
-                if(string.IsNullOrEmpty(_sceneName))
+                if (string.IsNullOrEmpty(_sceneName))
                 {
                     _sceneName = Config.selectedScene;
                 }
@@ -76,7 +76,7 @@ namespace Engine
             int id = -1;
             int minID = -9999999;
             int i = maxID;
-            while(contains)
+            while (contains)
             {
                 id = UnityEngine.Random.Range(minID, maxID);
                 contains = levelElementIDs.ContainsKey(id);
@@ -84,9 +84,9 @@ namespace Engine
             return id;
         }
 
-        public static bool ContainsID(LevelElement element)
+        public static bool ContainsID(Scenery element)
         {
-            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            var elements = GameObject.FindObjectsOfType<Scenery>();
             for (int i = 0; i < elements.Length; i++)
             {
                 if (elements[i].elementID == element.elementID && elements[i] != element)
@@ -101,11 +101,11 @@ namespace Engine
                 levelElementIDs.Remove(id);
         }
 
-        public static void Save(string levelName)
+        public static void Save(string scene, string customScene)
         {
             var ids = new Dictionary<int, bool>();
             levelElements = new Dictionary<object, string>();
-            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            var elements = GameObject.FindObjectsOfType<Scenery>();
             try
             {
                 foreach (var element in elements)
@@ -117,22 +117,24 @@ namespace Engine
                     levelElements.Add(element.data, element.GetName());
                 }
 
-                if(string.IsNullOrEmpty(SceneName))
+                if (string.IsNullOrEmpty(SceneName))
                 {
                     Debug.LogError("Scene Name is empty, did not save");
                     return;
                 }
 
-                string levelsPath = Config.levelPaths + "/"+ SceneName;
-                string partPath = Application.dataPath + "/Resources/" + levelsPath;
+
+                string partPath = Application.dataPath + "/" + Config.customScenesPath + scene;
+
                 if (!Directory.Exists(partPath))
                 {
                     Directory.CreateDirectory(partPath);
                 }
-                string savePath = partPath + "/"+ levelName + ".txt";
+                string savePath = partPath + "/" + customScene + ".txt";
+                Debug.Log("Save to Path: " + savePath);
                 Data.Save(savePath, levelElements, true, true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.LogError(ex);
                 return;
@@ -142,7 +144,7 @@ namespace Engine
 #endif
             foreach (var element in elements)
             {
-                if(element!=null && element.gameObject!=null)
+                if (element != null && element.gameObject != null)
                     DestroyImmediate(element.gameObject);
             }
             ClearIDs();
@@ -150,7 +152,7 @@ namespace Engine
 
         public static void Clear()
         {
-            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            var elements = GameObject.FindObjectsOfType<Scenery>();
             foreach (var element in elements)
             {
                 if (element != null && element.gameObject != null)
@@ -164,16 +166,9 @@ namespace Engine
             levelElementIDs.Clear();
         }
 
-        public static void LoadWithScene(string scene, string levelName, string customScene)
+        public static void Load(string scene, string customScene, bool compressed = true)
         {
-            SceneName = scene;
-            GameManager.GameMode = MissionsConfig.GetMode(LevelsConfig.GetFullName(scene, levelName));
-            Load(levelName);
-        }
-
-        public static void Load(string levelName, bool compressed = true)
-        {
-            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            var elements = GameObject.FindObjectsOfType<Scenery>();
             if (Application.isPlaying)
             {
                 for (int i = 0; i < elements.Length; i++)
@@ -188,16 +183,17 @@ namespace Engine
                     DestroyImmediate(elements[i].gameObject);
                 }
             }
-            string partPath = Config.levelPaths + SceneName;
+            string partPath = "CustomScenes/" + scene;
             ClearIDs(); //CLEAR IDS
-            string assetPath = partPath +"/" + levelName;
+            string assetPath = partPath + "/" + customScene;
+            Debug.Log("Loading from Path: " + assetPath);
             TextAsset asset = Resources.Load(assetPath) as TextAsset;
-            if(asset == null)
+            if (asset == null)
             {
-                Debug.Log("Level was null");
+                Debug.Log("Scenery was null");
                 return;
             }
-            Debug.Log("Path: " + assetPath);
+
             var bytes = asset.bytes;
 
             object data = null;
@@ -208,147 +204,56 @@ namespace Engine
 
             levelElements = (Dictionary<object, string>)data;
             loadedElements.Clear();
+            GameObject root = new GameObject("Level: " + customScene);
+            var rootTransform = root.transform;
+            rootTransform.position = new Vector3(0, 0, 0);
             foreach (var element in levelElements)
             {
-                string path = Config.levelElementsPath + element.Value;
+                //string path = Config.levelElementsPath + element.Value;
+                string path = element.Value;
                 var res = Resources.Load(path) as GameObject;
                 GameObject obj = null;
+
                 if (Application.isPlaying)
                     obj = Instantiate(res);
                 else
                 {
 #if UNITY_EDITOR
-                    obj = (GameObject)PrefabUtility.InstantiatePrefab(res);
+                    obj = (GameObject)PrefabUtility.InstantiatePrefab(res);               
 #endif
                 }
                 if (obj != null)
                 {
-                    var levelElement = obj.GetComponent<LevelElement>();
-                    if(levelElement!=null)
+                    obj.transform.SetParent(rootTransform);
+                    var levelElement = obj.GetComponent<Scenery>();
+                    if (levelElement != null)
                     {
                         levelElement.data = (Dictionary<string, object>)element.Key;
                         levelElement.OnLoad();
                         if (!loadedElements.ContainsKey(levelElement.elementID))
                             loadedElements.Add(levelElement.elementID, levelElement);
                         else
-                            Debug.LogError("EXCEPTION Caught: element with ID: " + levelElement.elementID + " already exists!");
-                    }              
+                            Debug.LogError("EXCEPTION Caught: scenery with ID: " + levelElement.elementID + " already exists!");
+                    }
                 }
                 else
                 {
                     Debug.LogError("Object was null, make sure it was in the LevelElements folder set in the config");
                 }
             }
-            foreach (var levelElement in loadedElements.Values)
-            {
-                levelElement.BuildHierarchy();
-            }
-            if(Application.isPlaying)
-            {
-                foreach (var levelElement in loadedElements.Values)
-                {
-                    levelElement.ElementStart();
-                }
-            }
-
-            Console.WriteLine("LevelLoaded", Console.LogColor.Green);
+            if(root)
+                StaticBatchingUtility.Combine(root);
+            Console.WriteLine("CustomSceneLoaded", Console.LogColor.Green);
             LevelLoaded?.Invoke();
         }
 
         public static void ReloadIDs()
         {
-            var elements = GameObject.FindObjectsOfType<LevelElement>();
+            var elements = GameObject.FindObjectsOfType<Scenery>();
             foreach (var element in elements)
             {
                 element.elementID = GetID();
             }
         }
-#if UNITY_EDITOR
-        public static void Play()
-        {
-            EditorApplication.ExecuteMenuItem("Edit/Play");
-        }
-#endif
-
-        public static void StartLevelSequence()
-        {
-            Debug.Log("Loading...");
-            SceneManager.sceneLoaded -= LoadInit;
-            SceneManager.sceneLoaded += LoadInit;
-        }
-
-        static void LoadInit(Scene scene, LoadSceneMode mode)
-        {
-            if(scene.name == "init")
-            {
-                return;
-            }
-            else
-            {
-                SceneManager.sceneLoaded -= LoadInit;
-                SceneManager.sceneLoaded += LoadMenu;
-                SceneManager.LoadSceneAsync("init", LoadSceneMode.Single);
-            }
-        }
-
-        static void LoadMenu(Scene scene, LoadSceneMode mode)
-        {
-            if(scene.name == "menu")
-            {
-                SceneManager.sceneLoaded -= LoadMenu;
-                CoroutineHost.Start(TestLevelSequence());
-            }
-        }
-
-        static IEnumerator TestLevelSequence()
-        {
-            bool loaded = false;
-            while(!loaded)
-            {
-                if(SceneManager.GetSceneByName("menu3D").isLoaded)
-                {
-                    LevelManager.BeginCustomLevelLoadSequenceAdditive(Config.selectedScene, Config.selectedLevel, CustomScene.Config.selectedCustomScene);
-                    loaded = true;
-                }
-                yield return null;
-            }
-            loaded = false;
-            while (!loaded)
-            {
-                if (SceneManager.GetSceneByName(Config.selectedScene).isLoaded)
-                {
-                    UI.UIWindow.GetWindow("MainMenu").Hide();
-                    loaded = true;
-                }
-                yield return null;
-            }
-        }
     }
-#if UNITY_EDITOR
-    public class ApplicationInitialization
-    {
-        [UnityEditor.InitializeOnLoadMethod]
-        static void OnInit()
-        {
-            try
-            {
-
-                //Debug.Log("startApp: " + startApplication);
-
-                if(Level.Config.testLevel)
-                {
-                    Debug.Log("Testing Level");
-                    Level.StartLevelSequence();
-                }
-
-            }
-            catch
-            {
-
-            }
-
-
-        }
-    }
-#endif
 }
