@@ -31,7 +31,7 @@ public class PushingObject : LevelElement
         {
             characterMovement.enabled = false;
             characterMovement.Hit(null, 100, true);
-            characterMovement.rb.AddForce(transform.forward * 100, ForceMode.VelocityChange);
+            //characterMovement.rb.AddForce(transform.forward * 100, ForceMode.VelocityChange);
         }
     }
 

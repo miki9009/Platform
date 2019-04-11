@@ -144,7 +144,7 @@ class LevelWindow : EditorWindow
             }
             EditorGUILayout.EndHorizontal();
         }
-        if (GUILayout.Button("Clear"))
+        if (GUILayout.Button("Clear Sceneries"))
         {
             CustomScene.Clear();
         }

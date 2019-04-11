@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b441a0475b39bd14ba947fdb8d9cc757, type: 3}
   m_Name: CustomScenesConfig
   m_EditorClassIdentifier: 
-  selectedScene: CustomScene1
+  selectedScene: Temple1
   selectedCustomScene: 
   customScenesPath: Resources/CustomScenes/
   sceneGroups:
   - sceneName: CustomScene
     customScenes:
     - CustomScene1
+  - sceneName: Temple1
+    customScenes:
+    - Temple1

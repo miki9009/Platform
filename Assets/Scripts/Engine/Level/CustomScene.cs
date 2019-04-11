@@ -11,9 +11,17 @@ namespace Engine
     [ExecuteInEditMode]
     public class CustomScene : MonoBehaviour
     {
-        static CustomScenesConfig config;
+        public enum SceneryContainer
+        {
+            Level,
+            WallColliders,
+            Triggers,
+            Sprites,
+            Clouds
+        }
 
-        //public LevelSettings levelSettings;
+        static CustomScenesConfig config;
+        public static Dictionary<SceneryContainer, Transform> sceneryContainers;
 
         public static CustomScenesConfig Config
         {
@@ -27,26 +35,18 @@ namespace Engine
             }
         }
 
-        public static event Action LevelLoaded;
+        public static event Action CustomSceneLoaded;
 
-
-        //public static string LevelElementsPath
-        //{
-        //    get
-        //    {
-        //        return Config.levelElementsPath;
-        //    }
-        //}
         public static Dictionary<int, Scenery> loadedElements = new Dictionary<int, Scenery>();
-        static Dictionary<object, string> levelElements;
+        static Dictionary<object, string> sceneryElements;
         public static Dictionary<object, string> LevelElements
         {
             get
             {
-                return levelElements;
+                return sceneryElements;
             }
         }
-        //[CustomLevelSelector]
+
         public static string levelName;
 
         static string _sceneName;
@@ -68,53 +68,17 @@ namespace Engine
             }
         }
 
-        static Dictionary<int, string> levelElementIDs = new Dictionary<int, string>();
-        public static int maxID = -2;
-        public static int GetID()
-        {
-            bool contains = true;
-            int id = -1;
-            int minID = -9999999;
-            int i = maxID;
-            while (contains)
-            {
-                id = UnityEngine.Random.Range(minID, maxID);
-                contains = levelElementIDs.ContainsKey(id);
-            }
-            return id;
-        }
-
-        public static bool ContainsID(Scenery element)
-        {
-            var elements = GameObject.FindObjectsOfType<Scenery>();
-            for (int i = 0; i < elements.Length; i++)
-            {
-                if (elements[i].elementID == element.elementID && elements[i] != element)
-                    return true;
-            }
-            return false;
-        }
-
-        public static void RemoveID(int id)
-        {
-            if (levelElementIDs.ContainsKey(id))
-                levelElementIDs.Remove(id);
-        }
-
         public static void Save(string scene, string customScene)
         {
             var ids = new Dictionary<int, bool>();
-            levelElements = new Dictionary<object, string>();
+            sceneryElements = new Dictionary<object, string>();
             var elements = GameObject.FindObjectsOfType<Scenery>();
             try
             {
                 foreach (var element in elements)
                 {
-                    if (ids.ContainsKey(element.elementID))
-                        element.elementID = GetID();
-                    ids.Add(element.elementID, true);
                     element.OnSave();
-                    levelElements.Add(element.data, element.GetName());
+                    sceneryElements.Add(element.data, element.GetName());
                 }
 
                 if (string.IsNullOrEmpty(SceneName))
@@ -132,7 +96,7 @@ namespace Engine
                 }
                 string savePath = partPath + "/" + customScene + ".txt";
                 Debug.Log("Save to Path: " + savePath);
-                Data.Save(savePath, levelElements, true, true);
+                Data.Save(savePath, sceneryElements, true, true);
             }
             catch (Exception ex)
             {
@@ -144,30 +108,57 @@ namespace Engine
 #endif
             foreach (var element in elements)
             {
+                //Debug.Log(element.name);
                 if (element != null && element.gameObject != null)
                     DestroyImmediate(element.gameObject);
             }
-            ClearIDs();
+            ClearContainers();
+        }
+
+        public static void ClearContainers()
+        {
+#if UNITY_EDITOR
+            if (sceneryContainers == null) return;
+            foreach (var item in sceneryContainers)
+            {
+                if (item.Value)
+                    DestroyImmediate(item.Value.gameObject);
+            }
+            sceneryContainers.Clear();
+#endif
         }
 
         public static void Clear()
         {
+            Debug.Log("Clear Custom Scene");
             var elements = GameObject.FindObjectsOfType<Scenery>();
             foreach (var element in elements)
             {
                 if (element != null && element.gameObject != null)
                     DestroyImmediate(element.gameObject);
             }
-            ClearIDs();
-        }
-
-        static void ClearIDs()
-        {
-            levelElementIDs.Clear();
+            ClearContainers();
         }
 
         public static void Load(string scene, string customScene, bool compressed = true)
         {
+            Clear();
+            if (sceneryContainers == null)
+                sceneryContainers = new Dictionary<SceneryContainer, Transform>();
+            var enums = Enum.GetValues(typeof(SceneryContainer));
+            foreach (var element in enums)
+            {
+                var type = (SceneryContainer)element;
+                if (!sceneryContainers.ContainsKey(type))
+                {
+                    sceneryContainers.Add((SceneryContainer)element, new GameObject(type.ToString()).transform);
+                }
+                if(sceneryContainers[type] == null)
+                {
+                    sceneryContainers[type] = new GameObject(type.ToString()).transform;
+                }
+            }
+
             var elements = GameObject.FindObjectsOfType<Scenery>();
             if (Application.isPlaying)
             {
@@ -184,7 +175,6 @@ namespace Engine
                 }
             }
             string partPath = "CustomScenes/" + scene;
-            ClearIDs(); //CLEAR IDS
             string assetPath = partPath + "/" + customScene;
             Debug.Log("Loading from Path: " + assetPath);
             TextAsset asset = Resources.Load(assetPath) as TextAsset;
@@ -202,12 +192,9 @@ namespace Engine
             else
                 data = Data.DesirializeFile(bytes);
 
-            levelElements = (Dictionary<object, string>)data;
+            sceneryElements = (Dictionary<object, string>)data;
             loadedElements.Clear();
-            GameObject root = new GameObject("Level: " + customScene);
-            var rootTransform = root.transform;
-            rootTransform.position = new Vector3(0, 0, 0);
-            foreach (var element in levelElements)
+            foreach (var element in sceneryElements)
             {
                 //string path = Config.levelElementsPath + element.Value;
                 string path = element.Value;
@@ -223,17 +210,13 @@ namespace Engine
 #endif
                 }
                 if (obj != null)
-                {
-                    obj.transform.SetParent(rootTransform);
-                    var levelElement = obj.GetComponent<Scenery>();
-                    if (levelElement != null)
+                {              
+                    var sceneryElement = obj.GetComponent<Scenery>();
+                    obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
+                    if (sceneryElement != null)
                     {
-                        levelElement.data = (Dictionary<string, object>)element.Key;
-                        levelElement.OnLoad();
-                        if (!loadedElements.ContainsKey(levelElement.elementID))
-                            loadedElements.Add(levelElement.elementID, levelElement);
-                        else
-                            Debug.LogError("EXCEPTION Caught: scenery with ID: " + levelElement.elementID + " already exists!");
+                        sceneryElement.data = (Dictionary<string, object>)element.Key;
+                        sceneryElement.OnLoad();
                     }
                 }
                 else
@@ -241,19 +224,16 @@ namespace Engine
                     Debug.LogError("Object was null, make sure it was in the LevelElements folder set in the config");
                 }
             }
-            if(root)
-                StaticBatchingUtility.Combine(root);
-            Console.WriteLine("CustomSceneLoaded", Console.LogColor.Green);
-            LevelLoaded?.Invoke();
-        }
-
-        public static void ReloadIDs()
-        {
-            var elements = GameObject.FindObjectsOfType<Scenery>();
-            foreach (var element in elements)
+            if (Application.isPlaying)
             {
-                element.elementID = GetID();
+                foreach (var rootTransform in sceneryContainers.Values)
+                {
+                    StaticBatchingUtility.Combine(rootTransform.gameObject);
+                }
             }
+
+            Console.WriteLine("CustomSceneLoaded", Console.LogColor.Green);
+            CustomSceneLoaded?.Invoke();
         }
     }
 }

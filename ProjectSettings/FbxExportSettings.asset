@@ -35,7 +35,7 @@
             "exportFormat": 0,
             "rootMotionTransfer": "",
             "animatedSkinnedMesh": false,
-            "mayaCompatibleNaming": true
+            "mayaCompatibleNaming": false
         }
     }
 }

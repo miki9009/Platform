@@ -193,6 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432002736204248525}
+  - component: {fileID: 941312014261586030}
   m_Layer: 10
   m_Name: Tile_floor_End
   m_TagString: Untagged
@@ -209,10 +210,23 @@ Transform:
   m_GameObject: {fileID: 4355578572982543557}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 137.47134, y: 2.31, z: -11.48}
-  m_LocalScale: {x: 0.0128, y: 0.010000003, z: 0.010000003}
+  m_LocalScale: {x: 0.0128, y: 0.010000006, z: 0.010000006}
   m_Children:
   - {fileID: 3791328180455491239}
   - {fileID: 6184371918857507136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+--- !u!114 &941312014261586030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355578572982543557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementID: -1

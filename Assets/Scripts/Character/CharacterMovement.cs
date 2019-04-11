@@ -188,6 +188,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void CharacterSetActive(bool val)
     {
+        MovementEnabled = true;
         character.IsDead = !val;
         enabled = val;
         activationCollider.enabled = val;

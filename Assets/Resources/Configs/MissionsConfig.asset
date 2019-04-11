@@ -85,7 +85,7 @@ MonoBehaviour:
     missions:
     - level: Temple1:0
       mode: Single_Challenge
-      customScene: none
+      customScene: Temple1
       passed: 0
       unlocked: 0
       unlocks: 

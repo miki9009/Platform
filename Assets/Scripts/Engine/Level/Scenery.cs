@@ -7,21 +7,18 @@ namespace Engine
 {
     public class Scenery : MonoBehaviour
     {
-        public string Path
-        {
-            get
-            {
-                return GetName();
-            }
-        }
+        public CustomScene.SceneryContainer sceneryContainer = CustomScene.SceneryContainer.Level;
 
-        public int elementID = -1;
         public Dictionary<string, object> data;
 
+        public string overridePath;
 
         public string GetName()
         {
-
+            if(!string.IsNullOrEmpty(overridePath))
+            {
+                return overridePath;
+            }
 #if UNITY_EDITOR
             string rawPath = AssetDatabase.GetAssetPath(PrefabUtility.GetCorrespondingObjectFromSource(gameObject)).Substring(17);
             rawPath = rawPath.Substring(0, rawPath.Length - 7);
@@ -33,10 +30,6 @@ namespace Engine
 
         public virtual void OnSave()
         {
-            if (elementID > Level.maxID)
-            {
-                elementID = Level.GetID();
-            }
             data = new Dictionary<string, object>();
             Vector pos = transform.position;
             data.Add("Position", pos);
@@ -44,16 +37,14 @@ namespace Engine
             data.Add("Rotation", rotation);
             Vector scale = transform.localScale;
             data.Add("Scale", scale);
-            data.Add("ID", elementID);
         }
 
         public virtual void OnLoad()
         {
-            GameManager.LevelClear += OnLevelClear;
+            //GameManager.LevelClear += OnLevelClear;
             transform.position = (Vector)data["Position"];
             transform.rotation = (Float4)data["Rotation"];
             transform.localScale = (Vector)data["Scale"];
-            elementID = (int)data["ID"];
 
 //#if UNITY_EDITOR
 //            name += " (" + elementID + ")";

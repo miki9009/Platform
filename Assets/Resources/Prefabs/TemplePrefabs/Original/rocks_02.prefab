@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9152691438429436368}
   - component: {fileID: 5267634278497417251}
   - component: {fileID: 4682716092096785999}
+  - component: {fileID: 2133999180060176315}
   m_Layer: 10
   m_Name: rocks_02
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3964066150590824217}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 216, y: 12, z: -35}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
@@ -92,3 +93,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: bc5765e852522f74abbd0a87ef94440f, type: 3}
+--- !u!114 &2133999180060176315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3964066150590824217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementID: -1

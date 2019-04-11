@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3225109659396868791}
   - component: {fileID: 5039085202630538296}
   - component: {fileID: 322953119228801964}
+  - component: {fileID: 1872987181483615952}
   m_Layer: 10
   m_Name: scaffolding_03
   m_TagString: Untagged
@@ -92,3 +93,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: b5a5628dee74c684189d1210bddbeb3f, type: 3}
+--- !u!114 &1872987181483615952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189128372028515550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementID: -1
