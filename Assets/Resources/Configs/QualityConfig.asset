@@ -20,8 +20,6 @@ MonoBehaviour:
     materialReplacements:
     - material: {fileID: 2100000, guid: f9bfaaeddb29a9c4c8dd0d83e0a49a72, type: 2}
       shader: {fileID: 10708, guid: 0000000000000000f000000000000000, type: 0}
-    - material: {fileID: 2100000, guid: 2ddde68681d3f0247b5bd1b1780f7e71, type: 2}
-      shader: {fileID: 10708, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: 0a5568fd04ca95144b7ba10efb0778b0, type: 2}
       shader: {fileID: 10708, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: 412f991e267a3a8439e36265d2fa2f9a, type: 2}
@@ -41,8 +39,6 @@ MonoBehaviour:
       shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: 412f991e267a3a8439e36265d2fa2f9a, type: 2}
       shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
-    - material: {fileID: 2100000, guid: 2ddde68681d3f0247b5bd1b1780f7e71, type: 2}
-      shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: 1c5bf95008fd2a44cbec2aff45771fa1, type: 2}
       shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: d5f0c18af4ee67547855371a6122b4e2, type: 2}
@@ -57,8 +53,6 @@ MonoBehaviour:
     - material: {fileID: 2100000, guid: 0a5568fd04ca95144b7ba10efb0778b0, type: 2}
       shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: 412f991e267a3a8439e36265d2fa2f9a, type: 2}
-      shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
-    - material: {fileID: 2100000, guid: 2ddde68681d3f0247b5bd1b1780f7e71, type: 2}
       shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
     - material: {fileID: 2100000, guid: d5f0c18af4ee67547855371a6122b4e2, type: 2}
       shader: {fileID: 4800000, guid: c0e65bad2aec54842885f1e149080f34, type: 3}
@@ -75,8 +69,6 @@ MonoBehaviour:
       shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
     - material: {fileID: 2100000, guid: 412f991e267a3a8439e36265d2fa2f9a, type: 2}
       shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
-    - material: {fileID: 2100000, guid: 2ddde68681d3f0247b5bd1b1780f7e71, type: 2}
-      shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
     - material: {fileID: 2100000, guid: 1c5bf95008fd2a44cbec2aff45771fa1, type: 2}
       shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
     - material: {fileID: 2100000, guid: d5f0c18af4ee67547855371a6122b4e2, type: 2}
@@ -91,8 +83,6 @@ MonoBehaviour:
     - material: {fileID: 2100000, guid: 0a5568fd04ca95144b7ba10efb0778b0, type: 2}
       shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
     - material: {fileID: 2100000, guid: 412f991e267a3a8439e36265d2fa2f9a, type: 2}
-      shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
-    - material: {fileID: 2100000, guid: 2ddde68681d3f0247b5bd1b1780f7e71, type: 2}
       shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}
     - material: {fileID: 2100000, guid: 1c5bf95008fd2a44cbec2aff45771fa1, type: 2}
       shader: {fileID: 4800000, guid: 2281bfcab4d05e646a020dbfafbe522a, type: 3}

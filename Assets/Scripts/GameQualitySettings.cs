@@ -42,7 +42,7 @@ public class GameQualitySettings : Module
         NativeResolution = new Vector2(Screen.width, Screen.height);
         config = ConfigsManager.GetConfig<QualityConfig>();
         Aspect = Camera.main.aspect;
-        Console.WriteLine("Aspect: " + Aspect);
+        Engine.Log.Print("Aspect: " + Aspect);
         DataManager.Loaded += () =>
         {
             qualitySettings = DataManager.Settings.graphicsLevel;

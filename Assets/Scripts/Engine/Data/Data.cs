@@ -82,7 +82,6 @@ namespace Engine
                     path = fileName;
                 else
                     path = Application.persistentDataPath + string.Format("/{0}", fileName);
-                //bf.Serialize(file, data);
                 zipFile = new System.IO.Compression.GZipStream(File.Create(path), System.IO.Compression.CompressionMode.Compress);
                 bf.Serialize(zipFile, data);
             }

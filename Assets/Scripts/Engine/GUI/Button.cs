@@ -4,23 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace Engine.UI
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(RectTransform))]
-    public class Button : MonoBehaviour
+    public class Button : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        
-        public enum ButtonShape { Circle, Rectangle}
+
         public string buttonName;
-        [HideInInspector]public float radius;
-        public bool isTouched;
+        [HideInInspector] public float radius;
+        public bool Pressed
+        {
+            get
+            {
+                return pressed;
+            }
+        }
         RectTransform rect;
         Image image;
         Colour color;
         private bool wasAwaken = false;
-        public ButtonShape buttonShape;
         //public bool enabled = true;
         public UnityEvent OnTapPressed;
         public UnityEvent OnTapContinue;
@@ -28,6 +33,16 @@ namespace Engine.UI
         public UnityEvent OnDoubleTap;
         public float PressedTime { get; private set; }
         public KeyCode keyMap;
+
+        private Vector2 touchPosition;
+        public Vector2 TouchPosition
+        {
+            get
+            {
+                return touchPosition;
+            }
+        }
+
 
         float timerDoubleTap = 0;
         float interval = 0.25f;
@@ -38,6 +53,7 @@ namespace Engine.UI
         float height = 0;
         float x;
         float y;
+        private bool pressed;
 
         private void Awake()
         {
@@ -67,83 +83,40 @@ namespace Engine.UI
 
         }
 
-        private void Start()
-        {
-            if (buttonShape == ButtonShape.Rectangle)
-            {
 
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if(!pressed)
+            {
+                Debug.Log("Pressed: " + name);
+                pressed = true;
+                touchPosition = eventData.position;
+                OnTapPressed.Invoke();
             }
 
-
+            touchPosition = eventData.position;
+            OnTapContinue.Invoke();
         }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            Debug.Log("Released: " + name);
+            pressed = false;
+            touchPosition = eventData.position;
+            OnTapRelesed.Invoke();
+        }
+
+
 
         public void OnTapPressedInvoke()
         {
             if(OnTapPressed!= null)
-            {
+            {                
                 OnTapPressed.Invoke();
             }
         }
 
-
-        public bool IsInRange(Vector3 pos)
-        {
-            if (!enabled) return false;
-            if (buttonShape == ButtonShape.Circle)
-            {
-                return Vector3.Distance(pos, rect.position) < (radius * GameGUI.ScreenScale.x);
-            }
-            else
-            {
-                //return ((pos.x > x - width * GameGUI.ScreenScale.x && pos.x < x + width * GameGUI.ScreenScale.x) && (pos.y > y - height * GameGUI.ScreenScale.y && pos.y < y + height * GameGUI.ScreenScale.y));
-
-                //Debug.Log(string.Format("x:{0}, y:{1}", Vector3.Distance(new Vector3(x, 0, 0), new Vector3(pos.x, 0, 0)), Vector3.Distance(new Vector3(0, y, 0), new Vector3(pos.y, 0, 0))));
-                //return (Vector3.Distance(new Vector3(x,0,0), new Vector3(pos.x, 0, 0)) < (width * GameGUI.ScreenScale.x)) 
-                //    && (Vector3.Distance(new Vector3(0, y, 0), new Vector3(pos.y, 0, 0)) < height * (GameGUI.ScreenScale.y));
-                Debug.Log("x: " + pos.x * GameGUI.ScreenScale.x);
-                //Debug.Log(Vector3.Distance(Vector3.right * x, Vector3.right * pos.x * GameGUI.ScreenScale.x));
-                
-
-                return false;
-            }
-        }
-
-
-        public void Touch()
-        {
-            if (!isTouched)
-            {
-                //if (buttonName == "ButtonAttack")
-                //{
-                //    Debug.Log("ActionButton Touched");
-                //}
-                OnTapPressed.Invoke();
-            }
-            isTouched = true;
-            OnTapContinue.Invoke();
-            if (timerDoubleTap > 0)
-            {
-                OnDoubleTap.Invoke();
-            }
-            PressedTime += Time.deltaTime;
-        }
-
-        public void NotTouched()
-        {
-            if (isTouched)
-            {
-                OnTapRelesed.Invoke();
-                timerDoubleTap = interval;
-            }
-            isTouched = false;
-
-
-            if (timerDoubleTap > 0)
-            {
-                timerDoubleTap -= Time.deltaTime;
-            }
-            PressedTime = 0;
-        }
 
         public void Enable()
         {
@@ -157,50 +130,7 @@ namespace Engine.UI
             enabled = false;
         }
 
-#if UNITY_EDITOR
-        [Header("DEBUG")]
-        public float maskAlpha = 0.5f;
-        public Color gizmosColor = Color.red;
-        public bool showDebug;
 
-
-        private void Update()
-        {
-            if (showDebug) yy = 50;
-            //if (Input.GetKey(keyMap))
-            //{
-            //    Touch();
-            //}
-            //else
-            //{
-            //    NotTouched();
-            //}
-        }
-        private static int yy;
-        private void OnGUI()
-        {
-            if (!showDebug) return;
-            Engine.Draw.TextColor(10, yy, 255, 0, 0, 1, buttonName + " IsTouched: " + isTouched);
-            Engine.Draw.TextColor(10, yy + 20, 255, 0, 0, 1, "Dis: " + dis + " radius: " + (radius * GameGUI.ScreenScale.x));
-            yy += 40;
-        }
-
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = new Colour(gizmosColor.r, gizmosColor.g, gizmosColor.b, maskAlpha);
-            if (buttonShape == ButtonShape.Circle)
-            {
-                Gizmos.DrawSphere(transform.position, radius * GameGUI.ScreenScale.x);
-            }
-            else
-            {
-                Gizmos.DrawCube(transform.position, new Vector3(width * 2 * GameGUI.ScreenScale.x, height * 2 * GameGUI.ScreenScale.y, 1));
-            }
-            
-        }
-
-#endif
     }
 
 

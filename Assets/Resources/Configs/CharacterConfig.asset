@@ -15,7 +15,7 @@ MonoBehaviour:
   defaultCharacterStatistics:
     runSpeed: 8
     startHealth: 10
-    jumpForce: 15
+    jumpForce: 18
     turningSpeed: 5
     damage: 10
     attackForce: 5

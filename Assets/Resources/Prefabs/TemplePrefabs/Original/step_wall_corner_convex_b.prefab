@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 100104504750559368}
   - component: {fileID: 3174832740310338473}
   - component: {fileID: 8584289453003476282}
+  - component: {fileID: 8094183031209952976}
   m_Layer: 10
   m_Name: step_wall_corner_convex_b
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9024561172248351330}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 240, y: 16, z: -49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -92,3 +93,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 9efac306c5d4fe94cbc94d7a24362ff9, type: 3}
+--- !u!114 &8094183031209952976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9024561172248351330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

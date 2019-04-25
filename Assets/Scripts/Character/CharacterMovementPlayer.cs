@@ -24,7 +24,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
     protected Vector3 pointingDir;
     public float maxAngle = 180;
 
-    protected float angle;
+    public float angle;
 
     public bool Touched
     {
@@ -92,7 +92,6 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         }
         catch (Exception ex)
         {
-            //Movement = ButtonsMovement;
             Debug.Log("Buttons are not initialized, you can still use keyboard for movement. " + ex );
             buttonsInitialized = false;
         }
@@ -126,13 +125,11 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         bool pressedHorizontalCurrent = false;
         int touchCount = Input.touchCount;
         var touches = Input.touches;
-        //jumpInput = 0;
         horDistance = 0;
         forwardPower = 0;
         pressedHorizontalCurrent = false;
-        //angle = 0;
 
-        if (btnMovement.isTouched || horPressed)
+        if (btnMovement.Pressed || horPressed)
         {
             for (int i = 0; i < Input.touchCount; i++)
             {
@@ -206,7 +203,9 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             angle = -Vector2.SignedAngle(Vector2.up, pointingDir);
             angle = Mathf.Clamp(angle, -maxAngle, maxAngle);
             forwardPower = Mathf.Clamp(horDistance, 0, 100) / 100;
+
             targetEuler = new Vector3(0, Camera.eulerAngles.y + angle, 0);
+
         }
 
 #if UNITY_EDITOR
@@ -215,7 +214,6 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jumpInput = 1;
-            //Jump();
         }
   
 
@@ -237,8 +235,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
             {
                 if (verTouched.y < lastAttackTouchPosition.y)
                 {
-                    Console.WriteLine("Jump Input");
-                    //jumpInput = 1;
+                    Engine.Log.Print("Jump Input");
                     verTouched.y = 0;
                     lastAttackTouchPosition.y = 0;
                     verDistance = 0;
@@ -260,11 +257,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
     void OnJumpTapped()
     {
         Debug.Log("Jump tapped");
-        if(btnJump.PressedTime < 0.25f)
-        {
-            jumpInput = 1;
-            //Jump();
-        }
+        jumpInput = 1;
     }
 
     protected void ButtonsMovement()
@@ -272,74 +265,42 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
         horInput = 0;
         if (buttonsInitialized)
         {
-            if (btnRight.isTouched) horInput = 1;
-            if (btnLeft.isTouched) horInput = -1;
-            if (btnJump.isTouched)
+            if (btnRight.Pressed) horInput = 1;
+            if (btnLeft.Pressed) horInput = -1;
+            if (btnJump.Pressed)
             {
-                Console.WriteLine("Jump input");
-                //jumpInput = 1;
+                Engine.Log.Print("Jump input");
             }
-            //else
-            //    jumpInput = 0;
         }
     }
 
     protected float modelZFactor;
+    float amplitude = 0;
+    float prevY;
     protected override void Rotation()
     {
         var vec = Controller.Instance.gameCamera.transform.forward;
         vec.y = 0;
-        Quaternion rot = Quaternion.Euler(targetEuler);
+        modelZFactor = Mathf.Clamp(Mathf.Lerp(modelZFactor, amplitude / 2, Time.deltaTime * stats.turningSpeed), -20, 20);
+        Quaternion rot = Quaternion.Euler(targetEuler.x, targetEuler.y, modelZFactor);
+        prevY = transform.eulerAngles.y;
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.2f);
-    }
 
-    bool isTouched;
-    protected override void ShieldMovement()
-    {
-        if (timeBeforeAnotherRoll > 0)
-        {
-            ResetVelocity();
-            return;
-        }
-        //isTouched = false;
-        isTouched = btnMovement.isTouched;
-
-#if UNITY_EDITOR
-        if (!isTouched)
-            isTouched = ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0));
-#endif
-        Roll(isTouched);
+        amplitude = (prevY - transform.eulerAngles.y) * rb.velocity.magnitude;
 
     }
 
-    public override void Roll(bool roll)
-    {
-        if (!isRolling)
-        {
-            if (roll)
-            {
-                anim.SetTrigger("roll");
-                isRolling = true;
-            }
-        }
-        else
-        {
-            forwardPower = 1;
-            Move();
-        }
-
-        if (roll)
-        {
-             GestureMovement();
-             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, angle + 90, 0), character.stats.turningSpeed);
-        }
-    }
     //void OnGUI()
     //{
-    //    Draw.TextColor(10, 300, 255, 0, 0, 1, "Movement Enabled: " + MovementEnabled);
-    //    Draw.TextColor(10, 350, 255, 0, 0, 1, "Shield up: " + shieldUp);
-    //    Draw.TextColor(10, 400, 255, 0, 0, 1, "Is Touched: " + isTouched);
-    //    Draw.TextColor(10, 450, 255, 0, 0, 1, "Is Rolling: " + isRolling);
+        //Draw.TextColor(10, 300, 255, 0, 0, 1, "ModelZ: " + modelZFactor);
+        //Draw.TextColor(10, 350, 255, 0, 0, 1, "amplitude: " + amplitude);
+        //Draw.TextColor(10, 250, 255, 0, 0, 1, "velo: " + rb.velocity.z);
+
+        //Draw.TextColor(10, 350, 255, 0, 0, 1, "prev Y: " + prevY);
+        //Draw.TextColor(10, 400, 255, 0, 0, 1, "cur Y: " + transform.eulerAngles.y);
+        //Draw.TextColor(10, 450, 255, 0, 0, 1, "ampli: " + ;
+        //Draw.TextColor(10, 400, 255, 0, 0, 1, "Is Touched: " + isTouched);
+        //Draw.TextColor(10, 450, 255, 0, 0, 1, "Is Rolling: " + isRolling);
     //}
 
 }

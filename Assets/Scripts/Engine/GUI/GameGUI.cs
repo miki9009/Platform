@@ -65,63 +65,63 @@ namespace Engine
             buttonIsInRange = new bool[1];
         }
 
-        private void Update()
-        {
-            mousePos = Input.mousePosition;
-            ScreenScale = rect.localScale;
-            var touches = Input.touches;
-            int touchCount = touches.Length;
-            if (!Application.isPlaying) return;
+//        private void Update()
+//        {
+//            mousePos = Input.mousePosition;
+//            ScreenScale = rect.localScale;
+//            var touches = Input.touches;
+//            int touchCount = touches.Length;
+//            if (!Application.isPlaying) return;
 
-            int buttonsCount = buttons.Count;
+//            int buttonsCount = buttons.Count;
 
-            if (buttonIsInRange.Length != buttonsCount)
-            {
-                buttonIsInRange = new bool[buttonsCount];
-            }
+//            if (buttonIsInRange.Length != buttonsCount)
+//            {
+//                buttonIsInRange = new bool[buttonsCount];
+//            }
 
-#if UNITY_EDITOR
-            bool mousePressed = Input.GetMouseButton(0);
-            for (int l = 0; l < buttonsCount; l++)
-            {
-                if (mousePressed && buttons[l].IsInRange(Input.mousePosition))
-                {
+//#if UNITY_EDITOR
+//            bool mousePressed = Input.GetMouseButton(0);
+//            for (int l = 0; l < buttonsCount; l++)
+//            {
+//                if (buttons[l])
+//                {
                     
-                    buttons[l].Touch();
-                }
-                else
-                {
-                    buttons[l].NotTouched();
-                }
-            }
-#else
+//                    buttons[l].Touch();
+//                }
+//                else
+//                {
+//                    buttons[l].NotTouched();
+//                }
+//            }
+//#else
 
-            for (int i = 0; i < touchCount; i++)
-            {
-                for (int j = 0; j < buttonsCount; j++)
-                {
-                    if (!buttonIsInRange[j])
-                    {
-                        buttonIsInRange[j] = buttons[j].IsInRange(touches[i].position);
-                    }
-                }
-            }
+//            for (int i = 0; i < touchCount; i++)
+//            {
+//                for (int j = 0; j < buttonsCount; j++)
+//                {
+//                    if (!buttonIsInRange[j])
+//                    {
+//                        buttonIsInRange[j] = buttons[j].IsInRange(touches[i].position);
+//                    }
+//                }
+//            }
 
-            for (int k = 0; k < buttonsCount; k++)
-            {
-                if (buttonIsInRange[k])
-                {
-                    buttons[k].Touch();
-                }
-                else
-                {
-                    buttons[k].NotTouched();
-                }
-                buttonIsInRange[k] = false;
-            }
+//            for (int k = 0; k < buttonsCount; k++)
+//            {
+//                if (buttonIsInRange[k])
+//                {
+//                    buttons[k].Touch();
+//                }
+//                else
+//                {
+//                    buttons[k].NotTouched();
+//                }
+//                buttonIsInRange[k] = false;
+//            }
 
-#endif
-        }
+//#endif
+//        }
 
         public static Engine.UI.Button GetButtonByName(string buttonName)
         {

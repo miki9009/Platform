@@ -148,7 +148,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
 
     public void BackToCollection()
     {
-        Console.WriteLine("Not implemented.");
+        Engine.Log.Print("Not implemented.");
     }
 }
 

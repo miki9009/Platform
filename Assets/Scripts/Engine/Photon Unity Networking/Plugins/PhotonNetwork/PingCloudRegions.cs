@@ -49,7 +49,7 @@ public class PingMonoEditor : PhotonPing
         catch (Exception e)
         {
             sock = null;
-            Console.WriteLine(e);
+            Engine.Log.Print(e);
         }
 
         return false;

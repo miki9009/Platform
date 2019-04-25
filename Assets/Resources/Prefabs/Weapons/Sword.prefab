@@ -4727,7 +4727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739304477644864}
   m_LocalRotation: {x: -0.15540874, y: 0.017885197, z: 0.9812119, w: -0.11292266}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.277, y: 0.051, z: -0.122}
   m_LocalScale: {x: 0.11518992, y: 0.11518999, z: 0.1021822}
   m_Children:
   - {fileID: 4772878431747224}
@@ -4797,8 +4797,6 @@ MonoBehaviour:
     type: 3}
   attackParticles: {fileID: 198331290432243932}
   character: {fileID: 0}
-  collectionObject: {fileID: 114355207015820578, guid: 89f98617045e20442a528c88ab537db9,
-    type: 3}
   attackRadius: 3
   triggerBroadcast: {fileID: 1148364289539484328}
 --- !u!65 &5483566963068127539
@@ -4812,7 +4810,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.0884643, y: 2.11, z: 16.119015}
+  m_Size: {x: 6.0884643, y: 4.71, z: 16.119015}
   m_Center: {x: 0.00000055367315, y: -0.00000004613943, z: 6.1927295}
 --- !u!114 &1148364289539484328
 MonoBehaviour:

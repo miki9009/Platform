@@ -76,7 +76,7 @@ namespace AI
                     if(enemyCharacter && enemyCharacter.isAttacking && Engine.Math.Probability(blockProbability))
                     {
                         ResetTimers();
-                        ShieldUp();
+                        //ShieldUp();
                     }
                     if (lastDistance < 1.5f)
                         characterTransform.position += -Engine.Vector.Direction(position, targetPosition) * deltaTime;
@@ -132,7 +132,7 @@ namespace AI
         protected override void Initialize()
         {
             ResetTimers();
-            Console.WriteLine("AIDeathMatch initialized.");
+            Engine.Log.Print("AIDeathMatch initialized.");
         }
 
         Transform GetNearest(out CharacterMovement enemyMovement)
@@ -170,29 +170,29 @@ namespace AI
             AIMovement.Attack();
         }
 
-        void ShieldUp()
-        {
-            if (!AIMovement.shieldUp && AIMovement.Shield)
-            {
-                AIMovement.shieldUp = true;
-                AIMovement.Shield.Use();
-                AIMovement.StartCoroutine(BlockingTime(Random.Range(1,maxBlockingTime)));
-                if (Engine.Math.Probability(0.5f))
-                {
-                    AIMovement.Roll(true);
-                    AIMovement.StartCoroutine(IsRolling());
-                }
+        //void ShieldUp()
+        //{
+        //    if (!AIMovement.shieldUp && AIMovement.Shield)
+        //    {
+        //        AIMovement.shieldUp = true;
+        //        AIMovement.Shield.Use();
+        //        AIMovement.StartCoroutine(BlockingTime(Random.Range(1,maxBlockingTime)));
+        //        if (Engine.Math.Probability(0.5f))
+        //        {
+        //            //AIMovement.Roll(true);
+        //            AIMovement.StartCoroutine(IsRolling());
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
-        void ShieldDown()
-        {
-            if (AIMovement.shieldUp && AIMovement.Shield)
-            {
-                AIMovement.Shield.StopUsing();
-            }
-        }
+        //void ShieldDown()
+        //{
+        //    if (AIMovement.shieldUp && AIMovement.Shield)
+        //    {
+        //        AIMovement.Shield.StopUsing();
+        //    }
+        //}
 
         IEnumerator BlockingTime(float blockTime)
         {
@@ -204,7 +204,7 @@ namespace AI
                 yield return null;
             }
             ResetTimers(true);
-            ShieldDown();
+            //ShieldDown();
         }
 
         IEnumerator IsRolling()

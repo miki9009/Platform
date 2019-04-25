@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Engine;
@@ -12,22 +10,11 @@ using Engine.UI;
 public class LevelManager : MonoBehaviour
 {
     public static event Action BeforeSceneLoading;
-    static LevelManager instance;
+
     public static event Action LevelSelected;
     public static LevelManager Instance
     {
-        get
-        {
-            //if (instance == null)
-            //{
-            //    instance = new GameObject("LevelManager").AddComponent<LevelManager>();
-            //}
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-        }
+        get; private set;
     }
 
     static string _customLevelToLoad;
@@ -71,12 +58,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-
-
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
@@ -239,7 +223,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Current level set to: " + _sceneToLoad);
         GameManager.CurrentScene = _sceneToLoad;
         LoadScene(Instance.gameScene, LoadSceneMode.Additive);
-        SceneManager.sceneLoaded += instance.AddLevelScene;
+        SceneManager.sceneLoaded += Instance.AddLevelScene;
         LoadCustomLevel += OnLoadCustomLevel;
     }
 
@@ -257,7 +241,7 @@ public class LevelManager : MonoBehaviour
             CurrentCustomLevel = customLevel;
             Debug.Log("Current level set to: " + _sceneToLoad);
             GameManager.CurrentScene = _sceneToLoad;
-            instance.AddLevelScene(SceneManager.GetSceneByName(sceneName), LoadSceneMode.Additive);
+            Instance.AddLevelScene(SceneManager.GetSceneByName(sceneName), LoadSceneMode.Additive);
             LoadCustomLevel += OnLoadCustomLevel;
         }
     }
@@ -278,7 +262,7 @@ public class LevelManager : MonoBehaviour
     {
         OnBeforeSceneLoading();
         GameManager.OnLevelClear();
-        SceneManager.UnloadSceneAsync(instance.gameScene);
+        SceneManager.UnloadSceneAsync(Instance.gameScene);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         var window = UIWindow.GetWindow("GameUI");
         if(window!=null)

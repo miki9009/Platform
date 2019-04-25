@@ -17,7 +17,7 @@ public class GamePlayMonitor : MonoBehaviour
         if(GameManager.GameMode.Contains("Race"))
         {
             raceManager.Activate();
-            Console.WriteLine("Activated Race Mode", Console.LogColor.Orange);
+            Engine.Log.Print("Activated Race Mode", Engine.Log.Color.Orange);
         }
     }
 

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1263479413088849972}
   - component: {fileID: 4484138360698363147}
   - component: {fileID: 993681668}
+  - component: {fileID: 560732517537899612}
   m_Layer: 10
-  m_Name: Sand_Tile (3)
+  m_Name: Sand_Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,3 +92,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.634005, y: 9.633905, z: 0.1}
   m_Center: {x: 0.0014505386, y: 0.00033164033, z: -0.00086550065}
+--- !u!114 &560732517537899612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993681667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

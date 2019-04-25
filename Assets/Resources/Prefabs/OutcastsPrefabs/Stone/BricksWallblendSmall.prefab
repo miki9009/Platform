@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4086105967036533036}
   - component: {fileID: 947682168429164502}
   - component: {fileID: 7525531414997898843}
+  - component: {fileID: 503214960843990569}
   m_Layer: 10
   m_Name: BricksWallblendSmall
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -91,3 +92,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.88594604, y: 8.937614, z: 2.5644367}
   m_Center: {x: 0.16701901, y: 0.073496595, z: 1.2903274}
+--- !u!114 &503214960843990569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627216017000824647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

@@ -142,12 +142,6 @@ public class SettingsWindow : UIWindow
         lowFrameRateLabel.text = lowFrameRate ? "ON" : "OFF";
     }
 
-    void OnGUI()
-    {
-        Engine.Draw.TextColorSize(10, 10, 255, 0, 0, 1, 30, "Native resolution: " + GameQualitySettings.NativeResolution);
-        Engine.Draw.TextColorSize(10, 50, 255, 0, 0, 1, 30, "Current resolution: " + Screen.currentResolution);
-        Engine.Draw.TextColorSize(10, 90, 255, 0, 0, 1, 30, "Aspect: " + GameQualitySettings.Aspect);
-        Engine.Draw.TextColorSize(10, 130, 255, 0, 0, 1, 30, "Quality: " + GameQualitySettings.CurrentMode);
-    }
+
 
 }

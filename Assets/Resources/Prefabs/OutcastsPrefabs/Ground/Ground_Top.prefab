@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9088642450262328683}
   - component: {fileID: 6904201625255970736}
   - component: {fileID: 461128213633658041}
+  - component: {fileID: 5092210833829830354}
   m_Layer: 10
   m_Name: Ground_Top
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -91,3 +92,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.139823, y: 1.9979755, z: 2.1554735}
   m_Center: {x: 0.94474846, y: -0.0010125043, z: 1.0777367}
+--- !u!114 &5092210833829830354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439219976556485451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

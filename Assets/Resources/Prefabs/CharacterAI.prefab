@@ -9765,7 +9765,7 @@ MonoBehaviour:
     turningSpeed: 5
     damage: 10
     attackForce: 5
-    armorType: Normal
+    armorType: SpanishArmor
   anim: {fileID: 0}
   rb: {fileID: 54489254521060200}
   movement: {fileID: 0}

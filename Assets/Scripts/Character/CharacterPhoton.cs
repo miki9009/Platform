@@ -156,7 +156,7 @@ public class CharacterPhoton : Photon.MonoBehaviour
     {
         isMultiplayerRestarting = true;
         yield return new WaitForSeconds(2);
-        Console.WriteLine("Character Restart. ", Console.LogColor.Lime);
+        Engine.Log.Print("Character Restart. ", Engine.Log.Color.Lime);
         if (character == null) yield break;
         //character.stats.health = 1;
         character.Health = character.stats.startHealth;

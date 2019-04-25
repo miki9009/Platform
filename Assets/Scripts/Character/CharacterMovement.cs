@@ -303,8 +303,12 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         Move();
         if (OnGround)
             rb.AddForce(Vector3.up * addForce);
+        else
+            rb.AddForce(Vector3.down * addForce);
         if (jumpInput > 0)
             Jump();
+
+
     }
 
 
@@ -319,15 +323,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         curPos = transform.position;
         Movement();
         Inputs();
-        //Jump();
         attack = false;
     }
-
-    //void LateUpdate()
-    //{
-    //    if (jumpInput > 0)
-    //        Jump();
-    //}
 
     void WeaponAttack()
     {
@@ -345,6 +342,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if (jumpInput > 0 && OnGround)
         {
             jumpInput = 0;
+            smoke2.Play();
             rb.AddForce(Vector3.up * stats.jumpForce, ForceMode.VelocityChange);
             //anim.Play("JumpUp");
             OnGround = false;
@@ -500,34 +498,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         if(shieldUp)
         {
-            Console.WriteLine("Not implemented");
+            Engine.Log.Print("Not implemented");
         }
     }
 
-    public virtual void Roll(bool roll)
-    {
-        if (!isRolling)
-        {
-            if (roll)
-            {
-                anim.SetTrigger("roll");
-                isRolling = true;
-            }
-        }
-        else
-        {
-            forwardPower = 1;
-            Move();
-        }
-
-        if (roll)
-        {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.LookRotation(-forward), character.stats.turningSpeed);
-        }
-    }
-
-    //void OnGUI()
-    //{
-    //    Draw.TextColor(10, 300, 255, 255, 255, 1, "Forward factor: " + forwardPower);
-    //}
 }

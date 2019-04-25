@@ -15,18 +15,18 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.6737718, g: 0.90143245, b: 0.9716981, a: 1}
+  m_FogColor: {r: 0.45612317, g: 0.68659836, b: 0.7735849, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.03
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 0.8133458, b: 0.3726415, a: 1}
-  m_AmbientEquatorColor: {r: 0.07943219, g: 0.1279993, b: 0.16037738, a: 1}
-  m_AmbientGroundColor: {r: 0.01886791, g: 0.017888915, b: 0.015930925, a: 1}
-  m_AmbientIntensity: 0
+  m_AmbientSkyColor: {r: 0.6862745, g: 0.88457096, b: 0.9529412, a: 1}
+  m_AmbientEquatorColor: {r: 0, g: 0.34217256, b: 0.5754717, a: 1}
+  m_AmbientGroundColor: {r: 0, g: 0.058209546, b: 0.2735849, a: 1}
+  m_AmbientIntensity: 3.17
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 9ce98d542a650c343ab25d046b7723c7, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 049a3e2e5c610bd46b87f894ef68f207, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -34,11 +34,11 @@ RenderSettings:
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
-  m_ReflectionBounces: 5
-  m_ReflectionIntensity: 1
-  m_CustomReflection: {fileID: 8900000, guid: beb1457d375110e468b8d8e1f29fccea, type: 3}
-  m_Sun: {fileID: 252557334}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 0.5
+  m_CustomReflection: {fileID: 8900000, guid: fdfe2f2c0a3742a468aa8cadf4bc812e, type: 3}
+  m_Sun: {fileID: 1881064851}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -48,41 +48,40 @@ LightmapSettings:
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
-    m_IndirectOutputScale: 0.5
-    m_AlbedoBoost: 10
-    m_EnvironmentLightingMode: 1
-    m_EnableBakedLightmaps: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 10
-    m_Resolution: 4
-    m_BakeResolution: 10
+    m_Resolution: 2
+    m_BakeResolution: 40
     m_AtlasSize: 1024
-    m_AO: 1
-    m_AOMaxDistance: 5
-    m_CompAOExponent: 5
-    m_CompAOExponentDirect: 5
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
     m_Padding: 2
-    m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000,
-      type: 0}
+    m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 1
+    m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 1
-    m_PVRSampleCount: 20
-    m_PVRBounces: 4
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 500
+    m_PVRBounces: 2
     m_PVRFilterTypeDirect: 0
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
-    m_PVRFilteringGaussRadiusDirect: 3
+    m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
@@ -112,8 +111,8 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: d049194d7cece8946808e6911359222d, type: 2}
---- !u!1 &252557333
+  m_NavMeshData: {fileID: 23800000, guid: 010783297c6fb4a4eb76fbcefc87ac0b, type: 2}
+--- !u!1 &1881064850
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,8 +120,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 252557335}
-  - component: {fileID: 252557334}
+  - component: {fileID: 1881064852}
+  - component: {fileID: 1881064851}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -130,18 +129,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!108 &252557334
+--- !u!108 &1881064851
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252557333}
+  m_GameObject: {fileID: 1881064850}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -150,7 +149,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.1
+    m_Bias: 0
     m_NormalBias: 0
     m_NearPlane: 0.1
   m_Cookie: {fileID: 0}
@@ -160,7 +159,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -168,17 +167,17 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!4 &252557335
+--- !u!4 &1881064852
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252557333}
-  m_LocalRotation: {x: -0.3535534, y: 0.61237246, z: -0.3535534, w: -0.61237246}
-  m_LocalPosition: {x: 64.64, y: 15.07, z: -19.09}
+  m_GameObject: {fileID: 1881064850}
+  m_LocalRotation: {x: 0.47784388, y: -0.22493018, z: 0.12803787, w: 0.839451}
+  m_LocalPosition: {x: 0, y: 19, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 59.3, y: -30, z: 0}

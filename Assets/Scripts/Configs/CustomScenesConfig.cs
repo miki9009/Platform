@@ -9,7 +9,7 @@ public class CustomScenesConfig : Config
     public static string currentScene;
 
     public const string key = "Configs/CustomScenesConfig";
-    public string selectedScene;
+    public string sceneName;
     public string selectedCustomScene = "0";
     public string customScenesPath = "Resources/CustomScenes/";
     public List<CustomSceneGroup> sceneGroups;

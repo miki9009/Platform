@@ -27,7 +27,7 @@ public class MissionsManager : Module
 
     void InitializeMissions()
     {
-        Console.WriteLine("Level Loaded (Missions Manager)", Console.LogColor.Blue);
+        Engine.Log.Print("Level Loaded (Missions Manager)", Engine.Log.Color.Blue);
 
     }
 

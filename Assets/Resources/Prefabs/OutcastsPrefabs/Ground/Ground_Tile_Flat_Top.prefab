@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4619535626453988928}
   - component: {fileID: 1835802329768006747}
   - component: {fileID: 1204040034423478120}
+  - component: {fileID: 4127979504499006257}
   m_Layer: 10
   m_Name: Ground_Tile_Flat_Top
   m_TagString: Untagged
@@ -91,3 +92,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.025087, y: 0.14884251, z: 8.011948}
   m_Center: {x: -0.0000014305115, y: -0.1, z: 0.0040462017}
+--- !u!114 &4127979504499006257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429212304649070911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

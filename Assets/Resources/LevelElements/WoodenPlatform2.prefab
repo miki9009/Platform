@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33180811052546612}
   - component: {fileID: 23013098927996334}
   - component: {fileID: 65918306446351770}
-  - component: {fileID: 114790825506333132}
+  - component: {fileID: 6331830968179178927}
   m_Layer: 10
   m_Name: WoodenPlatform2
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1421953973996836}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 58.74816, y: 4.4608946, z: 44.046886}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.336436, y: 0.53436196, z: 4.1160183}
   m_Center: {x: 0.011818293, y: 0.21697299, z: 0.000034213073}
---- !u!114 &114790825506333132
+--- !u!114 &6331830968179178927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,9 +101,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1421953973996836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccfcd443f202b4248ae50f4a20544e3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: 3218485
-  arrowTarget: 0
-  activeAndEnabled: 1
+  sceneryContainer: 0
+  overridePath: 

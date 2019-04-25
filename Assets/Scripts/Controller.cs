@@ -165,7 +165,7 @@ public class Controller : MonoBehaviour
 
     void RestartCharacter(Character character)
     {
-        Console.WriteLine("Character Restart. ", Console.LogColor.Lime);
+        Engine.Log.Print("Character Restart. ", Log.Color.Lime);
         if (character == null) return;
         character.movement.enabled = true;
         character.Health = character.stats.startHealth;
@@ -265,6 +265,11 @@ public class Controller : MonoBehaviour
         if (showFps)
         {
             Draw.DisplayFpsMedian(Screen.width / 2, 10, Color.red, 40);
+
+                //Engine.Draw.TextColorSize(10, 50, 255, 0, 0, 1, 20, "Native resolution: " + GameQualitySettings.NativeResolution);
+                //Engine.Draw.TextColorSize(10, 80, 255, 0, 0, 1, 20, "Current resolution: " + Screen.currentResolution);
+                //Engine.Draw.TextColorSize(10, 110, 255, 0, 0, 1, 20, "Aspect: " + GameQualitySettings.Aspect);
+                //Engine.Draw.TextColorSize(10, 140, 255, 0, 0, 1, 20, "Quality: " + GameQualitySettings.CurrentMode);
             //Draw.DisplayMedianFps(Screen.width / 2 - Screen.width * 0.1f, 70);
         }
 

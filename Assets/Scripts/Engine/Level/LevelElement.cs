@@ -141,29 +141,6 @@ namespace Engine
             if (this == null) return;
         }
 
-        //bool wasEnabled = true;
-        //public void IsVisible()
-        //{
-        //    if(wasEnabled)
-        //    {
-        //        Debug.Log("Became visible: " + transform.name);
-        //        gameObject.SetActive(true);
-
-        //    }
-        //}
-
-        //public void IsInvisible()
-        //{
-        //    Debug.Log("Became invisible: " + transform.name);
-        //    if ( enabled)
-        //    {
-        //        gameObject.SetActive(false);
-        //        wasEnabled = true;
-        //        enabled = false;
-
-        //    }
-        //}
-
 #if UNITY_EDITOR
         Bounds bounds;
         bool boundsSearched;

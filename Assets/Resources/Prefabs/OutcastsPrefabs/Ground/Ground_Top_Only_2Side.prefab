@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 956277499374168481}
   - component: {fileID: 5334730123303191871}
   - component: {fileID: 8284838830239547034}
+  - component: {fileID: 7837634917718404238}
   m_Layer: 10
   m_Name: Ground_Top_Only_2Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 86
   m_IsActive: 1
 --- !u!4 &6176093535288237800
 Transform:
@@ -92,3 +93,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 7582a1b75ecf49945b86f7c0fb43fd2d, type: 3}
+--- !u!114 &7837634917718404238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510992684488811740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

@@ -35,7 +35,7 @@ namespace Engine
             }
         }
 
-        public static event Action CustomSceneLoaded;
+
 
         public static Dictionary<int, Scenery> loadedElements = new Dictionary<int, Scenery>();
         static Dictionary<object, string> sceneryElements;
@@ -56,7 +56,7 @@ namespace Engine
             {
                 if (string.IsNullOrEmpty(_sceneName))
                 {
-                    _sceneName = Config.selectedScene;
+                    _sceneName = Config.sceneName;
                 }
                 return _sceneName;
             }
@@ -64,7 +64,7 @@ namespace Engine
             set
             {
                 _sceneName = value;
-                Config.selectedScene = _sceneName;
+                Config.sceneName = _sceneName;
             }
         }
 
@@ -212,7 +212,18 @@ namespace Engine
                 if (obj != null)
                 {              
                     var sceneryElement = obj.GetComponent<Scenery>();
-                    obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
+#if UNITY_EDITOR
+                    try
+                    {
+                        obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex.Message);
+                    }
+#else
+                     obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
+#endif
                     if (sceneryElement != null)
                     {
                         sceneryElement.data = (Dictionary<string, object>)element.Key;
@@ -232,8 +243,8 @@ namespace Engine
                 }
             }
 
-            Console.WriteLine("CustomSceneLoaded", Console.LogColor.Green);
-            CustomSceneLoaded?.Invoke();
+            Engine.Log.Print("CustomSceneLoaded", Engine.Log.Color.Green);
+            GameManager.OnCustomSceneLoaded();
         }
     }
 }

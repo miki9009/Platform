@@ -25,19 +25,19 @@ MonoBehaviour:
     missions:
     - level: FirstLevel:0
       mode: Single_Challenge
-      customScene: none
+      customScene: FirstLevel_0
       passed: 0
       unlocked: 0
       unlocks: 
     - level: FirstLevel:1
       mode: Single_Score
-      customScene: none
+      customScene: FirstLevel_0
       passed: 0
       unlocked: 0
       unlocks: 
     - level: FirstLevel:Multiplayer1
       mode: Multi_Score
-      customScene: none
+      customScene: FirstLevel_0
       passed: 0
       unlocked: 0
       unlocks: 
@@ -45,7 +45,7 @@ MonoBehaviour:
     missions:
     - level: SecondLevel:0
       mode: Single_Challenge
-      customScene: none
+      customScene: SecondLevel_0
       passed: 0
       unlocked: 0
       unlocks: 
@@ -53,7 +53,7 @@ MonoBehaviour:
     missions:
     - level: ThirdScene:0
       mode: Single_Challenge
-      customScene: none
+      customScene: ThirdScene_0
       passed: 0
       unlocked: 0
       unlocks: 
@@ -61,7 +61,7 @@ MonoBehaviour:
     missions:
     - level: Caves:0
       mode: Single_Challenge
-      customScene: none
+      customScene: Caves_0
       passed: 0
       unlocked: 0
       unlocks: 
@@ -85,7 +85,19 @@ MonoBehaviour:
     missions:
     - level: Temple1:0
       mode: Single_Challenge
-      customScene: Temple1
+      customScene: Temple1_1
+      passed: 0
+      unlocked: 0
+      unlocks: 
+    - level: Temple1:1
+      mode: Single_Challenge
+      customScene: Temple1_2
+      passed: 0
+      unlocked: 0
+      unlocks: 
+    - level: Temple1:2
+      mode: Single_Challenge
+      customScene: Temple1_3
       passed: 0
       unlocked: 0
       unlocks: 
@@ -93,7 +105,7 @@ MonoBehaviour:
     missions:
     - level: CustomScene:0
       mode: Single_Challenge
-      customScene: CustomScene1
+      customScene: none
       passed: 0
       unlocked: 0
       unlocks: 

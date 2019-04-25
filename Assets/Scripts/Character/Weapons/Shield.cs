@@ -20,12 +20,12 @@ public class Shield : MonoBehaviour, ILefttArmItem
 
     public void Use()
     {
-        ShieldOn();
+       // ShieldOn();
     }
 
     public void StopUsing()
     {
-        ShieldOff();
+       // ShieldOff();
     }
 
     public void Apply()
@@ -39,25 +39,25 @@ public class Shield : MonoBehaviour, ILefttArmItem
         movement = character.movement;
         movement.Shield = this;
         CollectionObject = GetComponent<CollectionObject>();
-        if (character.IsLocalPlayer)
-        {
-            var mov = movement as CharacterMovementPlayer;
-            button = mov.btnJump;
-        }
-        if(character.IsLocalPlayer)
-            StartCoroutine(PlayerUpdate());
+        //if (character.IsLocalPlayer)
+        //{
+        //    var mov = movement as CharacterMovementPlayer;
+        //    button = mov.btnJump;
+        //}
+        //if(character.IsLocalPlayer)
+        //    StartCoroutine(PlayerUpdate());
     }
 
     public void BackToCollection()
     {
-        Console.WriteLine("Not implemented.");
+        Engine.Log.Print("Not implemented.");
     }
 
     public void Remove()
     {
         if(movement.Shield == this)
             movement.Shield = null;
-        StopAllCoroutines();
+        //StopAllCoroutines();
         Engine.PoolingObject.Recycle(gameObject.GetName(), gameObject, () =>
         {
 
@@ -66,56 +66,56 @@ public class Shield : MonoBehaviour, ILefttArmItem
         CollectionObject.BackToCollection(true);
     }
 
-    IEnumerator PlayerUpdate()
-    {
-        while(true)
-        {
-#if UNITY_EDITOR
-            if (button.isTouched || Input.GetKey(KeyCode.LeftShift))
-#else
-            if(button.isTouched)
-#endif
-            {
-                movement.shieldUp = true;
-#if UNITY_EDITOR
-                if (button.PressedTime > 0.3f || Input.GetKey(KeyCode.LeftShift))
-#else
-                if (button.PressedTime > 0.3f)
-#endif
-                {
-                    ShieldOn();
-                }
-            }
-            else
-            {
-                ShieldOff();
-            }
-            yield return null;
-        }
-    }
+//    IEnumerator PlayerUpdate()
+//    {
+//        while(true)
+//        {
+//#if UNITY_EDITOR
+//            if (button.isTouched || Input.GetKey(KeyCode.LeftShift))
+//#else
+//            if(button.isTouched)
+//#endif
+//            {
+//                movement.shieldUp = true;
+//#if UNITY_EDITOR
+//                if (button.PressedTime > 0.3f || Input.GetKey(KeyCode.LeftShift))
+//#else
+//                if (button.PressedTime > 0.3f)
+//#endif
+//                {
+//                    ShieldOn();
+//                }
+//            }
+//            else
+//            {
+//                ShieldOff();
+//            }
+//            yield return null;
+//        }
+//    }
 
-    public void ShieldOn()
-    {
-        if (movement.MovementEnabled)
-        {
-            //Console.WriteLine("Was touched");
-            movement.MovementEnabled = false;
-            movement.anim.ResetTrigger("ShieldDown");
-            movement.anim.SetTrigger("ShieldUp");
-            movement.timeBeforeAnotherRoll = 0.25f;
-            movement.ResetVelocity();
-        }
-    }
+    //public void ShieldOn()
+    //{
+    //    if (movement.MovementEnabled)
+    //    {
+    //        //Console.WriteLine("Was touched");
+    //        movement.MovementEnabled = false;
+    //        movement.anim.ResetTrigger("ShieldDown");
+    //        movement.anim.SetTrigger("ShieldUp");
+    //        movement.timeBeforeAnotherRoll = 0.25f;
+    //        movement.ResetVelocity();
+    //    }
+    //}
 
-    public void ShieldOff()
-    {
-        if (movement.shieldUp && !movement.isRolling)
-        {
-            movement.shieldUp = false;
-            movement.anim.SetTrigger("ShieldDown");
-            movement.MovementEnabled = true;
-        }
-    }
+    //public void ShieldOff()
+    //{
+    //    if (movement.shieldUp && !movement.isRolling)
+    //    {
+    //        movement.shieldUp = false;
+    //        movement.anim.SetTrigger("ShieldDown");
+    //        movement.MovementEnabled = true;
+    //    }
+    //}
 
 
     void OnCharacterDead()

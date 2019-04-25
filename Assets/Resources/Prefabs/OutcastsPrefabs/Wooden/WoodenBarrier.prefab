@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33807082154972220}
   - component: {fileID: 23179873452888630}
   - component: {fileID: 65394351044497600}
+  - component: {fileID: 4214036845546217262}
   m_Layer: 10
   m_Name: WoodenBarrier
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_MotionVectors: 2
   m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
+  m_ReflectionProbeUsage: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -91,3 +92,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 17.09862, y: 2.5941625, z: 6.076047}
   m_Center: {x: 0.20828925, y: -0.015026654, z: 2.582305}
+--- !u!114 &4214036845546217262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413031205833724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

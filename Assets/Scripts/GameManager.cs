@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static event Action GameFinished;
     public static event Action Restart;
     public static event Action<string> GameModeChanged;
+    public static event Action CustomSceneLoaded;
     public static bool IsSceneLoaded { get; private set; }
     public static bool isLevel;
     public static string CurrentScene { get; set; }
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
 
     public static void OnLevelClear()
     {
-        Console.WriteLine("On Level Clear", Console.LogColor.Green);
+        Engine.Log.Print("On Level Clear", Engine.Log.Color.Green);
         LevelClear?.Invoke();
     }
 
@@ -208,6 +209,11 @@ public class GameManager : MonoBehaviour
         {
             OnRestart();
         }
+    }
+
+    public static void OnCustomSceneLoaded()
+    {
+        CustomSceneLoaded?.Invoke();
     }
 
 

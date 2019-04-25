@@ -104,7 +104,7 @@ public class CharacterBoat : CharacterMovementPlayer, ILocalPlayer
         pwr = Input.GetAxis("Vertical");
         if(pwr == 0)
 #endif
-        pwr = btnAttack.isTouched ? 1 : 0;
+        pwr = btnAttack.Pressed ? 1 : 0;
 
         rb.rotation = Quaternion.Lerp(rb.rotation, transform.rotation, Time.deltaTime);
         rb.AddForce(rb.rotation.Vector() * pwr * iceForce, ForceMode.Acceleration);

@@ -6,7 +6,7 @@ public class GameObjectEnabler : MonoBehaviour
 
     private void OnEnable()
     {
-        Console.WriteLine("On Enable", Console.LogColor.Lime);
+        Engine.Log.Print("On Enable", Engine.Log.Color.Lime);
         for (int i = 0; i < gameObjects.Length; i++)
         {
             gameObjects[i].OnEnable();
@@ -15,7 +15,7 @@ public class GameObjectEnabler : MonoBehaviour
 
     private void OnDisable()
     {
-        Console.WriteLine("On Disable", Console.LogColor.Lime);
+        Engine.Log.Print("On Disable", Engine.Log.Color.Lime);
         for (int i = 0; i < gameObjects.Length; i++)
         {
             gameObjects[i].OnDisable();

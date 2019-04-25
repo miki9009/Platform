@@ -5,6 +5,7 @@ using Engine;
 using UnityEngine.SceneManagement;
 using System.Threading;
 using System;
+using System.Collections.Generic;
 
 class LevelWindow : EditorWindow
 {
@@ -106,24 +107,24 @@ class LevelWindow : EditorWindow
         EditorGUILayout.LabelField("CUSTOM SCENES FOR: " + sceneName, EditorStyles.boldLabel);
 
         var sceneGroup = CustomScene.Config.GetSceneGroup(sceneName);
-        CustomScene.Config.selectedScene = sceneName;
+        CustomScene.Config.sceneName = sceneName;
         if (sceneGroup!=null)
         {
-            
-            string[] customScenes = sceneGroup.customScenes.ToArray();
+            var customScenes = new List<string>(sceneGroup.customScenes);
+            customScenes.Insert(0, "none");
 
 
-                EditorGUILayout.BeginHorizontal();
-                string currentCustomScene = CustomScene.Config.selectedScene;
-                customSceneSelected = 0;
-                for (int i = 0; i < customScenes.Length; i++)
+
+            EditorGUILayout.BeginHorizontal();
+                string currentCustomScene = CustomScene.Config.selectedCustomScene;
+                for (int i = 0; i < customScenes.Count; i++)
                 {
                     if (customScenes[i] == currentCustomScene)
                     customSceneSelected = i;
                 }
                 EditorGUILayout.LabelField("Custom Scene: ");
-            customSceneSelected = EditorGUILayout.Popup(customSceneSelected, customScenes);
-                CustomScene.Config.selectedScene = customScenes[customSceneSelected];
+                customSceneSelected = EditorGUILayout.Popup(customSceneSelected, customScenes.ToArray());
+                CustomScene.Config.selectedCustomScene = customScenes[customSceneSelected];
                 EditorGUILayout.EndHorizontal();
 
 

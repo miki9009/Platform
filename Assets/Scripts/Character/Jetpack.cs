@@ -45,7 +45,7 @@ public class Jetpack : MonoBehaviour
     private void FixedUpdate()
     {
         hit = CheckGround();
-        if (button.isTouched && !character.IsDead && hit)
+        if (button.Pressed && !character.IsDead && hit)
         {
             character.rb.AddForce(Vector3.up * force, ForceMode.Acceleration);
             if(!flames.isPlaying)

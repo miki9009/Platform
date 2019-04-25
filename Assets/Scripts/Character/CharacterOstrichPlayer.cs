@@ -79,7 +79,7 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
         pressedHorizontalCurrent = false;
         angle = 0;
 
-        if (btnMovement.isTouched || horPressed)
+        if (btnMovement.Pressed || horPressed)
         {
             for (int i = 0; i < Input.touchCount; i++)
             {
@@ -175,11 +175,12 @@ public class CharacterOstrichPlayer : CharacterMovementPlayer, ILocalPlayer
             }
         }
 
-        if (btnJump.isTouched)
+        if (btnJump.Pressed)
         {
             jumpInput = 1;
         }
     }
+
 
 
 }

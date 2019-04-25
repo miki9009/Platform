@@ -144,7 +144,7 @@ public class CharacterWagon : CharacterMovementPlayer, ILocalPlayer
         pressedHorizontalCurrent = false;
         angle = 0;
 
-        if (btnMovement.isTouched || horPressed)
+        if (btnMovement.Pressed || horPressed)
         {
             for (int i = 0; i < Input.touchCount; i++)
             {

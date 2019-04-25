@@ -251,7 +251,7 @@ namespace Engine
                 }
             }
 
-            Console.WriteLine("LevelLoaded", Console.LogColor.Green);
+            Engine.Log.Print("LevelLoaded", Engine.Log.Color.Green);
             LevelLoaded?.Invoke();
         }
 
@@ -272,9 +272,11 @@ namespace Engine
 
         public static void StartLevelSequence()
         {
-            Debug.Log("Loading...");
+            Engine.Log.Print("Loading...");
+            if (SceneManager.GetActiveScene().name == "init") return;
             SceneManager.sceneLoaded -= LoadInit;
             SceneManager.sceneLoaded += LoadInit;
+            Debug.Log("Starting scene: " + Config.selectedScene + " with level: " + Config.selectedLevel + " on customScene: "  + CustomScene.Config.selectedCustomScene);
         }
 
         static void LoadInit(Scene scene, LoadSceneMode mode)
@@ -307,6 +309,7 @@ namespace Engine
             {
                 if(SceneManager.GetSceneByName("menu3D").isLoaded)
                 {
+                    Log.Print("CustomScene: " + CustomScene.Config.selectedCustomScene);
                     LevelManager.BeginCustomLevelLoadSequenceAdditive(Config.selectedScene, Config.selectedLevel, CustomScene.Config.selectedCustomScene);
                     loaded = true;
                 }
@@ -337,7 +340,7 @@ namespace Engine
 
                 if(Level.Config.testLevel)
                 {
-                    Debug.Log("Testing Level");
+                    Log.Print("Testing Level");
                     Level.StartLevelSequence();
                 }
 

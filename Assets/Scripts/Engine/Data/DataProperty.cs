@@ -88,7 +88,7 @@ namespace Engine
                 temp = Data.SerializeJSON(val);
                 PlayerPrefs.SetString(key, temp);
             }
-            Console.WriteLine(temp, Console.LogColor.Red);
+            Engine.Log.Print(temp, Engine.Log.Color.Red);
             this.val = Data.DeserializeJSON<T>(temp);
             Setter = SetObject;
         }
@@ -106,7 +106,7 @@ namespace Engine
                 temp = Data.SerializeJSON(val);
                 PlayerPrefs.SetString(key, temp);
             }
-            Console.WriteLine(temp, Console.LogColor.Red);
+            Engine.Log.Print(temp, Engine.Log.Color.Red);
             this.val = Data.DeserializeJSON<T>(temp);
             Setter = SetObject;
         }

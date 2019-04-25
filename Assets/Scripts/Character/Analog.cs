@@ -7,8 +7,11 @@ public class Analog : MonoBehaviour
     public RectTransform childRect;
     public Image image;
     public Image childImage;
+    public Engine.UI.Button button;
+    public CanvasGroup canvasGroup;
 
     Vector3 childStartPos;
+    Vector3 analogStartPos;
 
     CharacterMovementPlayer characterMovement;
     CharacterMovementPlayer CharacterMovement
@@ -33,6 +36,20 @@ public class Analog : MonoBehaviour
     private void Awake()
     {
         childStartPos = childRect.position;
+
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.CustomSceneLoaded -= ResetToStartPos;
+    }
+
+
+    private void Start()
+    {
+        analogStartPos = transform.position;
+        ResetToStartPos();
+        GameManager.CustomSceneLoaded += ResetToStartPos;
     }
 
     private void Update()
@@ -54,5 +71,17 @@ public class Analog : MonoBehaviour
             }
         }
         
+    }
+
+    public void SetPosition()
+    {
+        transform.position = button.TouchPosition;
+        canvasGroup.alpha = 1;
+    }
+
+    public void ResetToStartPos()
+    {
+        transform.position = analogStartPos;
+        canvasGroup.alpha = 0.2f;
     }
 }

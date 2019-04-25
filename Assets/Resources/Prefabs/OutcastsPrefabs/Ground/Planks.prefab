@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6479371342677538248}
   - component: {fileID: 935253957236415147}
   - component: {fileID: 4833330152859576448}
+  - component: {fileID: 3030076143765916676}
   m_Layer: 10
   m_Name: Planks
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3250313708828745243}
-  m_LocalRotation: {x: -0.62063164, y: -0.33884576, z: -0.33884573, w: 0.6206316}
+  m_LocalRotation: {x: -0.62063265, y: -0.3388438, z: -0.3388438, w: 0.62063265}
   m_LocalPosition: {x: 74.287, y: 6.43, z: 8.022}
-  m_LocalScale: {x: 1, y: 1, z: 1.3381441}
+  m_LocalScale: {x: 1, y: 1.1985632, z: 1.3381445}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -91,3 +92,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1285971, y: 2.7193398, z: 2.0000122}
   m_Center: {x: 0.00000050481634, y: -0.5431629, z: 0.9820141}
+--- !u!114 &3030076143765916676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3250313708828745243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

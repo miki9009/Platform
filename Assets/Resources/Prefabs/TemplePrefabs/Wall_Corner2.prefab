@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158432938}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 59.23, y: 15.81, z: -28.19}
+  m_LocalPosition: {x: 59, y: 15.8, z: -28}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158432938}
-  m_Mesh: {fileID: 4300000, guid: 88081b1f4ccb20d4dbfc8bd09e048b1e, type: 3}
+  m_Mesh: {fileID: 4300002, guid: dd433184c6c226b4b910233cc56a802c, type: 3}
 --- !u!23 &8019592035054550691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ MeshCollider:
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 88081b1f4ccb20d4dbfc8bd09e048b1e, type: 3}
+  m_Mesh: {fileID: 4300002, guid: dd433184c6c226b4b910233cc56a802c, type: 3}
 --- !u!114 &7498321438307408650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,4 +105,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -1
+  sceneryContainer: 0
+  overridePath: 

@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.03
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.6862745, g: 0.88457096, b: 0.9529412, a: 1}
-  m_AmbientEquatorColor: {r: 0, g: 0.34217256, b: 0.5754717, a: 1}
-  m_AmbientGroundColor: {r: 0, g: 0.058209546, b: 0.2735849, a: 1}
+  m_AmbientSkyColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+  m_AmbientEquatorColor: {r: 0.066082254, g: 0.21122347, b: 0.31132078, a: 1}
+  m_AmbientGroundColor: {r: 0.034264855, g: 0.06092583, b: 0.09433961, a: 1}
   m_AmbientIntensity: 3.17
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.5
+  m_ReflectionIntensity: 0.7
   m_CustomReflection: {fileID: 8900000, guid: fdfe2f2c0a3742a468aa8cadf4bc812e, type: 3}
   m_Sun: {fileID: 1881064851}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.7}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -174,10 +174,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881064850}
-  m_LocalRotation: {x: 0.47784388, y: -0.22493018, z: 0.12803787, w: 0.839451}
-  m_LocalPosition: {x: 0, y: 19.36, z: -8.54}
+  m_LocalRotation: {x: 0.26178512, y: 0.7374093, z: -0.41975832, w: 0.4598903}
+  m_LocalPosition: {x: 0, y: 19, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 59.3, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 59.3, y: 116.1, z: 0}

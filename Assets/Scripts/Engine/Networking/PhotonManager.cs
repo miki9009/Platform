@@ -114,7 +114,7 @@ public class PhotonManager : Photon.MonoBehaviour
 
     private static void PhotonEventListner(byte code, object content, int senderID)
     {
-        Console.WriteLine("CODE: " + code, Console.LogColor.Lime);
+        Engine.Log.Print("CODE: " + code, Engine.Log.Color.Lime);
         switch(code)
         {
             case PhotonEventCode.ATTACK:
@@ -160,7 +160,7 @@ public class PhotonManager : Photon.MonoBehaviour
     {
         if(IsMaster)
         {
-            Console.WriteLine("Changed to MasterClient", Console.LogColor.Blue);
+            Engine.Log.Print("Changed to MasterClient", Engine.Log.Color.Blue);
             ChangedToMasterClient?.Invoke();
         }
 

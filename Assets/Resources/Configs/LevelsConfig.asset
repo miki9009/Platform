@@ -47,6 +47,8 @@ MonoBehaviour:
   - sceneName: Temple1
     levels:
     - 0
+    - 1
+    - 2
   - sceneName: CustomScene
     levels:
     - 0

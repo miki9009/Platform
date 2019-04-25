@@ -28,8 +28,11 @@ public class Character : MonoBehaviour
     public IEquipment rightArmItem;
     public IEquipment leftArmItem;
 
-
-
+    static Character localPlayer;
+    public static Character GetLocalPlayer()
+    {
+        return localPlayer;
+    }
     bool _isDead;
     public bool IsDead
     {
@@ -52,10 +55,10 @@ public class Character : MonoBehaviour
                 }
             }
             _isDead = value;
+            anim.SetBool("isDead", _isDead); 
             Dead?.Invoke(this);
         }
     }
-
     public int Health
     {
         get
@@ -72,9 +75,6 @@ public class Character : MonoBehaviour
             }
         }
     }
-
-
-
     public bool IsLocalPlayer
     {
         get
@@ -82,7 +82,6 @@ public class Character : MonoBehaviour
             return this == localPlayer;
         }
     }
-
     public bool IsBot
     {
         get
@@ -90,7 +89,6 @@ public class Character : MonoBehaviour
             return movement.IsBot;
         }
     }
-
     public bool IsHost
     {
         get
@@ -98,7 +96,10 @@ public class Character : MonoBehaviour
             return PhotonManager.IsMaster && IsLocalPlayer && !IsBot;
         }
     }
-
+    public int ID
+    {
+        get; private set;
+    }
 
     Identification identity;
 
@@ -106,16 +107,9 @@ public class Character : MonoBehaviour
     public static event Action<Character> Dead;
     public static List<Character> allCharacters = new List<Character>();
 
-    public int ID
-    {
-        get; private set;
-    }
 
-    static Character localPlayer;
-    public static Character GetLocalPlayer()
-    {
-        return localPlayer;
-    }
+
+
 
     public void AddRightArmItem(IRightArmItem item)
     {
