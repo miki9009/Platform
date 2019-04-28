@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8659569231886090758}
   - component: {fileID: 1281674937910309932}
   - component: {fileID: 2331604323701410552}
+  - component: {fileID: 7098116734561161177}
   m_Layer: 0
   m_Name: Flower3
   m_TagString: Untagged
@@ -25,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5614662243388294930}
-  m_LocalRotation: {x: -0.6394178, y: 0.30190206, z: -0.3019021, w: 0.6394178}
+  m_LocalRotation: {x: -0.63941735, y: 0.30190313, z: -0.3019031, w: 0.63941735}
   m_LocalPosition: {x: 72.57356, y: 2.8440611, z: -99.70062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -39.451, y: 90.00001, z: -90.00001}
 --- !u!33 &1281674937910309932
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -77,3 +78,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7098116734561161177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614662243388294930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

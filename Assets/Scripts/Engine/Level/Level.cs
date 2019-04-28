@@ -140,12 +140,12 @@ namespace Engine
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
 #endif
-            foreach (var element in elements)
-            {
-                if(element!=null && element.gameObject!=null)
-                    DestroyImmediate(element.gameObject);
-            }
-            ClearIDs();
+            //foreach (var element in elements)
+            //{
+            //    if(element!=null && element.gameObject!=null)
+            //        DestroyImmediate(element.gameObject);
+            //}
+            //ClearIDs();
         }
 
         public static void Clear()

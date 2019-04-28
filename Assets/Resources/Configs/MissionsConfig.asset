@@ -41,6 +41,12 @@ MonoBehaviour:
       passed: 0
       unlocked: 0
       unlocks: 
+    - level: FirstLevel:1_1
+      mode: Single_Challenge
+      customScene: FirstLevel_1
+      passed: 0
+      unlocked: 0
+      unlocks: 
   - scene: SecondLevel
     missions:
     - level: SecondLevel:0

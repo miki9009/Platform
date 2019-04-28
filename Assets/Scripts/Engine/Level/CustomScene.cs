@@ -106,13 +106,13 @@ namespace Engine
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
 #endif
-            foreach (var element in elements)
-            {
-                //Debug.Log(element.name);
-                if (element != null && element.gameObject != null)
-                    DestroyImmediate(element.gameObject);
-            }
-            ClearContainers();
+            //foreach (var element in elements)
+            //{
+            //    //Debug.Log(element.name);
+            //    if (element != null && element.gameObject != null)
+            //        DestroyImmediate(element.gameObject);
+            //}
+            //ClearContainers();
         }
 
         public static void ClearContainers()

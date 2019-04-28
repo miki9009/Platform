@@ -6,9 +6,9 @@ Shader "Transparent/Cutout/Diffuse Shake" {
 		_Color("Main Color", Color) = (1,1,1,1)
 		_MainTex("Base (RGB) Trans (A)", 2D) = "white" {}
 	_Cutoff("Alpha cutoff", Range(0,1)) = 0.5
-		_ShakeDisplacement("Displacement", Range(0, 1.0)) = 1.0
+		//_ShakeDisplacement("Displacement", Range(0, 1.0)) = 1.0
 		_ShakeTime("Shake Time", Range(0, 1.0)) = 1.0
-		_ShakeWindspeed("Shake Windspeed", Range(0, 1.0)) = 1.0
+		//_ShakeWindspeed("Shake Windspeed", Range(0, 1.0)) = 1.0
 		_ShakeBending("Shake Bending", Range(0, 1.0)) = 1.0
 	}
 
@@ -22,9 +22,9 @@ Shader "Transparent/Cutout/Diffuse Shake" {
 
 		sampler2D _MainTex;
 	fixed4 _Color;
-	float _ShakeDisplacement;
+	//float _ShakeDisplacement;
 	float _ShakeTime;
-	float _ShakeWindspeed;
+	//float _ShakeWindspeed;
 	float _ShakeBending;
 
 	struct Input {
@@ -49,10 +49,10 @@ Shader "Transparent/Cutout/Diffuse Shake" {
 
 	void vert(inout appdata_full v) {
 
-		float factor = (1 - _ShakeDisplacement - v.color.r) * 0.5;
+		float factor = (1 -/* _ShakeDisplacement -*/ v.color.r) * 0.5;
 
-		const float _WindSpeed = (_ShakeWindspeed + v.color.g);
-		const float _WaveScale = _ShakeDisplacement;
+		//const float _WindSpeed = /*(_ShakeWindspeed + */v.color.g/*)*/;
+		//const float _WaveScale = _ShakeDisplacement;
 
 		const float4 _waveXSize = float4(0.048, 0.06, 0.24, 0.096);
 		const float4 _waveZSize = float4 (0.024, .08, 0.08, 0.2);
@@ -65,7 +65,7 @@ Shader "Transparent/Cutout/Diffuse Shake" {
 		waves = v.vertex.x * _waveXSize;
 		waves += v.vertex.z * _waveZSize;
 
-		waves += _Time.x * (1 - _ShakeTime * 2 - v.color.b) * waveSpeed *_WindSpeed;
+		waves += _Time.x * (1 - _ShakeTime * 2 - v.color.b) * waveSpeed *v.color.g;
 
 		float4 s, c;
 		waves = frac(waves);
@@ -94,5 +94,5 @@ Shader "Transparent/Cutout/Diffuse Shake" {
 	ENDCG
 	}
 
-		Fallback "Transparent/Cutout/VertexLit"
+		Fallback "Transparent/Cutout/Diffuse"
 }

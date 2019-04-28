@@ -81,6 +81,8 @@ public class CameraTrigger : LevelElement
     public Mesh mesh;
     public Material mat;
     Transform dummyPlayer;
+    public bool draw;
+    public Color gizmoColor;
     private void OnDrawGizmos()
     {
         if (Application.isPlaying) return;
@@ -95,6 +97,12 @@ public class CameraTrigger : LevelElement
             dummyPlayer.localScale = new Vector3(0.04f, 0.04f, 0.04f);
         }
         camDummy.LookAt(transform);
+        if(draw)
+        {
+            Gizmos.color = gizmoColor;
+            Gizmos.DrawCube(transform.position + boxCollider.center, boxCollider.size);
+        }
+
     }
 #endif
 }

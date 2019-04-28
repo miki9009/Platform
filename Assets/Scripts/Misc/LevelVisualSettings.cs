@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class LevelVisualSettings : LevelElement
 {
-    public UnityEngine.Color color;
-    //public Material material;
-    //public Material standardVertex;
-    public bool rotateSkybox;
-    public float rotationSpeed = 5;
+
+
     public bool enableBloom = true;
     Material skybox;
+    public bool changeLightSettings = false;
+
+    Vector3 lightRotation;
 
     [Range(0,1.5f)]
     public float bloomThreshold = 0.6f;
@@ -19,32 +19,24 @@ public class LevelVisualSettings : LevelElement
     public override void OnSave()
     {
         base.OnSave();
-        Engine.Colour col = color;
         //data.Add("Color", col);
         data.Add("BloomThreshold", bloomThreshold);
-        //data.Add("Smoothness", materialSmoothness);
-        data.Add("UseSkyboxRotation", rotateSkybox);
         data.Add("EnableBloom", enableBloom);
+        data.Add("ChangeLightSettings", changeLightSettings);
+        if (SceneLight.CurrentLight)
+        {
+            data["LightRotation"] = (Float3)SceneLight.CurrentLight.transform.eulerAngles;
+        }
     }
 
     public override void OnLoad()
     {
         base.OnLoad();
-        //if(data.ContainsKey("Color"))
-        //{
-        //    color = (Engine.Colour)data["Color"];
-        //    material.color = color;
-        //}
         if(data.ContainsKey("BloomThreshold"))
         {
             bloomThreshold = (float)data["BloomThreshold"];
             if(Controller.Instance!=null)
                 Controller.Instance.bloom.threshold = bloomThreshold;
-        }
-        if(data.ContainsKey("UseSkyboxRotation"))
-        {
-            rotateSkybox = (bool)data["UseSkyboxRotation"];
-            skybox = RenderSettings.skybox;
         }
         if (data.ContainsKey("EnableBloom"))
         {
@@ -54,35 +46,14 @@ public class LevelVisualSettings : LevelElement
                 Controller.Instance.bloom.enabled = false;
             }
         }
-        //if (data.ContainsKey("Smoothness"))
-        //{
-        //    try
-        //    {
-        //        materialSmoothness = (float)data["Smoothness"];
-        //        material.SetFloat("_Glossiness", materialSmoothness);
-        //    }
-        //    catch { }
-
-        //}
+        if(data.ContainsKey("ChangeLightSettings") && data.ContainsKey("LightRotation"))
+        {
+            if(SceneLight.CurrentLight)
+            {
+                SceneLight.CurrentLight.transform.rotation = Quaternion.Euler((Float3)data["LightRotation"]);
+            }
+        }
     }
-
-    //float rotation = 1;
-    //private void Update()
-    //{
-    //    if(rotateSkybox)
-    //    {
-    //        if(rotation < 360)
-    //        {
-    //            rotation += Time.deltaTime * rotationSpeed;
-    //        }
-    //        else
-    //        {
-    //            rotation = 0;
-    //        }
-
-    //        skybox.SetFloat("_Rotation", rotation);
-    //    }
-    //}
 
 
 }

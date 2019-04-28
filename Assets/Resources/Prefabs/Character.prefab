@@ -10225,6 +10225,7 @@ MonoBehaviour:
     m_Bits: 39680
   btnJump: {fileID: 0}
   maxAngle: 180
+  angle: 0
 --- !u!1 &1759384840010874
 GameObject:
   m_ObjectHideFlags: 0

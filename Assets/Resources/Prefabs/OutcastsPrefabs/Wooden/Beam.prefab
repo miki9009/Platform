@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5903373180930778872}
   - component: {fileID: 6875398296596936354}
   - component: {fileID: 8346156689576492142}
+  - component: {fileID: 2892245832658585780}
   m_Layer: 10
   m_Name: Beam
   m_TagString: Untagged
@@ -92,3 +93,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: a72d179ba0e0c77499d4eee32e8fa031, type: 3}
+--- !u!114 &2892245832658585780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4864106447205100744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_leaves
-  m_Shader: {fileID: 51, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 197848045734da94db2f24af8a8a3ac5, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -91,10 +91,10 @@ Material:
     - _Opacity: 0.8
     - _Outline: 0.005
     - _Parallax: 0.02
-    - _ShakeBending: 1
-    - _ShakeDisplacement: 1
-    - _ShakeTime: 0.638
-    - _ShakeWindspeed: 1
+    - _ShakeBending: 0.4
+    - _ShakeDisplacement: 0
+    - _ShakeTime: 1
+    - _ShakeWindspeed: 0
     - _Shininess: 0.617
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

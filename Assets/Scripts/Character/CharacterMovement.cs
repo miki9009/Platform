@@ -303,7 +303,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         Move();
         if (OnGround)
             rb.AddForce(Vector3.up * addForce);
-        else
+        else if(rb.velocity.y > -25)
             rb.AddForce(Vector3.down * addForce);
         if (jumpInput > 0)
             Jump();
@@ -501,5 +501,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             Engine.Log.Print("Not implemented");
         }
     }
+
 
 }
