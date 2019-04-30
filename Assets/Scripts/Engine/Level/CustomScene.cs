@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 namespace Engine
@@ -17,7 +18,8 @@ namespace Engine
             WallColliders,
             Triggers,
             Sprites,
-            Clouds
+            Clouds,
+            NavSurface
         }
 
         static CustomScenesConfig config;
@@ -237,6 +239,10 @@ namespace Engine
             }
             if (Application.isPlaying)
             {
+                var level = sceneryContainers[SceneryContainer.NavSurface];
+                var navSurface = level.gameObject.AddComponent<UnityEngine.AI.NavMeshSurface>();
+                
+                navSurface.BuildNavMesh();
                 foreach (var rootTransform in sceneryContainers.Values)
                 {
                     StaticBatchingUtility.Combine(rootTransform.gameObject);
