@@ -82,11 +82,12 @@ public class CameraTrigger : LevelElement
     public Material mat;
     Transform dummyPlayer;
     public bool draw;
+    public bool createDummy;
     public Color gizmoColor;
     private void OnDrawGizmos()
     {
         if (Application.isPlaying) return;
-        if(dummyPlayer == null)
+        if(dummyPlayer == null && createDummy)
         {
             dummyPlayer = new GameObject("DummyPlayer").transform;
             dummyPlayer.SetParent(transform);

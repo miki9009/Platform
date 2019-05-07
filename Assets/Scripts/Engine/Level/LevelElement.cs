@@ -94,9 +94,9 @@ namespace Engine
             name += " (" + elementID + ")";
 #endif
 
-
             Character.CharacterCreated += CheckTargetPointer;
             Character.CharacterCreated += CheckIfActive;
+
         }
 
         void CheckIfActive(Character character)

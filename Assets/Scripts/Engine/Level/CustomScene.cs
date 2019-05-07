@@ -234,7 +234,7 @@ namespace Engine
                 }
                 else
                 {
-                    Debug.LogError("Object was null, make sure it was in the LevelElements folder set in the config");
+                    Debug.LogError("Object was null, make sure it was in the LevelElements folder set in the config, path was: " + path);
                 }
             }
             if (Application.isPlaying)

@@ -185,14 +185,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4808892870810451944}
   - component: {fileID: 4808892869489116441}
-  - component: {fileID: 3507937620304457841}
   m_Layer: 10
   m_Name: Bridge_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4808892870810451944
 Transform:
   m_ObjectHideFlags: 0
@@ -237,6 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38322ba31c6b8eb479f85506d93dd03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementID: -1
+  arrowTarget: 0
+  activeAndEnabled: 1
   lineRenderer: {fileID: 4808892870306789832}
   anchors:
   - {fileID: 4808892870589318400}
@@ -244,21 +246,6 @@ MonoBehaviour:
   - {fileID: 4808892870132157771}
   - {fileID: 4808892870628421855}
   - {fileID: 4808892870270601081}
---- !u!114 &3507937620304457841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4808892869489116455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccfcd443f202b4248ae50f4a20544e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elementID: -6970290
-  arrowTarget: 0
-  activeAndEnabled: 1
 --- !u!1 &4808892869563304311
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,7 +2133,7 @@ GameObject:
   - component: {fileID: 4808892870515250422}
   - component: {fileID: 4808892870515250410}
   - component: {fileID: 4808892870515250409}
-  - component: {fileID: 4808892870515250408}
+  - component: {fileID: 8733210953879739125}
   m_Layer: 10
   m_Name: Stick1
   m_TagString: Untagged
@@ -2222,7 +2209,7 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!59 &4808892870515250408
+--- !u!59 &8733210953879739125
 HingeJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2230,11 +2217,11 @@ HingeJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4808892870515250421}
   m_ConnectedBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.75, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Anchor: {x: 0, y: -1, z: 0}
+  m_Axis: {x: 0, y: 0, z: 2}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -36.592533, y: 5, z: 2.9999995}
-  m_UseSpring: 0
+  m_ConnectedAnchor: {x: -39.626617, y: 6.66, z: 4.5700006}
+  m_UseSpring: 1
   m_Spring:
     spring: 0
     damper: 0
@@ -2244,7 +2231,7 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
     max: 0
@@ -2253,7 +2240,7 @@ HingeJoint:
     contactDistance: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
@@ -2860,7 +2847,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.5000001, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -58.061687, y: 5, z: 3}
+  m_ConnectedAnchor: {x: -57.811687, y: 6.66, z: 4.57}
   m_UseSpring: 0
   m_Spring:
     spring: 0

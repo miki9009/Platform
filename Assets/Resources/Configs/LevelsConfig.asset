@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testLevel: 1
   selectedScene: FirstLevel
-  selectedLevel: 1_1
+  selectedLevel: 1_2
   levelPaths: Levels/
   levelElementsPath: LevelElements/
   levels:
@@ -27,6 +27,7 @@ MonoBehaviour:
     - 1
     - Multiplayer1
     - 1_1
+    - 1_2
   - sceneName: SecondLevel
     levels:
     - 0

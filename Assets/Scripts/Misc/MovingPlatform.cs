@@ -50,6 +50,7 @@ public class MovingPlatform : LevelElement
             int id = other.GetInstanceID();
             var transform = platformers[id];
             transform.parent = null;
+            transform.localScale = Vector3.one;
             platformers.Remove(id);
         }
     }

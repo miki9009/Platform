@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Engine;
 
 [CustomEditor(typeof(RotatingObject))]
 public class RotatingObjectEditor : Editor
@@ -9,18 +10,33 @@ public class RotatingObjectEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        if (GUILayout.Button("Place model"))
-        {
-            var rotatingObject = (RotatingObject)target;
-            if(rotatingObject.model)
-            {
-                DestroyImmediate(rotatingObject.model);
-            }
+        //var script = (RotatingObject)target;
+        //EditorGUILayout.BeginHorizontal();
+        //EditorGUILayout.LabelField("Rotation Model: ", GUILayout.Width(100));
 
+        //GameObject prevModel = script.model;
+        //script.model = (GameObject)EditorGUILayout.ObjectField(script.model, typeof(GameObject), false);
+        //if (script.model != prevModel)
+        //{
+        //    if (prevModel)
+        //        DestroyImmediate(prevModel);
+        //    if(script.model)
+        //    {
+        //        var model = (GameObject)PrefabUtility.InstantiatePrefab(script.model);
+        //        var scenery = model.GetComponent<Scenery>();
+        //        if (scenery)
+        //        {
+        //            script.modelID = scenery.GetName();
+        //            DestroyImmediate(scenery);
+        //        }
+        //        else
+        //        {
+        //            Debug.LogError("Model needs to have scenery component");
+        //        }
+        //        script.SetModel(model);
+        //    }
 
-            var go = (GameObject)Instantiate(Resources.Load(rotatingObject.modelID));
-            rotatingObject.SetModel(go);
-
-        }
+        //}
+        //EditorGUILayout.EndHorizontal();
     }
 }

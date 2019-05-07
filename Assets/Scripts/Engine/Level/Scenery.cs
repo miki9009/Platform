@@ -20,9 +20,14 @@ namespace Engine
                 return overridePath;
             }
 #if UNITY_EDITOR
-            string rawPath = AssetDatabase.GetAssetPath(PrefabUtility.GetCorrespondingObjectFromSource(gameObject)).Substring(17);
-            rawPath = rawPath.Substring(0, rawPath.Length - 7);
-            return rawPath ;//.Trim(("Assets/Resources/").ToCharArray())
+            string rawPath = AssetDatabase.GetAssetPath(PrefabUtility.GetCorrespondingObjectFromSource(gameObject));
+            if(rawPath.Length > 17)
+            {
+                rawPath = rawPath.Substring(17);
+                rawPath = rawPath.Substring(0, rawPath.Length - 7);
+                return rawPath;//.Trim(("Assets/Resources/").ToCharArray())
+            }
+
 #endif
             Debug.LogError("Path not found of Prefab doesn't exist, or Trying to get path during gameplay.");
             return "";

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CustomScenesConfig
   m_EditorClassIdentifier: 
   sceneName: FirstLevel
-  selectedCustomScene: FirstLevel_1
+  selectedCustomScene: FirstLevel_2
   customScenesPath: Resources/CustomScenes/
   sceneGroups:
   - sceneName: CustomScene
@@ -29,6 +29,7 @@ MonoBehaviour:
     customScenes:
     - FirstLevel_0
     - FirstLevel_1
+    - FirstLevel_2
   - sceneName: SecondLevel
     customScenes:
     - SecondLevel_0

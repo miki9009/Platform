@@ -125,7 +125,7 @@ public class MovingTransformEditor : Editor
     void CreateCircle(MovingTransform script)
     {
         if (script.anchors == null || script.anchors.Count == 0) return;
-        float angle = 365f / script.anchors.Count;
+        float angle = 360f / script.anchors.Count;
         var list = script.anchors;
         float y = 0;
         var pos = script.transform.position;

@@ -77,6 +77,6 @@ MonoBehaviour:
   elementID: -5418039
   arrowTarget: 0
   activeAndEnabled: 1
-  modelID: Prefabs/OutcastsPrefabs/Trees/Trunk_01
+  modelID: 
   rotationAnchor: {fileID: 706355591648968041}
   model: {fileID: 0}

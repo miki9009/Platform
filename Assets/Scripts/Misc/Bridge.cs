@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
+using Engine;
 
-public class Bridge : MonoBehaviour
+//[ExecuteInEditMode]
+public class Bridge : LevelElement
 {
     public LineRenderer lineRenderer;
 
     public Transform[] anchors;
 
+   
     private void Awake()
     {
         lineRenderer.enabled = true;
+        
     }
-
 
     private void Update()
     {
@@ -19,4 +22,11 @@ public class Bridge : MonoBehaviour
             lineRenderer.SetPosition(i, anchors[i].position);
         }
     }
+
+    public override void OnLoad()
+    {
+        base.OnLoad();
+        gameObject.SetActive(true);
+    }
+
 }

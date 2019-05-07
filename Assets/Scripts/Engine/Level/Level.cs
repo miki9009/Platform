@@ -212,9 +212,14 @@ namespace Engine
             {
                 string path = Config.levelElementsPath + element.Value;
                 var res = Resources.Load(path) as GameObject;
+
                 GameObject obj = null;
                 if (Application.isPlaying)
+                {
                     obj = Instantiate(res);
+
+                }
+
                 else
                 {
 #if UNITY_EDITOR
