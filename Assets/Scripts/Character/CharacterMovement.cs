@@ -43,6 +43,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public float pipeFactor;
     [NonSerialized]
     public Animator anim;
+    public TriggerBroadcast pushTriggerBroadcast;
+
     public float meleeAttackRadius = 2;
     public bool shieldUp;
     public bool isRolling;
@@ -86,6 +88,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             return character.IsLocalPlayer;
         }
     }
+
+
 
     protected CharacterStatistics stats;
     protected float verInput = 0;
@@ -137,10 +141,19 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         character = GetComponent<Character>();
         jumpCollider = GetComponent<BoxCollider>();
         smoke = GetComponentInChildren<ParticleSystem>();
+        //smoke.transform.SetParent(null);
         StartPosition = transform.position;
         disY = Screen.height / 8;
         OnGround = true;
+        if(pushTriggerBroadcast)
+        {
+            pushTriggerBroadcast.TriggerEntered += OnPushTriggerEnter;
+            pushTriggerBroadcast.TriggerExit += OnPushTriggerExit;
+        }
+
     }
+
+    bool pushTrigger;
 
 
     // Use this for initialization
@@ -167,7 +180,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public void OnTriggerExit(Collider other)
     {
         OnGround = false;
-        smoke.Stop();
+        //smoke.Stop();
     }
 
     public virtual void Die()
@@ -210,14 +223,16 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         if (other.gameObject.layer == Layers.Environment)
         {
+            if (!OnGround)
+                smoke2.Play();
             OnGround = true;
         }
         if (other.gameObject.layer != 12 && other.gameObject.layer != 13)
         {
-            if (!smoke.isPlaying)
-            {
-                smoke.Play();
-            }
+            //if (!smoke.isPlaying)
+            //{
+            //    smoke.Play();
+            //}
             attack = false;
             if (anim)
                 anim.SetBool("attackStay", false);
@@ -308,6 +323,13 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         if (jumpInput > 0)
             Jump();
 
+        if (Mathf.Abs(rb.velocity.y) > 2)
+        {
+            if(smoke.isPlaying)
+                smoke.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+        else if(!smoke.isPlaying && OnGround)
+            smoke.Play();
 
     }
 
@@ -324,6 +346,11 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         Movement();
         Inputs();
         attack = false;
+
+
+            //smoke.transform.position = curPos + Vector3.up * 0.25f;
+
+
     }
 
     void WeaponAttack()
@@ -502,5 +529,24 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         }
     }
 
+    private void OnPushTriggerExit(Collider obj)
+    {
+        if(pushTrigger)
+        {
+            anim.SetBool("Push", false);
+            pushTrigger = false;
+        }
+
+    }
+
+    private void OnPushTriggerEnter(Collider obj)
+    {
+        if(!pushTrigger)
+        {
+            pushTrigger = true;
+            anim.SetBool("Push", true);
+        }
+
+    }
 
 }

@@ -29228,6 +29228,8 @@ MonoBehaviour:
   characters: []
   gameCamera: {fileID: 1208659932}
   GUI: {fileID: 0}
+  chromaticAberration: {fileID: 114024389579281356}
+  vortex: {fileID: 114201262274408484}
   material: {fileID: 2100000, guid: d5f0c18af4ee67547855371a6122b4e2, type: 2}
   lowDetailShader: {fileID: 4800000, guid: c0e65bad2aec54842885f1e149080f34, type: 3}
   highDetailShader: {fileID: 4800000, guid: 1370d5a4f4f180c4d82ddde85bc9dce2, type: 3}
@@ -33936,7 +33938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3635588305868328001
 Transform:
   m_ObjectHideFlags: 0
@@ -33962,7 +33964,7 @@ ParticleSystem:
   lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
-  cullingMode: 3
+  cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
@@ -34026,7 +34028,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -34519,7 +34521,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 30
+    maxNumParticles: 25
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -34837,7 +34839,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -35223,7 +35225,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.6383055, g: 0.8301887, b: 0.8046043, a: 0}
-        key1: {r: 0.52398545, g: 0.7075472, b: 0.7075472, a: 0.3137255}
+        key1: {r: 0.52398545, g: 0.7075472, b: 0.7075472, a: 0.39215687}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -35239,7 +35241,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 19468
+        atime1: 31226
         atime2: 65535
         atime3: 0
         atime4: 0

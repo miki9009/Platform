@@ -55,8 +55,8 @@ public class Controller : MonoBehaviour
     Vector2 startResolution;
 
 
-    public VignetteAndChromaticAberration ChromaticAbberration { get; private set; }
-    public Vortex Vortex { get; private set; }
+    public VignetteAndChromaticAberration chromaticAberration;
+    public Vortex vortex;
 
     private void Awake()
     {
@@ -66,8 +66,6 @@ public class Controller : MonoBehaviour
             Debug.LogError("Main camera is not set");
         }
         GUI = transform.parent.gameObject;
-        ChromaticAbberration = gameCamera.GetComponent<VignetteAndChromaticAberration>();
-        Vortex = gameCamera.GetComponent<Vortex>();
         GameManager.Restart += OnRestart;
         LevelManager.BeforeSceneLoading += ResetMaterial;
         if (DataManager.Exists())

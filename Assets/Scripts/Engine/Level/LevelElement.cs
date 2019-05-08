@@ -142,7 +142,7 @@ namespace Engine
         }
 
 #if UNITY_EDITOR
-        Bounds bounds;
+        Bounds debugBounds;
         bool boundsSearched;
         private void OnDrawGizmos()
         {
@@ -152,19 +152,19 @@ namespace Engine
                 {
                     var collid = GetComponent<Collider>();
                     if (collid != null)
-                        bounds = collid.bounds;
+                        debugBounds = collid.bounds;
                     else
                         collid = GetComponentInChildren<Collider>();
                     {
                         if (collid != null)
-                            bounds = collid.bounds;
+                            debugBounds = collid.bounds;
                     }
                     boundsSearched = true;
                 }
                 var col = Color.gray;
                 col.a = 0.6f;
                 Gizmos.color = col;
-                Gizmos.DrawSphere(transform.position, bounds.extents.x + 1f);
+                Gizmos.DrawSphere(transform.position, debugBounds.extents.x + 1f);
             }
 
         }

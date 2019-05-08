@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 39942697531097636}
   - component: {fileID: 39942697531097639}
   m_Layer: 0
-  m_Name: RotatingObject_RoundFull 1
+  m_Name: RotatingObject_Brick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,9 +220,10 @@ PrefabInstance:
     - target: {fileID: 3370894587108140642, guid: 7b7d4121acaa96a49824f64c66ff67f0,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5711301898382874122, guid: 7b7d4121acaa96a49824f64c66ff67f0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7b7d4121acaa96a49824f64c66ff67f0, type: 3}
 --- !u!4 &6509234717130861279 stripped
 Transform:

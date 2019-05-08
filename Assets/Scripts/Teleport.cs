@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
+using Engine;
 
-public class Teleport : MonoBehaviour
+
+public class Teleport : LevelElement
 {
     public Teleport otherTeleport;
+    public GameObject teleportPrefab;
     Transform character;
     public bool canTeleport = true;
 
+    Float3 otherTeleportPosition;
+    bool originalTeleport;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (canTeleport && otherTeleport.canTeleport && other.gameObject.layer == Layers.Character)
+        if (canTeleport && other.gameObject.layer == Layers.Character && otherTeleport.canTeleport)
         {
             canTeleport = false;
             otherTeleport.canTeleport = false;
@@ -25,24 +31,50 @@ public class Teleport : MonoBehaviour
         canTeleport = true;
     }
 
-    //private void OnDisable()
-    //{
-    //    if (activated)
-    //    {
-    //        Controller.Instance.ChromaticAbberration.enabled = false;
-    //        Controller.Instance.Vortex.enabled = false;
-    //        activated = false;
-    //        if(character != null)
-    //        {
-    //            character.position = otherTeleport.transform.position;
-    //        }
-    //    }
-    //}
+    public override void OnLoad()
+    {
+        base.OnLoad();
+        if (Application.isPlaying && data.ContainsKey("OtherTeleportPosition"))
+        {
+            otherTeleportPosition = (Float3)data["OtherTeleportPosition"];
+            if (!otherTeleport)
+                otherTeleport = Instantiate(teleportPrefab).GetComponent<Teleport>();
+            otherTeleport.transform.position = otherTeleportPosition;
+            otherTeleport.otherTeleport = this;         
+        }
+
+    }
+
+    public Transform editorTeleport;
+    public override void OnSave()
+    {
+        base.OnSave();
+        if(editorTeleport)
+        {
+            otherTeleportPosition = editorTeleport.transform.position;
+            data["OtherTeleportPosition"] = otherTeleportPosition;
+        }
+        else
+        {
+            Debug.LogError("No other teleport");
+        }
+
+    }
 
     IEnumerator Teleportation()
     {
-        VignetteAndChromaticAberration visualEffect = Controller.Instance.ChromaticAbberration;
-        Vortex vortex = Controller.Instance.Vortex;
+        if (!character) yield break;
+        var ch = character.GetComponent<CharacterMovement>();
+        if(ch)
+        {
+            ch.MovementEnabled = false;
+        }
+        else
+        {
+            Debug.LogError("CharacterMovement not found on gameobject: " + character.name);
+        }
+        VignetteAndChromaticAberration visualEffect = Controller.Instance.chromaticAberration;
+        Vortex vortex = Controller.Instance.vortex;
         visualEffect.enabled = true;
         vortex.enabled = true;
         float intensity = 0.7f;
@@ -79,9 +111,36 @@ public class Teleport : MonoBehaviour
         }
         visualEffect.enabled = false;
         vortex.enabled = false;
+        if(ch)
+        {
+            ch.MovementEnabled = true;
+        }
         yield return null;
     }
+
+
+
+#if UNITY_EDITOR
+
+
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying) return;
+        if(!editorTeleport)
+        {
+            editorTeleport = new GameObject("EditorTeleport").transform;
+            editorTeleport.SetParent(transform);
+            editorTeleport.position = otherTeleportPosition;
+        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(otherTeleportPosition + Vector3.up*1.5f, new Vector3(2, 3, 2));
+        Gizmos.DrawLine(transform.position, editorTeleport.position);
+        otherTeleportPosition = editorTeleport.position;
+    }
+#endif
 }
+
+
 
 
 

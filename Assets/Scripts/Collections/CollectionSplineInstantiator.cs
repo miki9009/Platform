@@ -68,6 +68,7 @@ public class CollectionSplineInstantiator : LevelElement
             data["Handle2"] = handle2Pos;
             data["Spawn"] = spawnName;
             data["Amount"] = amount;
+            data["AnimationSpeed"] = animationSpeed;
         }
     }
 
@@ -86,6 +87,8 @@ public class CollectionSplineInstantiator : LevelElement
             spawnName = (string)data["Spawn"];
         if (data.ContainsKey("Amount"))
             amount = (int)data["Amount"];
+        if (data.ContainsKey("AnimationSpeed"))
+            animationSpeed = (float)data["AnimationSpeed"];
 
         for (int i = 0; i < pointsPos.Length; i++)
         {

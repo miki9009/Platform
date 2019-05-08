@@ -89,7 +89,7 @@ namespace Engine.UI
         {
             if(!pressed)
             {
-                Debug.Log("Pressed: " + name);
+                //Debug.Log("Pressed: " + name);
                 pressed = true;
                 touchPosition = eventData.position;
                 OnTapPressed.Invoke();
@@ -101,7 +101,7 @@ namespace Engine.UI
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            Debug.Log("Released: " + name);
+            //Debug.Log("Released: " + name);
             pressed = false;
             touchPosition = eventData.position;
             OnTapRelesed.Invoke();

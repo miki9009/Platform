@@ -47,8 +47,8 @@ public class Analog : MonoBehaviour
 
     private void Start()
     {
-        analogStartPos = transform.position;
-        ResetToStartPos();
+        //analogStartPos = transform.position;
+        //ResetToStartPos();
         GameManager.CustomSceneLoaded += ResetToStartPos;
     }
 
@@ -75,13 +75,13 @@ public class Analog : MonoBehaviour
 
     public void SetPosition()
     {
-        transform.position = button.TouchPosition;
+        //transform.position = button.TouchPosition;
         canvasGroup.alpha = 1;
     }
 
     public void ResetToStartPos()
     {
-        transform.position = analogStartPos;
+        //transform.position = analogStartPos;
         canvasGroup.alpha = 0.2f;
     }
 }
