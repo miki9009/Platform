@@ -22,16 +22,16 @@ public class Weapon : MonoBehaviour, IRightArmItem
         character.AddItem(this);
     }
 
-    void Awake()
-    {
-        if(triggerBroadcast)
-        {
-            triggerBroadcast.TriggerStay += x =>
-            {
-                OnTriggerWithEnemeny(x);
-            };
-        }
-    }
+    //void Awake()
+    //{
+    //    if(triggerBroadcast)
+    //    {
+    //        triggerBroadcast.TriggerStay += x =>
+    //        {
+    //            OnTriggerWithEnemeny(x);
+    //        };
+    //    }
+    //}
 
     void Start()
     {
@@ -39,16 +39,31 @@ public class Weapon : MonoBehaviour, IRightArmItem
     }
 
 
-    void OnTriggerWithEnemeny(Collider col)
-    {
-        if (!canInflictDamage || !character || character.IsDead || !character.movement.isAttacking) return;
+    //void OnTriggerWithEnemeny(Collider col)
+    //{
+    //    if (!canInflictDamage || !character || character.IsDead || !character.movement.isAttacking) return;
 
-        var destructible = col.GetComponent<IDestructible>();
-        if(destructible!=null)
+    //    var destructible = col.GetComponent<IDestructible>();
+    //    if(destructible!=null)
+    //    {
+    //        destructible.Hit(character.movement);
+    //        StaticParticles.PlayHitParticles(col.transform.position + Vector3.up);
+    //        smokeExplosion.transform.position = col.transform.position;
+    //        smokeExplosion.Play();
+    //        canInflictDamage = false;
+    //    }
+    //}
+
+    void InflictDamage(Transform enemy)
+    {
+        if (!enemy || !canInflictDamage || !character || character.IsDead || !character.movement.isAttacking) return;
+
+        var destructible = enemy.GetComponent<IDestructible>();
+        if (destructible != null)
         {
             destructible.Hit(character.movement);
-            StaticParticles.PlayHitParticles(col.transform.position + Vector3.up);
-            smokeExplosion.transform.position = col.transform.position;
+            StaticParticles.PlayHitParticles(enemy.position + Vector3.up);
+            smokeExplosion.transform.position = enemy.position;
             smokeExplosion.Play();
             canInflictDamage = false;
         }
@@ -101,17 +116,22 @@ public class Weapon : MonoBehaviour, IRightArmItem
         yield return new WaitForSeconds(halfAttack);
         canInflictDamage = true;
         float time = 0;
-        while(time <halfAttack)
+        while(time < halfAttack)
         {
             if(enemy!=null && angle < 135)
             {
                 character.transform.rotation = Engine.Math.RotateTowardsTopDown(character.transform, enemy.position, character.stats.turningSpeed * Time.deltaTime);
             }
+            if(time > (halfAttack / 2) && canInflictDamage)
+            {
+                InflictDamage(enemy);
+                canInflictDamage = false;
+            }
             time += Time.deltaTime;
             yield return null;
         }
 
-        canInflictDamage = false;
+
         if (character && !character.IsDead)
         {
             character.movement.MovementEnabled = true;
