@@ -4797,7 +4797,7 @@ MonoBehaviour:
     type: 3}
   attackParticles: {fileID: 198331290432243932}
   character: {fileID: 0}
-  attackRadius: 3
+  attackRadius: 5
   triggerBroadcast: {fileID: 1148364289539484328}
 --- !u!65 &5483566963068127539
 BoxCollider:

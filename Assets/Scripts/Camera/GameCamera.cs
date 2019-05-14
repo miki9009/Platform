@@ -255,7 +255,7 @@ public class GameCamera : MonoBehaviour
     Coroutine shakeCor;
     IEnumerator ShakeCor(float time, float force, float amplitude)
     {
-        Debug.Log("Shake");
+        //Debug.Log("Shake");
         float x, y, z;
         while (time > 0)
         {

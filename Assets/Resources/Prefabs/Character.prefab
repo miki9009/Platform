@@ -9840,8 +9840,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114847762505081622}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114847762505081622
@@ -9876,6 +9876,7 @@ MonoBehaviour:
     turningSpeed: 5
     damage: 10
     attackForce: 5
+    pushForce: 0.2
     armorType: Normal
   anim: {fileID: 0}
   rb: {fileID: 54795299618832232}

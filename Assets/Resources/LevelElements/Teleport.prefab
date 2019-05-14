@@ -9521,7 +9521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177d0ab14f5aff740825bc063ee7f4ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -5670218
+  elementID: -7450517
   arrowTarget: 0
   activeAndEnabled: 1
   otherTeleport: {fileID: 0}
@@ -9568,7 +9568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7119641382478870692}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -703.8, y: -36.2, z: 159.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6.554693, y: 6.554695, z: 6.554695}
   m_Children: []
   m_Father: {fileID: 9078235336031294190}

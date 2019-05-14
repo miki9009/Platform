@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Engine;
 
-public class Crate : MonoBehaviour, IDestructible
+public class Crate : MonoBehaviour, IDestructible, IMovable
 {
     public Transform Transform { get { return transform; } set { Transform = value; } }
     public GameObject collection;
@@ -20,11 +20,45 @@ public class Crate : MonoBehaviour, IDestructible
     bool destructed = false;
     public float upForce = 10;
 
+    public bool Destroyed
+    {
+        get
+        {
+            return destructed;
+        }
+    }
+
     public Rigidbody Rigidbody
     {
         get
         {
             return rb;
+        }
+    }
+
+    public bool ActiveAndEnabled
+    {
+        get
+        {
+            return gameObject.activeSelf && enabled;
+        }
+    }
+
+    public RigidbodyConstraints PushConstraints
+    {
+        get
+        {
+            return RigidbodyConstraints.FreezeRotation;
+        }
+    }
+
+  
+
+    public RigidbodyConstraints NonPushConstraints
+    {
+        get
+        {
+            return RigidbodyConstraints.None;
         }
     }
 

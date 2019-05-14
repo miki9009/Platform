@@ -89,6 +89,13 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         }
     }
 
+    public bool Destroyed
+    {
+        get
+        {
+            return character.IsDead;
+        }
+    }
 
 
     protected CharacterStatistics stats;
@@ -110,7 +117,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     int rollAnimationHash;
     int shieldAnimationHash;
     float disY;
-    float timeLastJump = 0;
     float hspeed;
     float vspeed;
 
@@ -331,6 +337,20 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         else if(!smoke.isPlaying && OnGround)
             smoke.Play();
 
+        if(pushTrigger)
+        {
+            if(movable == null || !movable.ActiveAndEnabled)
+            {
+                pushTrigger = false;
+                anim.SetBool("Push", false);
+            }
+            else if (movable.Rigidbody.velocity.magnitude < 4)
+            {
+                movable.Rigidbody.AddForce(transform.forward * character.stats.pushForce + (Vector3.up * character.stats.pushForce), ForceMode.VelocityChange);
+            }
+        }
+
+
     }
 
 
@@ -348,7 +368,9 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         attack = false;
 
 
-            //smoke.transform.position = curPos + Vector3.up * 0.25f;
+        //movable.Rigidbody.transform.position += transform.forward * character.stats.pushForce + (Vector3.up * character.stats.pushForce / 4);
+
+        //smoke.transform.position = curPos + Vector3.up * 0.25f;
 
 
     }
@@ -402,7 +424,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public virtual void Attack()
     {
-        if (character.IsDead || attack) return;
+        if (character.IsDead || attack || !MovementEnabled || isAttacking) return;
 
             if (Thrown != null)
             {
@@ -529,9 +551,19 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         }
     }
 
+    IMovable movable;
+
     private void OnPushTriggerExit(Collider obj)
     {
-        if(pushTrigger)
+        if (obj.gameObject.layer != Layers.Destructible) return;
+
+        if (movable != null)
+        {
+            movable.Rigidbody.constraints = movable.NonPushConstraints;
+        }
+        movable = null;
+
+        if (pushTrigger)
         {
             anim.SetBool("Push", false);
             pushTrigger = false;
@@ -541,7 +573,14 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     private void OnPushTriggerEnter(Collider obj)
     {
-        if(!pushTrigger)
+        if (obj.gameObject.layer != Layers.Destructible) return;
+
+        movable = obj.GetComponent<IMovable>();
+        if(movable != null)
+        {
+            movable.Rigidbody.constraints = movable.PushConstraints;
+        }
+        if (!pushTrigger)
         {
             pushTrigger = true;
             anim.SetBool("Push", true);

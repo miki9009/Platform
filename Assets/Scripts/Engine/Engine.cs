@@ -50,6 +50,18 @@ namespace Engine
             }
         }
 
+        public static float Angle2(Vector2 startV, Vector2 endV)
+        {
+            Vector2 c = startV - endV;
+            return Mathf.Atan2(c.y, c.x) * Mathf.Rad2Deg;
+        }
+
+        public static float Angle2(Vector3 startV, Vector3 endV)
+        {
+            Vector3 c = startV - endV;
+            return Mathf.Atan2(c.z, c.x) * Mathf.Rad2Deg;
+        }
+
         public static Vector3 QuaternionToVector(Quaternion quaternion)
         {
             return quaternion * Vector3.forward;
@@ -1306,6 +1318,75 @@ namespace Engine
         }
     }
 
+    [Serializable]
+    public struct Keyframe
+    {
+
+        public float time { get; set; }
+
+        public float value { get; set; }
+
+        public float inTangent { get; set; }
+
+        public float outTangent { get; set; }
+
+        public float inWeight { get; set; }
+
+        public float outWeight { get; set; }
+
+        public WeightedMode weightedMode { get; set; }
+
+
+        public static implicit operator Engine.Keyframe(UnityEngine.Keyframe key)
+        {
+            return new Engine.Keyframe
+            {
+                inTangent = key.inTangent,
+                outTangent = key.outTangent,
+                inWeight = key.inWeight,
+                outWeight = key.outWeight,
+                time = key.time,
+                value = key.value,
+                weightedMode = key.weightedMode
+            };
+        }
+
+        public static implicit operator UnityEngine.Keyframe(Engine.Keyframe key)
+        {
+            return new UnityEngine.Keyframe
+            {
+                inTangent = key.inTangent,
+                outTangent = key.outTangent,
+                inWeight = key.inWeight,
+                outWeight = key.outWeight,
+                time = key.time,
+                value = key.value,
+                weightedMode = key.weightedMode
+            };
+        }
+
+        public static UnityEngine.Keyframe[] ToArray(Engine.Keyframe[] array)
+        {
+            UnityEngine.Keyframe[] newArray = new UnityEngine.Keyframe[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                newArray[i] = array[i];
+            }
+            return newArray;
+        }
+
+        public static Engine.Keyframe[] ToArray(UnityEngine.Keyframe[] array)
+        {
+            Engine.Keyframe[] newArray = new Keyframe[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                newArray[i] = array[i];
+            }
+            return newArray;
+        }
+
+    }
+
 
     public static class ExtensionMethods
     {
@@ -1349,9 +1430,11 @@ namespace Engine
             }
         }
 
+        static Vector3 forward = new Vector3(0, 0, 1);
+
         public static Vector3 Vector(this Quaternion q)
         {
-            return q * Vector3.forward;
+            return q * forward;
         }
 
         //public static Vector ToVector(this Vector3 vector)

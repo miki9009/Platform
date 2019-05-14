@@ -30,7 +30,7 @@ public class CameraTrigger : LevelElement
             if(routine==null)
             {
                 routine = StartCoroutine(SetCamera());
-                Debug.Log("Run Coroutine CameraTrigger");
+                //Debug.Log("Run Coroutine CameraTrigger");
             }
         }
     }

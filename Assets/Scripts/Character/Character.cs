@@ -347,3 +347,26 @@ public interface ILefttArmItem : IEquipment
     void Use();
     void StopUsing();
 }
+
+public interface IMovable
+{
+    Rigidbody Rigidbody
+    {
+        get;
+    }
+
+    bool ActiveAndEnabled
+    {
+        get;
+    }
+
+    RigidbodyConstraints PushConstraints
+    {
+        get;
+    }
+
+    RigidbodyConstraints NonPushConstraints
+    {
+        get;
+    }
+}

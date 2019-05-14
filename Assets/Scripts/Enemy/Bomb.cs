@@ -12,7 +12,7 @@ public class Bomb : MonoBehaviour
 
     void EnableParticles()
     {
-        parts.transform.position = transform.position + Vector3.up;
+        //parts.transform.position = transform.position + Vector3.up;
         parts.Play();
         model.SetActive(false);
         Invoke("DestroyMe", deactivateAfterTimer);

@@ -8,4 +8,5 @@ public interface IDestructible
     void CallShake();
     Transform Transform { get;}
     Rigidbody Rigidbody { get; }
+    bool Destroyed { get; }
 }

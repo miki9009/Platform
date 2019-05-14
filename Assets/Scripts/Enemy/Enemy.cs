@@ -41,6 +41,14 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         }
     }
 
+    public bool Destroyed
+    {
+        get
+        {
+            return dead;
+        }
+    }
+
     public GameObject GameObject
     {
         get { return gameObject; }

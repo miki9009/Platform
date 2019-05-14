@@ -34,14 +34,23 @@ public class Teleport : LevelElement
     public override void OnLoad()
     {
         base.OnLoad();
-        if (Application.isPlaying && data.ContainsKey("OtherTeleportPosition"))
+        if(data.ContainsKey("OtherTeleportPosition"))
         {
             otherTeleportPosition = (Float3)data["OtherTeleportPosition"];
-            if (!otherTeleport)
-                otherTeleport = Instantiate(teleportPrefab).GetComponent<Teleport>();
-            otherTeleport.transform.position = otherTeleportPosition;
-            otherTeleport.otherTeleport = this;         
+            if (Application.isPlaying)
+            {
+ 
+                if (!otherTeleport)
+                    otherTeleport = Instantiate(teleportPrefab).GetComponent<Teleport>();
+                otherTeleport.transform.position = otherTeleportPosition;
+                otherTeleport.otherTeleport = this;
+            }
+            else
+            {
+                editorTeleport.position = otherTeleportPosition;
+            }
         }
+
 
     }
 

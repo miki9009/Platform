@@ -216,7 +216,10 @@ namespace Engine
                 GameObject obj = null;
                 if (Application.isPlaying)
                 {
-                    obj = Instantiate(res);
+                    if (res)
+                        obj = Instantiate(res);
+                    else
+                        Debug.LogError("Resource is null for path: " + path);
 
                 }
 

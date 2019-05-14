@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: dfc014aaf5d746547b4104eb7fe166a7
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: WoodenPlatform2
+    100004: WoodenPlatform2 (1)
+    100006: WoodenPlatform2 (1)_1
+    100008: WoodenPlatform2 (2)
+    100010: WoodenPlatform2 (3)
+    100012: WoodenPlatform2 (4)
+    100014: WoodenPlatform2 (4)_1
+    100016: WoodenPlatform2 (5)
+    100018: WoodenPlatform2 (5)_1
+    100020: WoodenPlatform2 (5)_2
+    100022: WoodenPlatform2 (5)_3
+    100024: WoodenPlatform2 (5)_4
+    400000: //RootNode
+    400002: WoodenPlatform2
+    400004: WoodenPlatform2 (1)
+    400006: WoodenPlatform2 (1)_1
+    400008: WoodenPlatform2 (2)
+    400010: WoodenPlatform2 (3)
+    400012: WoodenPlatform2 (4)
+    400014: WoodenPlatform2 (4)_1
+    400016: WoodenPlatform2 (5)
+    400018: WoodenPlatform2 (5)_1
+    400020: WoodenPlatform2 (5)_2
+    400022: WoodenPlatform2 (5)_3
+    400024: WoodenPlatform2 (5)_4
+    2100000: M_TextureGloss
+    2300000: WoodenPlatform2
+    2300002: WoodenPlatform2 (1)
+    2300004: WoodenPlatform2 (1)_1
+    2300006: WoodenPlatform2 (2)
+    2300008: WoodenPlatform2 (3)
+    2300010: WoodenPlatform2 (4)
+    2300012: WoodenPlatform2 (4)_1
+    2300014: WoodenPlatform2 (5)
+    2300016: WoodenPlatform2 (5)_1
+    2300018: WoodenPlatform2 (5)_2
+    2300020: WoodenPlatform2 (5)_3
+    2300022: WoodenPlatform2 (5)_4
+    3300000: WoodenPlatform2
+    3300002: WoodenPlatform2 (1)
+    3300004: WoodenPlatform2 (1)_1
+    3300006: WoodenPlatform2 (2)
+    3300008: WoodenPlatform2 (3)
+    3300010: WoodenPlatform2 (4)
+    3300012: WoodenPlatform2 (4)_1
+    3300014: WoodenPlatform2 (5)
+    3300016: WoodenPlatform2 (5)_1
+    3300018: WoodenPlatform2 (5)_2
+    3300020: WoodenPlatform2 (5)_3
+    3300022: WoodenPlatform2 (5)_4
+    4300000: WoodenPlatform2 (1)
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

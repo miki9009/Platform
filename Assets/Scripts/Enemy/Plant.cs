@@ -39,6 +39,14 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         }
     }
 
+    public bool Destroyed
+    {
+        get
+        {
+            return dead;
+        }
+    }
+
     public void CallShake()
     {
         Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
@@ -58,7 +66,7 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
 
     void PerformAttack()
     {
-        Debug.Log("Triggered Invoke");
+        //Debug.Log("Triggered Invoke");
         if (target != null && Vector3.Distance(transform.position, target.position) < sphere.radius)
         {
             canAttack = true;
@@ -142,7 +150,7 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
         starsExplosion.Play();
         collisionBroadcast.CollisionEntered -= Attack;
         CancelInvoke();
-        Debug.Log("Plant Hit");
+        //Debug.Log("Plant Hit");
         //Invoke("PlayDie", 0.1f);
         dead = true;
         sphere.enabled = false;
@@ -154,7 +162,7 @@ public class Plant : MonoBehaviour, Engine.IStateAnimator, IDestructible, IThrow
 
     void PlayDie()
     {
-        Debug.Log("Played Dead");
+        //Debug.Log("Played Dead");
         anim.Play("Die");
         this.enabled = false;
     }

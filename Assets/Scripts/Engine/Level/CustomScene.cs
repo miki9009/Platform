@@ -214,20 +214,21 @@ namespace Engine
                 if (obj != null)
                 {              
                     var sceneryElement = obj.GetComponent<Scenery>();
+
+                    if (sceneryElement != null)
+                    {
 #if UNITY_EDITOR
-                    try
-                    {
-                        obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError(ex.Message);
-                    }
+                        try
+                        {
+                            obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError(ex.Message);
+                        }
 #else
                      obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
 #endif
-                    if (sceneryElement != null)
-                    {
                         sceneryElement.data = (Dictionary<string, object>)element.Key;
                         sceneryElement.OnLoad();
                     }
