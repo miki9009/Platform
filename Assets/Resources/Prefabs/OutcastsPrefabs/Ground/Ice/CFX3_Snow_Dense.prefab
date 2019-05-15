@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5256427032313681888}
   - component: {fileID: 2697343005213835809}
   - component: {fileID: 6029556359363127890}
+  - component: {fileID: 3497613950978332773}
   m_Layer: 0
   m_Name: CFX3_Snow_Dense
   m_TagString: Untagged
@@ -4428,3 +4429,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3497613950978332773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497801009905559158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 4
+  overridePath: 

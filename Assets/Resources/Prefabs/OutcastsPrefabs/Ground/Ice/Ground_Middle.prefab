@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7205564348462200036}
   - component: {fileID: 8806195775421449982}
   - component: {fileID: 1231904856934102499}
+  - component: {fileID: 7762025647420803154}
   m_Layer: 10
   m_Name: Ground_Middle
   m_TagString: Untagged
@@ -92,3 +93,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 963fa67c069dc274cbbf6d2db0f15368, type: 3}
+--- !u!114 &7762025647420803154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5850958795168039122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

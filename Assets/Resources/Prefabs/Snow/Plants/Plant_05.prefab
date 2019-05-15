@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: 205436044119605126}
+  - component: {fileID: 139520791406149293}
+  - component: {fileID: 4487270578698552371}
   m_Layer: 17
   m_Name: Plant_05
   m_TagString: Untagged
@@ -51,6 +53,34 @@ LODGroup:
     renderers:
     - renderer: {fileID: 23128976616142932}
   m_Enabled: 1
+--- !u!114 &139520791406149293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 
+--- !u!114 &4487270578698552371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 
 --- !u!1 &1288886079692884
 GameObject:
   m_ObjectHideFlags: 0

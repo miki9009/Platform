@@ -51,7 +51,7 @@ MonoBehaviour:
   rotationSpeed: 0.5
   rotationChange: {x: 0, y: 1, z: 0}
   triggerBroadcast: {fileID: 1190601439838360004}
-  model: {fileID: 8418696084221017538}
+  model: {fileID: 4152766377996645542}
 --- !u!1 &7956509361157480389
 GameObject:
   m_ObjectHideFlags: 0

@@ -116,14 +116,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef9e16ab63f1414aa50dcf3fce9bea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -5418039
+  elementID: -8206628
   arrowTarget: 0
   activeAndEnabled: 1
   rotationAnchor: {fileID: 9083077526241923734}
   rotationSpeed: 0.5
-  rotationChange: {x: 0, y: 1, z: 0}
+  rotationChange: {x: 0, y: 0, z: 1}
   triggerBroadcast: {fileID: 6482085899124714982}
-  model: {fileID: 9083077526241923734}
+  model: {fileID: 1174403963750569786}
 --- !u!1001 &1174403963750960568
 PrefabInstance:
   m_ObjectHideFlags: 0

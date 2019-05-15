@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 982285171561788321}
   - component: {fileID: 1664160833769914146}
   - component: {fileID: 1360688188443935924}
+  - component: {fileID: 8755722010174838430}
   m_Layer: 10
   m_Name: Tree_Pine_2
   m_TagString: Untagged
@@ -93,3 +94,17 @@ CapsuleCollider:
   m_Height: 4.12
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!114 &8755722010174838430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394334229405723801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryContainer: 0
+  overridePath: 

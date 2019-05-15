@@ -91,15 +91,15 @@ public class Enemy : MonoBehaviour, IDestructible, IThrowableAffected, IStateAni
         enemyDeath = GetComponent<EnemyDeath>();
         startPos = transform.position;
         Vector3 destination = startPos;
-        if(pathMovement!=null)
-        {
-            if (pathMovement.RandomPoint(startPos, patrolDistance, out destination))
-            {
-                path = pathMovement.GetPath(destination);
-            }
-            path = pathMovement.GetPath(pathMovement.GetRandomPointOnNavMesh());
-            pathIndex = 0;
-        }
+        //if(pathMovement!=null)
+        //{
+        //    if (pathMovement.RandomPoint(startPos, patrolDistance, out destination))
+        //    {
+        //        path = pathMovement.GetPath(destination);
+        //    }
+        //    path = pathMovement.GetPath(pathMovement.GetRandomPointOnNavMesh());
+        //    pathIndex = 0;
+        //}
 
  //       Debug.Log("Path points: " + path.Length);
     }

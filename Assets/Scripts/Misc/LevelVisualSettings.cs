@@ -1,18 +1,34 @@
 ﻿using Engine;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class LevelVisualSettings : LevelElement
 {
+#if UNITY_EDITOR
+    public bool editorEnabled = true;
+#endif
 
 
-    public bool enableBloom = true;
     Material skybox;
-    public bool changeLightSettings = false;
 
-    Vector3 lightRotation;
-
+    [Header("BLUR")]
+    public bool enableBloom = true;
     [Range(0,1.5f)]
     public float bloomThreshold = 0.6f;
+    [Range(0, 2.5f)]
+    public float intensity = 2;
+    [Range(0, 5f)]
+    public float blurSize = 3;
+    [Range(0,4)]
+    public int blurIterations = 1;
+
+    [Header("LIGHTNING")]
+    public Vector3 lightRotation;
+    [Range(0,5f)]
+    public float lightIntensity;
+
     //[Range(0, 1)]
     //public float materialSmoothness = 0.7f; 
 
@@ -22,10 +38,17 @@ public class LevelVisualSettings : LevelElement
         //data.Add("Color", col);
         data.Add("BloomThreshold", bloomThreshold);
         data.Add("EnableBloom", enableBloom);
-        data.Add("ChangeLightSettings", changeLightSettings);
+        data["BloomIntensity"] = intensity;
+        data["BlurSize"] = blurSize;
+        data["BlurIterations"] = blurIterations;
         if (SceneLight.CurrentLight)
         {
             data["LightRotation"] = (Float3)SceneLight.CurrentLight.transform.eulerAngles;
+            data["LightIntensity"] = SceneLight.CurrentLight.intensity;
+        }
+        else
+        {
+            Debug.LogError("No Light found");
         }
     }
 
@@ -34,9 +57,35 @@ public class LevelVisualSettings : LevelElement
         base.OnLoad();
         if(data.ContainsKey("BloomThreshold"))
         {
-            bloomThreshold = (float)data["BloomThreshold"];
+
             if(Controller.Instance!=null)
-                Controller.Instance.bloom.threshold = bloomThreshold;
+            {
+                if(data.ContainsKey("BloomThreshold"))
+                {
+                    bloomThreshold = (float)data["BloomThreshold"];
+                    Controller.Instance.bloom.threshold = bloomThreshold;
+                }
+                if (data.ContainsKey("BloomIntensity"))
+                {
+                    intensity = (float)data["BloomIntensity"];
+                    Controller.Instance.bloom.intensity = intensity;
+                }
+                if (data.ContainsKey("BlurIterations"))
+                {
+                    blurIterations = (int)data["BlurIterations"];
+                    Controller.Instance.bloom.blurIterations = blurIterations;
+                }
+                if (data.ContainsKey("BlurSize"))
+                {
+                    blurSize = (float)data["BlurSize"];
+                    Controller.Instance.bloom.blurSize = blurSize;
+                }
+
+
+ 
+ 
+            }
+
         }
         if (data.ContainsKey("EnableBloom"))
         {
@@ -46,14 +95,63 @@ public class LevelVisualSettings : LevelElement
                 Controller.Instance.bloom.enabled = false;
             }
         }
-        if(data.ContainsKey("ChangeLightSettings") && data.ContainsKey("LightRotation"))
+        if(data.ContainsKey("LightRotation"))
         {
             if(SceneLight.CurrentLight)
             {
                 SceneLight.CurrentLight.transform.rotation = Quaternion.Euler((Float3)data["LightRotation"]);
+                SceneLight.CurrentLight.intensity = (float)data["LightIntensity"];
+            }
+            else
+            {
+                Debug.LogError("No light found");
             }
         }
     }
 
-
 }
+#if UNITY_EDITOR
+[CustomEditor(typeof(LevelVisualSettings))]
+public class LevelVisualSettingsEditor : Editor
+{
+
+
+    public override void OnInspectorGUI()
+    {
+
+        var script = (LevelVisualSettings)target;
+        if (!script.editorEnabled)
+        {
+            GUI.backgroundColor = Color.red;
+            base.OnInspectorGUI();
+
+            return;
+        }
+        if (!SceneLight.CurrentLight)
+        {
+            Debug.Log("No light detected");
+            return;
+        }
+        script.lightRotation = SceneLight.CurrentLight.transform.rotation.eulerAngles;
+        script.lightIntensity = SceneLight.CurrentLight.intensity;
+        if(Controller.Instance)
+        {
+            script.intensity = Controller.Instance.bloom.intensity;
+            script.blurSize = Controller.Instance.bloom.blurSize;
+            script.bloomThreshold = Controller.Instance.bloom.threshold;
+            script.blurIterations = Controller.Instance.bloom.blurIterations;
+        }
+
+        base.OnInspectorGUI();
+        SceneLight.CurrentLight.transform.rotation = Quaternion.Euler(script.lightRotation);
+        SceneLight.CurrentLight.intensity = script.lightIntensity;
+        if (Controller.Instance)
+        {
+            Controller.Instance.bloom.intensity = script.intensity;
+            Controller.Instance.bloom.blurSize = script.blurSize;
+            Controller.Instance.bloom.threshold = script.bloomThreshold;
+            Controller.Instance.bloom.blurIterations = script.blurIterations;
+        }
+    }
+}
+#endif

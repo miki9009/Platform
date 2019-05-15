@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b441a0475b39bd14ba947fdb8d9cc757, type: 3}
   m_Name: CustomScenesConfig
   m_EditorClassIdentifier: 
-  sceneName: FirstLevel
-  selectedCustomScene: FirstLevel_2
+  sceneName: Ice1
+  selectedCustomScene: Ice_0
   customScenesPath: Resources/CustomScenes/
   sceneGroups:
   - sceneName: CustomScene
@@ -39,3 +39,6 @@ MonoBehaviour:
   - sceneName: ThirdScene
     customScenes:
     - ThirdScene_0
+  - sceneName: Ice1
+    customScenes:
+    - Ice_0
