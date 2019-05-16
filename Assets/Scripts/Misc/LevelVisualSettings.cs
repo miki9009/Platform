@@ -95,7 +95,7 @@ public class LevelVisualSettings : LevelElement
                 Controller.Instance.bloom.enabled = false;
             }
         }
-        if(data.ContainsKey("LightRotation"))
+        if(data.ContainsKey("LightRotation") && data.ContainsKey("LightIntensity"))
         {
             if(SceneLight.CurrentLight)
             {

@@ -262,11 +262,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public virtual void Hit(Enemy enemy = null, int hp = 1, bool heavyAttack = false)
     {
-        if(shieldUp)
-        {
-            Debug.Log("Blocked by shield");
-        }
-        if (character.Health <= 0 || Invincible || (shieldUp && !heavyAttack))
+
+        if (character.Health <= 0 || Invincible || (isAttacking && !heavyAttack))
         {
             return;
         }
