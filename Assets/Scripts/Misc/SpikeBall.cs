@@ -68,7 +68,7 @@ public class SpikeBall : LevelElement
         curveEvaluated = curve.Evaluate(time);
 
 
-        transform.eulerAngles = new Vector3(curveEvaluated * 90, 0, 0);
+        transform.eulerAngles = new Vector3(curveEvaluated * 90, transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
 

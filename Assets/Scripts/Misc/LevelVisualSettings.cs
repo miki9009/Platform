@@ -28,6 +28,7 @@ public class LevelVisualSettings : LevelElement
     public Vector3 lightRotation;
     [Range(0,5f)]
     public float lightIntensity;
+    public Color lightColor;
 
     //[Range(0, 1)]
     //public float materialSmoothness = 0.7f; 
@@ -45,6 +46,7 @@ public class LevelVisualSettings : LevelElement
         {
             data["LightRotation"] = (Float3)SceneLight.CurrentLight.transform.eulerAngles;
             data["LightIntensity"] = SceneLight.CurrentLight.intensity;
+            data["LightColor"] = (Engine.Colour)SceneLight.CurrentLight.color;
         }
         else
         {
@@ -101,6 +103,8 @@ public class LevelVisualSettings : LevelElement
             {
                 SceneLight.CurrentLight.transform.rotation = Quaternion.Euler((Float3)data["LightRotation"]);
                 SceneLight.CurrentLight.intensity = (float)data["LightIntensity"];
+                if (data.ContainsKey("LightColor"))
+                    SceneLight.CurrentLight.color = (Engine.Colour)data["LightColor"];
             }
             else
             {
@@ -134,6 +138,7 @@ public class LevelVisualSettingsEditor : Editor
         }
         script.lightRotation = SceneLight.CurrentLight.transform.rotation.eulerAngles;
         script.lightIntensity = SceneLight.CurrentLight.intensity;
+        script.lightColor = SceneLight.CurrentLight.color;
         if(Controller.Instance)
         {
             script.intensity = Controller.Instance.bloom.intensity;
@@ -145,6 +150,7 @@ public class LevelVisualSettingsEditor : Editor
         base.OnInspectorGUI();
         SceneLight.CurrentLight.transform.rotation = Quaternion.Euler(script.lightRotation);
         SceneLight.CurrentLight.intensity = script.lightIntensity;
+        SceneLight.CurrentLight.color = script.lightColor;
         if (Controller.Instance)
         {
             Controller.Instance.bloom.intensity = script.intensity;

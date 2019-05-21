@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: e9ba2083ad114a07d000fbfb8d76c639, type: 3}
-  blurAmount: 1
+  blurAmount: 0.75
   extraBlur: 0
 --- !u!114 &114145853045230952
 MonoBehaviour:
@@ -29230,6 +29230,7 @@ MonoBehaviour:
   gameCamera: {fileID: 1208659932}
   GUI: {fileID: 0}
   chromaticAberration: {fileID: 114024389579281356}
+  motionBlur: {fileID: 114230248278258138}
   vortex: {fileID: 114201262274408484}
   material: {fileID: 2100000, guid: d5f0c18af4ee67547855371a6122b4e2, type: 2}
   lowDetailShader: {fileID: 4800000, guid: c0e65bad2aec54842885f1e149080f34, type: 3}

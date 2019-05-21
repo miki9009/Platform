@@ -27,9 +27,10 @@ public class RotatingObject : LevelElement
 
         if (other.gameObject.layer == Layers.Character && !platformers.ContainsKey(other.gameObject.GetInstanceID()))
         {
-            var trans = other.transform.root;
+            var trans = other.transform;
             trans.SetParent(rotationAnchor);
             platformers.Add(other.gameObject.GetInstanceID(), trans);
+            Debug.Log("Trigger Enter");
         }
     }
 
@@ -41,7 +42,7 @@ public class RotatingObject : LevelElement
             var trans = platformers[id];
             trans.parent = null;
             platformers.Remove(id);
-            //Debug.Log("Removed");
+            Debug.Log("Trigger Exit");
         }
     }
 

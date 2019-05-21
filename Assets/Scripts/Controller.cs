@@ -56,6 +56,7 @@ public class Controller : MonoBehaviour
 
 
     public VignetteAndChromaticAberration chromaticAberration;
+    public MotionBlur motionBlur;
     public Vortex vortex;
 
     private void Awake()

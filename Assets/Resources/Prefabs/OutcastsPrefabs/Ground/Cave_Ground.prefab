@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8070906769695906343}
   - component: {fileID: 1083390164599474994}
   - component: {fileID: 2778853517096618586}
-  - component: {fileID: 39060795}
+  - component: {fileID: 8223454221441937642}
   m_Layer: 10
   m_Name: Cave_Ground
   m_TagString: Untagged
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39060794}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -281.51862, y: 106.56189, z: 37.29122}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00009, y: 0, z: -0.00004}
+  m_LocalScale: {x: 1.2461886, y: 1.2460065, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!33 &1083390164599474994
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -78,8 +78,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &39060795
-MeshCollider:
+--- !u!65 &8223454221441937642
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -88,7 +88,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 820e4637ceb9fc8459e299cd0a9d26c8, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 3.210036, y: 3.2100368, z: 0.2}
+  m_Center: {x: 0, y: 0.0000020265584, z: 0.9}

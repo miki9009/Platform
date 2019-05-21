@@ -10,7 +10,8 @@ namespace Engine
         public CustomScene.SceneryContainer sceneryContainer = CustomScene.SceneryContainer.Level;
 
         public Dictionary<string, object> data;
-
+        public bool castShadow = true;
+        public bool recieveShadow = true;
         public string overridePath;
 
         public string GetName()
@@ -42,6 +43,12 @@ namespace Engine
             data.Add("Rotation", rotation);
             Vector scale = transform.localScale;
             data.Add("Scale", scale);
+            if(!castShadow)
+            {
+                data.Add("CastShadow", castShadow);
+                Debug.Log("Cast Shadow load;");
+            }
+
         }
 
         public virtual void OnLoad()
@@ -50,6 +57,33 @@ namespace Engine
             transform.position = (Vector)data["Position"];
             transform.rotation = (Float4)data["Rotation"];
             transform.localScale = (Vector)data["Scale"];
+            if (data.ContainsKey("RecieveShadow"))
+            {
+                var renderers = GetComponentsInChildren<MeshRenderer>();
+                recieveShadow =  (bool) data["RecieveShadow"];
+                foreach (var rend in renderers)
+                {
+                    rend.receiveShadows = recieveShadow;
+                }
+            }
+            if(data.ContainsKey("CastShadow"))
+            {
+                var renderers = GetComponentsInChildren<MeshRenderer>();
+                castShadow = (bool)data["CastShadow"];
+
+                foreach (var rend in renderers)
+                {
+                    if (castShadow)
+                        rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                    else
+                    {
+                        rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                        Debug.Log("Cast shadow turned off for: " + rend.name);
+                    }
+
+                }
+            }
+
 
 //#if UNITY_EDITOR
 //            name += " (" + elementID + ")";

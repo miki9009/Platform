@@ -102,7 +102,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     protected float verInput = 0;
     protected float horInput = 0;
     protected float jumpInput = 0;
-    protected float forwardPower;
+    public float forwardPower;
     protected Action Movement;
 
     ParticleSystem smokeExplosion;
