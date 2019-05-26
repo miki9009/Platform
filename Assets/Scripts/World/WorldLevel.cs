@@ -11,7 +11,20 @@ public class WorldLevel : MonoBehaviour
 
     private void Awake()
     {
-        GetComponentInParent<MapFocused>().levels.Add(this);
+        WorldPointer.Click += WorldPointer_Click;
+    }
+
+    private void OnDestroy()
+    {
+        WorldPointer.Click -= WorldPointer_Click;
+    }
+
+    private void WorldPointer_Click(Transform t)
+    {
+        if(t == transform)
+        {
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,7 +39,7 @@ public class WorldLevel : MonoBehaviour
 
     void GoToLevelAdditive()
     {
-        LevelManager.ChangeLevel(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetLevelName(customLevel));
+        LevelManager.BeginCustomLevelLoadSequenceAdditive(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetSceneName(customLevel));
     }
 
 

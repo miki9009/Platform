@@ -2,12 +2,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [CreateAssetMenu(menuName = key)]
 public class MissionsConfig : Config
 {
     public const string key = "Configs/MissionsConfig";
     public List<MissionContainer> containers;
+
+    public string selectedScene;
 
     static MissionsConfig instance;
     public static MissionsConfig Instance
@@ -90,3 +95,41 @@ public class MissionContainer
     public string scene;
     public List<Mission> missions;
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(MissionsConfig))]
+public class MissionsConfigEditor : Editor
+{
+    LevelSelector levels;
+    int sceneIndex;
+
+    public override void OnInspectorGUI()
+    {
+
+        base.OnInspectorGUI();
+
+        var config = (MissionsConfig)target;
+        GUILayout.Button("Custom");
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        if (levels == null)
+            levels = new LevelSelector();
+
+        string sceneName = config.selectedScene;
+        for (int i = 0; i < levels.items.Length; i++)
+        {
+            if (sceneName == levels.items[i])
+                sceneIndex = i;
+        }
+
+        EditorGUILayout.LabelField("SCENE", EditorStyles.boldLabel);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Scene Name: ");
+        sceneIndex = EditorGUILayout.Popup(sceneIndex, levels.items);
+        EditorGUILayout.EndHorizontal();
+
+    }
+}
+#endif

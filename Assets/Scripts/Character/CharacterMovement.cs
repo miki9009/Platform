@@ -21,6 +21,24 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
                 anim.SetBool("onGround", value);
         }
     }
+
+    bool _isClimbing;
+    public bool IsClimbing
+    {
+        get
+        {
+            return _isClimbing;
+        }
+
+        set
+        {
+            if(value != _isClimbing)
+            {
+                anim.SetBool("IsClimbing", value);
+                _isClimbing = value;
+            }
+        }
+    }
     public ParticleSystem smoke2;
     public Transform model;
     public LayerMask enemyLayer;
@@ -310,12 +328,11 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
-        if (!MovementEnabled)
+        if (!MovementEnabled || IsClimbing)
         {
-            if(shieldUp)
-                ShieldMovement();
             return;
         }
+
         Rotation();
         SetAnimationHorizontal(rb.velocity);
         Move();
@@ -354,8 +371,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     protected virtual void Update()
     {
-        if(timeBeforeAnotherRoll > 0)
-            timeBeforeAnotherRoll -= Time.deltaTime;
+
         if (!MovementEnabled) return;
 
         forward = transform.forward;
@@ -364,6 +380,12 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         Inputs();
         attack = false;
 
+#if UNITY_EDITOR
+    if(Input.GetKeyDown(KeyCode.C))
+        {
+            Climb();
+        }
+#endif
 
         //movable.Rigidbody.transform.position += transform.forward * character.stats.pushForce + (Vector3.up * character.stats.pushForce / 4);
 
@@ -464,8 +486,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         throwAnimationHash = Animator.StringToHash("Throw");
         attackAnimationHash = Animator.StringToHash("Attack");
         hitAnimationHash = Animator.StringToHash("hit");
-        rollAnimationHash = Animator.StringToHash("Roll");
-        shieldAnimationHash = Animator.StringToHash("Shield");
 
         AnimatorBehaviour.StateEnter += (animatorStateInfo)=>
         {
@@ -494,19 +514,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             {
                 MovementEnabled = true;
             }
-            else if (animatorStateInfo.shortNameHash == rollAnimationHash) //ROLLING
-            {
-                isRolling = false;
-                ResetVelocity();
-                MovementEnabled = true;
-                //anim.SetTrigger("ShieldUp");
-                anim.SetTrigger("ShieldDown");
-                timeBeforeAnotherRoll = 0.25f;
-            }
-            if(animatorStateInfo.shortNameHash == shieldAnimationHash) //SHIELD
-            {
-                shieldUp = false;
-            }
+
         };
     }
 
@@ -538,14 +546,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     {
         if(!character.IsLocalPlayer)
             Controller.Instance.gameCamera.Shake(0.15f, 2, 0.05f);
-    }
-
-    protected virtual void ShieldMovement()
-    {
-        if(shieldUp)
-        {
-            Engine.Log.Print("Not implemented");
-        }
     }
 
     IMovable movable;
@@ -583,6 +583,13 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             anim.SetBool("Push", true);
         }
 
+    }
+
+    public void Climb()
+    {
+        anim.Play("Climb");
+        IsClimbing = true;
+        rb.useGravity = false;
     }
 
 }

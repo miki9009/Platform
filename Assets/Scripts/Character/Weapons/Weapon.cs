@@ -90,7 +90,7 @@ public class Weapon : MonoBehaviour, IRightArmItem
         Transform enemy = null;
         foreach (var hit in hits)
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             if (hit.transform == character.transform) continue;
             //angle2 = Vector3.Angle(character.transform.position, hit.point);
             dot2 = Vector3.Dot(character.transform.forward, Engine.Vector.Direction(character.transform.position, hit.transform.position)) * 100;
