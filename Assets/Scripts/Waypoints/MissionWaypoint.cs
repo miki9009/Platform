@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissionWaypoint : LevelElement
 {
-    [CustomLevelSelector]
+    [MissionSelector]
     public string levelName;
     public float height = 1;
     public bool active = true;

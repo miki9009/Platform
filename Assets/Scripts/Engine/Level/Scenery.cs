@@ -78,7 +78,6 @@ namespace Engine
                     else
                     {
                         rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                        Debug.Log("Cast shadow turned off for: " + rend.name);
                     }
 
                 }

@@ -27,8 +27,7 @@ public class LevelButtonsCreator : MonoBehaviour
             if(i < missions.Count)
             {
                 button.gameObject.SetActive(true);
-                button.customLevel = missions[i].level;
-                button.customScene = missions[i].customScene;
+                button.mission = missions[i];
             }
             else
             {

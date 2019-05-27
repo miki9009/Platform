@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelButton : MonoBehaviour
 {
-    [CustomLevelSelector]
-    public string customLevel;
-
-    public string customScene;
+    public Mission mission;
 
 
     public void GoToLevelAdditive()
@@ -21,10 +18,8 @@ public class LevelButton : MonoBehaviour
         }
         catch { }
         WorldWindow.HideWorldWindow();
-        string sceneName = LevelsConfig.GetSceneName(customLevel);
-        if (customScene == "none")
-            customScene = null;
-        LevelManager.BeginCustomLevelLoadSequenceAdditive(sceneName, LevelsConfig.GetLevelName(customLevel), customScene);
+        Debug.Log("Loading mission: " + mission);
+        LevelManager.BeginCustomLevelLoadSequenceAdditive(mission);
     }
 
 }

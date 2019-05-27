@@ -15,115 +15,100 @@ MonoBehaviour:
   containers:
   - scene: Mine
     missions:
-    - level: Mine:0
-      mode: Mine
+    - scene: Mine
+      level: 0
       customScene: none
-      passed: 0
+      mode: Mine
       unlocked: 0
-      unlocks: 
   - scene: FirstLevel
     missions:
-    - level: FirstLevel:0
+    - scene: FirstLevel
+      level: 0
+      customScene: 0
       mode: Single_Challenge
-      customScene: FirstLevel_0
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: FirstLevel:1
+    - scene: FirstLevel
+      level: 1
+      customScene: 0
       mode: Single_Score
-      customScene: FirstLevel_0
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: FirstLevel:Multiplayer1
+    - scene: FirstLevel
+      level: 2
+      customScene: 1
       mode: Multi_Score
-      customScene: FirstLevel_0
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: FirstLevel:1_1
+    - scene: FirstLevel
+      level: 3
+      customScene: 2
       mode: Single_Challenge
-      customScene: FirstLevel_1
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: FirstLevel:1_2
+    - scene: FirstLevel
+      level: 4
+      customScene: 3
       mode: Single_Challenge
-      customScene: FirstLevel_2
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: FirstLevel:_3
+    - scene: FirstLevel
+      level: 5
+      customScene: 0
       mode: Single_Challenge
-      customScene: FirstLevel_3
-      passed: 0
       unlocked: 0
-      unlocks: 
   - scene: SecondLevel
     missions:
-    - level: SecondLevel:0
+    - scene: SecondLevel
+      level: 0
+      customScene: 0
       mode: Single_Challenge
-      customScene: SecondLevel_0
-      passed: 0
       unlocked: 0
-      unlocks: 
   - scene: ThirdScene
     missions:
-    - level: ThirdScene:0
+    - scene: ThirdScene
+      level: 0
+      customScene: 0
       mode: Single_Challenge
-      customScene: ThirdScene_0
-      passed: 0
       unlocked: 0
-      unlocks: 
   - scene: Caves
     missions:
-    - level: Caves:0
+    - scene: Caves
+      level: 0
+      customScene: 0
       mode: Single_Challenge
-      customScene: Caves_0
-      passed: 0
       unlocked: 0
-      unlocks: 
   - scene: Ice1
     missions:
-    - level: Ice1:0
+    - scene: Ice1
+      level: 0
+      customScene: 0
       mode: Single_Challenge
-      customScene: Ice_0
-      passed: 0
       unlocked: 0
-      unlocks: 
   - scene: WaterLand
     missions:
-    - level: WaterLand:0
-      mode: Single_Race
+    - scene: WaterLand
+      level: 0
       customScene: none
-      passed: 0
+      mode: Single_Race
       unlocked: 0
-      unlocks: 
   - scene: Temple1
     missions:
-    - level: Temple1:0
+    - scene: Temple1
+      level: 0
+      customScene: 0
       mode: Single_Challenge
-      customScene: Temple1_1
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: Temple1:1
+    - scene: Temple1
+      level: 1
+      customScene: 1
       mode: Single_Challenge
-      customScene: Temple1_2
-      passed: 0
       unlocked: 0
-      unlocks: 
-    - level: Temple1:2
+    - scene: Temple1
+      level: 2
+      customScene: 2
       mode: Single_Challenge
-      customScene: Temple1_3
-      passed: 0
       unlocked: 0
-      unlocks: 
   - scene: CustomScene
     missions:
-    - level: CustomScene:0
-      mode: Single_Challenge
+    - scene: 
+      level: CustomScene:0
       customScene: none
-      passed: 0
+      mode: Single_Challenge
       unlocked: 0
-      unlocks: 
+  selectedScene: 

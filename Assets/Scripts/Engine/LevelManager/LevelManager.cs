@@ -197,19 +197,6 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadSceneAsync(sceneName, mode);
     }
 
-
-
-
-
-    //public static void BeginLevelLoadSequence(string levelName)
-    //{
-    //    levelToLoad = levelName;
-    //    Debug.Log("Current level set to: " + levelToLoad);
-    //    GameManager.CurrentLevel = levelToLoad;
-    //    LoadScene(LevelManager.Instance.gameScene, LoadSceneMode.Additive);
-    //    SceneManager.sceneLoaded += instance.AddLevelScene;
-    //}
-
     public static void BeginCustomLevelLoadSequenceAdditive(string sceneName, string customLevel, string customScene = null)
     {
         _sceneToLoad = sceneName;
@@ -225,6 +212,25 @@ public class LevelManager : MonoBehaviour
         LoadScene(Instance.gameScene, LoadSceneMode.Additive);
         SceneManager.sceneLoaded += Instance.AddLevelScene;
         LoadCustomLevel += OnLoadCustomLevel;
+    }
+
+    public static void BeginCustomLevelLoadSequenceAdditive(Mission mission)
+    {
+        BeginCustomLevelLoadSequenceAdditive(mission.scene, mission.level, mission.customScene);
+    }
+
+    public static void BeginCustomLevelLoadSequenceAdditive(string missionID)
+    {
+        var mission = new Mission(missionID);
+        if(mission.IsValid)
+        {
+            BeginCustomLevelLoadSequenceAdditive(mission.scene, mission.customScene, mission.customScene);
+        }
+        else
+        {
+            Debug.LogError("Mission invalid, ID was: " + missionID);
+        }
+
     }
 
     public static void ChangeLevel(string sceneName, string customLevel)
@@ -251,7 +257,7 @@ public class LevelManager : MonoBehaviour
         Character character = Character.GetLocalPlayer();
         if (character != null)
             Destroy(character.gameObject);
-        if (!string.IsNullOrEmpty(CurrentCustomLevel))
+        if (!string.IsNullOrEmpty(CurrentCustomLevel) && customLevel != "none")
         {
             CurrentCustomLevel = customLevel;
             Level.LoadWithScene(SceneManager.GetActiveScene().name, CurrentCustomLevel, null);

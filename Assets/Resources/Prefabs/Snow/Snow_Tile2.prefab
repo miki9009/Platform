@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5063905558008170883}
   - component: {fileID: 2694166810695456917}
   - component: {fileID: 6289413066843560103}
-  - component: {fileID: 4026397358678194057}
   - component: {fileID: 9037712066184121393}
+  - component: {fileID: 7357403219632397848}
   m_Layer: 10
   m_Name: Snow_Tile2
   m_TagString: Untagged
@@ -79,20 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4026397358678194057
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8409636412652733402}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: ba622fad38b837a4ebb1bb84785fed95, type: 3}
 --- !u!114 &9037712066184121393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,4 +91,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -1
+  sceneryContainer: 0
+  castShadow: 1
+  recieveShadow: 1
+  overridePath: 
+--- !u!65 &7357403219632397848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8409636412652733402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.000128, y: 8.00013, z: 0.2}
+  m_Center: {x: 0, y: 0, z: -0.09}

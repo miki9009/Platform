@@ -59,8 +59,12 @@ public class WorldCameraMovement : MonoBehaviour
             yield return null;
         }
 
-        vignette.intensity = 0;
-        vignette.enabled = false;
+        if(vignette)
+        {
+            vignette.intensity = 0;
+            vignette.enabled = false;
+        }
+
     }
 
     [EventMethod]

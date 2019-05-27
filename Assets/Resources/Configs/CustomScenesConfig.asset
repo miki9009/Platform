@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CustomScenesConfig
   m_EditorClassIdentifier: 
   sceneName: FirstLevel
-  selectedCustomScene: FirstLevel_3
+  selectedCustomScene: 3
   customScenesPath: Resources/CustomScenes/
   sceneGroups:
   - sceneName: CustomScene
@@ -22,25 +22,25 @@ MonoBehaviour:
     - CustomScene1
   - sceneName: Temple1
     customScenes:
-    - Temple1_1
-    - Temple1_2
-    - Temple1_3
+    - 0
+    - 1
+    - 2
   - sceneName: FirstLevel
     customScenes:
-    - FirstLevel_0
-    - FirstLevel_1
-    - FirstLevel_2
-    - FirstLevel_3
+    - 0
+    - 1
+    - 2
+    - 3
   - sceneName: SecondLevel
     customScenes:
-    - SecondLevel_0
+    - 0
   - sceneName: Caves
     customScenes:
-    - Caves_0
-    - _1_
+    - 0
+    - 1
   - sceneName: ThirdScene
     customScenes:
-    - ThirdScene_0
+    - 0
   - sceneName: Ice1
     customScenes:
-    - Ice_0
+    - 0

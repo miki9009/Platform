@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+
 namespace Engine.Config
 {
     [CreateAssetMenu(menuName = PATH + FILENAME)]
@@ -44,14 +45,16 @@ namespace Engine.Config
 
         public virtual void OnBeforeSerialize()
         {
-//            if (Name != GetType().ToString())
-//            {
+            //            if (Name != GetType().ToString())
+            //            {
+            //#if UNITY_EDITOR
+            //                UnityEditor.AssetDatabase.RenameAsset(UnityEditor.AssetDatabase.GetAssetPath(this), GetType().ToString());
+            //#endif
+            //                Name = name;
+            //            }
 //#if UNITY_EDITOR
-//                UnityEditor.AssetDatabase.RenameAsset(UnityEditor.AssetDatabase.GetAssetPath(this), GetType().ToString());
+//            UnityEditor.AssetDatabase.Refresh();
 //#endif
-//                Name = name;
-//            }
-
 
         }
 

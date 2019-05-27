@@ -164,11 +164,11 @@ namespace Engine
             levelElementIDs.Clear();
         }
 
-        public static void LoadWithScene(string scene, string levelName, string customScene)
+        public static void LoadWithScene(string _scene, string _levelName, string _customScene)
         {
-            SceneName = scene;
-            GameManager.GameMode = MissionsConfig.GetMode(LevelsConfig.GetFullName(scene, levelName));
-            Load(levelName);
+            SceneName = _scene;
+            GameManager.GameMode = MissionsConfig.GetMode(new Mission() { scene = _scene, level = _levelName, customScene = _customScene });
+            Load(_levelName);
         }
 
         public static void Load(string levelName, bool compressed = true)
@@ -192,12 +192,13 @@ namespace Engine
             ClearIDs(); //CLEAR IDS
             string assetPath = partPath +"/" + levelName;
             TextAsset asset = Resources.Load(assetPath) as TextAsset;
-            if(asset == null)
+            Debug.Log("Path: " + assetPath);
+            if (asset == null)
             {
                 Debug.Log("Level was null");
                 return;
             }
-            Debug.Log("Path: " + assetPath);
+
             var bytes = asset.bytes;
 
             object data = null;

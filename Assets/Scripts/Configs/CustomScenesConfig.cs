@@ -52,6 +52,18 @@ public class CustomScenesConfig : Config
         return list;
     }
 
+    public List<string> GetAllCustomScenesForScene(string sceneName)
+    {
+        for (int i = 0; i < sceneGroups.Count; i++)
+        {
+            if (sceneGroups[i].sceneName == sceneName)
+            {
+                return sceneGroups[i].customScenes;
+            }
+        }
+        return new List<string>();
+    }
+
 }
 [System.Serializable]
 public class CustomSceneGroup

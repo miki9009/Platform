@@ -43,6 +43,18 @@ public class LevelsConfig : Config
         string[] names = fullName.Split(':');
         return names[0];
     }
+
+    public List<string> GetAllLevels(string sceneName)
+    {
+        for (int i = 0; i < levels.Count; i++)
+        {
+            if(levels[i].sceneName == sceneName)
+            {
+                return levels[i].levels;
+            }
+        }
+        return new List<string>();
+    }
 }
 [System.Serializable]
 public class LevelGroup
