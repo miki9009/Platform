@@ -4,14 +4,29 @@ using UnityEngine.SceneManagement;
 
 public class WorldLevel : MonoBehaviour
 {
-    [CustomLevelSelector]
-    public string customLevel;
-    public Light lght;
+    [MissionSelector]
+    public string mission;
+    public LineRenderer lineRenderer;
     public SphereCollider sphereCollider;
+    public Color reachedColor;
+    public Color notReachedColor;
+    public int index;
+
+    WorldLevel nextLevel;
 
     private void Awake()
     {
         WorldPointer.Click += WorldPointer_Click;
+        World.AddWorldLevel(this);
+    }
+
+    private void Start()
+    {
+        nextLevel = World.FindTargetLevel(this);
+        if(nextLevel)
+        {
+            SetLineRendererOnTarget();
+        }
     }
 
     private void OnDestroy()
@@ -39,13 +54,16 @@ public class WorldLevel : MonoBehaviour
 
     void GoToLevelAdditive()
     {
-        LevelManager.BeginCustomLevelLoadSequenceAdditive(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetSceneName(customLevel));
+        LevelManager.BeginCustomLevelLoadSequenceAdditive(mission);
+    }
+
+    void SetLineRendererOnTarget()
+    {
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, nextLevel.transform.position);
+        lineRenderer.startColor
     }
 
 
-    //void BeginLoading(Scene scene)
-    //{
-    //    //SceneManager.sceneUnloaded -= BeginLoading;
-    //    LevelManager.BeginCustomLevelLoadSequenceAdditive(LevelsConfig.GetSceneName(customLevel), LevelsConfig.GetLevelName(customLevel));
-    //}
 }
+

@@ -3,6 +3,7 @@ using Engine;
 using Engine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class World : MonoBehaviour
 {
@@ -10,52 +11,42 @@ public class World : MonoBehaviour
     public static World Instance { get; private set; }
 
     public WorldWindow Window { get; private set; }
-    [CustomLevelSelector]
-    public string customLevel;
 
-    static string levelName;
+    static Dictionary<string, WorldLevel> worldLevels = new Dictionary<string, WorldLevel>();
 
-    bool showFps;
+    public static void AddWorldLevel(WorldLevel worldLevel)
+    {
+        if(!worldLevels.ContainsValue(worldLevel))
+        {
+            worldLevels.Add(worldLevel.mission, worldLevel);
+        }
+    }
+
+    public static WorldLevel FindTargetLevel(WorldLevel worldLevel)
+    {
+        foreach(var item in worldLevels.Values)
+        {
+            if(worldLevel.index == item.index-1)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
     private void Awake()
     {
         Instance = this;
-        levelName = customLevel;
-        Window = UIWindow.GetWindow<WorldWindow>(); 
-        if(Window!=null)
-        {
-            Debug.Log("Initialized world");
-        }
-
-        Character.CharacterCreated += InitCharacter;
-
-        if(DataManager.Exists())
-            showFps = DataManager.Settings.showFps;
-        Initialized?.Invoke();
     }
 
     private void OnDestroy()
     {
-        Character.CharacterCreated -= InitCharacter;
+        worldLevels.Clear();
     }
 
-    void InitCharacter(Character character)
-    {
-        character.transform.localScale = new Vector3(2, 2, 2);
-    }
+    
 
-    [EventMethod]
-    public static void BackToWorld()
-    {
-            LevelManager.ChangeLevel(LevelsConfig.GetSceneName("World"), LevelsConfig.GetLevelName(levelName));
-    }
 
-    private void OnGUI()
-    {
-       // Draw.TextColor(10, 300, 255, 0, 0, 1, "Mouse pos: " + PointerPosition);
-        if (showFps)
-        {
-            Draw.DisplayFpsMedian(Screen.width / 2, 10, Color.red, 40);
 
-        }
-    }
 }

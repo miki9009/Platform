@@ -25,33 +25,33 @@ public class MapFocused : MonoBehaviour
 
     void ManageMaterial()
     {
-        if (up)
-        {
-            if (time < 1)
-            {
-                time += Time.deltaTime * lightAnimationSpeed;
-            }
-            else
-            {
-                up = false;
-            }
-        }
-        else
-        {
-            if (time > 0)
-            {
-                time -= Time.deltaTime * lightAnimationSpeed;
-            }
-            else
-            {
-                up = true;
-            }
-        }
-        missionOnMaterial.color = Color.Lerp(missionOnColorMin, missionOnColorMax, time);
-        for (int i = 0; i < levels.Count; i++)
-        {
-            if (levels[i].enabled)
-                levels[i].lght.intensity = time;
-        }
+        //if (up)
+        //{
+        //    if (time < 1)
+        //    {
+        //        time += Time.deltaTime * lightAnimationSpeed;
+        //    }
+        //    else
+        //    {
+        //        up = false;
+        //    }
+        //}
+        //else
+        //{
+        //    if (time > 0)
+        //    {
+        //        time -= Time.deltaTime * lightAnimationSpeed;
+        //    }
+        //    else
+        //    {
+        //        up = true;
+        //    }
+        //}
+        //missionOnMaterial.color = Color.Lerp(missionOnColorMin, missionOnColorMax, time);
+        //for (int i = 0; i < levels.Count; i++)
+        //{
+        //    if (levels[i].enabled)
+        //        levels[i].lght.intensity = time;
+        //}
     }
 }
