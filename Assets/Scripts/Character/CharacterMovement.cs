@@ -204,6 +204,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     public void OnTriggerExit(Collider other)
     {
         OnGround = false;
+        lastCollider = null;
         //smoke.Stop();
     }
 
@@ -243,6 +244,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             Controller.Instance.OnPlayerDead(character);
     }
 
+    Collider lastCollider;
     public void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == Layers.Environment)
@@ -250,6 +252,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             if (!OnGround)
                 smoke2.Play();
             OnGround = true;
+
+            lastCollider = other;
         }
         if (other.gameObject.layer != 12 && other.gameObject.layer != 13)
         {

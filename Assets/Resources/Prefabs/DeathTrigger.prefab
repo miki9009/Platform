@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4193124022229356}
   - component: {fileID: 65421860013302608}
   - component: {fileID: 114533173286455418}
-  - component: {fileID: 6138444648245474028}
   m_Layer: 12
   m_Name: DeathTrigger
   m_TagString: Untagged
@@ -26,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663557184418626}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 69.72, y: -3.48, z: -1.0959871}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -58,16 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f5a779393b0ab47aebee41608c49f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6138444648245474028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663557184418626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   sceneryContainer: 2
+  castShadow: 1
+  recieveShadow: 1
+  overridePath: 
+  boxCollider: {fileID: 65421860013302608}
+  color: {r: 0, g: 0, b: 1, a: 0.3647059}
+  draw: 1

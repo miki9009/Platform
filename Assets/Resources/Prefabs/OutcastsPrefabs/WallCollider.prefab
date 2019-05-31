@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8053740289285323487}
   - component: {fileID: 8053740289285323472}
   - component: {fileID: 6867225053288348757}
-  - component: {fileID: 7406746283086374428}
   m_Layer: 15
   m_Name: WallCollider
   m_TagString: Untagged
@@ -58,18 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef22a2ec55cc1949a61a526bee30d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneryContainer: 1
+  castShadow: 1
+  recieveShadow: 1
+  overridePath: 
+  boxCollider: {fileID: 8053740289285323472}
   color: {r: 1, g: 0, b: 0, a: 0.5803922}
   draw: 1
---- !u!114 &7406746283086374428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8053740289285323475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneryContainer: 1

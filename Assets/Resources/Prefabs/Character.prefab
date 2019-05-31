@@ -9815,7 +9815,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: -0.08, z: 0}
 --- !u!114 &114668861302155250
 MonoBehaviour:
@@ -9924,6 +9924,7 @@ MonoBehaviour:
   timeBeforeAnotherRoll: 0
   powerUpAnchor: {fileID: 4764736621498302}
   airForce: 5
+  forwardPower: 0
   onIce: 0
   iceForce: 30
   collisionLayer:
@@ -14472,6 +14473,7 @@ GameObject:
   - component: {fileID: 3315211251164052856}
   - component: {fileID: 5325011789063756706}
   - component: {fileID: 2052007253790391953}
+  - component: {fileID: 2733740406351314494}
   m_Layer: 10
   m_Name: PushTrigger
   m_TagString: Untagged
@@ -14518,3 +14520,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bb9fb44cdd001458d5812a679453a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2733740406351314494
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961624794427102748}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

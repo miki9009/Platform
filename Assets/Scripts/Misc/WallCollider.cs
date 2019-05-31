@@ -1,10 +1,28 @@
 ﻿using UnityEngine;
+using Engine;
 
-public class WallCollider : MonoBehaviour
+public class WallCollider : Scenery
 {
+    public BoxCollider boxCollider;
+
+    public override void OnSave()
+    {
+        base.OnSave();
+        data["ColliderSize"] = (Float3)boxCollider.size;
+        data["ColliderCenter"] = (Float3)boxCollider.center;
+    }
+
+    public override void OnLoad()
+    {
+        base.OnLoad();
+        if(data.ContainsKey("ColliderSize"))
+            boxCollider.size = (Float3)data["ColliderSize"];
+        if(data.ContainsKey("ColliderCenter"))
+            boxCollider.center = (Float3)data["ColliderCenter"];
+    }
+
 
 #if UNITY_EDITOR
-    BoxCollider boxCollider;
     public Color color = Color.red;
     public bool draw = true;
 
