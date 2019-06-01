@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public static bool IsSceneLoaded { get; private set; }
     public static bool isLevel;
     public static string CurrentScene { get; set; }
+    public static Mission CurrentMission { get; set; }
+    public static int MissionIndex { get; set; }
 
     static string _gameMode;
     public static string GameMode
@@ -84,6 +86,14 @@ public class GameManager : MonoBehaviour
         get
         {
             return LevelManager.CurrentCustomLevel;
+        }
+    }
+
+    public static string CustomScene
+    {
+        get
+        {
+            return LevelManager.CurrentCustomScene;
         }
     }
     

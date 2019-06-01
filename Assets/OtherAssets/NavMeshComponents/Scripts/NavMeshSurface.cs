@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -6,6 +7,7 @@ using UnityEditor.SceneManagement;
 
 namespace UnityEngine.AI
 {
+
     public enum CollectObjects
     {
         All = 0,
@@ -158,8 +160,33 @@ namespace UnityEngine.AI
 
         public void BuildNavMesh()
         {
+
             var sources = CollectSources();
 
+            // Use unscaled bounds - this differs in behaviour from e.g. collider components.
+            // But is similar to reflection probe - and since navmesh data has no scaling support - it is the right choice here.
+            var sourcesBounds = new Bounds(m_Center, Abs(m_Size));
+            if (m_CollectObjects == CollectObjects.All || m_CollectObjects == CollectObjects.Children)
+            {
+                sourcesBounds = CalculateWorldBounds(sources);
+            }
+
+            var data = NavMeshBuilder.BuildNavMeshData(GetBuildSettings(),
+                    sources, sourcesBounds, transform.position, transform.rotation);
+
+            if (data != null)
+            {
+                data.name = gameObject.name;
+                RemoveData();
+                m_NavMeshData = data;
+                if (isActiveAndEnabled)
+                    AddData();
+            }
+        }
+
+        public void BuildNavmeshCustom(Transform root)
+        {
+            var sources = CollectSourcesCustom(root);
             // Use unscaled bounds - this differs in behaviour from e.g. collider components.
             // But is similar to reflection probe - and since navmesh data has no scaling support - it is the right choice here.
             var sourcesBounds = new Bounds(m_Center, Abs(m_Size));
@@ -339,6 +366,49 @@ namespace UnityEngine.AI
                     NavMeshBuilder.CollectSources(worldBounds, m_LayerMask, m_UseGeometry, m_DefaultArea, markups, sources);
                 }
             }
+
+            if (m_IgnoreNavMeshAgent)
+                sources.RemoveAll((x) => (x.component != null && x.component.gameObject.GetComponent<NavMeshAgent>() != null));
+
+            if (m_IgnoreNavMeshObstacle)
+                sources.RemoveAll((x) => (x.component != null && x.component.gameObject.GetComponent<NavMeshObstacle>() != null));
+
+            AppendModifierVolumes(ref sources);
+
+            return sources;
+        }
+
+        List<NavMeshBuildSource> CollectSourcesCustom(Transform root)
+        {
+            var sources = new List<NavMeshBuildSource>();
+            var markups = new List<NavMeshBuildMarkup>();
+
+            List<NavMeshModifier> modifiers;
+            if (m_CollectObjects == CollectObjects.Children)
+            {
+                modifiers = new List<NavMeshModifier>(GetComponentsInChildren<NavMeshModifier>());
+                modifiers.RemoveAll(x => !x.isActiveAndEnabled);
+            }
+            else
+            {
+                modifiers = NavMeshModifier.activeModifiers;
+            }
+
+            foreach (var m in modifiers)
+            {
+                if ((m_LayerMask & (1 << m.gameObject.layer)) == 0)
+                    continue;
+                if (!m.AffectsAgentType(m_AgentTypeID))
+                    continue;
+                var markup = new NavMeshBuildMarkup();
+                markup.root = m.transform;
+                markup.overrideArea = m.overrideArea;
+                markup.area = m.area;
+                markup.ignoreFromBuild = m.ignoreFromBuild;
+                markups.Add(markup);
+            }
+
+           NavMeshBuilder.CollectSources(root, m_LayerMask, m_UseGeometry, m_DefaultArea, markups, sources);
 
             if (m_IgnoreNavMeshAgent)
                 sources.RemoveAll((x) => (x.component != null && x.component.gameObject.GetComponent<NavMeshAgent>() != null));

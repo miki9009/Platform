@@ -217,6 +217,9 @@ namespace Engine
 
                     if (sceneryElement != null)
                     {
+                        sceneryElement.data = (Dictionary<string, object>)element.Key;
+                        sceneryElement.OnLoad();
+
 #if UNITY_EDITOR
                         try
                         {
@@ -229,8 +232,6 @@ namespace Engine
 #else
                      obj.transform.SetParent(sceneryContainers[sceneryElement.sceneryContainer]);
 #endif
-                        sceneryElement.data = (Dictionary<string, object>)element.Key;
-                        sceneryElement.OnLoad();
                     }
                 }
                 else
@@ -242,8 +243,11 @@ namespace Engine
             {
                 var level = sceneryContainers[SceneryContainer.NavSurface];
                 var navSurface = level.gameObject.AddComponent<UnityEngine.AI.NavMeshSurface>();
-                
+                //var layer = LayerMask.v
+                navSurface.layerMask = 1024;
+
                 navSurface.BuildNavMesh();
+                //navSurface.BuildNavmeshCustom(level);
                 foreach (var rootTransform in sceneryContainers.Values)
                 {
                     StaticBatchingUtility.Combine(rootTransform.gameObject);

@@ -318,7 +318,6 @@ namespace Engine
             {
                 if(SceneManager.GetSceneByName("menu3D").isLoaded)
                 {
-                    Log.Print("CustomScene: " + CustomScene.Config.selectedCustomScene);
                     LevelManager.BeginCustomLevelLoadSequenceAdditive(Config.selectedScene, Config.selectedLevel, CustomScene.Config.selectedCustomScene);
                     loaded = true;
                 }

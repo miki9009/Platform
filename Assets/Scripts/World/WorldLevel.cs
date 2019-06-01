@@ -11,8 +11,12 @@ public class WorldLevel : MonoBehaviour
     public Color reachedColor;
     public Color notReachedColor;
     public int index;
+    public Material mat_ON;
+    public Material mat_OFF;
+    public MeshRenderer meshRenderer;
+    public bool active;
 
-    WorldLevel nextLevel;
+    public WorldLevel nextLevel;
 
     private void Awake()
     {
@@ -22,11 +26,8 @@ public class WorldLevel : MonoBehaviour
 
     private void Start()
     {
-        nextLevel = World.FindTargetLevel(this);
-        if(nextLevel)
-        {
-            SetLineRendererOnTarget();
-        }
+
+        SetValues();
     }
 
     private void OnDestroy()
@@ -36,32 +37,45 @@ public class WorldLevel : MonoBehaviour
 
     private void WorldPointer_Click(Transform t)
     {
-        if(t == transform)
+        if(active &&  t == transform)
         {
-
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.attachedRigidbody != null)
-        {
-            var character = other.attachedRigidbody.GetComponentInParent<Character>();
-            if (character != null && character.IsLocalPlayer)
-                GoToLevelAdditive();
+            Engine.UI.UIWindow.GetWindow("WorldWindowNew").Hide();
+            GoToLevelAdditive();
         }
     }
 
     void GoToLevelAdditive()
     {
+        GameManager.MissionIndex = index;
         LevelManager.BeginCustomLevelLoadSequenceAdditive(mission);
     }
 
-    void SetLineRendererOnTarget()
+    void SetValues()
     {
-        lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, nextLevel.transform.position);
-        lineRenderer.startColor
+        if(index < World.CurrentIndex+1)
+        {
+            lineRenderer.startColor = reachedColor;
+            lineRenderer.endColor = reachedColor;
+            meshRenderer.material = mat_ON;
+            active = true;
+        }
+        else
+        {
+            lineRenderer.startColor = notReachedColor;
+            lineRenderer.endColor = notReachedColor;
+            meshRenderer.material = mat_OFF;
+            active = false;
+        }
+        if (nextLevel)
+        {
+            lineRenderer.SetPosition(0, transform.position + lineRenderer.transform.localPosition);
+            lineRenderer.SetPosition(1, nextLevel.transform.position + lineRenderer.transform.localPosition);
+        }
+        else
+        {
+            lineRenderer.enabled = false;
+        }
+
     }
 
 

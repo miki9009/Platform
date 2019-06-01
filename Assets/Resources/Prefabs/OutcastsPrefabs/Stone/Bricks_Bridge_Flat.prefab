@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneryContainer: 0
+  sceneryContainer: 5
+  castShadow: 1
+  recieveShadow: 1
   overridePath: 
 --- !u!1 &8100885574798390827
 GameObject:

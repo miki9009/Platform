@@ -10,7 +10,8 @@ namespace Engine
     {
         string key;
         object val;
-        bool changed = false;
+
+        public event Action<T> ValueChanged;
 
         Action<object> Setter;
 
@@ -121,6 +122,7 @@ namespace Engine
             {
                 val = value;
                 Setter(value);
+                ValueChanged?.Invoke(value);
             }
         }
 

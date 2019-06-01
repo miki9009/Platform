@@ -16,6 +16,12 @@ public class WorldWindow: UIWindow
         Instance = this;
     }
 
+    public override void OnHidden()
+    {
+        base.OnHidden();
+        Debug.Log("Hiding");
+    }
+
     //private void OnDestroy()
     //{
     //    Level.LevelLoaded -= Level_LevelLoaded;

@@ -4968,6 +4968,31 @@ MonoBehaviour:
   numberOfLeaves: 25
   blur: 1
   parts: {fileID: 198746659141200984}
+  shootSpeed: 1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.0173519
+      outSlope: 3.0173519
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.019067796
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   curve: {fileID: 114988533144132062}
   points:
   - {fileID: 4207307017537908}

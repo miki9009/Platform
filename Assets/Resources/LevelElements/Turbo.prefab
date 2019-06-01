@@ -13796,11 +13796,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194ca769e741d4244aae08f821d055c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -233213
+  elementID: -4393849
   arrowTarget: 0
   activeAndEnabled: 1
-  activeTime: 0.5
-  force: 1
+  activeTime: 2
+  force: 0.5
   parts: {fileID: 411257075263521987}
   cubeTransform: {fileID: 3437594431145088693}
   curve:

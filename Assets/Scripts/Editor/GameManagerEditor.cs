@@ -88,8 +88,41 @@ public class GameManagerEditor : Editor
             GUI.backgroundColor = col;
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Custom Scene Name: ", style2, GUILayout.MinWidth(50));
+            EditorGUILayout.LabelField(GameManager.CustomScene, style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            GUI.backgroundColor = defaultColor;
+
+
+            //CustomLevel
+            GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Custom Level Name: ", style2, GUILayout.MinWidth(50));
             EditorGUILayout.LabelField(GameManager.CustomLevelID, style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            GUI.backgroundColor = defaultColor;
+
+            //CustomLevel
+            GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("MissionID: ", style2, GUILayout.MinWidth(50));
+            if(GameManager.CurrentMission != null)
+                 EditorGUILayout.LabelField(GameManager.CurrentMission.ToString(), style, GUILayout.MinWidth(50));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            GUI.backgroundColor = defaultColor;
+
+            //CustomLevel
+            GUI.backgroundColor = col;
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Mission Index: ", style2, GUILayout.MinWidth(50));
+            if (GameManager.CurrentMission != null)
+                EditorGUILayout.LabelField(GameManager.MissionIndex.ToString(), style, GUILayout.MinWidth(50));
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
             GUI.backgroundColor = defaultColor;

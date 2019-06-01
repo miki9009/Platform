@@ -16,13 +16,13 @@ public class Weapon : MonoBehaviour, IRightArmItem
 
     public CollectionObject CollectionObject { get; set; }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         Apply();
         character.AddItem(this);
     }
 
-    void Awake()
+    protected virtual void Awake()
     {
         if (triggerBroadcast)
         {

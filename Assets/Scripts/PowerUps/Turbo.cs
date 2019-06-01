@@ -38,21 +38,33 @@ public class Turbo : LevelElement
 
     IEnumerator IncreaseCharacterSpeed(Character character, float time)
     {
-        float speedMultiplier = 0;
+        float speedMultiplier = 0.7f;
         parts.Play(true);
         var cam = Controller.Instance.gameCamera.mainCamera;
         //Controller.Instance.motionBlur.enabled = true;
         cam.fieldOfView = 45;
+        bool boost = true;
         while (time > 0)
         {
-            if (cam.fieldOfView < 70)
-                cam.fieldOfView++;
+            cam.fieldOfView = Mathf.Max(60, speedMultiplier * 60);
             character.movement.rb.AddForce(speedMultiplier * character.transform.forward * force, ForceMode.VelocityChange);       
             time -= Time.deltaTime;
-            if (speedMultiplier < 1)
+            if(boost)
             {
-                speedMultiplier += 0.1f;
+                if (speedMultiplier < 1.5f)
+                {
+                    speedMultiplier += Time.deltaTime;
+                }
+                else
+                {
+                    boost = false;
+                }
             }
+            else
+            {
+                speedMultiplier -= Time.deltaTime;
+            }
+
             parts.transform.position = character.transform.position;
             //parts.transform.rotation = Quaternion.Inverse(character.transform.rotation);
             yield return null;

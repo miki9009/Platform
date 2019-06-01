@@ -5,7 +5,7 @@ using UnityEngine;
 public class MissionWaypoint : LevelElement
 {
     [MissionSelector]
-    public string levelName;
+    public string missionID;
     public float height = 1;
     public bool active = true;
 
@@ -46,12 +46,12 @@ public class MissionWaypoint : LevelElement
 
     void GoToLevelAdditive()
     {
-        LevelManager.ChangeLevel(LevelsConfig.GetSceneName(levelName), LevelsConfig.GetLevelName(levelName));
+        LevelManager.ChangeLevel(LevelsConfig.GetSceneName(missionID), LevelsConfig.GetLevelName(missionID));
     }
 
     private void Initialize()
     {
-        mission = MissionsConfig.Instance.GetMission(levelName);
+        mission = MissionsConfig.Instance.GetMission(missionID);
     }
 
     public override void OnLoad()
@@ -62,7 +62,7 @@ public class MissionWaypoint : LevelElement
             object obj;
             if (data.TryGetValue("LevelName", out obj))
             {
-                levelName = (string)obj;
+                missionID = (string)obj;
             }
             if (data.TryGetValue("Height", out obj))
             {
@@ -79,7 +79,7 @@ public class MissionWaypoint : LevelElement
         if (data != null)
         {
             data["Height"] = height;
-            data["LevelName"] = levelName;
+            data["LevelName"] = missionID;
         }
     }
 

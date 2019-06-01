@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1813852628239840304}
   - component: {fileID: 5163025723554726782}
   m_Layer: 10
-  m_Name: Ground_Top_Full (1)
+  m_Name: Ground_Top_Full
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,5 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneryContainer: 0
+  sceneryContainer: 5
+  castShadow: 1
+  recieveShadow: 1
   overridePath: 

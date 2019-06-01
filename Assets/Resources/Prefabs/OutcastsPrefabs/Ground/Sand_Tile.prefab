@@ -90,8 +90,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.634005, y: 9.633905, z: 0.1}
-  m_Center: {x: 0.0014505386, y: 0.00033164033, z: -0.00086550065}
+  m_Size: {x: 9.634005, y: 9.633905, z: 0.5}
+  m_Center: {x: 0.0014505386, y: 0.00033164033, z: -0.25}
 --- !u!114 &560732517537899612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,5 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneryContainer: 0
+  sceneryContainer: 5
+  castShadow: 1
+  recieveShadow: 1
   overridePath: 

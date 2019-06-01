@@ -11,6 +11,8 @@ public class Pipe : LevelElement
     public ParticleSystem parts;
     //public ActivationTrigger trigger;
     public bool Activated{get;set;}
+    public float shootSpeed = 1;
+    public AnimationCurve animationCurve;
 
     public bool Used { get; set; }
     public BezierCurve curve;
@@ -36,18 +38,20 @@ public class Pipe : LevelElement
         }
     }
 
+    bool shoot = false;
     IEnumerator JumpToPipeCor(CharacterMovement movement)
     {
+
         var cam = Controller.Instance.gameCamera.GetComponent<GameCamera>();
         //float lastSpeed = cam.speed;
         //cam.speed = lastSpeed / 6;
         characterMovement = movement;
-        movement.rb.AddForce(Vector3.up * pipeForce, ForceMode.VelocityChange);
-        movement.MovementEnabled = false;
+
+        movement.MovementEnabled = false; 
         Used = true;
-        var target = cam.target;
-        var camStartPos = target.position;
-        cam.SetTarget(null);
+
+        movement.rb.AddForce(Vector3.up * pipeForce, ForceMode.VelocityChange);
+        //cam.SetTarget(null);
         //bool pipeEntered = false;
         //float animation = 0;
         movement.SetAnimation("JumpUp");
@@ -86,29 +90,43 @@ public class Pipe : LevelElement
         //aim.y = currentCharacterPos.y;
         characterRotation = movement.transform.rotation;
         Quaternion destinationRotation = Quaternion.LookRotation(Vector.Direction(movement.transform.position, points[1].position));
-        float camProgress = 0;
-        while (progress < 0.999f)
+        //float camProgress = 0;
+        float smoothProgress = 0;
+
+        while (progress < 0.8f)
         {   
             characterRotation = Quaternion.Slerp(characterRotation, destinationRotation, Time.deltaTime * 10);
             progress += Time.deltaTime / 2;
-            progress = Mathf.Clamp(progress, 0, 0.999f);
-            cam.CameraLookAtPosition(Vector3.Lerp(camStartPos, aim, camProgress));
-            camProgress = Mathf.Clamp01(progress * 2);
-            cam.motionBlure.blurAmount = 1 - progress;
-            currentCharacterPos = curve.GetPointAt(progress);
-            characterMovement.transform.position = currentCharacterPos;
-            characterMovement.transform.rotation = characterRotation;
+            //cam.CameraLookAtPosition(Vector3.Lerp(camStartPos, aim, camProgress));
+            //camProgress = Mathf.Clamp01(progress * 2);
+            smoothProgress = animationCurve.Evaluate(progress);
+            cam.motionBlure.blurAmount = 1 - smoothProgress;
+            currentCharacterPos = curve.GetPointAt(smoothProgress);
+            if (!shoot)
+                shoot = true;
             yield return null;
         }
-        characterMovement.transform.position = points[1].position;
+        //characterMovement.transform.position = points[1].position;
         cam.motionBlure.enabled = false;
         //movement.rb.velocity = Vector3.zero;
         Used = false;
         movement.MovementEnabled = true;
         //cam.SetTarget(target);
         //cam.speed = lastSpeed;
+        shoot = false;
         yield return new WaitForSeconds(0.1f);
-        cam.SetTarget(target);
+        //cam.SetTarget(target);
+    }
+
+    private void FixedUpdate()
+    {
+        if(shoot && characterMovement)
+        {
+            characterMovement.transform.position = Vector3.Lerp(characterMovement.transform.position, currentCharacterPos, 0.1f);
+            var pos = points[1].position;
+            characterMovement.transform.rotation = Quaternion.LookRotation(new Vector3(pos.x,characterMovement.transform.position.y,pos.z) - characterMovement.transform.position);
+        }
+
     }
 
 

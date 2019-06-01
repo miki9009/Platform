@@ -9068,11 +9068,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40076a9b9df012d4da1a060c3bb12a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackTime: 1.5
   collectionPrefab: {fileID: 7418052108421752702, guid: c32040de5d64eba4ba4e3ddd50bc980a,
     type: 3}
   attackParticles: {fileID: 0}
   character: {fileID: 0}
-  collectionObject: {fileID: 0}
+  attackRadius: 8
+  triggerBroadcast: {fileID: 0}
   coolTime: 0.5
   defaultForearmPos: {x: 0, y: 0, z: 0}
   defaultUpperarmPos: {x: 0, y: 0, z: -130}

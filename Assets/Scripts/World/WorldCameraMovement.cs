@@ -10,6 +10,7 @@ using Engine.Threads;
 
 public class WorldCameraMovement : MonoBehaviour
 {
+
     public static Camera CurrentCamera
     {
         get
@@ -39,46 +40,25 @@ public class WorldCameraMovement : MonoBehaviour
     }
 
 
-    IEnumerator MoveTo()
+    void MoveTo()
     {
-        float animation = 0;
-        vignette.enabled = true;
-        while(animation < 1)
-        {
-            animation += Time.deltaTime * animationSpeed;
-            vignette.intensity = animation;
-            yield return null;
-        }
+        if (transform == null || currentTarget == null) return;
         transform.position = currentTarget.position;
         transform.rotation = currentTarget.rotation;
-
-        while (animation > 0)
-        {
-            animation -= Time.deltaTime * animationSpeed;
-            vignette.intensity = animation;
-            yield return null;
-        }
-
-        if(vignette)
-        {
-            vignette.intensity = 0;
-            vignette.enabled = false;
-        }
-
     }
 
     [EventMethod]
     public static void SetViewToWorld()
     {
         instance.currentTarget = instance.worldAnchor;
-        CoroutineHost.Start(instance.MoveTo());
+        instance.MoveTo();
     }
 
     [EventMethod]
     public static void SetViewToStartView()
     {
         instance.currentTarget = instance.startAnchor;
-        CoroutineHost.Start(instance.MoveTo());
+        instance.MoveTo();
     }
 
 

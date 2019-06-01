@@ -34,13 +34,13 @@ public class LevelsConfig : Config
 
     public static string GetLevelName(string fullName)
     {
-        string[] names = fullName.Split(':');
-        return names[1];
+        string[] names = fullName.Split('_');
+        return names[2];
     }
 
     public static string GetSceneName(string fullName)
     {
-        string[] names = fullName.Split(':');
+        string[] names = fullName.Split('_');
         return names[0];
     }
 

@@ -9,6 +9,7 @@ public class World : MonoBehaviour
 {
     public static event Action Initialized;
     public static World Instance { get; private set; }
+    public static int CurrentIndex { get { return MissionConfigHandler.CurrentMissionIndex; } }
 
     public WorldWindow Window { get; private set; }
 
@@ -16,9 +17,17 @@ public class World : MonoBehaviour
 
     public static void AddWorldLevel(WorldLevel worldLevel)
     {
-        if(!worldLevels.ContainsValue(worldLevel))
+        if(!worldLevels.ContainsKey(worldLevel.mission))
         {
             worldLevels.Add(worldLevel.mission, worldLevel);
+        }
+    }
+
+    public static void RemoveWorldLevel(WorldLevel worldLevel)
+    {
+        if (worldLevels.ContainsValue(worldLevel))
+        {
+            worldLevels.Remove(worldLevel.mission);
         }
     }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Engine;
+using Engine.Singletons;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -118,8 +119,8 @@ public class Mission
         if(chain.Length == 3)
         {
             scene = chain[0];
-            level = chain[1];
-            customScene = chain[2];
+            customScene = chain[1];
+            level = chain[2];
         }
     }
 
@@ -135,6 +136,28 @@ public class MissionContainer
     [LevelSelector]
     public string scene;
     public List<Mission> missions;
+}
+
+public class MissionConfigHandler : Module
+{
+    public static int CurrentMissionIndex
+    {
+        get
+        {
+            return currentMissionIndex.Value;
+        }
+
+        set
+        {
+            currentMissionIndex.Value = value;
+        }
+    }
+    static DataProperty<int> currentMissionIndex;
+    public override void Initialize()
+    {
+        currentMissionIndex = Engine.DataProperty<int>.Get("CurrentMissionIndex", 0);
+        Debug.Log("CurrentMissionIndex is: " + currentMissionIndex.Value);
+    }
 }
 
 #if UNITY_EDITOR

@@ -17,6 +17,8 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         set
         {
             _onGround = value;
+            if (_onGround)
+                doubleJump = true;
             if(anim)
                 anim.SetBool("onGround", value);
         }
@@ -345,7 +347,18 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
         else if(rb.velocity.y > -25)
             rb.AddForce(Vector3.down * addForce);
         if (jumpInput > 0)
-            Jump();
+        {
+            if (OnGround)
+            {
+                Jump();
+            }
+            else
+            {
+                DoubleJump();
+            }
+        }
+
+
 
         if (Mathf.Abs(rb.velocity.y) > 2)
         {
@@ -419,6 +432,20 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
             //anim.Play("JumpUp");
             OnGround = false;
         }
+    }
+
+    protected bool doubleJump = true;
+    protected void DoubleJump()
+    {
+        if(doubleJump && vspeed > 0)
+        {
+            doubleJump = false;
+            jumpInput = 0;
+            smoke2.Play();
+            rb.AddForce(Vector3.up * stats.jumpForce, ForceMode.VelocityChange);
+            anim.Play("JumpUpRoll");
+        }
+            //OnGround = false;
     }
 
     public bool onIce;

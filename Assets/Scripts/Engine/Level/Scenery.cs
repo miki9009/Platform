@@ -36,27 +36,42 @@ namespace Engine
 
         public virtual void OnSave()
         {
+#if UNITY_EDITOR
+            var origin = PrefabUtility.GetCorrespondingObjectFromSource(gameObject).GetComponent<Scenery>();
+            if(origin == null)
+            {
+                Debug.LogError("Prefab not found for: " + name);
+            }
             data = new Dictionary<string, object>();
+
             Vector pos = transform.position;
             data.Add("Position", pos);
+
             Float4 rotation = transform.rotation;
             data.Add("Rotation", rotation);
+
             Vector scale = transform.localScale;
             data.Add("Scale", scale);
+
+            if (origin.sceneryContainer != sceneryContainer)
+                data.Add("Container", sceneryContainer);
             if(!castShadow)
             {
                 data.Add("CastShadow", castShadow);
                 Debug.Log("Cast Shadow load;");
             }
-
+#endif
         }
 
         public virtual void OnLoad()
         {
-            //GameManager.LevelClear += OnLevelClear;
             transform.position = (Vector)data["Position"];
             transform.rotation = (Float4)data["Rotation"];
             transform.localScale = (Vector)data["Scale"];
+            if(data.ContainsKey("Container"))
+            {
+                sceneryContainer = (CustomScene.SceneryContainer)data["Container"];
+            }
             if (data.ContainsKey("RecieveShadow"))
             {
                 var renderers = GetComponentsInChildren<MeshRenderer>();

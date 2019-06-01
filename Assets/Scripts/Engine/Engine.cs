@@ -82,6 +82,16 @@ namespace Engine
             }
         }
 
+        public static Vector3 Round3(Vector3 vector)
+        {
+            return new Vector3((float)System.Math.Round(vector.x, 2), (float)System.Math.Round(vector.y, 2), (float)System.Math.Round(vector.z, 2));
+        }
+
+        public static Quaternion Round4(Quaternion quaternion)
+        {
+            return new Quaternion((float)System.Math.Round(quaternion.x, 2), (float)System.Math.Round(quaternion.y, 2), (float)System.Math.Round(quaternion.z, 2), (float)System.Math.Round(quaternion.w, 2));
+        }
+
         public static void MoveTowardsPointRotation(UnityEngine.Transform transform, Vector3 currentPosition, Vector3 targetPosition, float speed, float turnSpeed)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetPosition - currentPosition), turnSpeed);

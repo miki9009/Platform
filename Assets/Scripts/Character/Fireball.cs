@@ -33,6 +33,9 @@ public class Fireball : MonoBehaviour, IPoolObject
         Restart();
     }
 
+
+    
+
     void OnCollisionEnter(Collision col)
     {
         if (col.transform == caster) return;
@@ -65,19 +68,21 @@ public class Fireball : MonoBehaviour, IPoolObject
     Transform target;
     public void Shoot(Vector3 startPos, Vector3 dir, Character character)
     {
-        var colliders = Physics.SphereCastAll(startPos, 20, dir, 1, collisionLayer.value, QueryTriggerInteraction.Ignore);
-        float angle = Mathf.Infinity;
-        foreach (var collider in colliders)
-        {
-            float angle2 = Vector3.Angle(dir, Vector.Direction(startPos, collider.point));
-            if(angle2 < angle)
-            {
-                angle = angle2;
-                target = collider.transform;
-                Debug.Log("Found: " + target.name);
-            }
-        }
-        dir.y = 0;
+        //var colliders = Physics.SphereCastAll(startPos, 20, dir, 1, collisionLayer.value, QueryTriggerInteraction.Ignore);
+        //float angle = Mathf.Infinity;
+        //foreach (var collider in colliders)
+        //{
+        //    float angle2 = Vector3.Angle(dir, Vector.Direction(startPos, collider.point));
+        //    if(angle2 < angle)
+        //    {
+        //        angle = angle2;
+        //        target = collider.transform;
+        //        Debug.Log("Found: " + target.name);
+        //    }
+        //}
+        //dir.y = 0;
+
+
         this.character = character;
         this.caster = character.transform;
         ParticleSystem.MainModule psmain = parts.main;

@@ -8,8 +8,10 @@ public class WeaponCollect : ItemCollect
         if(itemObj && character)
         {
             var weapon = itemObj.GetComponent<Weapon>();
-            weapon.character = character;
-            weapon.CollectionObject = collection;
+
+                weapon.character = character;
+                weapon.CollectionObject = collection;
+
         }
     }
 }

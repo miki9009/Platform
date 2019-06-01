@@ -202,7 +202,6 @@ public class LevelManager : MonoBehaviour
         _sceneToLoad = sceneName;
         CurrentCustomLevel = customLevel;
         CurrentCustomScene = customScene;
-
         var scene = SceneManager.GetSceneByName("Menu3D");
         if(scene.isLoaded)
             SceneManager.UnloadSceneAsync(scene);
@@ -216,15 +215,17 @@ public class LevelManager : MonoBehaviour
 
     public static void BeginCustomLevelLoadSequenceAdditive(Mission mission)
     {
+        GameManager.CurrentMission = mission;
         BeginCustomLevelLoadSequenceAdditive(mission.scene, mission.level, mission.customScene);
     }
 
     public static void BeginCustomLevelLoadSequenceAdditive(string missionID)
     {
-        var mission = new Mission(missionID);
-        if(mission.IsValid)
+        var mission = MissionsConfig.Instance.GetMission(missionID);
+        GameManager.CurrentMission = mission;
+        if (mission.IsValid)
         {
-            BeginCustomLevelLoadSequenceAdditive(mission.scene, mission.customScene, mission.customScene);
+            BeginCustomLevelLoadSequenceAdditive(mission.scene, mission.level, mission.customScene);
         }
         else
         {
@@ -267,6 +268,7 @@ public class LevelManager : MonoBehaviour
     public static void ReturnToMenu(bool loadMenu3D = true)
     {
         OnBeforeSceneLoading();
+        ShowLoadingScreen();
         GameManager.OnLevelClear();
         SceneManager.UnloadSceneAsync(Instance.gameScene);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
@@ -325,6 +327,13 @@ public class LevelManager : MonoBehaviour
             index = levelIndex + 1;
         }
         return levels[index].sceneName;
+    }
+
+    public static void ShowLoadingScreen()
+    {
+        var window = UIWindow.GetWindow(UIWindow.LOADING_SCREEN);
+        if (window != null)
+            window.Show();
     }
 
     IEnumerator HideLoadingScreen()
