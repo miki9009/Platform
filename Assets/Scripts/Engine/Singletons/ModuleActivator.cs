@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace Engine.Singletons
 {
+
     public class ModuleActivator : MonoBehaviour
     {
         static List<Module> modules = new List<Module>();
@@ -25,8 +26,10 @@ namespace Engine.Singletons
             return null;
         }
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private void Awake()
         {
+            Debug.Log("Modules initialization...");
             var singletons = Assembly
              .GetAssembly(typeof(Module))
              .GetTypes()

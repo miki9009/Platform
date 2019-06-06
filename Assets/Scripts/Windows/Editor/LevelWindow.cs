@@ -113,15 +113,18 @@ class LevelWindow : EditorWindow
             var customScenes = new List<string>(sceneGroup.customScenes);
             customScenes.Insert(0, "none");
 
-
-
             EditorGUILayout.BeginHorizontal();
-                string currentCustomScene = CustomScene.Config.selectedCustomScene;
-                for (int i = 0; i < customScenes.Count; i++)
-                {
-                    if (customScenes[i] == currentCustomScene)
+            string currentCustomScene = CustomScene.Config.selectedCustomScene;
+
+            for (int i = 0; i < customScenes.Count; i++)
+            {
+                if (customScenes[i] == currentCustomScene)
                     customSceneSelected = i;
-                }
+            }
+
+            if (customScenes.Count <= customSceneSelected)
+                customSceneSelected = 0;
+
                 EditorGUILayout.LabelField("Custom Scene: ");
                 customSceneSelected = EditorGUILayout.Popup(customSceneSelected, customScenes.ToArray());
                 CustomScene.Config.selectedCustomScene = customScenes[customSceneSelected];

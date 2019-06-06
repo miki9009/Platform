@@ -52,20 +52,9 @@ namespace Engine
                 levelSelected = EditorGUILayout.Popup(levelSelected, customLevels);
             EditorGUILayout.EndHorizontal();
 
-            //EditorGUILayout.BeginHorizontal();
-            //if(modeConfig == null)
-            //{
-            //    modeConfig = Config.Config.GetConfigEditor<ModeConfig>(ModeConfig.key);
-            //}
-            //EditorGUILayout.LabelField("Mode: ");
-            //    currentModeIndex = EditorGUILayout.Popup(currentModeIndex, modeConfig.modes);
-            //    LevelSettings.CurrentLevelSettings.mode = modeConfig.modes[currentModeIndex];
-            //EditorGUILayout.EndHorizontal();
 
             if (customLevels!=null&& customLevels.Length > levelSelected)
             {
-               // Color defaultColor = UnityEngine.GUI.backgroundColor;
-               // UnityEngine.GUI.backgroundColor = Color.gray;
                 Level.levelName = customLevels[levelSelected];
 
                 if (GUILayout.Button("Save"))

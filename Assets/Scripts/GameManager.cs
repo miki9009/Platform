@@ -199,6 +199,9 @@ public class GameManager : MonoBehaviour
 
         DataManager.SaveData();
         Debug.Log("Game Saved");
+
+
+
         GameFinished?.Invoke();
     }
 
