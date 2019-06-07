@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
   testLevel: 1
-  selectedScene: FirstLevel
+  selectedScene: Ice1
   selectedLevel: 0
   levelPaths: Levels/
   levelElementsPath: LevelElements/
@@ -45,6 +45,7 @@ MonoBehaviour:
   - sceneName: Ice1
     levels:
     - 0
+    - 1
   - sceneName: WaterLand
     levels:
     - 0

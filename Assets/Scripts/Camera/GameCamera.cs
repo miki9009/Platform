@@ -46,6 +46,7 @@ public class GameCamera : MonoBehaviour
     float disToTarget;
 	void Start ()
     {
+        Character.Dead += Character_Dead;
         gameType = Controller.Instance.gameType;
         UpFactorAtStart = upFactor;
         try
@@ -66,11 +67,25 @@ public class GameCamera : MonoBehaviour
         GameManager.LevelClear += ResetCamera;
     }
 
+    void Character_Dead(Character obj)
+    {
+        if(obj == Character.GetLocalPlayer())
+        {
+            if (shakeCor != null)
+            {
+                StopCoroutine(shakeCor);
+                mainCamera.transform.localPosition = Vector3.zero;
+            }
+        }
+    }
+
+
     Quaternion slerp;
     float magnitude;
 
     private void OnDestroy()
     {
+        Character.Dead -= Character_Dead;
         GameManager.LevelClear -= ResetCamera;
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1663557184418626
+--- !u!1 &1680336349031593434
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,59 +8,55 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4193124022229356}
-  - component: {fileID: 65421860013302608}
-  - component: {fileID: 114533173286455418}
-  m_Layer: 12
-  m_Name: DeathTrigger
+  - component: {fileID: 1682882129503330292}
+  - component: {fileID: 1710318011134338504}
+  - component: {fileID: 3761283903275994718}
+  m_Layer: 21
+  m_Name: RoundRockTrigger
   m_TagString: RollingStoneTrigge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &4193124022229356
+--- !u!4 &1682882129503330292
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663557184418626}
+  m_GameObject: {fileID: 1680336349031593434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 69.72, y: -3.48, z: -1.0959871}
+  m_LocalPosition: {x: -265.62646, y: -4.7, z: 18.00196}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65421860013302608
+--- !u!65 &1710318011134338504
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663557184418626}
+  m_GameObject: {fileID: 1680336349031593434}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 13.59, y: 5, z: 40.6}
+  m_Size: {x: 67.08, y: 5, z: 40.6}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114533173286455418
+--- !u!114 &3761283903275994718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663557184418626}
+  m_GameObject: {fileID: 1680336349031593434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f5a779393b0ab47aebee41608c49f2, type: 3}
+  m_Script: {fileID: 11500000, guid: ccfcd443f202b4248ae50f4a20544e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneryContainer: 2
-  castShadow: 1
-  recieveShadow: 1
-  overridePath: 
-  boxCollider: {fileID: 65421860013302608}
-  color: {r: 0, g: 0, b: 1, a: 0.3647059}
-  draw: 1
+  elementID: -3205784
+  arrowTarget: 0
+  activeAndEnabled: 1

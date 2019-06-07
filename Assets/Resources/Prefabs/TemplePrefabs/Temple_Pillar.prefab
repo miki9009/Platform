@@ -89,7 +89,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: a8e245a794719ec4882959a1a00c1d27, type: 3}
 --- !u!1 &1711666019396747829
@@ -137,4 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneryContainer: 0
+  castShadow: 1
+  recieveShadow: 1
   overridePath: 
