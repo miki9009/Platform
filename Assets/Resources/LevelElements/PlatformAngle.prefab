@@ -101,7 +101,8 @@ GameObject:
   m_Component:
   - component: {fileID: 107975749563972511}
   - component: {fileID: 6235957599326704601}
-  m_Layer: 0
+  - component: {fileID: 3458078079682887130}
+  m_Layer: 12
   m_Name: PlatformAngle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3f9ae4c8ab6144cbd1d30c96025a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: -5196000
+  elementID: -5751723
   arrowTarget: 0
   activeAndEnabled: 1
   curve:
@@ -167,6 +168,19 @@ MonoBehaviour:
   delay: 0
   waitTime: 2
   rotator: {fileID: 8317221775741069900}
+--- !u!65 &3458078079682887130
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604816635466380760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12, y: 4, z: 7}
+  m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1 &7127293620015793075
 GameObject:
   m_ObjectHideFlags: 0

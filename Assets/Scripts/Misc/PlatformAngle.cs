@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 
 using Engine;
+using System.Collections;
 
 public class PlatformAngle : LevelElement
 {
     public AnimationCurve curve;
 
+    static event System.Action Triggered;
     bool expand;
     public float animationSpeed = 1;
     public float delay;
@@ -17,35 +19,63 @@ public class PlatformAngle : LevelElement
     Vector3 startRotation = new Vector3(89, 90, -90);
     Vector3 endRotation = new Vector3(269, 90, -90);
 
-    private void Update()
+    public override void ElementStart()
     {
-        if(curWait > 0)
+        base.ElementStart();
+        Triggered += OnTriggered;
+    }
+
+    private void OnDestroy()
+    {
+        Triggered -= OnTriggered;
+    }
+
+    bool activated;
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger");
+        activated = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(activated)
         {
-            curWait -= Time.deltaTime;
-            return;
+            Triggered?.Invoke();
         }
-        else
+        activated = false;
+    }
+
+    void OnTriggered()
+    {
+        if(coroutine == null)
         {
+            coroutine = ChangeMovement();
+            time = 0;
+            StartCoroutine(coroutine);
+        }
+    }
+
+    IEnumerator coroutine;
+    IEnumerator ChangeMovement()
+    {
+        expand = !expand;
+        while ( time < 1)
+        {
+            time += Time.deltaTime * animationSpeed;
             if (expand)
             {
-                time += Time.deltaTime * animationSpeed;
-                if (time >= 1)
-                {
-                    expand = false;
-                    curWait = waitTime;
-                }
+                rotator.transform.localEulerAngles = Vector3.Lerp(startRotation, endRotation, curve.Evaluate(time));
             }
             else
             {
-                time -= Time.deltaTime * animationSpeed;
-                if (time <= 0)
-                {
-                    expand = true;
-                    curWait = waitTime;
-                }
+                rotator.transform.localEulerAngles = Vector3.Lerp(endRotation, startRotation, curve.Evaluate(time));
+
             }
-            rotator.transform.localEulerAngles = Vector3.Lerp(startRotation, endRotation, curve.Evaluate(time));
+            yield return null;
         }
+
+        coroutine = null;
     }
 
     public override void OnLoad()

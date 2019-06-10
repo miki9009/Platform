@@ -23,6 +23,7 @@ public class LevelVisualSettings : LevelElement
     public float blurSize = 3;
     [Range(0,4)]
     public int blurIterations = 1;
+    public bool useGlobalFog;
 
     [Header("LIGHTNING")]
     public Vector3 lightRotation;
@@ -42,6 +43,7 @@ public class LevelVisualSettings : LevelElement
         data["BloomIntensity"] = intensity;
         data["BlurSize"] = blurSize;
         data["BlurIterations"] = blurIterations;
+        data["GlobalFog"] = useGlobalFog;
         if (SceneLight.CurrentLight)
         {
             data["LightRotation"] = (Float3)SceneLight.CurrentLight.transform.eulerAngles;
@@ -83,9 +85,13 @@ public class LevelVisualSettings : LevelElement
                     Controller.Instance.bloom.blurSize = blurSize;
                 }
 
+                if (data.ContainsKey("GlobalFog"))
+                {
+                    useGlobalFog = (bool)data["GlobalFog"];
+                    Controller.Instance.UseGlobalFog = useGlobalFog;
+                }
 
- 
- 
+
             }
 
         }

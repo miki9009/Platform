@@ -54,10 +54,25 @@ public class Controller : MonoBehaviour
     [HideInInspector] public GameObject GUI;
     Vector2 startResolution;
 
-
+    public MonoBehaviour globalFog;
     public VignetteAndChromaticAberration chromaticAberration;
     public MotionBlur motionBlur;
     public Vortex vortex;
+
+    bool _useGlobalFog;
+    public bool UseGlobalFog
+    {
+        get
+        {
+            return _useGlobalFog;
+        }
+
+        set
+        {
+            _useGlobalFog = value;
+            globalFog.enabled = value;
+        }
+    }
 
     private void Awake()
     {
@@ -66,6 +81,7 @@ public class Controller : MonoBehaviour
         {
             Debug.LogError("Main camera is not set");
         }
+        GameManager.LevelClear += GameManager_LevelClear;
         GUI = transform.parent.gameObject;
         GameManager.Restart += OnRestart;
         LevelManager.BeforeSceneLoading += ResetMaterial;
@@ -76,6 +92,13 @@ public class Controller : MonoBehaviour
         }
     }
 
+    void GameManager_LevelClear()
+    {
+        UseGlobalFog = false;
+    }
+
+
+
     private void ResetMaterial()
     {
         material.color = Color.white;
@@ -84,6 +107,7 @@ public class Controller : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.Restart -= OnRestart;
+        GameManager.LevelClear -= GameManager_LevelClear;
         LevelManager.BeforeSceneLoading -= ResetMaterial;
         material.color = new Color32(248, 230, 195,255);
     }

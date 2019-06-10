@@ -23,6 +23,7 @@ public class FallingPlatform : LevelElement
     public TriggerBroadcast triggerBroadcast;
     bool triggered;
     Vector3 startPos;
+    Vector3 endPos;
 
     private void Awake()
     {
@@ -61,7 +62,7 @@ public class FallingPlatform : LevelElement
         while(progress < 1)
         {
             progress += Time.deltaTime * fallingSpeed;
-            platform.position = Vector3.Slerp(startPos, endAnchor.position, progress);
+            platform.position = Vector3.Lerp(startAnchor.position, endAnchor.position, progress);
             yield return null;
         }
         progress = 0;
@@ -71,7 +72,7 @@ public class FallingPlatform : LevelElement
         while (progress < 1)
         {
             progress += Time.deltaTime;
-            platform.position = Vector3.Slerp(endAnchor.position, startPos, progress);
+            platform.position = Vector3.Lerp(endAnchor.position, startAnchor.position, progress);
             yield return null;
         }
     }
