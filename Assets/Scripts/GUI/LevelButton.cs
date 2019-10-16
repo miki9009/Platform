@@ -17,7 +17,7 @@ public class LevelButton : MonoBehaviour
             Camera.main.gameObject.SetActive(false);
         }
         catch { }
-
+        Engine.UI.UIWindow.GetWindow<WorldWindow>().Hide();
         Debug.Log("Loading mission: " + mission);
         LevelManager.BeginCustomLevelLoadSequenceAdditive(mission);
     }

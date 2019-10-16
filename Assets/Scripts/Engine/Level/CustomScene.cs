@@ -114,7 +114,7 @@ namespace Engine
             //    if (element != null && element.gameObject != null)
             //        DestroyImmediate(element.gameObject);
             //}
-            //ClearContainers();
+            ClearContainers();
         }
 
         public static void ClearContainers()
@@ -139,7 +139,9 @@ namespace Engine
                 if (element != null && element.gameObject != null)
                     DestroyImmediate(element.gameObject);
             }
+#if UNITY_EDITOR
             ClearContainers();
+#endif
         }
 
         public static void Load(string scene, string customScene, bool compressed = true)

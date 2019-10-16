@@ -144,7 +144,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
                     else
                     {
                         curHorTouched = touches[i].position;
-                        horDistance = Vector3.Distance(horTouched, curHorTouched);
+                        horDistance = Vector3.Distance(horTouched, curHorTouched) * 1.2f;
                     }
                 }
             }
@@ -163,7 +163,7 @@ public class CharacterMovementPlayer : CharacterMovement, ILocalPlayer
                     else
                     {
                         curHorTouched = Input.mousePosition;
-                        horDistance = Vector3.Distance(horTouched, curHorTouched);
+                        horDistance = Vector3.Distance(horTouched, curHorTouched) * 1.2f;
                     }
                 }
             }

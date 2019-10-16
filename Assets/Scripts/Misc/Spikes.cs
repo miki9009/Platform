@@ -37,7 +37,7 @@ public class Spikes : LevelElement
     public override void OnLoad()
     {
         base.OnLoad();
-        if (!data.ContainsKey("yMin")) return;
+        if (!data.ContainsKey("Ymin")) return;
         yMin = (float)data["Ymin"];
         yMax = (float)data["Ymax"];
         animationSpeed = (float)data["animationSpeed"];

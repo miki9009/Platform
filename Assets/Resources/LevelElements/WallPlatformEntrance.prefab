@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1439219976556485451
+--- !u!1 &3555056667438623981
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,58 +8,58 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5869763286720125166}
-  - component: {fileID: 9088642450262328683}
-  - component: {fileID: 6904201625255970736}
-  - component: {fileID: 461128213633658041}
-  - component: {fileID: 5092210833829830354}
-  m_Layer: 10
-  m_Name: Ground_Top
+  - component: {fileID: 2552325549265465457}
+  - component: {fileID: 8214874268239672694}
+  - component: {fileID: 1624965853610717133}
+  - component: {fileID: 7396064119451473670}
+  - component: {fileID: 2521649193930600328}
+  m_Layer: 0
+  m_Name: WallPlatformEntrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967294
   m_IsActive: 1
---- !u!4 &5869763286720125166
+--- !u!4 &2552325549265465457
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439219976556485451}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 140, y: 2.9, z: -106}
-  m_LocalScale: {x: 4.00001, y: 4.050002, z: 4.000002}
+  m_GameObject: {fileID: 3555056667438623981}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -263.50064, y: 7.0068784, z: 1.6493125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
---- !u!33 &9088642450262328683
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8214874268239672694
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439219976556485451}
-  m_Mesh: {fileID: 4300000, guid: 1671afe64c1b8f943b56890743d7e132, type: 3}
---- !u!23 &6904201625255970736
+  m_GameObject: {fileID: 3555056667438623981}
+  m_Mesh: {fileID: 4300000, guid: b802c81f8ba7aca4ea2ba3189557fd54, type: 3}
+--- !u!23 &1624965853610717133
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439219976556485451}
+  m_GameObject: {fileID: 3555056667438623981}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_MotionVectors: 1
+  m_MotionVectors: 2
   m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 2
+  m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f9bfaaeddb29a9c4c8dd0d83e0a49a72, type: 2}
+  - {fileID: 2100000, guid: d5f0c18af4ee67547855371a6122b4e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,32 +79,33 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &461128213633658041
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439219976556485451}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.139823, y: 1.9979755, z: 2.1554735}
-  m_Center: {x: 0.94474846, y: -0.0010125043, z: 1.0777367}
---- !u!114 &5092210833829830354
+--- !u!114 &7396064119451473670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439219976556485451}
+  m_GameObject: {fileID: 3555056667438623981}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04b70953f926a594d96630277a158a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneryContainer: 5
-  castShadow: 1
+  sceneryContainer: 0
+  castShadow: 0
   recieveShadow: 1
   overridePath: 
+--- !u!64 &2521649193930600328
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555056667438623981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b802c81f8ba7aca4ea2ba3189557fd54, type: 3}

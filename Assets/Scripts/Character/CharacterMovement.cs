@@ -205,6 +205,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.layer == Layers.Destructible) return;
         OnGround = false;
         lastCollider = null;
         //smoke.Stop();
@@ -212,7 +213,6 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
     public virtual void Die()
     {
-        Debug.Log("Died");
         anim.Play("Die");
         MovementEnabled = false;
         DieBroadcast?.Invoke();
@@ -249,7 +249,10 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
     Collider lastCollider;
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == Layers.Environment)
+        var layer = other.gameObject.layer;
+        if (layer == Layers.Destructible) return;
+
+        if (layer == Layers.Environment)
         {
             if (!OnGround)
                 smoke2.Play();
@@ -257,7 +260,7 @@ public abstract class CharacterMovement : MonoBehaviour, IThrowable, IStateAnima
 
             lastCollider = other;
         }
-        if (other.gameObject.layer != 12 && other.gameObject.layer != 13)
+        if (layer != 12 && other.gameObject.layer != 13)
         {
             //if (!smoke.isPlaying)
             //{

@@ -13,6 +13,7 @@ public class PlayerCannon: LevelElement, IActivationTrigger
     public bool Activated { get; set; }
     public float shootSpeed = 1;
     public AnimationCurve animationCurve;
+    public Transform barrelEnd;
 
     public bool Used { get; set; }
     public BezierCurve curve;
@@ -24,6 +25,7 @@ public class PlayerCannon: LevelElement, IActivationTrigger
     //public ParticleSystem smokeParts;
     public ParticleSystem poof;
     public Transform insideBarrel;
+    public Transform barrel;
 
     void Awake()
     {
@@ -48,6 +50,8 @@ public class PlayerCannon: LevelElement, IActivationTrigger
 
         characterMovement = movement;
         //smokeParts.Play();
+        characterMovement.SetAnimation("Cannon");
+        characterMovement.MovementEnabled = false;
 
         Used = true;
         poof.transform.position = characterMovement.transform.position + Vector3.up;
@@ -91,8 +95,9 @@ public class PlayerCannon: LevelElement, IActivationTrigger
         }
 
         characterMovement.transform.localScale = Vector3.one;
-
-        while (progress < 0.8f)
+        poof.transform.position = barrelEnd.position;
+        poof.Play(true);
+        while (progress < 0.9f)
         {
             characterRotation = Quaternion.Slerp(characterRotation, destinationRotation, Time.deltaTime * 10);
             progress += Time.deltaTime / 2;
@@ -105,6 +110,7 @@ public class PlayerCannon: LevelElement, IActivationTrigger
                 shoot = true;
             yield return null;
         }
+        characterMovement.SetAnimation("JumpDown");
         //characterMovement.transform.position = points[1].position;
         cam.motionBlure.enabled = false;
         //movement.rb.velocity = Vector3.zero;
@@ -158,6 +164,7 @@ public class PlayerCannon: LevelElement, IActivationTrigger
             data["Rotations"] = pointsRot;
             data["Handle1"] = handle1Pos;
             data["Handle2"] = handle2Pos;
+            data["InsideBarrelRotation"] = (Float4)barrel.rotation;
         }
     }
 
@@ -174,6 +181,8 @@ public class PlayerCannon: LevelElement, IActivationTrigger
                 handle1Pos = (Float3[])data["Handle1"];
             if (data.ContainsKey("Handle2"))
                 handle2Pos = (Float3[])data["Handle2"];
+            if (data.ContainsKey("InsideBarrelRotation"))
+                barrel.rotation = (Float4)data["InsideBarrelRotation"];
             for (int i = 0; i < pointsPos.Length; i++)
             {
                 points[i].transform.localPosition = pointsPos[i];

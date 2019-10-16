@@ -5904,7 +5904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonName: ButtonMovement
-  radius: 112.5
+  radius: 100
   OnTapPressed:
     m_PersistentCalls:
       m_Calls:

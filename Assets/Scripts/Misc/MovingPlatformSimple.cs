@@ -7,6 +7,7 @@ public class MovingPlatformSimple : LevelElement
     public Transform startAnchor;
     public Transform endAnchor;
     public Transform platform;
+    public bool reverseMovement = true;
 
     public float speed = 2;
     public float waitingTime = 1;
@@ -78,7 +79,10 @@ public class MovingPlatformSimple : LevelElement
             {
                 curWaitTime = 0;
                 time = 0;
-                forward = !forward;
+                if (reverseMovement)
+                    forward = !forward;
+                else
+                    forward = true;
             }
         }
 
@@ -100,6 +104,8 @@ public class MovingPlatformSimple : LevelElement
                 speed = (float)data["Speed"];
             if (data.ContainsKey("WaitingTime"))
                 waitingTime = (float)data["WaitingTime"];
+            if (data.ContainsKey("Reverse"))
+                reverseMovement = (bool)data["Reverse"];
 
             startAnchor.position = anchor1Pos;
             endAnchor.position = anchor2Pos;
@@ -126,6 +132,7 @@ public class MovingPlatformSimple : LevelElement
             data["Rotation"] = (Engine.Float4)rotation;
             data["Speed"] = speed;
             data["WaitingTime"] = waitingTime;
+            data["Reverse"] = reverseMovement;
         }
     }
 

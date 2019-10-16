@@ -47,15 +47,16 @@ public class Pipe : LevelElement
         //cam.speed = lastSpeed / 6;
         characterMovement = movement;
 
-        movement.MovementEnabled = false; 
-        Used = true;
 
-        movement.rb.AddForce(Vector3.up * pipeForce, ForceMode.VelocityChange);
-        //cam.SetTarget(null);
-        //bool pipeEntered = false;
-        //float animation = 0;
+
+        Used = true;
         movement.SetAnimation("JumpUp");
-        if(curve == null)
+
+
+
+        movement.MovementEnabled = false;
+        yield return new WaitForSeconds(0.2f);
+        if (curve == null)
         {
             curve = GetComponentInChildren<BezierCurve>();
         }
