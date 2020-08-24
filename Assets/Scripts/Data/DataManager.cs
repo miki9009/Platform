@@ -69,10 +69,7 @@ public class DataManager : MonoBehaviour
                 o.Data = data;
             }
         });
-        if (Loaded != null)
-        {
-            Loaded();
-        }
+        Loaded?.Invoke();
 
     }
 
